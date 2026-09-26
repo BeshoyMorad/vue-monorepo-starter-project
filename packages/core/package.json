@@ -1,0 +1,46 @@
+{
+  "name": "@workspace/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./composables": "./src/composables/index.ts",
+    "./stores": "./src/stores/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./lib": "./src/lib/index.ts",
+    "./types": "./src/types/index.ts",
+    "./constants": "./src/constants/file-upload.ts",
+    "./config": "./src/config/env.ts"
+  },
+  "scripts": {
+    "type-check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/vue-query": "^5.100.14",
+    "@vee-validate/yup": "^4.15.1",
+    "@vueuse/core": "^14.3.0",
+    "axios": "^1.16.1",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.21",
+    "libphonenumber-js": "^1.13.7",
+    "pinia": "^3.0.4",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "tailwind-merge": "^3.6.0",
+    "vee-validate": "^4.15.1",
+    "vue": "^3.5.35",
+    "vue-i18n": "^11.4.8",
+    "vue-router": "^5.1.0",
+    "vue-sonner": "^2.0.9",
+    "yup": "^1.7.1",
+    "ziggy-js": "^2.6.2"
+  },
+  "devDependencies": {
+    "@workspace/tsconfig": "workspace:*",
+    "typescript": "~6.0.3",
+    "vue-tsc": "^3.3.3"
+  }
+}

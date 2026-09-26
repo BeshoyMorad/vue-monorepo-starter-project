@@ -1,0 +1,8 @@
+/* Base Template Theme */
+@theme {
+  --color-primary: #04a8df;
+}
+
+:root {
+  --color-primary: #04a8df;
+}

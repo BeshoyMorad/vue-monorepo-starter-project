@@ -1,0 +1,33 @@
+{
+  "extends": "../../packages/tsconfig/vue.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": ["vite/client"],
+    "paths": {
+      "@/components/*": ["../../packages/ui/src/*"],
+      "@/components": ["../../packages/ui/src/index.ts"],
+      "@/composables/*": ["../../packages/core/src/composables/*"],
+      "@/composables": ["../../packages/core/src/composables/index.ts"],
+      "@/stores/*": ["../../packages/core/src/stores/*"],
+      "@/stores": ["../../packages/core/src/stores/index.ts"],
+      "@/utils/*": ["../../packages/core/src/utils/*"],
+      "@/utils": ["../../packages/core/src/utils/index.ts"],
+      "@/lib/*": ["../../packages/core/src/lib/*"],
+      "@/lib": ["../../packages/core/src/lib/index.ts"],
+      "@/types/*": ["../../packages/core/src/types/*"],
+      "@/types": ["../../packages/core/src/types/index.ts"],
+      "@/constants/*": ["../../packages/core/src/constants/*"],
+      "@/constants": ["../../packages/core/src/constants/file-upload.ts"],
+      "@/config/*": ["../../packages/core/src/config/*"],
+      "@/config": ["../../packages/core/src/config/env.ts"],
+      "@/*": ["./src/*"],
+      "@/tests/*": ["./tests/*"]
+    },
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+}

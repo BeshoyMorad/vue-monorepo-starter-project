@@ -1,0 +1,8 @@
+/* Tenant A: Blue Theme */
+@theme {
+  --color-primary: #2563eb;
+}
+
+:root {
+  --color-primary: #2563eb;
+}
