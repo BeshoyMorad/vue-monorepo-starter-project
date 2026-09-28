@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
 
   definePageMeta({
@@ -7,6 +6,7 @@
     layout: 'auth',
     middleware: 'guest',
     title: 'Sign In',
+    auth: false,
   });
 </script>
 

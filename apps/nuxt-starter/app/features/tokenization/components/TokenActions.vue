@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import type { Token } from '@/features/tokenization/types';
-  import { ref } from 'vue';
-  import { Button, ConfirmDialog } from '@/components';
+
   import { useVerifyTokenMutation } from '@/features/tokenization/mutations/useVerifyTokenMutation';
   import { TEST_IDS } from '@/lib/test-ids';
 

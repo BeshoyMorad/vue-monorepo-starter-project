@@ -1,6 +1,4 @@
-<script setup lang="ts">
-  import { Skeleton } from '@/components';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <!-- Token card skeleton -->

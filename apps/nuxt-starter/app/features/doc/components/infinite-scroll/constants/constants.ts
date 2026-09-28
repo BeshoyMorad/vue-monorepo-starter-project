@@ -1,9 +1,7 @@
-export const INFINITE_SCROLL_IMPORT_CODE = `import { InfiniteScroll } from '@/components';`;
+export const INFINITE_SCROLL_IMPORT_CODE = `// <InfiniteScroll> is auto-imported by Nuxt. No import needed.`;
 
 export const INFINITE_SCROLL_BASIC_CODE = {
   script: `<script setup lang="ts">
-import { ref } from 'vue';
-import { InfiniteScroll } from '@/components';
 const items = ref([]);
 const loading = ref(false);
 const hasMore = ref(true);

@@ -1,11 +1,8 @@
 ```vue
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     RADIO_GROUP_IMPORT_CODE,
@@ -49,7 +46,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="RADIO_GROUP_DOC.import.title"
       :description="RADIO_GROUP_DOC.import.description"
       :code="RADIO_GROUP_IMPORT_CODE"
@@ -71,7 +68,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="RADIO_GROUP_DOC.basic.title"
           :description="RADIO_GROUP_DOC.basic.description"
           :how-to-use="RADIO_GROUP_DOC.basic.howToUse"
@@ -82,10 +79,10 @@
           <template #preview>
             <Field.RadioGroup :options="genders" test-id="direct-radio-group" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Horizontal -->
-        <Card
+        <ExampleCard
           :title="RADIO_GROUP_DOC.horizontal.title"
           :description="RADIO_GROUP_DOC.horizontal.description"
           :how-to-use="RADIO_GROUP_DOC.horizontal.howToUse"
@@ -100,10 +97,10 @@
               test-id="radio-group-horizontal"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Sizes -->
-        <Card
+        <ExampleCard
           :title="RADIO_GROUP_DOC.sizes.title"
           :description="RADIO_GROUP_DOC.sizes.description"
           :how-to-use="RADIO_GROUP_DOC.sizes.howToUse"
@@ -118,10 +115,10 @@
               <Field.RadioGroup :options="genders" size="large" test-id="radio-group-large" />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="RADIO_GROUP_DOC.disabled.title"
           :description="RADIO_GROUP_DOC.disabled.description"
           :how-to-use="RADIO_GROUP_DOC.disabled.howToUse"
@@ -132,10 +129,10 @@
           <template #preview>
             <Field.RadioGroup :options="genders" disabled test-id="radio-group-disabled" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Default Value -->
-        <Card
+        <ExampleCard
           :title="RADIO_GROUP_DOC.defaultValue.title"
           :description="RADIO_GROUP_DOC.defaultValue.description"
           :how-to-use="RADIO_GROUP_DOC.defaultValue.howToUse"
@@ -150,10 +147,10 @@
               test-id="radio-group-default-value"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="RADIO_GROUP_DOC.vModel.title"
           :description="RADIO_GROUP_DOC.vModel.description"
           :how-to-use="RADIO_GROUP_DOC.vModel.howToUse"
@@ -183,7 +180,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

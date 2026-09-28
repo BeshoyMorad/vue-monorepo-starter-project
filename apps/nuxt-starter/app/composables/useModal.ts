@@ -1,5 +1,3 @@
-import { ref } from 'vue';
-
 export function useModal(initialState: boolean = false) {
   const isOpen = ref(initialState);
 

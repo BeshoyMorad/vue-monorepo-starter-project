@@ -1,5 +1,3 @@
-import { ref } from 'vue';
-import { useUploadImage } from './useUploadImage';
 import type {
   ExtractMediaPayloadOptions,
   MediaPayload,

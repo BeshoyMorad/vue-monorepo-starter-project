@@ -1,5 +1,3 @@
-import { computed, ref } from 'vue';
-import { useNuxtApp } from '#imports';
 import { FALLBACK_LOCALE, SUPPORTED_LOCALES, SUPPORTED_LOCALE_CODES } from '@/constants/locales';
 import type { LocaleCode, LocaleMeta } from '@/types/locale';
 

@@ -68,8 +68,7 @@ export const IMAGE_UPLOAD_TEMPLATE_CODE = `<Field.ImageUpload
 >
   {{ isUploading ? 'Uploading...' : 'Upload Image' }}
 </Button>`;
-export const IMAGE_UPLOAD_IMPORT_CODE = `import { ref } from 'vue';
-import { useUploadImage } from '@/composables/useUploadImage';`;
+export const IMAGE_UPLOAD_IMPORT_CODE = `// ref() and useUploadImage() are auto-imported by Nuxt. No import needed.`;
 
 export const IMAGE_UPLOAD_PRESIGNED_URL_CODE = `1. Frontend requests a presigned URL
         ↓

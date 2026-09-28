@@ -1,4 +1,3 @@
-import { computed } from 'vue';
 import { useFormValues } from 'vee-validate';
 import { NFT_TOKEN_TYPE, SOLANA_NETWORK_IDS } from '@/features/tokenization/constants/config';
 import type { CreateTokenFormValues } from '@/features/tokenization/types';

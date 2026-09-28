@@ -1,9 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
   import {
     TAGS_INPUT_IMPORT_CODE,
     TAGS_INPUT_BASIC_CODE,
@@ -43,7 +40,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="TAGS_INPUT_DOC.import.title"
       :description="TAGS_INPUT_DOC.import.description"
       :code="TAGS_INPUT_IMPORT_CODE"
@@ -65,7 +62,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="TAGS_INPUT_DOC.basic.title"
           :description="TAGS_INPUT_DOC.basic.description"
           :how-to-use="TAGS_INPUT_DOC.basic.howToUse"
@@ -80,10 +77,10 @@
               test-id="direct-emails-input"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="TAGS_INPUT_DOC.disabled.title"
           :description="TAGS_INPUT_DOC.disabled.description"
           :how-to-use="TAGS_INPUT_DOC.disabled.howToUse"
@@ -98,10 +95,10 @@
               test-id="tags-disabled"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Custom Tag Class -->
-        <Card
+        <ExampleCard
           :title="TAGS_INPUT_DOC.customTag.title"
           :description="TAGS_INPUT_DOC.customTag.description"
           :how-to-use="TAGS_INPUT_DOC.customTag.howToUse"
@@ -117,10 +114,10 @@
               test-id="tags-custom-class"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Custom Tag Slot -->
-        <Card
+        <ExampleCard
           :title="TAGS_INPUT_DOC.customSlot.title"
           :description="TAGS_INPUT_DOC.customSlot.description"
           :how-to-use="TAGS_INPUT_DOC.customSlot.howToUse"
@@ -142,10 +139,10 @@
               </template>
             </Field.TagsInput>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="TAGS_INPUT_DOC.vModel.title"
           :description="TAGS_INPUT_DOC.vModel.description"
           :how-to-use="TAGS_INPUT_DOC.vModel.howToUse"
@@ -176,7 +173,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

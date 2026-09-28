@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import {
     USE_DATA_INFINITE_SCROLL_DOM,
     USE_DATA_INFINITE_SCROLL_IMPORT_CODE,
@@ -8,7 +6,7 @@
 </script>
 <template>
   <!-- Import -->
-  <Card
+  <ExampleCard
     :title="USE_DATA_INFINITE_SCROLL_DOM.import.title"
     :description="USE_DATA_INFINITE_SCROLL_DOM.import.description"
     :show-preview="false"

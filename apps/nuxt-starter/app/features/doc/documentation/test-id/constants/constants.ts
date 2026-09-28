@@ -65,7 +65,6 @@ export const TEST_IDS = {
 } as const;`;
 
 export const TEST_IDS_BUTTON_CODE = `import { TEST_IDS } from '@/lib/test-ids';
-import Button from '@/components/button/Button.vue';
 
 <Button
   :test-id="TEST_IDS.buttons.submit"

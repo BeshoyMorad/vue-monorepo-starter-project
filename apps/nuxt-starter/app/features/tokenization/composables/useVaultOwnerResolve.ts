@@ -1,4 +1,4 @@
-import { watch, ref, type Ref } from 'vue';
+import { type Ref } from 'vue';
 import { error as toastError } from '@/utils/toast';
 import { vaultsServices } from '@/features/tokenization/services/vaults';
 import { useFormContext } from 'vee-validate';

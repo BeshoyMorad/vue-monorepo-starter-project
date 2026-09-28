@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     TEST_IDS_BUTTON_CODE,
@@ -34,17 +32,17 @@
     </section>
 
     <!-- Structure -->
-    <Card
+    <ExampleCard
       :title="TEST_IDS_DOM.structure.title"
       :description="TEST_IDS_DOM.location.description"
       :border="false"
       :code="TEST_IDS_IMPORT_CODE"
       :structure="TEST_IDS_PROJECT_STRUCTURE"
     >
-    </Card>
+    </ExampleCard>
 
     <!-- Centralized Test IDs -->
-    <Card
+    <ExampleCard
       :title="TEST_IDS_DOM.centralized.title"
       :description="TEST_IDS_DOM.centralized.description"
       :how-to-use="TEST_IDS_DOM.centralized.howToUse"
@@ -54,7 +52,7 @@
     />
 
     <!-- Component Usage -->
-    <Card
+    <ExampleCard
       :title="TEST_IDS_DOM.componentUsage.title"
       :description="TEST_IDS_DOM.componentUsage.description"
       :how-to-use="TEST_IDS_DOM.componentUsage.howToUse"

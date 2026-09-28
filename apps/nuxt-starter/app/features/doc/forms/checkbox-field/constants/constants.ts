@@ -35,8 +35,6 @@ export const CHECKBOX_SHAPES_CODE = `<Field.Checkbox
 />`;
 
 export const CHECKBOX_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const checkboxValue = ref(false);
 </script>
 

@@ -4,7 +4,6 @@
   import { reactiveOmit } from '@vueuse/core';
   import { AccordionHeader, AccordionTrigger } from 'reka-ui';
   import { cn } from '@/utils';
-  import { Icon } from '@/components';
 
   const props = defineProps<AccordionTriggerProps & { class?: HTMLAttributes['class'] }>();
 

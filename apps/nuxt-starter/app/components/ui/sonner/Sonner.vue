@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import 'vue-sonner/style.css';
-  import { Icon } from '@/components';
+
   import { Toaster } from 'vue-sonner';
   import { TEST_IDS } from '@/lib/test-ids';
 

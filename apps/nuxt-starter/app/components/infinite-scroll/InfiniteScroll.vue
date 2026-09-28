@@ -1,10 +1,9 @@
 <script setup lang="ts" generic="T extends unknown[] = unknown[]">
   import type { HTMLAttributes } from 'vue';
-  import { computed, shallowRef } from 'vue';
+
   import { useInfiniteScroll } from '@vueuse/core';
-  import { Icon } from '@/components';
+
   import { cn } from '@/utils';
-  import { useVirtualScroll } from '@/composables';
 
   interface Props {
     hasMore: boolean;

@@ -1,12 +1,8 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import { USE_DATA_INFINITE_SCROLL_PARAMS_CODE } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser, MockUserFilters } from '@/features/doc/types';
-  import { useDataInfiniteScroll } from '@/composables';
   import { getMockOffsetUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import InfiniteScroll from '@/components/infinite-scroll/InfiniteScroll.vue';
-  import { Avatar, AvatarImage, AvatarFallback, Field } from '@/components';
+  import { Field } from '@/components';
 
   const { data, isFetchingNextPage, hasMore, fetchNextPage, search, baseParams } =
     useDataInfiniteScroll<MockAvatarUser, MockUserFilters>({
@@ -25,7 +21,7 @@
     });
 </script>
 <template>
-  <Card
+  <ExampleCard
     title="Search"
     description="Use search to filter the data by a text value."
     how-to-use=" Bind an input to the search ref returned by useDataInfiniteScroll. The search value is automatically debounced before the API request."
@@ -82,5 +78,5 @@
         </InfiniteScroll>
       </div>
     </template>
-  </Card>
+  </ExampleCard>
 </template>

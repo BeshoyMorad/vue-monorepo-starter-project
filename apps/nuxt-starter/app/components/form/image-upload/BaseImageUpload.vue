@@ -1,17 +1,15 @@
 <script setup lang="ts">
   /* eslint-disable max-lines */
   import type { MediaValue } from '@/types/media';
-  import { ref, computed, watch } from 'vue';
+
   import { cn } from '@/utils';
-  import { Icon, Button } from '@/components';
-  import { createMediaValue } from '@/composables/useFormMedia';
+
   import { error } from '@/utils/toast';
   import {
     DEFAULT_ALLOWED_IMAGE_TYPES,
     MIME_TO_EXTENSION,
     isImageMimeType,
   } from '@/constants/file-upload';
-  import ImageCropperDialog from './ImageCropperDialog.vue';
 
   defineOptions({
     inheritAttrs: false,
@@ -438,7 +436,7 @@
       </div>
     </slot>
 
-    <ImageCropperDialog
+    <FormImageCropperDialog
       v-model:visible="cropperVisible"
       :image="selectedImage"
       :aspect-ratio="computedAspectRatio"

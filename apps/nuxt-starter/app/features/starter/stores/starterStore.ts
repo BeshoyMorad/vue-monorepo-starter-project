@@ -1,6 +1,3 @@
-import { ref } from 'vue';
-import { defineStore } from 'pinia';
-
 export const useStarterStore = defineStore('starter', () => {
   const isFilterActive = ref<boolean>(false);
 

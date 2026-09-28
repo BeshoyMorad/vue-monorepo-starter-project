@@ -19,7 +19,6 @@ placeholder = "Write your bio..."
   /> `;
 
 export const TEXTAREA_V_MODEL_CODE = `< script setup lang = "ts" >
-import { ref } from 'vue';
 import { Field } from '@/components';
 const textAreaValue = ref('');
 </script>

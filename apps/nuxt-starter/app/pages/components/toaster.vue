@@ -1,9 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
   import { info, success, error, warn } from '@/utils/toast';
-
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     TOASTER_IMPORT_CODE,
@@ -15,7 +12,6 @@
     TOASTER_DOC,
     TOASTER_CODE_HEADER,
   } from '@/features/doc/components/toaster/constants/constants';
-  import Button from '@/components/ui/button/Button.vue';
 
   definePageMeta({
     name: paths.componentsPaths.toaster,
@@ -39,7 +35,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="TOASTER_DOC.import.title"
       :description="TOASTER_DOC.import.description"
       :code="TOASTER_IMPORT_CODE"
@@ -61,7 +57,7 @@
 
       <div class="space-y-5">
         <!-- Info -->
-        <Card
+        <ExampleCard
           :title="TOASTER_DOC.info.title"
           :description="TOASTER_DOC.info.description"
           :how-to-use="TOASTER_DOC.info.howToUse"
@@ -80,10 +76,10 @@
               {{ TOASTER_DOC.info.buttonLabel }}
             </Button>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Success -->
-        <Card
+        <ExampleCard
           :title="TOASTER_DOC.success.title"
           :description="TOASTER_DOC.success.description"
           :how-to-use="TOASTER_DOC.success.howToUse"
@@ -103,10 +99,10 @@
               {{ TOASTER_DOC.success.buttonLabel }}
             </Button>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Error -->
-        <Card
+        <ExampleCard
           :title="TOASTER_DOC.error.title"
           :description="TOASTER_DOC.error.description"
           :how-to-use="TOASTER_DOC.error.howToUse"
@@ -126,10 +122,10 @@
               {{ TOASTER_DOC.error.buttonLabel }}
             </Button>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Warning -->
-        <Card
+        <ExampleCard
           :title="TOASTER_DOC.warn.title"
           :description="TOASTER_DOC.warn.description"
           :how-to-use="TOASTER_DOC.warn.howToUse"
@@ -149,10 +145,10 @@
               {{ TOASTER_DOC.warn.buttonLabel }}
             </Button>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Action -->
-        <Card
+        <ExampleCard
           :title="TOASTER_DOC.action.title"
           :description="TOASTER_DOC.action.description"
           :how-to-use="TOASTER_DOC.action.howToUse"
@@ -175,7 +171,7 @@
               {{ TOASTER_DOC.action.buttonLabel }}
             </Button>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

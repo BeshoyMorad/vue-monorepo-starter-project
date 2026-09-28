@@ -1,13 +1,11 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ExceptionState } from '@/components';
-  import { useNetwork } from '@/composables';
 
   definePageMeta({
     name: paths.errors.noInternet,
     layout: false,
     title: 'No Internet Connection',
+    auth: false,
   });
 
   const { tryAgain } = useNetwork();

@@ -1,7 +1,5 @@
 ```vue
 <script setup lang="ts">
-  import { computed } from 'vue';
-  import { useRouter } from '#imports';
   import { getSidebarLinks } from '@/utils/navigation';
 
   const props = defineProps<{

@@ -4,7 +4,6 @@
   import { reactiveOmit } from '@vueuse/core';
   import { TagsInputItemDelete, useForwardProps } from 'reka-ui';
   import { cn } from '@/utils';
-  import { Icon } from '@/components';
 
   const props = defineProps<TagsInputItemDeleteProps & { class?: HTMLAttributes['class'] }>();
 

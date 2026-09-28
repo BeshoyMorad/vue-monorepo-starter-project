@@ -1,11 +1,8 @@
 ```vue
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     SELECT_IMPORT_CODE,
@@ -50,7 +47,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="SELECT_DOC.import.title"
       :description="SELECT_DOC.import.description"
       :code="SELECT_IMPORT_CODE"
@@ -71,7 +68,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="SELECT_DOC.basic.title"
           :description="SELECT_DOC.basic.description"
           :how-to-use="SELECT_DOC.basic.howToUse"
@@ -90,10 +87,10 @@
               :test-id="SELECT_DOC.basic.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Searchable -->
-        <Card
+        <ExampleCard
           :title="SELECT_DOC.searchable.title"
           :description="SELECT_DOC.searchable.description"
           :how-to-use="SELECT_DOC.searchable.howToUse"
@@ -112,10 +109,10 @@
               show-clear
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Multiple -->
-        <Card
+        <ExampleCard
           :title="SELECT_DOC.multiple.title"
           :description="SELECT_DOC.multiple.description"
           :how-to-use="SELECT_DOC.multiple.howToUse"
@@ -135,10 +132,10 @@
               show-clear
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Custom Value -->
-        <Card
+        <ExampleCard
           :title="SELECT_DOC.customValue.title"
           :description="SELECT_DOC.customValue.description"
           :how-to-use="SELECT_DOC.customValue.howToUse"
@@ -168,10 +165,10 @@
               </template>
             </Field.Select>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="SELECT_DOC.vModel.title"
           :description="SELECT_DOC.vModel.description"
           :how-to-use="SELECT_DOC.vModel.howToUse"
@@ -201,7 +198,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

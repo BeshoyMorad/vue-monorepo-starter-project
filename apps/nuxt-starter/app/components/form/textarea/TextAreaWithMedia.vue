@@ -12,9 +12,7 @@
     getFileExtension,
     formatFileSize,
   } from '@/constants/file-upload';
-  import { computed, ref, watch } from 'vue';
-  import { createMediaValueList } from '@/composables';
-  import { Button, Field, Icon, Tooltip } from '@/components';
+  import { Field } from '@/components';
 
   const props = withDefaults(
     defineProps<{
@@ -284,7 +282,7 @@
 
         <!-- Name / Size -->
         <div class="flex min-w-0 flex-1 flex-col">
-          <Tooltip>
+          <AppTooltip>
             <template #trigger>
               <span class="max-w-30 truncate text-xs font-medium">
                 {{ displayName(mediaVal) }}
@@ -292,7 +290,7 @@
             </template>
 
             {{ displayName(mediaVal) }}
-          </Tooltip>
+          </AppTooltip>
 
           <span v-if="mediaVal.file" class="text-foreground-caption text-2xs">
             {{ formatFileSize(mediaVal.file.size) }}

@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import type { StarterProfile } from '@/features/starter/types';
   import { TEST_IDS } from '@/lib/test-ids';
-  import { computed } from 'vue';
 
   const props = defineProps<{
     profile: StarterProfile;

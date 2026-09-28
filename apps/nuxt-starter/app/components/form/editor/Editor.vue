@@ -1,14 +1,7 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseEditor from './BaseEditor.vue';
+  import { FormField } from '@/components/ui/form';
+
   import type { HTMLAttributes } from 'vue';
 
   defineOptions({
@@ -69,7 +62,7 @@
         </div>
 
         <FormControl>
-          <BaseEditor
+          <FormBaseEditor
             v-bind="{ ...$attrs, ...componentField }"
             :test-id="testId"
             :placeholder="placeholder"
@@ -97,7 +90,7 @@
         <slot name="label-action" />
       </div>
 
-      <BaseEditor
+      <FormBaseEditor
         v-model="modelValue"
         v-bind="$attrs"
         :test-id="testId"

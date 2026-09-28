@@ -46,4 +46,8 @@ export const QUERY_KEYS = {
     all: () => ['vaults'] as const,
     list: () => [...QUERY_KEYS.vaults.all(), 'list'] as const,
   },
+  examples: {
+    all: () => ['examples'] as const,
+    serverStats: () => [...QUERY_KEYS.examples.all(), 'server-stats'] as const,
+  },
 } as const;

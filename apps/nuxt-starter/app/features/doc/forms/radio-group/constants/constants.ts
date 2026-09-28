@@ -51,7 +51,6 @@ export const RADIO_GROUP_V_MODEL_TEMPLATE = `<template>
 </template>`;
 
 export const RADIO_GROUP_V_MODEL_SCRIPT = `<script setup lang="ts">
-import { ref } from 'vue';
 const selectedGender = ref('');
 </script>`;
 

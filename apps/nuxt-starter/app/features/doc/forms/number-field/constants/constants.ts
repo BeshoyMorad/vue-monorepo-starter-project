@@ -20,7 +20,6 @@ export const NUMBER_NO_STEPPERS_CODE = `<Field.Number
 />`;
 
 export const NUMBER_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
 import { Field } from '@/components';
 
 const numberValue = ref<number | undefined>(undefined);

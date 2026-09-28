@@ -1,11 +1,9 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
   import * as yup from 'yup';
   import { toTypedSchema } from '@vee-validate/yup';
   import { Form } from 'vee-validate';
 
-  import { Button, Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Field } from '@/components';
 
   import {
     FORM_IMPORT_CODE,
@@ -52,7 +50,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="FORM_DOC.import.title"
       :description="FORM_DOC.import.description"
       :code="FORM_IMPORT_CODE"
@@ -74,7 +72,7 @@
 
       <div class="space-y-5">
         <!-- Basic Form -->
-        <Card
+        <ExampleCard
           :title="FORM_DOC.basic.title"
           :description="FORM_DOC.basic.description"
           :how-to-use="FORM_DOC.basic.howToUse"
@@ -101,10 +99,10 @@
               <Button test-id="" class="w-full" type="submit"> Submit </Button>
             </Form>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Submit -->
-        <Card
+        <ExampleCard
           :title="FORM_DOC.submit.title"
           :description="FORM_DOC.submit.description"
           :how-to-use="FORM_DOC.submit.howToUse"
@@ -149,10 +147,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Validation -->
-        <Card
+        <ExampleCard
           :title="FORM_DOC.validation.title"
           :description="FORM_DOC.validation.description"
           :how-to-use="FORM_DOC.validation.howToUse"
@@ -181,10 +179,10 @@
               <Button test-id="" class="w-full" type="submit"> Validate Form </Button>
             </Form>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Complete Example -->
-        <Card
+        <ExampleCard
           :title="FORM_DOC.complete.title"
           :description="FORM_DOC.complete.description"
           :how-to-use="FORM_DOC.complete.howToUse"
@@ -223,7 +221,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

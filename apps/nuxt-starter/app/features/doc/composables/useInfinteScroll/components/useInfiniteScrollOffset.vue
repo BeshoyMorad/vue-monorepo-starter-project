@@ -1,15 +1,10 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import {
     USE_DATA_INFINITE_SCROLL_OFFSET_CODE,
     USE_DATA_INFINITE_SCROLL_OFFSET_COMPONENT_CODE,
   } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser, MockUserFilters } from '@/features/doc/types';
-  import { useDataInfiniteScroll } from '@/composables';
   import { getMockOffsetUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import InfiniteScroll from '@/components/infinite-scroll/InfiniteScroll.vue';
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components';
 
   const {
     data: offsetData,
@@ -32,7 +27,7 @@
   });
 </script>
 <template>
-  <Card
+  <ExampleCard
     title="Offset Pagination"
     description="Use offset pagination when the API loads data using page numbers and limits."
     how-to-use="Set paginationType to offset. The composable keeps track of the loaded pages and fetches the next page when fetchNextPage is called."
@@ -84,5 +79,5 @@
         </template>
       </InfiniteScroll>
     </template>
-  </Card>
+  </ExampleCard>
 </template>

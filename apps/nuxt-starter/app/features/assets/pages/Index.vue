@@ -1,15 +1,11 @@
 <script setup lang="ts">
   import type { OffsetMeta } from '@/types/api';
-  import { computed } from 'vue';
   import type { AssetFilter, AssetVault } from '@/features/assets/types';
-  import { Table, Field, PageWrapper, Button, EmptyPlaceholder } from '@/components';
+  import { Field } from '@/components';
   import { assetColumns } from '@/features/assets/columns';
-  import { useDataTable } from '@/composables/useDataTable';
   import { TEST_IDS } from '@/lib/test-ids';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { apiRoute } from '@/lib/api/endpoints';
-  import { usePermissionStore } from '@/stores/permissions';
-  import { useModal } from '@/composables';
   import AssetFormDialog from '@/features/assets/components/AssetFormDialog.vue';
   import AssetFiltersDialog from '@/features/assets/components/AssetFiltersDialog.vue';
 
@@ -107,7 +103,7 @@
       </template>
     </EmptyPlaceholder>
 
-    <Table
+    <DataTable
       v-else
       :columns="assetColumns"
       :value="data"

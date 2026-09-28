@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import Card from '@/components/card/ExampleCard.vue';
-
-  import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components';
 
   import {
     ACCORDION_IMPORT_CODE,
@@ -36,7 +32,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="ACCORDION_DOC.import.title"
       :description="ACCORDION_DOC.import.description"
       :code="ACCORDION_IMPORT_CODE"
@@ -58,7 +54,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="ACCORDION_DOC.basic.title"
           :description="ACCORDION_DOC.basic.description"
           :how-to-use="ACCORDION_DOC.basic.howToUse"
@@ -97,10 +93,10 @@
               </AccordionItem>
             </Accordion>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Multiple -->
-        <Card
+        <ExampleCard
           :title="ACCORDION_DOC.multiple.title"
           :description="ACCORDION_DOC.multiple.description"
           :how-to-use="ACCORDION_DOC.multiple.howToUse"
@@ -134,10 +130,10 @@
               </AccordionItem>
             </Accordion>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Default Open -->
-        <Card
+        <ExampleCard
           :title="ACCORDION_DOC.defaultOpen.title"
           :description="ACCORDION_DOC.defaultOpen.description"
           :how-to-use="ACCORDION_DOC.defaultOpen.howToUse"
@@ -164,7 +160,7 @@
               </AccordionItem>
             </Accordion>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

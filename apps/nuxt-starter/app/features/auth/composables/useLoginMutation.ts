@@ -2,8 +2,6 @@ import { useMutation } from '@tanstack/vue-query';
 import { authServices } from '@/features/auth/services';
 import type { SubmissionContext } from 'vee-validate';
 import type { LoginForm, LoginRequest, LoginResponse } from '@/features/auth/types';
-import { useAuthStore } from '@/stores/auth';
-import { useAuthRedirect } from '@/composables/useAuthRedirect';
 import { applyApiErrorToForm } from '@/utils/apiError';
 import type { ApiResponse } from '@/types/api';
 

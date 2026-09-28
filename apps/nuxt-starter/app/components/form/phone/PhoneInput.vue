@@ -1,15 +1,7 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
   import type { CountryCode } from 'libphonenumber-js';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BasePhoneInput from './BasePhoneInput.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -58,7 +50,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BasePhoneInput
+          <FormBasePhoneInput
             :test-id="testId"
             :default-country="defaultCountry"
             :placeholder="placeholder"
@@ -79,7 +71,7 @@
   </template>
 
   <template v-else>
-    <BasePhoneInput
+    <FormBasePhoneInput
       v-model="modelValue"
       v-bind="$attrs"
       :test-id="testId"

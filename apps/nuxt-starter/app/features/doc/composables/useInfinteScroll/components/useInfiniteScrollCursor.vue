@@ -1,15 +1,10 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import {
     USE_DATA_INFINITE_SCROLL_CURSOR_CODE,
     USE_DATA_INFINITE_SCROLL_CURSOR_COMPONENT_CODE,
   } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser, MockUserFilters } from '@/features/doc/types';
-  import { useDataInfiniteScroll } from '@/composables';
   import { getMockCursorUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import InfiniteScroll from '@/components/infinite-scroll/InfiniteScroll.vue';
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components';
 
   const {
     data: cursorData,
@@ -31,7 +26,7 @@
   });
 </script>
 <template>
-  <Card
+  <ExampleCard
     title="Cursor Pagination"
     description="Use cursor pagination when the API uses cursors to determine the next page."
     how-to-use="Set paginationType to cursor. The composable uses the cursor returned by the previous request to load the next page."
@@ -83,5 +78,5 @@
         </template>
       </InfiniteScroll>
     </template>
-  </Card>
+  </ExampleCard>
 </template>

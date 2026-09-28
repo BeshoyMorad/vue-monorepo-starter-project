@@ -1,13 +1,13 @@
 import type { MockUser } from '@/features/doc/types';
 
-export const TABLE_IMPORT_CODE = `import { Table } from '@/components';`;
+export const TABLE_IMPORT_CODE = `// <DataTable> is auto-imported by Nuxt. No import needed.`;
 export const TABLE_CODE_HEADER_SCRIPT = `<script>`;
 export const TABLE_CODE_HEADER_TEMPLATE = `<template>`;
 
 export const TABLE_PAGINATION = {
   nameKey: 'table.pagination.title',
   descriptionKey: 'table.pagination.description',
-  code: `<Table
+  code: `<DataTable
   :columns="columns"
   :value="users"
   :meta="pagination"
@@ -20,7 +20,7 @@ export const TABLE_PAGINATION = {
 export const TABLE_CURSOR_PAGINATION = {
   nameKey: 'table.cursorPagination.title',
   descriptionKey: 'table.cursorPagination.description',
-  code: `<Table
+  code: `<DataTable
   :columns="columns"
   :value="users"
   :meta="cursorMeta"
@@ -137,7 +137,7 @@ export const TABLE_DEFINITION_CODE = {
 `,
   template: `// passing the columns and value as props
 <template>
-  <Table
+  <DataTable
     :columns="columns"
     :value="users"
   />

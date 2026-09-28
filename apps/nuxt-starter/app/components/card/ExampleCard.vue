@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import Codeblock from '@/components/codeblock/codeblock.vue';
-
   interface Props {
     title?: string;
     description?: string;

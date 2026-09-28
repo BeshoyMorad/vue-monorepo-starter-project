@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     ENV_DOM,
@@ -34,14 +32,14 @@
     </section>
 
     <!-- Structure -->
-    <Card
+    <ExampleCard
       :title="ENV_DOM.structure.title"
       :description="ENV_DOM.structure.description"
       :structure="ENV_PROJECT_STRUCTURE"
     />
 
     <!-- Environment File -->
-    <Card
+    <ExampleCard
       :title="ENV_DOM.setup.title"
       :description="ENV_DOM.setup.description"
       :how-to-use="ENV_DOM.setup.howToUse"
@@ -51,7 +49,7 @@
     />
 
     <!-- Validation -->
-    <Card
+    <ExampleCard
       :title="ENV_DOM.validation.title"
       :description="ENV_DOM.validation.description"
       :how-to-use="ENV_DOM.validation.howToUse"
@@ -70,7 +68,7 @@
     />
 
     <!-- Errors -->
-    <Card
+    <ExampleCard
       :title="ENV_DOM.errors.title"
       :description="ENV_DOM.errors.description"
       header="Validation Error"

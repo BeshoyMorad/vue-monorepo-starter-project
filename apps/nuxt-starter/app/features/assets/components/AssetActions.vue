@@ -1,10 +1,8 @@
 <script setup lang="ts">
-  import { computed, ref, watch } from 'vue';
-  import { ConfirmDialog, Field } from '@/components';
+  import { Field } from '@/components';
   import type { AssetVault } from '@/features/assets/types';
   import { TEST_IDS } from '@/lib/test-ids';
   import { useToggleAssetStatus } from '@/features/assets/composables/useToggleAssetStatus';
-  import { usePermissionStore } from '@/stores/permissions';
 
   const props = defineProps<{
     asset: AssetVault;

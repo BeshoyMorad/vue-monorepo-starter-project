@@ -1,7 +1,5 @@
-import { computed, toValue } from 'vue';
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/vue-query';
 import { fetchTableData } from '@/lib/api/table';
-import { useTableState } from './useTableState';
 import type { CursorPaginatedResponse, OffsetPaginatedResponse, PaginationMeta } from '@/types/api';
 import type {
   DataTableState,

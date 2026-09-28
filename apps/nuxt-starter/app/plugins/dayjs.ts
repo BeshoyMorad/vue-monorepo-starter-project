@@ -1,10 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { watch } from 'vue';
-import { defineNuxtPlugin } from '#imports';
 import { SUPPORTED_LOCALES } from '@/constants/locales';
-import { isLocaleCode } from '@/composables/useAppLocale';
 
 const dayjsLocaleLoaders: Record<string, () => Promise<unknown>> = {
   en: () => import('dayjs/locale/en'),

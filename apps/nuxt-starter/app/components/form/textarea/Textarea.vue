@@ -1,14 +1,7 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
   import { Textarea as UITextarea } from '@/components/ui/textarea';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,

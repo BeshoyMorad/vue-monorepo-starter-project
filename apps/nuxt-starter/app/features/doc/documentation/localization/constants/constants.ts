@@ -70,10 +70,7 @@ export const LOCALIZATION_DOM = {
 } as const;
 
 export const LOCALIZATION_USAGE_CODE = {
-  locale: `import { useAppLocale } from '@/composables/useAppLocale';
-  import { LanguageSwitcher } from '@/components';
-
-const {
+  locale: `const {
   t,                  // Translate a message using its localization key
   d,                  // Format dates using the active locale
   n,                  // Format numbers, currencies, and percentages
@@ -102,10 +99,7 @@ const label = t('common.save');`,
           </span>
     <LanguageSwitcher />
 </template>`,
-  buttonLanguage: `import { Button } from '@/components';
-import { useAppLocale } from '@/composables/useAppLocale';
-
-const {
+  buttonLanguage: `const {
   setLocale, // Change the application language
 } = useAppLocale();
 
@@ -129,9 +123,7 @@ const changeLanguage = (locale: 'en' | 'ar') => {
 
   steps: [
     {
-      code: `import { useAppLocale } from '@/composables/useAppLocale';
-
-const { t, d, n } = useAppLocale();
+      code: `const { t, d, n } = useAppLocale();
 
 const label = t('common.save');`,
       header: 'Step 1 - Composable',

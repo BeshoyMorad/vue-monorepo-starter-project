@@ -4,7 +4,6 @@
   import { reactiveOmit } from '@vueuse/core';
   import { DropdownMenuSubTrigger, useForwardProps } from 'reka-ui';
   import { cn } from '@/utils';
-  import { Icon } from '@/components';
 
   const props = defineProps<
     DropdownMenuSubTriggerProps & { class?: HTMLAttributes['class']; inset?: boolean }

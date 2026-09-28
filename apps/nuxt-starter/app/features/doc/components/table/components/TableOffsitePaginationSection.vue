@@ -2,10 +2,6 @@
   import type { MockUser } from '@/features/doc/types';
   import type { ColumnDef } from '@tanstack/vue-table';
 
-  import { Table } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
-
   import { TABLE_PAGINATION } from '@/features/doc/components/table/constants/constants';
   import { useTablePagination } from '@/features/doc/components/table/composables/useTablePagination';
 
@@ -41,7 +37,7 @@
       </p>
     </div>
 
-    <Card
+    <ExampleCard
       :title="t(TABLE_PAGINATION.nameKey)"
       :description="t(TABLE_PAGINATION.descriptionKey)"
       :how-to-use="t('table.howToUse.description')"
@@ -52,7 +48,7 @@
     >
       <template #preview>
         <div class="border-border-base/50 w-full rounded-lg border p-6">
-          <Table
+          <DataTable
             :columns="columns"
             :value="users"
             :meta="meta"
@@ -62,6 +58,6 @@
           />
         </div>
       </template>
-    </Card>
+    </ExampleCard>
   </section>
 </template>

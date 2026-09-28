@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
   import type { Editor } from '@tiptap/vue-3';
-  import { Button, Tooltip, Icon } from '@/components';
-  import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-  import { Input } from '@/components/ui/input';
   import { cn } from '@/utils';
   import {
     getBlocksGroup,
@@ -70,7 +66,7 @@
   >
     <template v-for="(group, groupIndex) in groups" :key="groupIndex">
       <div class="flex items-center gap-0.5">
-        <Tooltip v-for="item in group" :key="item.id">
+        <AppTooltip v-for="item in group" :key="item.id">
           <template #trigger>
             <Button
               type="button"
@@ -92,7 +88,7 @@
             </Button>
           </template>
           {{ item.label }}
-        </Tooltip>
+        </AppTooltip>
       </div>
 
       <div class="bg-border-disabled/50 mx-1 h-4 w-px" />
@@ -103,7 +99,7 @@
       <Popover v-model:open="isLinkOpen">
         <PopoverTrigger as-child>
           <div>
-            <Tooltip>
+            <AppTooltip>
               <template #trigger>
                 <Button
                   type="button"
@@ -124,7 +120,7 @@
                 </Button>
               </template>
               Link
-            </Tooltip>
+            </AppTooltip>
           </div>
         </PopoverTrigger>
 
@@ -165,7 +161,7 @@
         </PopoverContent>
       </Popover>
 
-      <Tooltip>
+      <AppTooltip>
         <template #trigger>
           <Button
             type="button"
@@ -180,7 +176,7 @@
           </Button>
         </template>
         Clear Formatting
-      </Tooltip>
+      </AppTooltip>
     </div>
   </div>
 </template>

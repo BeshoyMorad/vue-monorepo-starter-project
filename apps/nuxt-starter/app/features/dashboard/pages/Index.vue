@@ -1,28 +1,15 @@
 <script setup lang="ts">
   import type { OffsetMeta, CursorMeta } from '@/types/api';
   /* eslint-disable max-lines */
-  import {
-    Button,
-    ConfirmDialog,
-    Dialog,
-    Field,
-    FormDialog,
-    InfiniteScrollTable,
-    Table,
-    Tooltip,
-  } from '@/components';
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+  import { Field } from '@/components';
 
   import { formatDate } from '@/utils/formatter';
   import type { ColumnDef } from '@tanstack/vue-table';
-  import { h } from 'vue';
   import { Form } from 'vee-validate';
   import { toTypedSchema } from '@vee-validate/yup';
   import * as yup from 'yup';
   import { phoneSchema } from '@/utils/yupSchemas';
-  import { useDarkTheme, useFormMedia, extractMediaPayload } from '@/composables';
   import { info, success } from '@/utils/toast';
-  import { ref } from 'vue';
   import type { MediaValue } from '@/types/media';
   import { paths } from '@/constants/route-names';
 
@@ -162,13 +149,13 @@
     </div>
 
     <Button test-id="dashboard-tooltip-button">
-      <Tooltip>
+      <AppTooltip>
         <template #trigger>
           <p>tooltip</p>
         </template>
 
         <div class="">data here</div>
-      </Tooltip>
+      </AppTooltip>
     </Button>
 
     <div>
@@ -201,9 +188,14 @@
       <h1 class="mb-2 text-3xl font-bold">Tables</h1>
 
       <div class="space-y-5">
-        <Table :columns="columns" :value="data" :loading="false" :meta="meta" />
-        <Table :columns="columns" :value="data" :loading="false" :meta="cursorMeta" />
-        <InfiniteScrollTable :columns="columns" :value="data" :loading="true" :skeleton-rows="3" />
+        <DataTable :columns="columns" :value="data" :loading="false" :meta="meta" />
+        <DataTable :columns="columns" :value="data" :loading="false" :meta="cursorMeta" />
+        <DataInfiniteScrollTable
+          :columns="columns"
+          :value="data"
+          :loading="true"
+          :skeleton-rows="3"
+        />
       </div>
     </div>
 

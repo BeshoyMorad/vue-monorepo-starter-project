@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { CopyText, Tooltip } from '@/components';
   import type { DetailRow } from '@/features/tokenization/utils/detail-row';
 
   defineProps<{
@@ -16,13 +15,13 @@
       class="min-w-0 truncate text-end font-medium"
       :class="darkMode ? 'text-neutral-50' : 'text-foreground'"
     >
-      <Tooltip v-if="row.tooltip && row.value">
+      <AppTooltip v-if="row.tooltip && row.value">
         <template #trigger>
           <CopyText v-if="row.copy" :text="row.valueToShow ?? row.value" :copy-value="row.value" />
           <span v-else>{{ row.valueToShow ?? row.value }}</span>
         </template>
         {{ row.value }}
-      </Tooltip>
+      </AppTooltip>
 
       <CopyText
         v-else-if="row.copy && row.value"

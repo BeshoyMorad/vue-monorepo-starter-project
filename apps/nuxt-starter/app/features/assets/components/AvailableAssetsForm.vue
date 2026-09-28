@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { computed } from 'vue';
-  import { Field, Button, EntityAvatar, InfiniteScrollTable, ErrorAlert } from '@/components';
+  import { Field } from '@/components';
   import { apiRoute } from '@/lib/api/endpoints';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { useAvailableAssetsForm } from '@/features/assets/composables/useAvailableAssetsForm';
@@ -84,7 +83,7 @@
       {{ errorMessage }}
     </ErrorAlert>
 
-    <InfiniteScrollTable
+    <DataInfiniteScrollTable
       :columns="columns"
       :value="assets"
       :loading="isLoading"

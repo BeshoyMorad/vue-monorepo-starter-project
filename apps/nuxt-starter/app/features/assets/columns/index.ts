@@ -1,4 +1,3 @@
-import { h } from 'vue';
 import type { ColumnDef } from '@tanstack/vue-table';
 import type { AssetVault } from '@/features/assets/types';
 import { EntityAvatar, StatusBadge, WalletAddress } from '@/components';

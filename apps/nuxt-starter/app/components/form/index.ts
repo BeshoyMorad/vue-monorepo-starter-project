@@ -1,7 +1,5 @@
 export * from './multi-step-form';
 
-import { defineAsyncComponent } from 'vue';
-
 // ── Primitive Form Fields (Synchronous) ─────────────────────────────────────
 import InputText from './input-text/InputText.vue';
 import Textarea from './textarea/Textarea.vue';

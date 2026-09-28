@@ -1,7 +1,6 @@
 <script setup lang="ts" generic="TRow">
   import { FlexRender, type Table } from '@tanstack/vue-table';
-  import { TableHead, TableRow } from '@/components/ui/table';
-  import { Icon } from '@/components';
+  import { TableHead } from '@/components/ui/table';
 
   defineProps<{
     table: Table<TRow>;

@@ -1,6 +1,4 @@
-import { defineStore } from 'pinia';
 // import { useAuthStore } from '@/stores/auth';
-import { computed } from 'vue';
 import type { CanPermission } from '@/types/permissions';
 
 function parseDotNotation(permStr: string): [string, string] {
@@ -21,7 +19,7 @@ export const usePermissionStore = defineStore('permissions', () => {
 
   // const permissions = computed(() => authStore.authEmployee?.role?.permissions || {});
   const permissions = computed(() => ({
-    admin: ['list'],
+    admins: ['list'],
   }));
 
   const can = (perms: CanPermission, operator: 'or' | 'and' = 'or'): boolean => {

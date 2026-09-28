@@ -1,14 +1,7 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseFileUpload from './BaseFileUpload.vue';
+  import { FormField } from '@/components/ui/form';
+
   import type { MediaValue } from '@/types/media';
 
   defineOptions({
@@ -62,7 +55,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseFileUpload
+          <FormBaseFileUpload
             :test-id="testId"
             :disabled="disabled"
             :placeholder="placeholder"
@@ -78,7 +71,7 @@
             <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
               <slot :name="slotName" v-bind="slotProps ?? {}" />
             </template>
-          </BaseFileUpload>
+          </FormBaseFileUpload>
         </FormControl>
 
         <FormDescription v-if="description">{{ description }}</FormDescription>
@@ -89,7 +82,7 @@
   </template>
 
   <template v-else>
-    <BaseFileUpload
+    <FormBaseFileUpload
       v-model="modelValue"
       v-bind="$attrs"
       :test-id="testId"
@@ -104,6 +97,6 @@
       <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps ?? {}" />
       </template>
-    </BaseFileUpload>
+    </FormBaseFileUpload>
   </template>
 </template>

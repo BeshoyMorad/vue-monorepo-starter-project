@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { useDataTable } from '@/composables';
   import type { TableParams } from '@/types/table';
-  import { Button, Field, Table } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Field } from '@/components';
   import {
     USE_DATA_TABLE_IMPORT_CODE,
     USE_DATA_TABLE_BASIC_CODE,
@@ -165,7 +162,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="USE_DATA_TABLE_DOM.import.title"
       :description="USE_DATA_TABLE_DOM.import.description"
       :code="USE_DATA_TABLE_IMPORT_CODE"
@@ -174,7 +171,7 @@
     />
 
     <!-- What is useDataTable? -->
-    <Card
+    <ExampleCard
       title="What is useDataTable?"
       description="Use useDataTable when a table needs data from an API together with pagination, search, filters, sorting, and loading or empty states."
       :code="USE_DATA_TABLE_BASIC_CODE"
@@ -183,7 +180,7 @@
     />
 
     <!-- Columns -->
-    <Card
+    <ExampleCard
       title="Define Columns"
       description="Define the columns that Table will use to display your data."
       :code="USE_DATA_TABLE_DEFINED_COLUMNS"
@@ -202,7 +199,7 @@
       </div>
 
       <!-- Offset Pagination -->
-      <Card
+      <ExampleCard
         title="Offset Pagination"
         description="Use offset pagination when the API uses page numbers and limits."
         how-to-use="Set paginationType to offset. useDataTable manages the current page and provides the pagination metadata to Table."
@@ -213,7 +210,7 @@
         ]"
       >
         <template #preview>
-          <Table
+          <DataTable
             :columns="columns"
             :value="offsetTable"
             :meta="offsetMeta"
@@ -227,10 +224,10 @@
             @limit-change="offsetChangeLimit"
           />
         </template>
-      </Card>
+      </ExampleCard>
 
       <!-- Cursor Pagination -->
-      <Card
+      <ExampleCard
         title="Cursor Pagination"
         description="Use cursor pagination when the API uses cursors instead of page numbers. cursor pagination has a different meta structure from offset pagination check table documentation."
         how-to-use="Set paginationType to cursor. useDataTable manages the current cursor and uses nextCursor or previousCursor for navigation."
@@ -241,7 +238,7 @@
         ]"
       >
         <template #preview>
-          <Table
+          <DataTable
             :columns="columns"
             :value="cursorTabledata"
             :meta="cursorTablemeta"
@@ -254,11 +251,11 @@
             @limit-change="cursorTablechangeLimit"
           />
         </template>
-      </Card>
+      </ExampleCard>
     </section>
 
     <!-- Search -->
-    <Card
+    <ExampleCard
       title="Search"
       description="Use search to filter table data by a text value."
       how-to-use="Bind an input to the search ref returned by useDataTable. The search value is automatically debounced before the API request."
@@ -273,7 +270,7 @@
             placeholder="Search users..."
             test-id="searchTestId"
           />
-          <Table
+          <DataTable
             :columns="columns"
             :value="offsetTable"
             :meta="offsetMeta"
@@ -287,7 +284,7 @@
           />
         </div>
       </template>
-    </Card>
+    </ExampleCard>
 
     <!-- Filters & Sorting -->
     <section class="space-y-6">
@@ -300,7 +297,7 @@
         </p>
       </div>
 
-      <Card
+      <ExampleCard
         title="Filters"
         description="Use filters when the API needs additional parameters to narrow the table results."
         how-to-use="Use filters to update filters and clearFilters to remove them."
@@ -327,7 +324,7 @@
               </Button>
             </div>
 
-            <Table
+            <DataTable
               :columns="columns"
               :value="filterTableData"
               :meta="filterTableMeta"
@@ -341,9 +338,9 @@
             />
           </div>
         </template>
-      </Card>
+      </ExampleCard>
 
-      <Card
+      <ExampleCard
         title="Sort & Initial Sort"
         description="Set the initial sorting field and order when the table is first loaded."
         how-to-use="Use initialSort to define the default sort field and direction, and sort to update it."
@@ -355,7 +352,7 @@
       >
         <template #preview>
           <div class="w-full space-y-4">
-            <Table
+            <DataTable
               :columns="columns"
               :value="sortedDataTable"
               :meta="sortedMeta"
@@ -370,7 +367,7 @@
             />
           </div>
         </template>
-      </Card>
+      </ExampleCard>
     </section>
   </div>
 </template>

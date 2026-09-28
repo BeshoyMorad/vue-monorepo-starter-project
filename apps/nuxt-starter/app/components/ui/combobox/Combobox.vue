@@ -9,22 +9,11 @@
   "
 >
   /* eslint-disable max-lines */
-  import { computed, watch, type HtmlHTMLAttributes } from 'vue';
+  import { type HtmlHTMLAttributes } from 'vue';
   import { useForwardProps, type AcceptableValue, type ComboboxRootProps } from 'reka-ui';
-  import { Icon } from '@/components';
+
   import { cn } from '@/utils';
   import { reactiveOmit } from '@vueuse/core';
-  import ComboboxAnchor from './ComboboxAnchor.vue';
-  import ComboboxCancel from './ComboboxCancel.vue';
-  import ComboboxContent from './ComboboxContent.vue';
-  import ComboboxEmpty from './ComboboxEmpty.vue';
-  import ComboboxInput from './ComboboxInput.vue';
-  import ComboboxItem from './ComboboxItem.vue';
-  import ComboboxItemIndicator from './ComboboxItemIndicator.vue';
-  import ComboboxPortal from './ComboboxPortal.vue';
-  import ComboboxRoot from './ComboboxRoot.vue';
-  import ComboboxTrigger from './ComboboxTrigger.vue';
-  import ComboboxViewport from './ComboboxViewport.vue';
 
   interface Props extends ComboboxRootProps {
     testId: string;

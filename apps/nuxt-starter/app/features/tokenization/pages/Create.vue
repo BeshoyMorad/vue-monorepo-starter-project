@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { ref, computed, useTemplateRef } from 'vue';
-  import { useRouter } from '#imports';
-  import { PageWrapper, MultiStepForm, ErrorAlert } from '@/components';
+  import { MultiStepForm } from '@/components';
   import { paths } from '@/constants/route-names';
   import { getApiErrorMessage } from '@/utils/apiError';
-  import { useFormMedia, extractMediaPayload } from '@/composables/useFormMedia';
   import { useCreateToken } from '@/features/tokenization/composables';
   import { createTokenSteps } from '@/features/tokenization/schemas/token.schema';
   import type { CreateTokenFormValues } from '@/features/tokenization/types';

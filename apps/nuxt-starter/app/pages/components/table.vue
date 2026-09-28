@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { useAppLocale } from '@/composables';
 
   import TableImportSection from '@/features/doc/components/table/components/TableImportSection.vue';
   import TableDefinitionSection from '@/features/doc/components/table/components/TableDefinitionSection.vue';

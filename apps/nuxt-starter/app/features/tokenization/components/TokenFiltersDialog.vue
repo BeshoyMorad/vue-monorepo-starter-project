@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { FormDialog, Field, EntityAvatar } from '@/components';
+  import { Field } from '@/components';
   import { TEST_IDS } from '@/lib/test-ids';
   import type { TokenFilter } from '@/features/tokenization/types';
   import { TOKEN_STATUSES } from '@/features/tokenization/constants/token-statuses';

@@ -1,14 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseInputNumber from './BaseInputNumber.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -70,7 +62,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseInputNumber
+          <FormBaseInputNumber
             v-bind="{ ...$attrs, ...componentField }"
             :test-id="testId"
             :icon="icon"
@@ -93,7 +85,7 @@
   </template>
 
   <template v-else>
-    <BaseInputNumber
+    <FormBaseInputNumber
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

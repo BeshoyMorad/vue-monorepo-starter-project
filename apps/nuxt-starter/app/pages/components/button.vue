@@ -1,16 +1,10 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { Button } from '@/components';
-  import Codeblock from '@/components/codeblock/codeblock.vue';
   import {
     BUTTON_IMPORT_CODE,
     BUTTON_VARIANTS,
     BUTTON_OUTLINE,
   } from '@/features/doc/components/button/constants/constants';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
-  import { ref } from 'vue';
 
   definePageMeta({
     name: paths.componentsPaths.button,
@@ -46,7 +40,7 @@
         {{ t('button.description') }}
       </p>
     </section>
-    <Card
+    <ExampleCard
       :title="t('button.import.title')"
       :description="t('button.import.description')"
       :code="BUTTON_IMPORT_CODE"
@@ -66,7 +60,7 @@
       </div>
 
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <Card
+        <ExampleCard
           v-for="item in BUTTON_VARIANTS"
           :key="item.variant"
           :title="t(item.nameKey)"
@@ -83,7 +77,7 @@
               </Button>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
     <section class="space-y-4">

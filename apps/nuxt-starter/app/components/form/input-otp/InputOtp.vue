@@ -1,14 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseInputOtp from './BaseInputOtp.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -57,7 +49,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseInputOtp
+          <FormBaseInputOtp
             v-bind="{ ...$attrs, ...componentField }"
             :disabled="disabled"
             :integer-only="integerOnly"
@@ -74,7 +66,7 @@
   </template>
 
   <template v-else>
-    <BaseInputOtp
+    <FormBaseInputOtp
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

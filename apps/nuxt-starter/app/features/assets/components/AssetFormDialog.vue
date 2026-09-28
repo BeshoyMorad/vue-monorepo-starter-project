@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { Dialog } from '@/components';
   import AvailableAssetsForm from './AvailableAssetsForm.vue';
   import CustomTokenForm from './CustomTokenForm.vue';
 

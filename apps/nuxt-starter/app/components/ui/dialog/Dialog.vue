@@ -3,17 +3,8 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit } from '@vueuse/core';
   import { useForwardPropsEmits } from 'reka-ui';
-  import { Icon } from '@/components';
-  import { Button } from '@/components';
+
   import { cn } from '@/utils';
-  import DialogClose from './DialogClose.vue';
-  import DialogContent from './DialogContent.vue';
-  import DialogDescription from './DialogDescription.vue';
-  import DialogFooter from './DialogFooter.vue';
-  import DialogHeader from './DialogHeader.vue';
-  import DialogRoot from './DialogRoot.vue';
-  import DialogTitle from './DialogTitle.vue';
-  import DialogTrigger from './DialogTrigger.vue';
 
   type Props = DialogRootProps & {
     title?: string;

@@ -26,8 +26,6 @@ export const FORM_BASIC_CODE = `<Form class="space-y-4">
 
 export const FORM_SUBMIT_CODE = {
   script: `<script setup lang="ts">
-import { ref } from 'vue';
-
 const submittedValues = ref<Record<string, unknown> | null>(null);
 
 function onFormSubmit(values: Record<string, unknown>) {
@@ -103,12 +101,11 @@ const validationSchema = toTypedSchema(
 
 export const FORM_COMPLETE_CODE = {
   script: `<script setup lang="ts">
-import { ref } from 'vue';
 import * as yup from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
 import { Form } from 'vee-validate';
 
-import { Button, Field } from '@/components';
+import { Field } from '@/components';
 
 const submittedValues = ref<Record<string, unknown> | null>(null);
 

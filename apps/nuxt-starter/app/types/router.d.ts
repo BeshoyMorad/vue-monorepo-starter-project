@@ -1,4 +1,6 @@
-/** Custom route meta used by the sidebar, overview cards and document title. */
+import type { CanPermission } from '@/types/permissions';
+
+/** Custom route meta used by the sidebar, overview cards, document title and middleware. */
 interface AppRouteMeta {
   /** Page title, also used for `<title>` and navigation labels. */
   title?: string;
@@ -8,6 +10,12 @@ interface AppRouteMeta {
   icon?: string;
   /** Sort position among sibling routes in the sidebar. Lower comes first. */
   order?: number;
+  /** Set to `false` to make the page public. Checked by `middleware/auth.global.ts`. */
+  auth?: boolean;
+  /** Permissions required by `middleware/permission.ts`. */
+  permissions?: CanPermission;
+  /** How `permissions` are combined. Defaults to `'or'`. */
+  permissionsOperator?: 'or' | 'and';
 }
 
 declare module '#app' {

@@ -1,11 +1,7 @@
 <script setup lang="ts">
-  import { watch } from 'vue';
-  import { Dialog, DialogClose } from '@/components/ui/dialog';
-  import { Button, Icon } from '@/components';
   import { cn } from '@/utils';
   import type { ButtonVariants } from '@/components/ui/button';
   import type { HTMLAttributes } from 'vue';
-
   interface ConfirmDialogProps {
     testId: string;
     icon?: string;

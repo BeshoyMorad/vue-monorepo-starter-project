@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { Icon, Button } from '.';
-
   defineProps<{
     icon?: string;
     image?: string;

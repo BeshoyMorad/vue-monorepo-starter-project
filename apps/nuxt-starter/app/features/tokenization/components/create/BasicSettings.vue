@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { computed } from 'vue';
-  import { Field, EntityAvatar } from '@/components';
+  import { Field } from '@/components';
   import { apiRoute } from '@/lib/api/endpoints';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { useGetTokenNetworks } from '@/features/tokenization/composables/useGetTokenNetworks';

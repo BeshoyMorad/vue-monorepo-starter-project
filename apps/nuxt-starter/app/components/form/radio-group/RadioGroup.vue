@@ -1,14 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseRadioGroup from './BaseRadioGroup.vue';
+  import { FormField } from '@/components/ui/form';
   import type { RadioGroupOption } from '@/types/form';
 
   defineOptions({
@@ -61,7 +53,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseRadioGroup
+          <FormBaseRadioGroup
             :id="id"
             :aria-invalid="!!errorMessage"
             :disabled="disabled"
@@ -81,7 +73,7 @@
   </template>
 
   <template v-else>
-    <BaseRadioGroup
+    <FormBaseRadioGroup
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

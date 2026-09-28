@@ -1,5 +1,3 @@
-import { abortNavigation, defineNuxtRouteMiddleware, navigateTo } from '#imports';
-import { useAuthStore } from '@/stores/auth';
 import { paths } from '@/constants/route-names';
 
 /** Keeps signed-in users out of guest-only pages such as login. */

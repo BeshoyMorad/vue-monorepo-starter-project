@@ -2,10 +2,6 @@
   import type { MockUser } from '@/features/doc/types';
   import type { ColumnDef } from '@tanstack/vue-table';
 
-  import { Table } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
-
   import {
     TABLE_DEFINITION_CODE,
     allUsers,
@@ -43,7 +39,7 @@
       </p>
     </div>
 
-    <Card
+    <ExampleCard
       :title="t('table.definition.title')"
       :description="t('table.definition.description')"
       :how-to-use="t('table.definition.howToUseDescription')"
@@ -58,9 +54,9 @@
     >
       <template #preview>
         <div class="bg-surface-secondary border-border-base/50 w-full rounded-lg border p-6">
-          <Table :columns="columns" :value="allUsers.slice(0, 5)" />
+          <DataTable :columns="columns" :value="allUsers.slice(0, 5)" />
         </div>
       </template>
-    </Card>
+    </ExampleCard>
   </section>
 </template>

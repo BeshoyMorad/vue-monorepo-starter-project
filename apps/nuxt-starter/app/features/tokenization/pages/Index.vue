@@ -1,15 +1,11 @@
 <script setup lang="ts">
   import type { OffsetMeta } from '@/types/api';
-  import { computed, ref } from 'vue';
   import type { TokenFilter, Token } from '@/features/tokenization/types';
-  import { Table, Field, PageWrapper, Button, EmptyPlaceholder } from '@/components';
+  import { Field } from '@/components';
   import { tokenColumns } from '@/features/tokenization/columns';
-  import { useDataTable } from '@/composables/useDataTable';
   import { TEST_IDS } from '@/lib/test-ids';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { apiRoute } from '@/lib/api/endpoints';
-  import { usePermissionStore } from '@/stores/permissions';
-  import { useModal } from '@/composables';
   import { paths } from '@/constants/route-names';
   import { TokenDetailsDialog, TokenFiltersDialog } from '@/features/tokenization/components';
 
@@ -108,7 +104,7 @@
       </template>
     </EmptyPlaceholder>
 
-    <Table
+    <DataTable
       v-else
       :columns="tokenColumns"
       :value="data"

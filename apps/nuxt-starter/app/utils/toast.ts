@@ -1,5 +1,4 @@
 import { toast } from 'vue-sonner';
-import { h } from 'vue';
 import { CustomToast } from '@/components/ui/sonner';
 import { Icon } from '@/components';
 import type { ToastOptions, ToastVariant } from '@/types/toast';

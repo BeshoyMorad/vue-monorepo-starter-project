@@ -1,4 +1,4 @@
-import { computed, ref, onMounted, onUnmounted, watch, type Ref } from 'vue';
+import { type Ref } from 'vue';
 import type { UseVirtualScrollOptions, UseVirtualScrollReturn } from '@/types/virtual-scroll';
 
 function resolveValue<R>(val: Ref<R> | (() => R) | R | undefined, defaultValue: R): R {

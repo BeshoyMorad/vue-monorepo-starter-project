@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { Icon } from '@/components';
   import { cn } from '@/utils';
 
   interface Props {

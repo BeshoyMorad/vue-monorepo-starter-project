@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref, onMounted } from 'vue';
-  import { InfiniteScroll, Button, Icon } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
   import {
     INFINITE_SCROLL_IMPORT_CODE,
     INFINITE_SCROLL_BASIC_CODE,
@@ -88,7 +84,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       title="Import"
       description="Import the InfiniteScroll component from the shared components library."
       :code="INFINITE_SCROLL_IMPORT_CODE"
@@ -110,7 +106,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="INFINITE_SCROLL_DOC.basic.title"
           :description="INFINITE_SCROLL_DOC.basic.description"
           :how-to-use="INFINITE_SCROLL_DOC.basic.howToUse"
@@ -166,10 +162,10 @@
               </InfiniteScroll>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Virtual Scroll -->
-        <Card
+        <ExampleCard
           :title="INFINITE_SCROLL_DOC.virtual.title"
           :description="INFINITE_SCROLL_DOC.virtual.description"
           :how-to-use="INFINITE_SCROLL_DOC.virtual.howToUse"
@@ -213,10 +209,10 @@
               </InfiniteScroll>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Fit Height -->
-        <Card
+        <ExampleCard
           :title="INFINITE_SCROLL_DOC.fitHeight.title"
           :description="INFINITE_SCROLL_DOC.fitHeight.description"
           :how-to-use="INFINITE_SCROLL_DOC.fitHeight.howToUse"
@@ -259,7 +255,7 @@
               </InfiniteScroll>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

@@ -1,13 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseRadio from './BaseRadio.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -58,7 +51,7 @@
     >
       <FormItem :class="containerClass">
         <FormControl>
-          <BaseRadio
+          <FormBaseRadio
             :id="id"
             :aria-invalid="!!errorMessage"
             :disabled="disabled"
@@ -78,7 +71,7 @@
   </template>
 
   <template v-else>
-    <BaseRadio
+    <FormBaseRadio
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

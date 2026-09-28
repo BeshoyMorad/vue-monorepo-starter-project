@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  /* eslint-disable max-lines */
   import type { MediaValue } from '@/types/media';
-  import { ref, computed, watch } from 'vue';
+
   import { cn } from '@/utils';
-  import { Icon, Button } from '@/components';
+
   import { error } from '@/utils/toast';
   import {
     DEFAULT_ALLOWED_FILE_TYPES,
@@ -15,7 +14,6 @@
     getFileExtension,
     formatFileSize,
   } from '@/constants/file-upload';
-  import { createMediaValueList } from '@/composables';
 
   defineOptions({
     inheritAttrs: false,

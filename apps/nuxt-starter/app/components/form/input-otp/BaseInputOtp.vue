@@ -1,8 +1,6 @@
 <script setup lang="ts">
-  import { computed, useAttrs, watch } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { REGEXP_ONLY_DIGITS } from 'vue-input-otp';
-  import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 
   defineOptions({
     inheritAttrs: false,

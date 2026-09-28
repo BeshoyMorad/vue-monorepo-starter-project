@@ -1,13 +1,7 @@
 ```vue
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { computed, ref } from 'vue';
   import dayjs from 'dayjs';
-
-  import Card from '@/components/card/ExampleCard.vue';
-  import { Button, LanguageSwitcher } from '@/components';
-  import { useAppLocale } from '@/composables/useAppLocale';
 
   import {
     LOCALIZATION_DOM,
@@ -65,13 +59,13 @@
       </p>
     </section>
     <!-- Project Structure -->
-    <Card
+    <ExampleCard
       :title="LOCALIZATION_DOM.structure.title"
       :description="LOCALIZATION_DOM.structure.description"
       :structure="LOCALIZATION_PROJECT_STRUCTURE"
     />
     <!-- Implementation Guide -->
-    <Card
+    <ExampleCard
       :title="LOCALIZATION_DOM.implementation.title"
       :description="LOCALIZATION_DOM.implementation.description"
       :code-arr="LOCALIZATION_USAGE_CODE.steps"
@@ -79,7 +73,7 @@
     />
 
     <!-- Current Locale -->
-    <Card
+    <ExampleCard
       :title="LOCALIZATION_DOM.currentLocale.title"
       :description="LOCALIZATION_DOM.currentLocale.description"
       :code-arr="[
@@ -118,11 +112,11 @@
           <LanguageSwitcher />
         </div>
       </template>
-    </Card>
+    </ExampleCard>
     <!-- Interactive Demos -->
     <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <!-- Interpolation -->
-      <Card
+      <ExampleCard
         :title="LOCALIZATION_DOM.interpolation.title"
         :description="LOCALIZATION_DOM.interpolation.description"
         :how-to-use="LOCALIZATION_DOM.interpolation.howToUse"
@@ -161,10 +155,10 @@
             </div>
           </div>
         </template>
-      </Card>
+      </ExampleCard>
 
       <!-- Pluralization -->
-      <Card
+      <ExampleCard
         :title="LOCALIZATION_DOM.pluralization.title"
         :description="LOCALIZATION_DOM.pluralization.description"
         :how-to-use="LOCALIZATION_DOM.pluralization.howToUse"
@@ -216,10 +210,10 @@
             </div>
           </div>
         </template>
-      </Card>
+      </ExampleCard>
 
       <!-- Number & Currency -->
-      <Card
+      <ExampleCard
         :title="LOCALIZATION_DOM.formatting.title"
         :description="LOCALIZATION_DOM.formatting.description"
         :how-to-use="LOCALIZATION_DOM.formatting.howToUse"
@@ -249,10 +243,10 @@
             </div>
           </div>
         </template>
-      </Card>
+      </ExampleCard>
 
       <!-- Date & Relative Time -->
-      <Card
+      <ExampleCard
         :title="LOCALIZATION_DOM.dateTime.title"
         :description="LOCALIZATION_DOM.dateTime.description"
         :how-to-use="LOCALIZATION_DOM.dateTime.howToUse"
@@ -282,7 +276,7 @@
             </div>
           </div>
         </template>
-      </Card>
+      </ExampleCard>
     </section>
   </div>
 </template>

@@ -1,10 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
-  import { Button, Field } from '@/components';
-
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Field } from '@/components';
 
   import {
     IMAGE_UPLOAD_DOM,
@@ -60,7 +56,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOM.import.title"
       :description="IMAGE_UPLOAD_DOM.import.description"
       :code="IMAGE_UPLOAD_IMPORT_CODE"
@@ -68,7 +64,7 @@
     />
 
     <!-- What is useUploadImage? -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOM.whatIs.title"
       :description="IMAGE_UPLOAD_DOM.whatIs.description"
       :code="IMAGE_UPLOAD_BASIC_CODE"
@@ -76,7 +72,7 @@
     />
 
     <!-- Basic Usage -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOM.basicUsage.title"
       :description="IMAGE_UPLOAD_DOM.basicUsage.description"
       :how-to-use="IMAGE_UPLOAD_DOM.basicUsage.howToUse"
@@ -111,10 +107,10 @@
           <p v-if="mediaId" class="text-text-secondary text-sm">Media ID: {{ mediaId }}</p>
         </div>
       </template>
-    </Card>
+    </ExampleCard>
 
     <!-- Presigned URL -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOM.presignedUrl.title"
       :description="IMAGE_UPLOAD_DOM.presignedUrl.description"
       :code-arr="[
@@ -126,7 +122,7 @@
     />
 
     <!-- Upload Flow -->
-    <Card
+    <ExampleCard
       title="Upload Flow"
       description="The complete upload flow from selecting the file to receiving the mediaId."
       :code="IMAGE_UPLOAD_PRESIGNED_URL_CODE"
@@ -134,7 +130,7 @@
     />
 
     <!-- mediaId -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOM.mediaId.title"
       :description="IMAGE_UPLOAD_DOM.mediaId.description"
       :code="IMAGE_UPLOAD_MEDIA_ID_CODE"
@@ -142,7 +138,7 @@
     />
 
     <!-- Multiple Files -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOM.multipleFiles.title"
       :description="IMAGE_UPLOAD_DOM.multipleFiles.description"
       :how-to-use="IMAGE_UPLOAD_DOM.multipleFiles.howToUse"

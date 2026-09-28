@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
   import { USE_DATA_INFINITE_SCROLL_DOM } from '@/features/doc/composables/useInfinteScroll/constants/constants.ts';
   import UseInfiniteScrollImport from '@/features/doc/composables/useInfinteScroll/components/useInfiniteScrollImport.vue';

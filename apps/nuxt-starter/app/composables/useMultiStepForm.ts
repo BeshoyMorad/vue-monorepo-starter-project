@@ -1,4 +1,4 @@
-import { computed, ref, watch, type Ref } from 'vue';
+import { type Ref } from 'vue';
 import { useForm, type FormContext, type GenericObject } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
@@ -9,7 +9,6 @@ import type {
   UseMultiStepFormReturn,
 } from '@/types/form';
 import { applyApiErrorToForm, getApiFieldErrors } from '@/utils/apiError';
-import { isMediaValue } from '@/composables/useFormMedia';
 
 // ─── Persistence Helpers ───────────────────────────────────────────────────────
 

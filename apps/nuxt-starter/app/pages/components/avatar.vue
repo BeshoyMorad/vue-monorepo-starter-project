@@ -1,8 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { Avatar, AvatarFallback, AvatarImage } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     AVATAR_IMPORT_CODE,
@@ -36,7 +33,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       title="Import"
       description="Import the Avatar components from the shared components library."
       :code="AVATAR_IMPORT_CODE"
@@ -56,7 +53,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="AVATAR_DOC.basic.title"
           :description="AVATAR_DOC.basic.description"
           :how-to-use="AVATAR_DOC.basic.howToUse"
@@ -70,10 +67,10 @@
               <AvatarFallback> {{ AVATAR_DOC.basic.fallback }} </AvatarFallback>
             </Avatar>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Fallback -->
-        <Card
+        <ExampleCard
           :title="AVATAR_DOC.fallback.title"
           :description="AVATAR_DOC.fallback.description"
           :how-to-use="AVATAR_DOC.fallback.howToUse"
@@ -87,10 +84,10 @@
               </AvatarFallback>
             </Avatar>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Custom Size -->
-        <Card
+        <ExampleCard
           :title="AVATAR_DOC.size.title"
           :description="AVATAR_DOC.size.description"
           :how-to-use="AVATAR_DOC.size.howToUse"
@@ -133,10 +130,10 @@
               </Avatar>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- User Profile -->
-        <Card
+        <ExampleCard
           :title="AVATAR_DOC.user.title"
           :description="AVATAR_DOC.user.description"
           :how-to-use="AVATAR_DOC.user.howToUse"
@@ -164,7 +161,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

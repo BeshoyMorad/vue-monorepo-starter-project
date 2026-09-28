@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  import { computed, ref, useAttrs, useId } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
-  import { Popover, Button, Icon } from '@/components';
-  import { Calendar } from '@/components/ui/calendar';
+
   import { inputVariants } from '@/components/ui/input';
   import { cn } from '@/utils';
   import dayjs from 'dayjs';

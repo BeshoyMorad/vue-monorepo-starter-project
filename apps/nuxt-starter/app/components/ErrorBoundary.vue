@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { ref, onErrorCaptured, nextTick, type ComponentPublicInstance } from 'vue';
-  import { ExceptionState } from '@/components';
+  import { type ComponentPublicInstance } from 'vue';
+
   import { getEnvConfig } from '@/config/env';
 
   interface Props {

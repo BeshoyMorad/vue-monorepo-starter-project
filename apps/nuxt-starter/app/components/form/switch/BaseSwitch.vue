@@ -1,7 +1,6 @@
 <script setup lang="ts">
-  import { computed, useAttrs, useId, useSlots } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { Switch } from '@/components/ui/switch';
+
   import { cva } from 'class-variance-authority';
   import { cn } from '@/utils';
 

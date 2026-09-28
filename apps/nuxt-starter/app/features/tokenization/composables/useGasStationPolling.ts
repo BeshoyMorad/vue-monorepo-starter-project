@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { ref, computed, watch, onMounted, onUnmounted, type Ref } from 'vue';
+import { type Ref } from 'vue';
 import { formatNumber } from '@/utils/formatter';
 import { gasStationService } from '@/features/tokenization/services/gas-station';
 import type { GasStationWallet } from '@/features/tokenization/types';

@@ -43,12 +43,10 @@ export const TAGS_INPUT_CUSTOM_SLOT_CODE = `<Field.TagsInput
 </Field.TagsInput>`;
 
 export const TAGS_INPUT_V_MODEL_SCRIPT = `<script setup lang="ts">
-import { ref } from 'vue';
 const tags = ref<string[]>([]);
 </script>`;
 
 export const TAGS_INPUT_V_MODEL_TEMPLATE = `<script setup lang="ts">
-import { ref } from 'vue';
 const tags = ref<string[]>([]);
 </script>`;
 

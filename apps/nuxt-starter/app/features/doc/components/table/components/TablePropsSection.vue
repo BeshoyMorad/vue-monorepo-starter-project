@@ -1,7 +1,4 @@
 <script setup lang="ts">
-  import { Table } from '@/components';
-
-  import { useAppLocale } from '@/composables';
   import { TABLE_PROPS } from '@/features/doc/components/table/constants/constants';
 
   const { t } = useAppLocale();
@@ -42,7 +39,7 @@
 
     <div>
       <div class="overflow-x-auto">
-        <Table :columns="propsColumns" :value="propsValue" />
+        <DataTable :columns="propsColumns" :value="propsValue" />
       </div>
     </div>
   </section>

@@ -12,8 +12,6 @@ export const PHONE_DEFAULT_COUNTRY_CODE = `<Field.Phone
 />`;
 
 export const PHONE_V_MODEL_CODE_SCRIPT = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const phoneValue = ref('');
 </script>`;
 export const PHONE_V_MODEL_CODE_TEMPLATE = `<template>

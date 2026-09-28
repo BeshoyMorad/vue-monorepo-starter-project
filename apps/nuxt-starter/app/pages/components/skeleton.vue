@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import Card from '@/components/card/ExampleCard.vue';
-
-  import { Skeleton } from '@/components';
 
   import {
     SKELETON_IMPORT_CODE,
@@ -36,7 +32,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="SKELETON_DOC.import.title"
       :description="SKELETON_DOC.import.description"
       :code="SKELETON_IMPORT_CODE"
@@ -58,7 +54,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="SKELETON_DOC.basic.title"
           :description="SKELETON_DOC.basic.description"
           :how-to-use="SKELETON_DOC.basic.howToUse"
@@ -73,10 +69,10 @@
           <template #preview>
             <Skeleton class="h-12 w-12" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Text -->
-        <Card
+        <ExampleCard
           :title="SKELETON_DOC.text.title"
           :description="SKELETON_DOC.text.description"
           :how-to-use="SKELETON_DOC.text.howToUse"
@@ -95,10 +91,10 @@
               <Skeleton class="h-4 w-3/5" />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Card -->
-        <Card
+        <ExampleCard
           :title="SKELETON_DOC.card.title"
           :description="SKELETON_DOC.card.description"
           :how-to-use="SKELETON_DOC.card.howToUse"
@@ -133,7 +129,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

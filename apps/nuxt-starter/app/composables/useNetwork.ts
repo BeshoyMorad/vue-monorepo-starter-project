@@ -1,5 +1,3 @@
-import { ref, onMounted, onUnmounted } from 'vue';
-import { navigateTo, useRouter } from '#imports';
 import type { RouteLocationRaw } from 'vue-router';
 import { paths } from '@/constants/route-names';
 import { warn } from '@/utils/toast';

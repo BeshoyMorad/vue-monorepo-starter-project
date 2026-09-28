@@ -40,15 +40,17 @@ app/
 ├── features/         Feature folders: components, services, schemas, types.ts
 ├── layouts/          default.vue (app shell) and auth.vue
 ├── lib/              API client, endpoints, query client and keys
-├── middleware/       auth, guest, and the global offline check
+├── middleware/       auth.global (every page), network.global (offline), guest, permission
 ├── pages/            File-based routes (definePageMeta sets name/layout/middleware)
 ├── plugins/          api, vue-query, dayjs, error-handler
 ├── stores/           Pinia stores
 ├── types/            Shared TypeScript types, one file per domain
-└── utils/            Small helpers
+└── utils/            Small helpers (not auto-imported)
 i18n/
 ├── locales/          en.ts / ar.ts merge common and feature messages
 └── i18n.config.ts    Number and date formats
+server/
+└── api/examples/     Demo API routes used by the Data Fetching docs page
 ```
 
 ## Conventions
@@ -59,5 +61,20 @@ i18n/
 - **Types.** Shared types live in `app/types/<domain>.ts` and are imported with `import type`.
   A type used by only one component stays in that component (for example its `Props`).
   Feature types go in `app/features/<feature>/types.ts`. There are no global ambient types.
-- **Imports.** Project code uses explicit imports (`@/...`). Nuxt still auto-imports Vue and
-  Nuxt APIs, but `imports.scan` is off so project helpers never become hidden globals.
+- **Auth and permissions.** `auth.global.ts` protects every page. Make a page public with
+  `definePageMeta({ auth: false })`. To require permissions, add
+  `middleware: ['permission']` and `permissions: 'admins.list'` (or a list, with
+  `permissionsOperator: 'and'`). Users without them go to the access-denied page.
+- **Auto-imports.** Vue and Nuxt APIs, everything exported from `app/composables/*.ts`, and
+  Pinia stores in `app/stores/` need no import. `app/utils/` is left out on purpose, so helpers
+  such as the toast `error()` are imported from `@/utils/...`. Feature folders are not scanned
+  either: import feature composables and components explicitly.
+- **Components.** Components under `app/components/` are auto-imported in templates. Names:
+  shadcn primitives in `ui/` keep their names (`<Button>`, `<Tooltip>`); `data-table/` gets a
+  `Data` prefix (`<DataTable>`); the custom tooltip is `<AppTooltip>`; form fields get a `Form`
+  prefix (`<FormInputText>`) but pages normally use the `Field` namespace, which is a plain
+  object and is still imported from `@/components`. Components used in script (for example in
+  `h()` or `typeof`) still need an explicit import. See the `components` key in
+  `nuxt.config.ts`.
+- **Data fetching.** Use `useFetch`/`useAsyncData` for read-only content and TanStack Query for
+  interactive data. The Documentation > Data Fetching page shows both.

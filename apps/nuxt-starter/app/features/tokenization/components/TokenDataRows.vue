@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { Button } from '@/components';
   import DataRow from '@/features/tokenization/components/DataRow.vue';
   import type { DetailRow } from '@/features/tokenization/utils/detail-row';
 

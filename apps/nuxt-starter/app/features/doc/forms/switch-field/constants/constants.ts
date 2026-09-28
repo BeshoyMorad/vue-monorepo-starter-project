@@ -24,8 +24,6 @@ export const SWITCH_SIZES_CODE = `<Field.Switch
 />`;
 
 export const SWITCH_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const switchValue = ref(false);
 </script>
 

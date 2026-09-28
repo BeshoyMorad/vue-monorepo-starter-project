@@ -219,3 +219,65 @@ These other type changes landed:
 6. **pnpm version.** The lockfile was regenerated with pnpm 10. `pnpm-workspace.yaml` still uses
    `allowBuilds`, which pnpm 10 ignores. It skipped the `esbuild` postinstall with no effect on
    the build.
+
+---
+
+## Part 3 — Follow-up: middleware, auto-imports, data fetching
+
+This part finishes the three steps that were only partly done.
+
+### 1. Middleware
+
+- `middleware/auth.global.ts` replaces the named `auth` middleware. It runs on every route.
+  Pages opt out with `definePageMeta({ auth: false })`: the login page and the four error pages.
+  The set of protected pages is the same as before, and new pages are protected by default.
+- `middleware/permission.ts` is new. The Vue app had no permission guard. It reads
+  `meta.permissions` and `meta.permissionsOperator` and checks them with the permissions store.
+  Denied users are redirected to the access-denied page. The Data Fetching docs page uses it as
+  the example.
+- The mock permission store granted `admin.list`, but the permission types only define
+  `admins`, so no typed check could pass. It now grants `admins.list`.
+- `tests/nuxt/middleware.spec.ts` covers both middleware files.
+
+### 2. Auto-imports
+
+- `imports.scan` is on. An `imports:dirs` hook removes `app/utils/`, so the toast helpers are
+  still not globals. Composables in `app/composables/*.ts` and stores (through `@pinia/nuxt`)
+  are auto-imported. The composables barrel `app/composables/index.ts` was deleted because it
+  duplicated every name.
+- Component folders are registered so every name is unique. See the `components` key in
+  `nuxt.config.ts` and the README. Tags that changed: data-table components get a `Data`
+  prefix, the custom tooltip is `AppTooltip`, form internals get a `Form` prefix, `Toaster` is
+  `Sonner`, and the example card is `ExampleCard`.
+- A script removed manual imports of Vue APIs, `#imports`, composables, stores and shared
+  components across the app. Imports stay where they are still needed:
+  - type-only imports;
+  - the `Field` namespace (a plain object, not a component);
+  - components used in script code (`h()`, `typeof`);
+  - five files that wrap a shadcn component with the same file name, such as
+    `tooltip/Tooltip.vue`, where Vue would read the tag as a self-reference;
+  - components inside `app/features/`, which are not scanned.
+- Code samples on the docs pages were updated to match.
+
+### 3. Data fetching
+
+- `pages/documentation/data-fetching.vue` shows `useFetch` with a reactive query next to a
+  TanStack Query composable that polls every 5 seconds.
+- Both call demo Nitro routes in `server/api/examples/`, so the page works without a backend.
+- `useFetch` runs in the browser while `ssr: false` is set. The same code server-renders once
+  SSR is enabled.
+
+### 4. Verification
+
+| Check           | Result                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Type-check      | 0 errors (app and server tsconfigs)                                                                                 |
+| Unit tests      | 39 of 39 pass (7 new)                                                                                               |
+| ESLint          | 0 errors, 7 warnings (same as before)                                                                               |
+| `nuxt build`    | Passes                                                                                                              |
+| Headless Chrome | Every docs, component, form, composable and error route renders with no console errors and no unresolved components |
+
+### 5. Still open
+
+- Step 6 of the plan (TanStack Query SSR hydration) is not done. It only matters once SSR is
+  enabled. The query client is a module singleton, which must become per-request at that point.

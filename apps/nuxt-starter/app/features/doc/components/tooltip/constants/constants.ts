@@ -1,6 +1,6 @@
-export const TOOLTIP_IMPORT_CODE = `import { Tooltip } from '@/components';`;
+export const TOOLTIP_IMPORT_CODE = `// <AppTooltip> is auto-imported by Nuxt. No import needed.`;
 
-export const TOOLTIP_BASIC_CODE = `<Tooltip>
+export const TOOLTIP_BASIC_CODE = `<AppTooltip>
   <template #trigger>
     <p>tooltip</p>
   </template>
@@ -8,13 +8,13 @@ export const TOOLTIP_BASIC_CODE = `<Tooltip>
   <div>
     data here
   </div>
-</Tooltip>`;
+</AppTooltip>`;
 
 export const TOOLTIP_EXAMPLES = [
   {
     nameKey: 'tooltip.examples.basic.name',
     descriptionKey: 'tooltip.examples.basic.description',
-    code: `<Tooltip>
+    code: `<AppTooltip>
   <template #trigger>
     <p>tooltip</p>
   </template>
@@ -22,6 +22,6 @@ export const TOOLTIP_EXAMPLES = [
   <div>
     data here
   </div>
-</Tooltip>`,
+</AppTooltip>`,
   },
 ] as const;

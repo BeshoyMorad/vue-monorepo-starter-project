@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
   import { USE_DATA_INFINITE_SCROLL_CURSOR_DOC } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser } from '@/features/doc/types';
-  import { useDataInfiniteScroll } from '@/composables';
   import { getMockOffsetUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import InfiniteScrollTable from '@/components/data-table/InfiniteScrollTable.vue';
   import type { ColumnDef } from '@tanstack/vue-table';
 
   const columns: ColumnDef<MockAvatarUser, unknown>[] = [
@@ -47,7 +44,7 @@
     });
 </script>
 <template>
-  <Card
+  <ExampleCard
     :title="USE_DATA_INFINITE_SCROLL_CURSOR_DOC.title"
     :description="USE_DATA_INFINITE_SCROLL_CURSOR_DOC.description"
     :how-to-use="USE_DATA_INFINITE_SCROLL_CURSOR_DOC.howToUse"
@@ -55,7 +52,7 @@
     :code-arr="USE_DATA_INFINITE_SCROLL_CURSOR_DOC.codeArr"
   >
     <template #preview>
-      <InfiniteScrollTable
+      <DataInfiniteScrollTable
         :columns="columns"
         :value="data"
         :loading="isLoading"
@@ -66,5 +63,5 @@
         @sort="sort"
       />
     </template>
-  </Card>
+  </ExampleCard>
 </template>

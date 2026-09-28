@@ -1,12 +1,9 @@
 <script setup lang="ts">
   import type { HTMLAttributes } from 'vue';
-  import { computed, useAttrs } from 'vue';
+
   import { reactiveOmit } from '@vueuse/core';
   import { cn } from '@/utils';
   import { type PopoverContentProps } from 'reka-ui';
-  import PopoverContent from './PopoverContent.vue';
-  import PopoverRoot from './PopoverRoot.vue';
-  import PopoverTrigger from './PopoverTrigger.vue';
 
   defineOptions({ inheritAttrs: false });
 

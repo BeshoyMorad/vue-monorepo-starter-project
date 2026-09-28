@@ -1,5 +1,5 @@
 import type { Token } from '@/features/tokenization/types';
-import { computed, type Ref } from 'vue';
+import { type Ref } from 'vue';
 import { useQuery, useQueryClient } from '@tanstack/vue-query';
 import { QUERY_KEYS } from '@/lib/query-keys';
 import { tokenizationServices } from '@/features/tokenization/services';

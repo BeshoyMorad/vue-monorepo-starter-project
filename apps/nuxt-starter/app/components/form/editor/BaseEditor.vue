@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { watch, type HTMLAttributes } from 'vue';
+  import { type HTMLAttributes } from 'vue';
   import { useEditor, EditorContent } from '@tiptap/vue-3';
   import StarterKit from '@tiptap/starter-kit';
   import Underline from '@tiptap/extension-underline';
   import Link from '@tiptap/extension-link';
   import Placeholder from '@tiptap/extension-placeholder';
   import { cn } from '@/utils';
-  import EditorToolbar from './EditorToolbar.vue';
+
   import './editor.css';
 
   defineOptions({
@@ -117,7 +117,7 @@
     "
   >
     <!-- Toolbar -->
-    <EditorToolbar
+    <FormEditorToolbar
       v-if="editor && !readonly"
       :editor="editor"
       :disabled="disabled"

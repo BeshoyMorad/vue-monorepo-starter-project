@@ -1,21 +1,5 @@
 <script setup lang="ts">
   import type { OffsetMeta, CursorMeta } from '@/types/api';
-  import { computed } from 'vue';
-  import { Button, Icon } from '@/components';
-  import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationFirst,
-    PaginationItem,
-    PaginationLast,
-    PaginationNext,
-    PaginationPrevious,
-    DropdownMenu,
-    DropdownMenuTrigger,
-    DropdownMenuContent,
-    DropdownMenuItem,
-  } from '@/components';
   import { TEST_IDS } from '@/lib/test-ids';
 
   interface Props {

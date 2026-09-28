@@ -10,7 +10,6 @@
     useForwardPropsEmits,
   } from 'reka-ui';
   import { cn } from '@/utils';
-  import { Icon } from '@/components';
 
   defineOptions({
     inheritAttrs: false,

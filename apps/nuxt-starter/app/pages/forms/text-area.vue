@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     TEXTAREA_IMPORT_CODE,
@@ -37,7 +34,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       title="Import"
       description="Import the TextArea field from the shared components library."
       :code="TEXTAREA_IMPORT_CODE"
@@ -54,7 +51,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="TEXTAREA_DOC.basic.title"
           :description="TEXTAREA_DOC.basic.description"
           :how-to-use="TEXTAREA_DOC.basic.howToUse"
@@ -69,10 +66,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- With Label -->
-        <Card
+        <ExampleCard
           :title="TEXTAREA_DOC.label.title"
           :description="TEXTAREA_DOC.label.description"
           :how-to-use="TEXTAREA_DOC.label.howToUse"
@@ -88,10 +85,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- With Description -->
-        <Card
+        <ExampleCard
           :title="TEXTAREA_DOC.description.title"
           :description="TEXTAREA_DOC.description.description"
           :how-to-use="TEXTAREA_DOC.description.howToUse"
@@ -108,10 +105,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="TEXTAREA_DOC.vModel.title"
           :description="TEXTAREA_DOC.vModel.description"
           :how-to-use="TEXTAREA_DOC.vModel.howToUse"
@@ -135,7 +132,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

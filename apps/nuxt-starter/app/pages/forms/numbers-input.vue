@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
   import {
     NUMBER_IMPORT_CODE,
     NUMBER_BASIC_CODE,
@@ -40,7 +37,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="NUMBER_DOC.import.title"
       :description="NUMBER_DOC.import.description"
       :code="NUMBER_IMPORT_CODE"
@@ -61,7 +58,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="NUMBER_DOC.basic.title"
           :description="NUMBER_DOC.basic.description"
           :how-to-use="NUMBER_DOC.basic.howToUse"
@@ -73,10 +70,10 @@
               :test-id="NUMBER_DOC.basic.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- With Icon -->
-        <Card
+        <ExampleCard
           :title="NUMBER_DOC.icon.title"
           :description="NUMBER_DOC.icon.description"
           :how-to-use="NUMBER_DOC.icon.howToUse"
@@ -90,10 +87,10 @@
               :test-id="NUMBER_DOC.icon.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Hide Steppers -->
-        <Card
+        <ExampleCard
           :title="NUMBER_DOC.noSteppers.title"
           :description="NUMBER_DOC.noSteppers.description"
           :how-to-use="NUMBER_DOC.noSteppers.howToUse"
@@ -107,10 +104,10 @@
               :test-id="NUMBER_DOC.noSteppers.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="NUMBER_DOC.vModel.title"
           :description="NUMBER_DOC.vModel.description"
           :how-to-use="NUMBER_DOC.vModel.howToUse"
@@ -135,10 +132,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Custom Step -->
-        <Card
+        <ExampleCard
           :title="NUMBER_DOC.step.title"
           :description="NUMBER_DOC.step.description"
           :how-to-use="NUMBER_DOC.step.howToUse"
@@ -151,7 +148,7 @@
               :test-id="NUMBER_DOC.step.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

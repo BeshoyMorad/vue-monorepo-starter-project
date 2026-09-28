@@ -1,4 +1,4 @@
-export const ICON_IMPORT_CODE = `import { Icon } from '@/components';`;
+export const ICON_IMPORT_CODE = `// <Icon> is auto-imported by Nuxt. No import needed.`;
 
 export const ICON_BASIC_CODE = `<Icon icon="hugeicons--arrow-down-01" />`;
 

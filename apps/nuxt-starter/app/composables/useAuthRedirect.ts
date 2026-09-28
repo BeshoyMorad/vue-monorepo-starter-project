@@ -1,5 +1,4 @@
 import { useSessionStorage } from '@vueuse/core';
-import { navigateTo } from '#imports';
 import { paths } from '@/constants/route-names';
 
 export const REDIRECT_URL_KEY = 'redirect_url';

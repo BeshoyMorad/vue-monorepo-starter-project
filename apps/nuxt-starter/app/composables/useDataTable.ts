@@ -1,8 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { keepPreviousData, useQuery } from '@tanstack/vue-query';
-import { computed } from 'vue';
 import { fetchTableData } from '@/lib/api/table';
-import { useTableState } from './useTableState';
 import type {
   CursorMeta,
   CursorPaginatedResponse,

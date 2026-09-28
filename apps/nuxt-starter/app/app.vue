@@ -1,8 +1,4 @@
 <script setup lang="ts">
-  import { useHead, useRoute } from '#imports';
-  import { useAppLocale, useDarkTheme, useNetwork } from '@/composables';
-  import { ErrorBoundary, Toaster } from '@/components';
-
   const route = useRoute();
   const { currentLocale, currentLocaleMeta } = useAppLocale();
 
@@ -27,5 +23,5 @@
     </NuxtLayout>
   </ErrorBoundary>
 
-  <Toaster />
+  <Sonner />
 </template>

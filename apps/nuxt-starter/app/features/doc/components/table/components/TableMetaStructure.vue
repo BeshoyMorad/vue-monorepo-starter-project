@@ -1,10 +1,9 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
   import {
     PAGINATION_META_COMPARISON_CODE_OFFSET,
     PAGINATION_META_COMPARISON_CODE_CURSOR,
   } from '@/features/doc/components/table/constants/constants';
-  import { Table } from '@/components';
+
   const paginationMetaColumns = [
     {
       accessorKey: 'property',
@@ -75,7 +74,7 @@
       </p>
     </div>
 
-    <Card
+    <ExampleCard
       title="Offset vs Cursor Meta"
       description="The meta object returned by the API depends on the pagination strategy."
       header="Comparison"
@@ -85,8 +84,8 @@
       ]"
     >
       <template #preview>
-        <Table :columns="paginationMetaColumns" :value="paginationMetaValue" />
+        <DataTable :columns="paginationMetaColumns" :value="paginationMetaValue" />
       </template>
-    </Card>
+    </ExampleCard>
   </section>
 </template>

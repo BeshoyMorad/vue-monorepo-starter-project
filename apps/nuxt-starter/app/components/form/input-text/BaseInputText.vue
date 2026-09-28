@@ -1,8 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
   import { cn } from '@/utils';
-  import { Input } from '@/components/ui/input';
-  import { Icon } from '@/components';
 
   defineOptions({
     inheritAttrs: false,

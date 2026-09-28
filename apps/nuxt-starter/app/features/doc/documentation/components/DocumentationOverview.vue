@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import {
     ARCHITECTURE_DOM,
     ARCHITECTURE_FEATURE_CODE,
@@ -27,14 +25,14 @@
     </section>
 
     <!-- Introduction -->
-    <Card
+    <ExampleCard
       :title="ARCHITECTURE_DOM.introduction.title"
       :description="ARCHITECTURE_DOM.introduction.description"
       :show-preview="false"
     />
 
     <!-- Project Structure -->
-    <Card
+    <ExampleCard
       :title="ARCHITECTURE_DOM.structure.title"
       :description="ARCHITECTURE_DOM.structure.description"
       :border="false"
@@ -59,10 +57,10 @@
           </div>
         </div>
       </template>
-    </Card>
+    </ExampleCard>
 
     <!-- Feature Structure -->
-    <Card
+    <ExampleCard
       :title="ARCHITECTURE_DOM.featureStructure.title"
       :description="ARCHITECTURE_DOM.featureStructure.description"
       :border="false"
@@ -86,9 +84,9 @@
           </div>
         </div>
       </template>
-    </Card>
+    </ExampleCard>
     <!-- Feature Architecture -->
-    <Card
+    <ExampleCard
       :title="ARCHITECTURE_DOM.featureArchitecture.title"
       :description="ARCHITECTURE_DOM.featureArchitecture.description"
       :border="false"
@@ -128,10 +126,10 @@
           </div>
         </div>
       </template>
-    </Card>
+    </ExampleCard>
 
     <!-- Adding a New Feature -->
-    <Card
+    <ExampleCard
       :title="ARCHITECTURE_DOM.newFeature.title"
       :description="ARCHITECTURE_DOM.newFeature.description"
       :border="false"
@@ -159,6 +157,6 @@
           </div>
         </div>
       </template>
-    </Card>
+    </ExampleCard>
   </div>
 </template>

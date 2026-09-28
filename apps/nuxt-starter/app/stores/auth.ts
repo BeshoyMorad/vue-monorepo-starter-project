@@ -1,6 +1,4 @@
-import { defineStore } from 'pinia';
 import { StorageSerializers, useLocalStorage } from '@vueuse/core';
-import { navigateTo } from '#imports';
 import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from '@/lib/api/token';
 import { paths } from '@/constants/route-names';
 import type { AuthSession } from '@/types/auth';

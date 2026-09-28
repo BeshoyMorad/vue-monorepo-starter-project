@@ -6,7 +6,6 @@
   import { PaginationNext, useForwardProps } from 'reka-ui';
   import { cn } from '@/utils';
   import { buttonVariants } from '@/components/ui/button';
-  import { Icon } from '@/components';
 
   const props = withDefaults(
     defineProps<

@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="TRow">
   import { FlexRender, type Row } from '@tanstack/vue-table';
-  import { TableRow, TableCell } from '@/components/ui/table';
+  import { TableRow } from '@/components/ui/table';
 
   defineProps<{
     row: Row<TRow>;

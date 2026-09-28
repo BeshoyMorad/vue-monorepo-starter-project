@@ -1,14 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseInputPassword from './BaseInputPassword.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -51,7 +43,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseInputPassword v-bind="{ ...$attrs, ...componentField }" :test-id="testId" />
+          <FormBaseInputPassword v-bind="{ ...$attrs, ...componentField }" :test-id="testId" />
         </FormControl>
 
         <FormDescription v-if="description">{{ description }}</FormDescription>
@@ -62,7 +54,7 @@
   </template>
 
   <template v-else>
-    <BaseInputPassword
+    <FormBaseInputPassword
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

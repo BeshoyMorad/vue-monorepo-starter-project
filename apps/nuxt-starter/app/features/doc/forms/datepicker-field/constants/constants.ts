@@ -35,8 +35,6 @@ export const DATE_PICKER_DISABLED_CODE = `<Field.DatePicker
 />`;
 
 export const DATE_PICKER_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const birthDate = ref<Date | null>(null);
 </script>
 

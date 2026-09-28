@@ -12,7 +12,6 @@ export const PASSWORD_LOADING_CODE = `<Field.Password
 />`;
 
 export const PASSWORD_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
 import { Field } from '@/components';
 
 const passwordValue = ref('');

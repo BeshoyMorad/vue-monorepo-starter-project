@@ -85,8 +85,6 @@ const roles = [
 </template>`;
 
 export const CHECKBOX_GROUP_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const selectedRoles = ref<string[]>(['admin']);
 </script>
 

@@ -1,11 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { Button, Dialog, ConfirmDialog, FormDialog, Field } from '@/components';
-  import Codeblock from '@/components/codeblock/codeblock.vue';
+  import { Field } from '@/components';
   import { DIALOG_VARIANTS } from '@/features/doc/components/dialog/constants/constants';
-  import { useAppLocale } from '@/composables';
-  import { ref } from 'vue';
 
   definePageMeta({
     name: paths.componentsPaths.dialog,

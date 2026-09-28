@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     CHECKBOX_IMPORT_CODE,
@@ -39,7 +36,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="CHECKBOX_DOC.import.title"
       :description="CHECKBOX_DOC.import.description"
       :code="CHECKBOX_IMPORT_CODE"
@@ -60,7 +57,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_DOC.basic.title"
           :description="CHECKBOX_DOC.basic.description"
           :how-to-use="CHECKBOX_DOC.basic.howToUse"
@@ -73,10 +70,10 @@
               :test-id="CHECKBOX_DOC.basic.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Sizes -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_DOC.sizes.title"
           :description="CHECKBOX_DOC.sizes.description"
           :how-to-use="CHECKBOX_DOC.sizes.howToUse"
@@ -103,10 +100,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Shapes -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_DOC.shapes.title"
           :description="CHECKBOX_DOC.shapes.description"
           :how-to-use="CHECKBOX_DOC.shapes.howToUse"
@@ -128,10 +125,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_DOC.vModel.title"
           :description="CHECKBOX_DOC.vModel.description"
           :how-to-use="CHECKBOX_DOC.vModel.howToUse"
@@ -161,7 +158,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

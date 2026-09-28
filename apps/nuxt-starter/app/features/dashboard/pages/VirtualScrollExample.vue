@@ -1,7 +1,4 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import { PageWrapper, InfiniteScroll, Button, Icon } from '@/components';
-
   interface UserItem {
     id: number;
     name: string;

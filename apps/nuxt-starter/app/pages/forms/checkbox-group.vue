@@ -1,8 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
-  import Card from '@/components/card/ExampleCard.vue';
   import { Field } from '@/components';
 
   import {
@@ -118,7 +115,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="CHECKBOX_GROUP_DOC.import.title"
       :description="CHECKBOX_GROUP_DOC.import.description"
       :code="CHECKBOX_GROUP_IMPORT_CODE"
@@ -139,7 +136,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.basic.title"
           :description="CHECKBOX_GROUP_DOC.basic.description"
           :how-to-use="CHECKBOX_GROUP_DOC.basic.howToUse"
@@ -149,10 +146,10 @@
           <template #preview>
             <Field.CheckboxGroup :options="roles" :test-id="CHECKBOX_GROUP_DOC.basic.testId" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Layout -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.layout.title"
           :description="CHECKBOX_GROUP_DOC.layout.description"
           :how-to-use="CHECKBOX_GROUP_DOC.layout.howToUse"
@@ -186,10 +183,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Sizes -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.sizes.title"
           :description="CHECKBOX_GROUP_DOC.sizes.description"
           :how-to-use="CHECKBOX_GROUP_DOC.sizes.howToUse"
@@ -234,10 +231,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Shapes -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.shapes.title"
           :description="CHECKBOX_GROUP_DOC.shapes.description"
           :how-to-use="CHECKBOX_GROUP_DOC.shapes.howToUse"
@@ -271,10 +268,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.disabled.title"
           :description="CHECKBOX_GROUP_DOC.disabled.description"
           :how-to-use="CHECKBOX_GROUP_DOC.disabled.howToUse"
@@ -287,10 +284,10 @@
               :test-id="CHECKBOX_GROUP_DOC.disabled.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.vModel.title"
           :description="CHECKBOX_GROUP_DOC.vModel.description"
           :how-to-use="CHECKBOX_GROUP_DOC.vModel.howToUse"
@@ -316,10 +313,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Form -->
-        <Card
+        <ExampleCard
           :title="CHECKBOX_GROUP_DOC.form.title"
           :description="CHECKBOX_GROUP_DOC.form.description"
           :how-to-use="CHECKBOX_GROUP_DOC.form.howToUse"
@@ -335,7 +332,7 @@
               :test-id="CHECKBOX_GROUP_DOC.form.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

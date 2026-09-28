@@ -1,8 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import BaseInputText from '@/components/form/input-text/BaseInputText.vue';
-  import { Icon } from '@/components';
 
   defineOptions({
     inheritAttrs: false,
@@ -33,7 +30,7 @@
 </script>
 
 <template>
-  <BaseInputText v-model="modelValue" v-bind="$attrs" :type="inputType" :test-id="testId">
+  <FormBaseInputText v-model="modelValue" v-bind="$attrs" :type="inputType" :test-id="testId">
     <template #right>
       <button
         type="button"
@@ -47,5 +44,5 @@
         />
       </button>
     </template>
-  </BaseInputText>
+  </FormBaseInputText>
 </template>

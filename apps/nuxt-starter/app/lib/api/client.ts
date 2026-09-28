@@ -1,9 +1,6 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import { navigateTo } from '#imports';
-import { useAuthStore } from '@/stores/auth';
 import { paths } from '@/constants/route-names';
 import { getDeviceId } from '@/utils/device';
-import { handleOffline } from '@/composables/useNetwork';
 
 interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;

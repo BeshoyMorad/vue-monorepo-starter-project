@@ -1,5 +1,3 @@
-import { computed, ref } from 'vue';
-
 import { allUsers } from '@/features/doc/components/table/constants/constants';
 
 export function useTablePagination() {

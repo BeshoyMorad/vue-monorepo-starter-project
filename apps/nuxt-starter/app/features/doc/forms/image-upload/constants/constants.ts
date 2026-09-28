@@ -48,7 +48,6 @@ export const IMAGE_UPLOAD_DISABLED_CODE = `<Field.ImageUpload
 />`;
 
 export const IMAGE_UPLOAD_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
 import type { MediaValue } from '@/types/media';
 
 const media = ref<MediaValue | null>(null);

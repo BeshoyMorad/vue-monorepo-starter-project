@@ -1,12 +1,11 @@
 <script setup lang="ts">
   import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui';
   import type { HTMLAttributes } from 'vue';
-  import { computed } from 'vue';
+
   import { reactiveOmit } from '@vueuse/core';
   import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
   import { cva } from 'class-variance-authority';
   import { cn } from '@/utils';
-  import { Icon } from '@/components';
 
   interface CheckboxProps extends CheckboxRootProps {
     class?: HTMLAttributes['class'];

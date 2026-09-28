@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { HTMLAttributes } from 'vue';
-  import { Icon } from '@/components';
+
   import { cn } from '@/utils';
 
   withDefaults(

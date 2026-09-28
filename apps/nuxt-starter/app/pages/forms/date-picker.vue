@@ -1,9 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     DATE_PICKER_IMPORT_CODE,
@@ -41,7 +38,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="DATE_PICKER_DOC.import.title"
       :description="DATE_PICKER_DOC.import.description"
       :code="DATE_PICKER_IMPORT_CODE"
@@ -62,7 +59,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="DATE_PICKER_DOC.basic.title"
           :description="DATE_PICKER_DOC.basic.description"
           :how-to-use="DATE_PICKER_DOC.basic.howToUse"
@@ -74,10 +71,10 @@
               :test-id="DATE_PICKER_DOC.basic.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Date Format -->
-        <Card
+        <ExampleCard
           :title="DATE_PICKER_DOC.dateFormat.title"
           :description="DATE_PICKER_DOC.dateFormat.description"
           :how-to-use="DATE_PICKER_DOC.dateFormat.howToUse"
@@ -109,10 +106,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Min / Max Date -->
-        <Card
+        <ExampleCard
           :title="DATE_PICKER_DOC.minMaxDate.title"
           :description="DATE_PICKER_DOC.minMaxDate.description"
           :how-to-use="DATE_PICKER_DOC.minMaxDate.howToUse"
@@ -145,10 +142,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="DATE_PICKER_DOC.disabled.title"
           :description="DATE_PICKER_DOC.disabled.description"
           :how-to-use="DATE_PICKER_DOC.disabled.howToUse"
@@ -162,10 +159,10 @@
               :test-id="DATE_PICKER_DOC.disabled.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="DATE_PICKER_DOC.vModel.title"
           :description="DATE_PICKER_DOC.vModel.description"
           :how-to-use="DATE_PICKER_DOC.vModel.howToUse"
@@ -192,7 +189,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

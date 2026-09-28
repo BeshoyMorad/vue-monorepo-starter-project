@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  import { useId } from 'vue';
-  import { Button } from '@/components';
   import { cn } from '@/utils';
-  import { useMultiStepForm } from '@/composables/useMultiStepForm';
-  import StepIndicator from './StepIndicator.vue';
   import type { FormPersistenceConfig, FormPersistenceOption, StepDefinition } from '@/types/form';
   import type { GenericObject } from 'vee-validate';
   import type { HTMLAttributes } from 'vue';

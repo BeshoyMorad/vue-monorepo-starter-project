@@ -1,10 +1,10 @@
 <script setup lang="ts">
+  import { success } from '@/utils/toast';
+
   const { code, header } = defineProps<{
     code: string;
     header?: string;
   }>();
-  import { ref } from 'vue';
-  import { success } from '@/utils/toast';
 
   const copied = ref(false);
 

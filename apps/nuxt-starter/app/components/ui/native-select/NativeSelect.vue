@@ -3,7 +3,6 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit, useVModel } from '@vueuse/core';
   import { cn } from '@/utils';
-  import { Icon } from '@/components';
 
   defineOptions({
     inheritAttrs: false,

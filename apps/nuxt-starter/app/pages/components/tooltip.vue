@@ -1,9 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { Tooltip } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
 
   import {
     TOOLTIP_IMPORT_CODE,
@@ -34,7 +30,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="t('tooltip.import.title')"
       :description="t('tooltip.import.description')"
       :code="TOOLTIP_IMPORT_CODE"
@@ -55,7 +51,7 @@
       </div>
 
       <div class="grid grid-cols-1 gap-5">
-        <Card
+        <ExampleCard
           v-for="item in TOOLTIP_EXAMPLES"
           :key="item.nameKey"
           :title="t(item.nameKey)"
@@ -70,7 +66,7 @@
             <div
               class="bg-surface-secondary flex min-h-24 items-center justify-center rounded-lg border p-6"
             >
-              <Tooltip>
+              <AppTooltip>
                 <template #trigger>
                   <p class="cursor-pointer">
                     {{ t('tooltip.examples.basic.trigger') }}
@@ -80,10 +76,10 @@
                 <div>
                   {{ t('tooltip.examples.basic.content') }}
                 </div>
-              </Tooltip>
+              </AppTooltip>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

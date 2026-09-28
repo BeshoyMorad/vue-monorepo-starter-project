@@ -4,7 +4,6 @@
   import StarterCard from '@/features/starter/components/StarterCard.vue';
   import { TEST_IDS } from '@/lib/test-ids';
   import { paths } from '@/constants/route-names';
-  import { computed } from 'vue';
 
   const store = useStarterStore();
   const { data: profile, isLoading, error } = useStarterData();

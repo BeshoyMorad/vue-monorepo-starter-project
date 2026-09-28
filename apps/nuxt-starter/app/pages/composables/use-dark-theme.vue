@@ -1,10 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { useDarkTheme } from '@/composables';
-  import { Button } from '@/components';
-
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     USE_DARK_THEME_DOM,
@@ -38,7 +33,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="USE_DARK_THEME_DOM.import.title"
       :description="USE_DARK_THEME_DOM.import.description"
       :code="USE_DARK_THEME_IMPORT_CODE"
@@ -46,7 +41,7 @@
     />
 
     <!-- What is useDarkTheme? -->
-    <Card
+    <ExampleCard
       :title="USE_DARK_THEME_DOM.whatIs.title"
       :description="USE_DARK_THEME_DOM.whatIs.description"
       :code="USE_DARK_THEME_BASIC_CODE"
@@ -54,7 +49,7 @@
     />
 
     <!-- Basic Usage -->
-    <Card
+    <ExampleCard
       :title="USE_DARK_THEME_DOM.basicUsage.title"
       :description="USE_DARK_THEME_DOM.basicUsage.description"
       :how-to-use="USE_DARK_THEME_DOM.basicUsage.howToUse"
@@ -71,10 +66,10 @@
           </Button>
         </div>
       </template>
-    </Card>
+    </ExampleCard>
 
     <!-- Persistence -->
-    <Card
+    <ExampleCard
       :title="USE_DARK_THEME_DOM.persistence.title"
       :description="USE_DARK_THEME_DOM.persistence.description"
       :code="USE_DARK_THEME_PERSISTENCE_CODE"

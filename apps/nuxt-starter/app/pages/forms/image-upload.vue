@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
   import type { MediaValue } from '@/types/media';
 
   import {
@@ -47,7 +44,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="IMAGE_UPLOAD_DOC.import.title"
       :description="IMAGE_UPLOAD_DOC.import.description"
       :code="IMAGE_UPLOAD_IMPORT_CODE"
@@ -68,7 +65,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.basic.title"
           :description="IMAGE_UPLOAD_DOC.basic.description"
           :how-to-use="IMAGE_UPLOAD_DOC.basic.howToUse"
@@ -78,10 +75,10 @@
           <template #preview>
             <Field.ImageUpload v-model="directMedia" test-id="direct-image-upload" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Avatar Crop -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.avatarCrop.title"
           :description="IMAGE_UPLOAD_DOC.avatarCrop.description"
           :how-to-use="IMAGE_UPLOAD_DOC.avatarCrop.howToUse"
@@ -96,10 +93,10 @@
               test-id="direct-avatar-crop-upload"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Logo Crop -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.logoCrop.title"
           :description="IMAGE_UPLOAD_DOC.logoCrop.description"
           :how-to-use="IMAGE_UPLOAD_DOC.logoCrop.howToUse"
@@ -114,10 +111,10 @@
               test-id="direct-logo-crop-upload"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Free Crop -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.freeCrop.title"
           :description="IMAGE_UPLOAD_DOC.freeCrop.description"
           :how-to-use="IMAGE_UPLOAD_DOC.freeCrop.howToUse"
@@ -132,10 +129,10 @@
               test-id="direct-default-crop-upload"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Custom Aspect Ratio -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.aspectRatio.title"
           :description="IMAGE_UPLOAD_DOC.aspectRatio.description"
           :how-to-use="IMAGE_UPLOAD_DOC.aspectRatio.howToUse"
@@ -151,10 +148,10 @@
               test-id="direct-custom-ratio-upload"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Allowed Types -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.allowedTypes.title"
           :description="IMAGE_UPLOAD_DOC.allowedTypes.description"
           :how-to-use="IMAGE_UPLOAD_DOC.allowedTypes.howToUse"
@@ -169,10 +166,10 @@
               test-id="direct-restricted-upload"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.disabled.title"
           :description="IMAGE_UPLOAD_DOC.disabled.description"
           :how-to-use="IMAGE_UPLOAD_DOC.disabled.howToUse"
@@ -182,10 +179,10 @@
           <template #preview>
             <Field.ImageUpload size-preset="avatar" disabled test-id="direct-disabled-upload" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="IMAGE_UPLOAD_DOC.vModel.title"
           :description="IMAGE_UPLOAD_DOC.vModel.description"
           :how-to-use="IMAGE_UPLOAD_DOC.vModel.howToUse"
@@ -215,7 +212,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

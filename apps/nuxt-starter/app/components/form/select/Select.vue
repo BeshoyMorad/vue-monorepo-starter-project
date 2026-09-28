@@ -8,16 +8,8 @@
     TOptionValue extends keyof Option | ((data: Option) => Value)
   "
 >
-  import { Combobox as UICombobox } from '@/components/ui/combobox';
   import type { AcceptableValue } from 'reka-ui';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -76,7 +68,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <UICombobox
+          <Combobox
             :aria-invalid="!!errorMessage"
             :options="options"
             :option-label="optionLabel"
@@ -101,7 +93,7 @@
             <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
               <slot :name="slotName" v-bind="slotProps || {}" />
             </template>
-          </UICombobox>
+          </Combobox>
         </FormControl>
 
         <FormDescription v-if="description">{{ description }}</FormDescription>
@@ -112,7 +104,7 @@
   </template>
 
   <template v-else>
-    <UICombobox
+    <Combobox
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"
@@ -136,6 +128,6 @@
       <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps || {}" />
       </template>
-    </UICombobox>
+    </Combobox>
   </template>
 </template>

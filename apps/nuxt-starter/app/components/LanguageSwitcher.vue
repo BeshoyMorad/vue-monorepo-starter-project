@@ -1,12 +1,4 @@
 <script setup lang="ts">
-  import { useAppLocale } from '@/composables/useAppLocale';
-  import {
-    Button,
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-  } from '@/components';
   import type { LocaleCode } from '@/types/locale';
 
   const { currentLocaleMeta, supportedLocales, setLocale, isLoadingLocale } = useAppLocale();

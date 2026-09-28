@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     TEXT_IMPORT_CODE,
@@ -37,7 +34,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       title="Import"
       description="Import the Text field from the shared components library."
       :code="TEXT_IMPORT_CODE"
@@ -54,7 +51,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="TEXT_DOC.basic.title"
           :description="TEXT_DOC.basic.description"
           :how-to-use="TEXT_DOC.basic.howToUse"
@@ -63,10 +60,10 @@
           <template #preview>
             <Field.Text placeholder="Enter your name..." test-id="text-basic" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- With Icon -->
-        <Card
+        <ExampleCard
           :title="TEXT_DOC.icon.title"
           :description="TEXT_DOC.icon.description"
           :how-to-use="TEXT_DOC.icon.howToUse"
@@ -89,10 +86,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Loading -->
-        <Card
+        <ExampleCard
           :title="TEXT_DOC.loading.title"
           :description="TEXT_DOC.loading.description"
           :how-to-use="TEXT_DOC.loading.howToUse"
@@ -106,10 +103,10 @@
               test-id="text-loading"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="TEXT_DOC.vModel.title"
           :description="TEXT_DOC.vModel.description"
           :how-to-use="TEXT_DOC.vModel.howToUse"
@@ -132,7 +129,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

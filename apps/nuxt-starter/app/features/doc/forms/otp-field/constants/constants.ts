@@ -27,8 +27,6 @@ export const OTP_INTEGER_ONLY_CODE = `<Field.Otp
 />`;
 
 export const OTP_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const otpValue = ref('');
 </script>
 

@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { ref } from 'vue';
-
   const isGloballyPaused = ref(false);
 </script>
 
 <script setup lang="ts">
   import { TEST_IDS } from '@/lib/test-ids';
-  import { onMounted, onUnmounted, ref as vueRef } from 'vue';
+  import { ref as vueRef } from 'vue';
 
   defineProps<{
     title: string;

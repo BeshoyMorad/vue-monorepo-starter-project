@@ -1,7 +1,4 @@
 <script setup lang="ts">
-  import { Table } from '@/components';
-
-  import { useAppLocale } from '@/composables';
   import { TABLE_EVENTS } from '@/features/doc/components/table/constants/constants';
 
   const { t } = useAppLocale();
@@ -42,7 +39,7 @@
 
     <div>
       <div class="overflow-x-auto">
-        <Table :columns="eventsColumns" :value="eventsValue" />
+        <DataTable :columns="eventsColumns" :value="eventsValue" />
       </div>
     </div>
   </section>

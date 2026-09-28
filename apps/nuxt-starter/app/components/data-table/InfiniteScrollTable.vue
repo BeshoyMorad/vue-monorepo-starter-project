@@ -1,19 +1,11 @@
 <script setup lang="ts" generic="TRow extends { id: number | string }">
-  import { shallowRef, computed, useTemplateRef, onMounted } from 'vue';
   import type { HTMLAttributes } from 'vue';
   import { useInfiniteScroll } from '@vueuse/core';
   import { type ColumnDef } from '@tanstack/vue-table';
   import { cn } from '@/utils';
-  import { Icon, Skeleton, EmptyPlaceholder } from '@/components';
-  import {
-    Table,
-    TableHeader,
-    TableRow as UITableRow,
-    TableCell,
-    TableBody,
-  } from '@/components/ui/table';
-  import TableHead from './TableHead.vue';
-  import TableRow from './TableRow.vue';
+
+  import { Table } from '@/components/ui/table';
+
   import { useTableRowClick } from './useTableRowClick';
   import { useDataTableState } from './useDataTableState';
 
@@ -107,20 +99,20 @@
     }"
   >
     <TableHeader class="bg-background-surface sticky top-0 z-20 shadow-sm">
-      <TableHead :table="table" />
+      <DataTableHead :table="table" />
     </TableHeader>
 
     <TableBody>
       <template v-if="loading">
-        <UITableRow v-for="i in skeletonRows" :key="`skeleton-row-${i}`">
+        <TableRow v-for="i in skeletonRows" :key="`skeleton-row-${i}`">
           <TableCell v-for="(_, index) in columns.length" :key="`skeleton-col-${index}`">
             <Skeleton class="h-4 w-[60%]" />
           </TableCell>
-        </UITableRow>
+        </TableRow>
       </template>
 
       <template v-else-if="table.getRowModel().rows?.length">
-        <TableRow
+        <DataTableRow
           v-for="(row, index) in table.getRowModel().rows"
           :key="row.id"
           :row="row"
@@ -130,7 +122,7 @@
         />
       </template>
 
-      <UITableRow v-else-if="!loading">
+      <TableRow v-else-if="!loading">
         <TableCell :colspan="columns.length">
           <slot name="empty">
             <EmptyPlaceholder
@@ -148,7 +140,7 @@
             <EmptyPlaceholder v-else />
           </slot>
         </TableCell>
-      </UITableRow>
+      </TableRow>
     </TableBody>
 
     <template #footer>

@@ -1,13 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseCheckbox from './BaseCheckbox.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -58,7 +51,7 @@
     <FormField v-slot="{ componentField, errorMessage }" :name="name">
       <FormItem :class="containerClass">
         <FormControl>
-          <BaseCheckbox
+          <FormBaseCheckbox
             :id="id"
             :aria-invalid="!!errorMessage"
             :disabled="disabled"
@@ -79,7 +72,7 @@
   </template>
 
   <template v-else>
-    <BaseCheckbox
+    <FormBaseCheckbox
       :id="id"
       v-model="modelValue"
       v-bind="$attrs"

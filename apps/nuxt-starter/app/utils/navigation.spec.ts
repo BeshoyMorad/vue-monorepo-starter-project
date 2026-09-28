@@ -9,6 +9,7 @@ describe('file-based routes', () => {
     [paths.auth.login, '/auth/login'],
     [paths.documentationPaths.overview, '/documentation'],
     [paths.documentationPaths.envConfig, '/documentation/env-configuration'],
+    [paths.documentationPaths.dataFetching, '/documentation/data-fetching'],
     [paths.componentsPaths.button, '/components/button'],
     [paths.componentsPaths.icon, '/components/icon'],
     [paths.formsPaths.otp, '/forms/otp-input'],

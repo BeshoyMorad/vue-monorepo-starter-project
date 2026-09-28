@@ -1,9 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
   import {
     RADIO_IMPORT_CODE,
     RADIO_BASIC_CODE,
@@ -37,7 +34,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="RADIO_DOC.import.title"
       :description="RADIO_DOC.import.description"
       :code="RADIO_IMPORT_CODE"
@@ -57,7 +54,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="RADIO_DOC.basic.title"
           :description="RADIO_DOC.basic.description"
           :how-to-use="RADIO_DOC.basic.howToUse"
@@ -70,10 +67,10 @@
               :value="RADIO_DOC.basic.value"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Values -->
-        <Card
+        <ExampleCard
           :title="RADIO_DOC.value.title"
           :description="RADIO_DOC.value.description"
           :how-to-use="RADIO_DOC.value.howToUse"
@@ -88,10 +85,10 @@
               <Field.Radio label="Option C" value="c" :test-id="RADIO_DOC.value.optionCTestId" />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="RADIO_DOC.vModel.title"
           :description="RADIO_DOC.vModel.description"
           :how-to-use="RADIO_DOC.vModel.howToUse"
@@ -131,10 +128,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="RADIO_DOC.disabled.title"
           :description="RADIO_DOC.disabled.description"
           :how-to-use="RADIO_DOC.disabled.howToUse"
@@ -156,7 +153,7 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

@@ -1,6 +1,4 @@
-<script setup lang="ts">
-  import { Skeleton } from '@/components/ui/skeleton';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="flex items-center gap-2">

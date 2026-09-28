@@ -1,4 +1,3 @@
-import { defineNuxtPlugin } from '#imports';
 import { getEnvConfig } from '@/config/env';
 import { setupApiClient } from '@/lib/api/client';
 

@@ -1,14 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseDatePicker from './BaseDatePicker.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -63,7 +55,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseDatePicker
+          <FormBaseDatePicker
             :id="id"
             :aria-invalid="!!errorMessage"
             :date-format="dateFormat"
@@ -84,7 +76,7 @@
   </template>
 
   <template v-else>
-    <BaseDatePicker
+    <FormBaseDatePicker
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

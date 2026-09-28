@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  import { computed, useAttrs, useId } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { radioGroupVariants } from './index';
   import type { RadioGroupOption } from '@/types/form';
-  import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
   import { cn } from '@/utils';
 
   defineOptions({

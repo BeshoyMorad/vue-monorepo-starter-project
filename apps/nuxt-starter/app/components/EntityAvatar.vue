@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-
   withDefaults(
     defineProps<{
       name: string;

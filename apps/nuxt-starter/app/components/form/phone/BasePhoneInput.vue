@@ -1,11 +1,8 @@
 <script setup lang="ts">
-  import { ref, computed, watch, nextTick } from 'vue';
   import { type CountryCode } from 'libphonenumber-js';
   import { cn } from '@/utils';
   import { allCountries } from '@/utils/countries';
   import { inputVariants } from '@/components/ui/input';
-  import { Popover } from '@/components/ui/popover';
-  import { Icon } from '@/components';
 
   defineOptions({
     inheritAttrs: false,

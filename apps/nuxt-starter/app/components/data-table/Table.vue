@@ -2,17 +2,7 @@
   import type { CursorMeta, OffsetMeta } from '@/types/api';
   import { cn } from '@/utils';
   import { type ColumnDef } from '@tanstack/vue-table';
-  import { Skeleton, EmptyPlaceholder } from '@/components';
-  import {
-    Table,
-    TableHeader,
-    TableRow as UITableRow,
-    TableCell,
-    TableBody,
-  } from '@/components/ui/table';
-  import TableHead from './TableHead.vue';
-  import TableRow from './TableRow.vue';
-  import TablePagination from './TablePagination.vue';
+  import { Table } from '@/components/ui/table';
   import { useTableRowClick } from './useTableRowClick';
   import { useDataTableState } from './useDataTableState';
 
@@ -52,20 +42,20 @@
 <template>
   <Table container-class="rounded-md relative w-full">
     <TableHeader>
-      <TableHead :table="table" />
+      <DataTableHead :table="table" />
     </TableHeader>
 
     <TableBody>
       <template v-if="loading">
-        <UITableRow v-for="i in 10" :key="`skeleton-row-${i}`">
+        <TableRow v-for="i in 10" :key="`skeleton-row-${i}`">
           <TableCell v-for="(_, index) in columns.length" :key="`skeleton-col-${index}`">
             <Skeleton class="h-4 w-[60%]" />
           </TableCell>
-        </UITableRow>
+        </TableRow>
       </template>
 
       <template v-else-if="table.getRowModel().rows?.length">
-        <TableRow
+        <DataTableRow
           v-for="(row, index) in table.getRowModel().rows"
           :key="row.id"
           :row="row"
@@ -75,7 +65,7 @@
         />
       </template>
 
-      <UITableRow v-else-if="!loading">
+      <TableRow v-else-if="!loading">
         <TableCell :colspan="columns.length">
           <slot name="empty">
             <EmptyPlaceholder
@@ -93,11 +83,11 @@
             <EmptyPlaceholder v-else />
           </slot>
         </TableCell>
-      </UITableRow>
+      </TableRow>
     </TableBody>
 
     <template #footer>
-      <TablePagination
+      <DataTablePagination
         :meta="meta"
         :limit-options="limitOptions"
         @page-change="emit('pageChange', $event)"

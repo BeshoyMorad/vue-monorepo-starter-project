@@ -1,7 +1,4 @@
 <script setup lang="ts">
-  import { computed, ref, watch } from 'vue';
-  import { useDarkTheme } from '@/composables';
-
   const props = withDefaults(
     defineProps<{
       src?: string;

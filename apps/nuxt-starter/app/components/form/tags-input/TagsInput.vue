@@ -1,14 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseTagsInput from './BaseTagsInput.vue';
+  import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
@@ -57,7 +49,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseTagsInput
+          <FormBaseTagsInput
             v-bind="$attrs"
             :model-value="value"
             :disabled="disabled"
@@ -70,7 +62,7 @@
             <template v-if="$slots.tag" #tag="{ value: tagValue }">
               <slot name="tag" :value="tagValue" />
             </template>
-          </BaseTagsInput>
+          </FormBaseTagsInput>
         </FormControl>
 
         <FormDescription v-if="description">{{ description }}</FormDescription>
@@ -81,7 +73,7 @@
   </template>
 
   <template v-else>
-    <BaseTagsInput
+    <FormBaseTagsInput
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"
@@ -93,6 +85,6 @@
       <template v-if="$slots.tag" #tag="{ value }">
         <slot name="tag" :value="value" />
       </template>
-    </BaseTagsInput>
+    </FormBaseTagsInput>
   </template>
 </template>

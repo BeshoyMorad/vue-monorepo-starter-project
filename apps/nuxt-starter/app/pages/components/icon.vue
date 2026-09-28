@@ -1,9 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import Card from '@/components/card/ExampleCard.vue';
 
-  import { Icon } from '@/components';
   import {
     ICON_IMPORT_CODE,
     ICON_BASIC_CODE,
@@ -34,7 +31,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="ICON_DOC.import.title"
       :description="ICON_DOC.import.description"
       :code="ICON_IMPORT_CODE"
@@ -56,7 +53,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="ICON_DOC.basic.title"
           :description="ICON_DOC.basic.description"
           :how-to-use="ICON_DOC.basic.howToUse"
@@ -71,10 +68,10 @@
           <template #preview>
             <Icon icon="hugeicons--arrow-down-01" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Sizes -->
-        <Card
+        <ExampleCard
           :title="ICON_DOC.sizes.title"
           :description="ICON_DOC.sizes.description"
           :how-to-use="ICON_DOC.sizes.howToUse"
@@ -96,7 +93,7 @@
               <Icon icon="hugeicons--volleyball" size="2xl" />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

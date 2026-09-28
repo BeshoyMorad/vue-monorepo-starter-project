@@ -1,8 +1,7 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
   import { Cropper } from 'vue-advanced-cropper';
   import 'vue-advanced-cropper/dist/style.css';
-  import { Button, Dialog } from '@/components';
+
   import { TEST_IDS } from '@/lib/test-ids';
 
   interface Props {

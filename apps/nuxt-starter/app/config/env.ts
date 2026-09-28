@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { useRuntimeConfig } from '#imports';
 import type { AppEnvConfig } from '@/types/env';
 
 const envSchema: yup.ObjectSchema<AppEnvConfig> = yup.object({

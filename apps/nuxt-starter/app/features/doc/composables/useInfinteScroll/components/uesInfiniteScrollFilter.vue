@@ -1,12 +1,8 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import { USE_DATA_INFINITE_SCROLL_PARAMS_CODE } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser, MockUserFilters } from '@/features/doc/types';
-  import { useDataInfiniteScroll } from '@/composables';
   import { getMockOffsetUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import InfiniteScroll from '@/components/infinite-scroll/InfiniteScroll.vue';
-  import { Avatar, AvatarImage, AvatarFallback, Field } from '@/components';
+  import { Field } from '@/components';
 
   const filterOptions = [
     { label: 'All', value: 'all' },
@@ -32,7 +28,7 @@
     });
 </script>
 <template>
-  <Card
+  <ExampleCard
     title="Filter"
     description="Use baseParams when the API request needs additional parameters such as filters."
     how-to-use="Update baseParams with the parameters required by your API. The composable uses them when requesting data."
@@ -91,5 +87,5 @@
         </InfiniteScroll>
       </div>
     </template>
-  </Card>
+  </ExampleCard>
 </template>

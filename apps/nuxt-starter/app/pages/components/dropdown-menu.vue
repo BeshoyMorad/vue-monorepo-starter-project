@@ -1,28 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
-
-  import Card from '@/components/card/ExampleCard.vue';
-
-  import Button from '@/components/ui/button/Button.vue';
-
-  import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-  } from '@/components';
 
   import {
     DROPDOWN_MENU_IMPORT_CODE,
@@ -59,7 +36,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="DROPDOWN_MENU_DOC.import.title"
       :description="DROPDOWN_MENU_DOC.import.description"
       :code="DROPDOWN_MENU_IMPORT_CODE"
@@ -81,7 +58,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="DROPDOWN_MENU_DOC.basic.title"
           :description="DROPDOWN_MENU_DOC.basic.description"
           :how-to-use="DROPDOWN_MENU_DOC.basic.howToUse"
@@ -108,10 +85,10 @@
               </DropdownMenuContent>
             </DropdownMenu>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Group -->
-        <Card
+        <ExampleCard
           :title="DROPDOWN_MENU_DOC.group.title"
           :description="DROPDOWN_MENU_DOC.group.description"
           :how-to-use="DROPDOWN_MENU_DOC.group.howToUse"
@@ -158,10 +135,10 @@
               </DropdownMenuContent>
             </DropdownMenu>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Checkbox / Radio -->
-        <Card
+        <ExampleCard
           :title="DROPDOWN_MENU_DOC.checkboxRadio.title"
           :description="DROPDOWN_MENU_DOC.checkboxRadio.description"
           :how-to-use="DROPDOWN_MENU_DOC.checkboxRadio.howToUse"
@@ -206,10 +183,10 @@
               </DropdownMenuContent>
             </DropdownMenu>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Submenu -->
-        <Card
+        <ExampleCard
           :title="DROPDOWN_MENU_DOC.submenu.title"
           :description="DROPDOWN_MENU_DOC.submenu.description"
           :how-to-use="DROPDOWN_MENU_DOC.submenu.howToUse"
@@ -248,7 +225,7 @@
               </DropdownMenuContent>
             </DropdownMenu>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

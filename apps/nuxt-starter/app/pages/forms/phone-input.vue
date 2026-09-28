@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     PHONE_IMPORT_CODE,
@@ -39,7 +36,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="PHONE_DOC.import.title"
       :description="PHONE_DOC.import.description"
       :code="PHONE_IMPORT_CODE"
@@ -61,7 +58,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="PHONE_DOC.basic.title"
           :description="PHONE_DOC.basic.description"
           :how-to-use="PHONE_DOC.basic.howToUse"
@@ -72,10 +69,10 @@
           <template #preview>
             <Field.Phone placeholder="12 345 6789" test-id="direct-phone-input" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Default Country -->
-        <Card
+        <ExampleCard
           :title="PHONE_DOC.defaultCountry.title"
           :description="PHONE_DOC.defaultCountry.description"
           :how-to-use="PHONE_DOC.defaultCountry.howToUse"
@@ -90,10 +87,10 @@
               test-id="direct-phone-input-eg"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="PHONE_DOC.vModel.title"
           :description="PHONE_DOC.vModel.description"
           :how-to-use="PHONE_DOC.vModel.howToUse"
@@ -124,7 +121,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

@@ -4,7 +4,6 @@
   import { reactiveOmit } from '@vueuse/core';
   import { DialogContent, DialogPortal, useForwardPropsEmits } from 'reka-ui';
   import { cn } from '@/utils';
-  import DialogOverlay from './DialogOverlay.vue';
 
   type Props = DialogContentProps & {
     class?: HTMLAttributes['class'];

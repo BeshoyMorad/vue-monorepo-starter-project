@@ -1,5 +1,3 @@
-import { computed } from 'vue';
-
 export function useTableRowClick<TRow>(clickable: () => boolean, onRowClick: (row: TRow) => void) {
   const isRowClickable = computed(() => clickable());
 

@@ -1,9 +1,6 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
-  import { MultiStepForm, Field, Button } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Field } from '@/components';
   import type { GenericObject } from 'vee-validate';
   import type { StepDefinition } from '@/types/form';
 
@@ -103,7 +100,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       title="Import"
       description="Import the MultiStepForm component and the required Field components from the shared components library."
       :code="MULTI_STEP_FORM_IMPORT_CODE"
@@ -125,7 +122,7 @@
 
       <div class="space-y-5">
         <!-- Basic Multi-Step Form -->
-        <Card
+        <ExampleCard
           :title="MULTI_STEP_FORM_DOC.basic.title"
           :description="MULTI_STEP_FORM_DOC.basic.description"
           :how-to-use="MULTI_STEP_FORM_DOC.basic.howToUse"
@@ -223,10 +220,10 @@
               </MultiStepForm>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Step Validation -->
-        <Card
+        <ExampleCard
           :title="MULTI_STEP_FORM_DOC.validation.title"
           :description="MULTI_STEP_FORM_DOC.validation.description"
           :how-to-use="MULTI_STEP_FORM_DOC.validation.howToUse"
@@ -251,10 +248,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Persistence -->
-        <Card
+        <ExampleCard
           :title="MULTI_STEP_FORM_DOC.persist.title"
           :description="MULTI_STEP_FORM_DOC.persist.description"
           :how-to-use="MULTI_STEP_FORM_DOC.persist.howToUse"
@@ -278,7 +275,7 @@
               </p>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

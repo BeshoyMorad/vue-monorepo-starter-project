@@ -1,7 +1,6 @@
 <script setup lang="ts">
-  import { computed, useAttrs, useId } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+
   import { cn } from '@/utils';
 
   defineOptions({

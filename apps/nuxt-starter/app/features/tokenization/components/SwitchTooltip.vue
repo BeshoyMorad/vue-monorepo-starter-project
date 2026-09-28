@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import { Field, Icon, Tooltip } from '@/components';
+  import { Field } from '@/components';
 
   interface Props {
     name?: string;
@@ -28,12 +28,12 @@
   <div class="flex gap-2.5">
     <Field.Switch v-model="modelValue" :name="name" :label="label" :test-id="testId" />
 
-    <Tooltip>
+    <AppTooltip>
       <template #trigger>
         <Icon icon="hugeicons--information-circle" class="text-foreground-placeholder" size="lg" />
       </template>
 
       <p>{{ tooltip }}</p>
-    </Tooltip>
+    </AppTooltip>
   </div>
 </template>

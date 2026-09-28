@@ -8,16 +8,8 @@
     OptionValue extends keyof Option | ((data: Option) => Value)
   "
 >
-  import BaseInfiniteScrollSelect from './BaseInfiniteScrollSelect.vue';
   import type { AcceptableValue } from 'reka-ui';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
+  import { FormField } from '@/components/ui/form';
   import type { QueryKey } from '@tanstack/vue-query';
 
   defineOptions({
@@ -86,7 +78,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseInfiniteScrollSelect
+          <FormBaseInfiniteScrollSelect
             :aria-invalid="!!errorMessage"
             :endpoint="endpoint"
             :query-key="queryKey"
@@ -113,7 +105,7 @@
             <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
               <slot :name="slotName" v-bind="slotProps || {}" />
             </template>
-          </BaseInfiniteScrollSelect>
+          </FormBaseInfiniteScrollSelect>
         </FormControl>
 
         <FormDescription v-if="description">{{ description }}</FormDescription>
@@ -124,7 +116,7 @@
   </template>
 
   <template v-else>
-    <BaseInfiniteScrollSelect
+    <FormBaseInfiniteScrollSelect
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"
@@ -150,6 +142,6 @@
       <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps || {}" />
       </template>
-    </BaseInfiniteScrollSelect>
+    </FormBaseInfiniteScrollSelect>
   </template>
 </template>

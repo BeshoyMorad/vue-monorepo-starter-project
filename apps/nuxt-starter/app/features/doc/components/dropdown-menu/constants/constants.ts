@@ -72,9 +72,7 @@ export const DROPDOWN_MENU_GROUP_CODE = `<DropdownMenu>
 </DropdownMenu>`;
 
 export const DROPDOWN_MENU_CHECKBOX_RADIO_CODE = {
-  script: `import { ref } from 'vue';
-
-const showStatusBar = ref(true);
+  script: `const showStatusBar = ref(true);
 const position = ref('bottom');`,
 
   template: `<DropdownMenu>

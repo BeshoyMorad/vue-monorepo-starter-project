@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { MultiStepForm, Field, Button, PageWrapper } from '@/components';
+  import { Field } from '@/components';
   import { paths } from '@/constants/route-names';
   import { success } from '@/utils/toast';
   import { phoneSchema } from '@/utils/yupSchemas';

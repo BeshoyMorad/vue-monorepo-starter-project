@@ -18,7 +18,7 @@ export const USE_DATA_INFINITE_SCROLL_TABLE_CODE_SCRIPT = `const {
   queryKey: ['docs-infinite-scroll-users'],
   endpoint: '/users',
 });`;
-export const USE_DATA_INFINITE_SCROLL_TABLE_CODE_TEMPLATE = `<InfiniteScrollTable
+export const USE_DATA_INFINITE_SCROLL_TABLE_CODE_TEMPLATE = `<DataInfiniteScrollTable
   :columns="columns"
   :value="data"
   :loading="isLoading"
@@ -27,8 +27,7 @@ export const USE_DATA_INFINITE_SCROLL_TABLE_CODE_TEMPLATE = `<InfiniteScrollTabl
   max-height="400px"
   @load-more="fetchNextPage"
 />`;
-export const USE_DATA_INFINITE_SCROLL_IMPORT_CODE = `import { useDataInfiniteScroll } from '@/composables';
-import { InfiniteScroll } from '@/components';`;
+export const USE_DATA_INFINITE_SCROLL_IMPORT_CODE = `// useDataInfiniteScroll() and <InfiniteScroll> are auto-imported by Nuxt. No import needed.`;
 
 export const USE_DATA_INFINITE_SCROLL_BASIC_CODE = `const {
   data,                 // Get the accumulated data from all loaded pages
@@ -114,7 +113,7 @@ export const USE_DATA_INFINITE_SCROLL_CURSOR_CODE = `const {
   },
 });`;
 
-export const USE_DATA_INFINITE_SCROLL_CURSOR_COMPONENT_CODE = `<InfiniteScrollTable
+export const USE_DATA_INFINITE_SCROLL_CURSOR_COMPONENT_CODE = `<DataInfiniteScrollTable
   :columns="columns"          // Array of column definitions
   :value="data"               // Array of data
   :loading="isLoading"        // state of loading 

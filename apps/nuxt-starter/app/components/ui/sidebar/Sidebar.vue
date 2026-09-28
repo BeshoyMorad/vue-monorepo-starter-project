@@ -1,8 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref } from 'vue';
-  import { useRouter } from '#imports';
   import type { RouteRecordRaw } from 'vue-router';
-  import Icon from '@/components/icon/Icon.vue';
   import { Field } from '@/components/form';
   import { getSidebarLinks, getSidebarSections } from '@/utils/navigation';
 

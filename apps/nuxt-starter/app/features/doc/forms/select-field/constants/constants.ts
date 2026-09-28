@@ -66,8 +66,6 @@ export const SELECT_CUSTOM_VALUE_CODE = `<Field.Select
 </Field.Select>`;
 
 export const SELECT_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const selectedValue = ref<string>();
 </script>
 

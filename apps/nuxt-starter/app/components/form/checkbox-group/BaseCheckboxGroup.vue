@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  import { computed, useAttrs } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { checkboxGroupVariants } from './index';
   import type { CheckboxGroupOption } from '@/types/form';
-  import BaseCheckbox from '@/components/form/checkbox/BaseCheckbox.vue';
 
   defineOptions({
     inheritAttrs: false,
@@ -67,7 +65,7 @@
 <template>
   <div v-bind="attrs" :class="rootClasses" role="group" :data-test-id="props.testId">
     <div v-for="option in options" :key="option.value">
-      <BaseCheckbox
+      <FormBaseCheckbox
         :aria-invalid="isInvalid || undefined"
         :disabled="disabled || option.disabled"
         :label="option.label"

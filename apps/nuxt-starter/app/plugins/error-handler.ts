@@ -1,4 +1,3 @@
-import { defineNuxtPlugin } from '#imports';
 import { error as toastError } from '@/utils/toast';
 
 /** Last-resort handler for component errors that no ErrorBoundary caught. */

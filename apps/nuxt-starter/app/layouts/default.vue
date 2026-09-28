@@ -1,10 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import Sidebar from '@/components/ui/sidebar/Sidebar.vue';
   import { paths } from '@/constants/route-names';
-  import { useDarkTheme } from '@/composables';
-  import Button from '@/components/ui/button/Button.vue';
-  import Icon from '@/components/icon/Icon.vue';
 
   const isSidebarOpen = ref(false);
   const { toggleDark } = useDarkTheme();

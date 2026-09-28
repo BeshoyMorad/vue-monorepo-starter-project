@@ -1,4 +1,4 @@
-export const BUTTON_IMPORT_CODE = `import { Button } from '@/components';`;
+export const BUTTON_IMPORT_CODE = `// <Button> is auto-imported by Nuxt. No import needed.`;
 
 export const BUTTON_VARIANTS = [
   {

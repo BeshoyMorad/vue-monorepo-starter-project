@@ -1,12 +1,7 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-
   import { USE_DATA_INFINITE_SCROLL_VIRTUAL_CODE } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser, MockUserFilters } from '@/features/doc/types';
-  import { useDataInfiniteScroll } from '@/composables';
   import { getMockOffsetUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import InfiniteScroll from '@/components/infinite-scroll/InfiniteScroll.vue';
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components';
   const { data, isFetchingNextPage, hasMore, fetchNextPage } = useDataInfiniteScroll<
     MockAvatarUser,
     MockUserFilters
@@ -26,7 +21,7 @@
   });
 </script>
 <template>
-  <Card
+  <ExampleCard
     title="Virtual Scroll"
     description="Enable virtual scrolling for large datasets to render only the items currently visible in the scroll container."
     how-to-use="Set virtual to true and provide the items, itemHeight, and overscan values. The component renders only the visible items while maintaining the correct scroll height."
@@ -79,5 +74,5 @@
         </template>
       </InfiniteScroll>
     </template>
-  </Card>
+  </ExampleCard>
 </template>

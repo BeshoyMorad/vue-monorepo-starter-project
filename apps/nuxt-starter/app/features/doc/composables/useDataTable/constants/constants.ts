@@ -8,8 +8,7 @@ export const USE_DATA_TABLE_DOM = {
   },
 };
 
-export const USE_DATA_TABLE_IMPORT_CODE = `import { useDataTable } from '@/composables';
-import { Table } from '@/components';`;
+export const USE_DATA_TABLE_IMPORT_CODE = `// useDataTable() and <DataTable> are auto-imported by Nuxt. No import needed.`;
 
 export const USE_DATA_TABLE_BASIC_CODE = `const {
 data,              // Get the current table data
@@ -49,7 +48,7 @@ changeLimit
   limit: 5,
 });`;
 
-export const USE_DATA_TABLE_OFFSET_TABLE_CODE = `<Table
+export const USE_DATA_TABLE_OFFSET_TABLE_CODE = `<DataTable
     :columns="columns"
     :value="data"
     :meta="meta"
@@ -80,7 +79,7 @@ changeLimit
   limit: 5,
 });`;
 
-export const USE_DATA_TABLE_CURSOR_TABLE_CODE = `<Table
+export const USE_DATA_TABLE_CURSOR_TABLE_CODE = `<DataTable
     :columns="columns"
     :value="data"
     :meta="meta"
@@ -116,7 +115,7 @@ export const USE_DATA_TABLE_SEARCH_CODE = `<Field.Text
    placeholder="Search users..."
    test-id="searchTestId"
 />
-<Table
+<DataTable
     :columns="columns"
     :value="data"
     :meta="meta"
@@ -154,7 +153,7 @@ export const USE_DATA_TABLE_FILTER_CODE = `<div class="flex flex-wrap gap-3">
 </Button>
 </div>
 
-<Table
+<DataTable
 :columns="columns"
 :value="data"
 :meta="meta"
@@ -190,7 +189,7 @@ changeLimit
   },
 });`;
 
-export const USE_DATA_TABLE_SORT_CODE = `<Table
+export const USE_DATA_TABLE_SORT_CODE = `<DataTable
     :columns="columns"
     :value="data"
     :meta="meta"
@@ -204,8 +203,7 @@ export const USE_DATA_TABLE_SORT_CODE = `<Table
     @limit-change="changeLimit"
 />`;
 
-export const USE_DATA_TABLE_INFINITE_SCROLL_CODE = `import { useDataTable } from '@/composables';
-import { getMockCursorUsers } from '../constants/mockApi';
+export const USE_DATA_TABLE_INFINITE_SCROLL_CODE = `import { getMockCursorUsers } from '../constants/mockApi';
 
 const {
   data,
@@ -230,7 +228,7 @@ const loadMore = () => {
     fetchNextPage();
   }
 };`;
-export const USE_DATA_TABLE_INFINITE_SCROLL_TABLE_CODE = `<InfiniteScrollTable
+export const USE_DATA_TABLE_INFINITE_SCROLL_TABLE_CODE = `<DataInfiniteScrollTable
   :columns="columns"
   :value="data"
   :loading="isLoading"

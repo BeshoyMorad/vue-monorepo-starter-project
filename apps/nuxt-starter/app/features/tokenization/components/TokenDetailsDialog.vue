@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { computed, toRef } from 'vue';
-  import { Dialog } from '@/components/ui/dialog';
   import { useGetToken } from '@/features/tokenization/composables/useGetToken';
   import { buildTokenRows } from '@/features/tokenization/utils/token-detail-utils';
 

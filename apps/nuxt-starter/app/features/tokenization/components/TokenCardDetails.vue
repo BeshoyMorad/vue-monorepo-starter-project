@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import type { Token } from '@/features/tokenization/types';
-  import { computed } from 'vue';
-  import { Icon, Image, WalletAddress } from '@/components';
+
   import { formatDate } from '@/utils/formatter';
   import { TokenStatusProperties } from '@/features/tokenization/constants/token-statuses';
 

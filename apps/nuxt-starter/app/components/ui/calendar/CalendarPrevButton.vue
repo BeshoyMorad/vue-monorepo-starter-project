@@ -5,7 +5,6 @@
   import { CalendarPrev, useForwardProps } from 'reka-ui';
   import { cn } from '@/utils';
   import { buttonVariants } from '@/components/ui/button';
-  import { Icon } from '@/components';
 
   const props = defineProps<CalendarPrevProps & { class?: HTMLAttributes['class'] }>();
 

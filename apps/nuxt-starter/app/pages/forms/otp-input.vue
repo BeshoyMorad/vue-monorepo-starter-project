@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     OTP_IMPORT_CODE,
@@ -42,7 +39,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="OTP_DOC.import.title"
       :description="OTP_DOC.import.description"
       :code="OTP_IMPORT_CODE"
@@ -63,7 +60,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="OTP_DOC.basic.title"
           :description="OTP_DOC.basic.description"
           :how-to-use="OTP_DOC.basic.howToUse"
@@ -72,10 +69,10 @@
           <template #preview>
             <Field.Otp :length="OTP_DOC.basic.length" :test-id="OTP_DOC.basic.testId" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Length -->
-        <Card
+        <ExampleCard
           :title="OTP_DOC.length.title"
           :description="OTP_DOC.length.description"
           :how-to-use="OTP_DOC.length.howToUse"
@@ -108,10 +105,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Integer Only -->
-        <Card
+        <ExampleCard
           :title="OTP_DOC.integerOnly.title"
           :description="OTP_DOC.integerOnly.description"
           :how-to-use="OTP_DOC.integerOnly.howToUse"
@@ -120,10 +117,10 @@
           <template #preview>
             <Field.Otp :length="6" integer-only :test-id="OTP_DOC.integerOnly.testId" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="OTP_DOC.vModel.title"
           :description="OTP_DOC.vModel.description"
           :how-to-use="OTP_DOC.vModel.howToUse"
@@ -149,10 +146,10 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Disabled -->
-        <Card
+        <ExampleCard
           :title="OTP_DOC.disabled.title"
           :description="OTP_DOC.disabled.description"
           :how-to-use="OTP_DOC.disabled.howToUse"
@@ -166,7 +163,7 @@
               :test-id="OTP_DOC.disabled.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

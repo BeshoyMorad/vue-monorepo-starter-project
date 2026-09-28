@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     PASSWORD_IMPORT_CODE,
@@ -38,7 +35,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="PASSWORD_DOC.import.title"
       :description="PASSWORD_DOC.import.description"
       :code="PASSWORD_IMPORT_CODE"
@@ -59,7 +56,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="PASSWORD_DOC.basic.title"
           :description="PASSWORD_DOC.basic.description"
           :how-to-use="PASSWORD_DOC.basic.howToUse"
@@ -71,10 +68,10 @@
               :test-id="PASSWORD_DOC.basic.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Loading -->
-        <Card
+        <ExampleCard
           :title="PASSWORD_DOC.loading.title"
           :description="PASSWORD_DOC.loading.description"
           :how-to-use="PASSWORD_DOC.loading.howToUse"
@@ -87,10 +84,10 @@
               :test-id="PASSWORD_DOC.loading.testId"
             />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="PASSWORD_DOC.vModel.title"
           :description="PASSWORD_DOC.vModel.description"
           :how-to-use="PASSWORD_DOC.vModel.howToUse"
@@ -115,7 +112,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

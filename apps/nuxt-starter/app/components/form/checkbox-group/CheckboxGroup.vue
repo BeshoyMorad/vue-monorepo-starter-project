@@ -1,14 +1,7 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseCheckboxGroup from './BaseCheckboxGroup.vue';
+  import { FormField } from '@/components/ui/form';
+
   import type { CheckboxGroupOption } from '@/types/form';
 
   defineOptions({
@@ -61,7 +54,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseCheckboxGroup
+          <FormBaseCheckboxGroup
             :aria-invalid="!!errorMessage"
             :disabled="disabled"
             :layout="layout"
@@ -81,7 +74,7 @@
   </template>
 
   <template v-else>
-    <BaseCheckboxGroup
+    <FormBaseCheckboxGroup
       v-model="modelValue"
       v-bind="$attrs"
       :class="containerClass"

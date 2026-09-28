@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { Field, EntityAvatar } from '@/components';
+  import { Field } from '@/components';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { useVaultOwnerResolve } from '@/features/tokenization/composables/useVaultOwnerResolve';
   import { useCreateTokenFormState } from '@/features/tokenization/composables/useCreateTokenFormState';

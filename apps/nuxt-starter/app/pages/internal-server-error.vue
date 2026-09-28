@@ -1,12 +1,11 @@
 <script setup lang="ts">
-  import { definePageMeta, navigateTo } from '#imports';
-  import { ExceptionState } from '@/components';
   import { paths } from '@/constants/route-names';
 
   definePageMeta({
     name: paths.errors.serverError,
     layout: false,
     title: 'Internal Server Error',
+    auth: false,
   });
 
   const goHome = () => navigateTo({ name: paths.dashboard.root });

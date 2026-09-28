@@ -1,14 +1,7 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormDescription,
-    FormMessage,
-  } from '@/components/ui/form';
-  import BaseImageUpload from './BaseImageUpload.vue';
+  import { FormField } from '@/components/ui/form';
+
   import type { MediaValue } from '@/types/media';
 
   defineOptions({
@@ -62,7 +55,7 @@
         <FormLabel v-if="label">{{ label }}</FormLabel>
 
         <FormControl>
-          <BaseImageUpload
+          <FormBaseImageUpload
             :test-id="testId"
             :disabled="disabled"
             :placeholder="placeholder"
@@ -85,7 +78,7 @@
   </template>
 
   <template v-else>
-    <BaseImageUpload
+    <FormBaseImageUpload
       v-model="modelValue"
       v-bind="$attrs"
       :test-id="testId"

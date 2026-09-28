@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     API_ENDPOINTS_CODE,
@@ -36,16 +34,16 @@
     </section>
 
     <!-- Project Structure -->
-    <Card
+    <ExampleCard
       :title="API_STRUCTURE_DOM.structure.title"
       :description="API_STRUCTURE_DOM.location.description"
       :code="API_STRUCTURE_IMPORT_CODE"
       :structure="API_PROJECT_STRUCTURE"
     >
-    </Card>
+    </ExampleCard>
 
     <!-- API Endpoints -->
-    <Card
+    <ExampleCard
       :title="API_STRUCTURE_DOM.endpoints.title"
       :description="API_STRUCTURE_DOM.endpoints.description"
       :how-to-use="API_STRUCTURE_DOM.endpoints.howToUse"
@@ -62,9 +60,9 @@
         },
       ]"
     >
-    </Card>
+    </ExampleCard>
     <!-- Query Keys -->
-    <Card
+    <ExampleCard
       :title="API_STRUCTURE_DOM.queryKeys.title"
       :description="API_STRUCTURE_DOM.queryKeys.description"
       :how-to-use="API_STRUCTURE_DOM.queryKeys.howToUse"
@@ -82,6 +80,6 @@
         },
       ]"
     >
-    </Card>
+    </ExampleCard>
   </div>
 </template>

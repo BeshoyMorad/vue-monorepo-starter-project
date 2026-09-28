@@ -1,7 +1,4 @@
 <script setup lang="ts">
-  import { usePermissionStore } from '@/stores/permissions';
-  import { computed } from 'vue';
-  import { useRoute, useRouter } from '#imports';
   import type { CanPermission } from '@/types/permissions';
 
   interface Tab {

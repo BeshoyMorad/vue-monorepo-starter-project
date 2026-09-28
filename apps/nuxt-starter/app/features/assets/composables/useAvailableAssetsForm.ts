@@ -1,8 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import { computed, watch } from 'vue';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
-import { useDataInfiniteScroll } from '@/composables/useDataInfiniteScroll';
 import { useAddAvailableAssetsMutation } from '@/features/assets/mutations/useAddAvailableAssetsMutation';
 import { availableAssetsSchema } from '@/features/assets/schemas/available-assets.schema';
 import { apiRoute } from '@/lib/api/endpoints';

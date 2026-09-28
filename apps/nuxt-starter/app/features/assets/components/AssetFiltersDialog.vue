@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { FormDialog, Field, EntityAvatar } from '@/components';
+  import { Field } from '@/components';
   import { TEST_IDS } from '@/lib/test-ids';
   import { apiRoute } from '@/lib/api/endpoints';
   import { QUERY_KEYS } from '@/lib/query-keys';

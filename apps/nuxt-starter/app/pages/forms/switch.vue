@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { definePageMeta } from '#imports';
   import { paths } from '@/constants/route-names';
-  import { ref } from 'vue';
 
   import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
 
   import {
     SWITCH_IMPORT_CODE,
@@ -38,7 +35,7 @@
     </section>
 
     <!-- Import -->
-    <Card
+    <ExampleCard
       :title="SWITCH_DOC.import.title"
       :description="SWITCH_DOC.import.description"
       :code="SWITCH_IMPORT_CODE"
@@ -59,7 +56,7 @@
 
       <div class="space-y-5">
         <!-- Basic -->
-        <Card
+        <ExampleCard
           :title="SWITCH_DOC.basic.title"
           :description="SWITCH_DOC.basic.description"
           :how-to-use="SWITCH_DOC.basic.howToUse"
@@ -68,10 +65,10 @@
           <template #preview>
             <Field.Switch :label="SWITCH_DOC.basic.label" :test-id="SWITCH_DOC.basic.testId" />
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- Sizes -->
-        <Card
+        <ExampleCard
           :title="SWITCH_DOC.sizes.title"
           :description="SWITCH_DOC.sizes.description"
           :how-to-use="SWITCH_DOC.sizes.howToUse"
@@ -97,10 +94,10 @@
               />
             </div>
           </template>
-        </Card>
+        </ExampleCard>
 
         <!-- v-model -->
-        <Card
+        <ExampleCard
           :title="SWITCH_DOC.vModel.title"
           :description="SWITCH_DOC.vModel.description"
           :how-to-use="SWITCH_DOC.vModel.howToUse"
@@ -127,7 +124,7 @@
               </div>
             </div>
           </template>
-        </Card>
+        </ExampleCard>
       </div>
     </section>
   </div>

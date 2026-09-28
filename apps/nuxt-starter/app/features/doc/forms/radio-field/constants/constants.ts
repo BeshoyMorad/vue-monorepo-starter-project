@@ -25,8 +25,6 @@ export const RADIO_VALUE_CODE = `<Field.Radio
 />`;
 
 export const RADIO_V_MODEL_CODE = `<script setup lang="ts">
-import { ref } from 'vue';
-
 const radioValue = ref('a');
 </script>
 
