@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { Tooltip } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
+  import { Tooltip } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import { useAppLocale } from '@workspace/core/composables';
 
   import { TOOLTIP_IMPORT_CODE, TOOLTIP_EXAMPLES } from '../constants/constants';
 

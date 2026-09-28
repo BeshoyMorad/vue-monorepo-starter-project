@@ -2,17 +2,23 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { VueQueryPlugin } from '@tanstack/vue-query';
-import { queryClient } from '@/lib/query-client';
+import { queryClient } from '@workspace/core/lib/query-client';
+import { validateEnv } from '@workspace/core/env';
 import './css/index.css';
-import router from './router/index.ts';
+import router from './router';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import App from './App.vue';
-import { error as toastError } from '@/utils/toast';
+import { error as toastError } from '@workspace/core/utils/toast';
 
-import i18n from './locales';
-import { useAppLocale } from '@/composables/useAppLocale';
+import i18n, { loadLocaleMessages } from './locales';
+import { registerAppI18n, useAppLocale } from '@workspace/core/composables';
+
+// Fail fast if required environment variables are missing
+validateEnv(import.meta.env);
+
+registerAppI18n(i18n, loadLocaleMessages);
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);

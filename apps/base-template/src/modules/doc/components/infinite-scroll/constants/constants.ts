@@ -1,9 +1,9 @@
-export const INFINITE_SCROLL_IMPORT_CODE = `import { InfiniteScroll } from '@/components';`;
+export const INFINITE_SCROLL_IMPORT_CODE = `import { InfiniteScroll } from '@workspace/ui';`;
 
 export const INFINITE_SCROLL_BASIC_CODE = {
   script: `<script setup lang="ts">
 import { ref } from 'vue';
-import { InfiniteScroll } from '@/components';
+import { InfiniteScroll } from '@workspace/ui';
 const items = ref([]);
 const loading = ref(false);
 const hasMore = ref(true);

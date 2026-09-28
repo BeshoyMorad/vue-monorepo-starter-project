@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { MultiStepForm, Field, Button, PageWrapper } from '@/components';
+  import { MultiStepForm, Field, Button, PageWrapper } from '@workspace/ui';
   import { paths } from '@/router/paths';
-  import { success } from '@/utils/toast';
-  import { phoneSchema } from '@/utils/yupSchemas';
+  import { success } from '@workspace/core/utils/toast';
+  import { phoneSchema } from '@workspace/core/utils/yupSchemas';
   import * as yup from 'yup';
-  import type { StepDefinition } from '@/components';
+  import type { StepDefinition } from '@workspace/ui';
   import type { GenericObject } from 'vee-validate';
 
   // 1. Define Step Definitions & Schemas

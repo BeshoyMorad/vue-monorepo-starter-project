@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { Button, Field } from '@/components';
+  import { Button, Field } from '@workspace/ui';
 
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import {
     IMAGE_UPLOAD_DOM,
@@ -16,7 +16,7 @@
     IMAGE_UPLOAD_MEDIA_ID_CODE,
     IMAGE_UPLOAD_MULTIPLE_CODE,
   } from '../constants/constants';
-  import type { MediaValue } from '@/types/media';
+  import type { MediaValue } from '@workspace/core/types/media';
 
   const media = ref<MediaValue | null>(null);
 

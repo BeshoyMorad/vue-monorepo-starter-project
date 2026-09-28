@@ -1,8 +1,8 @@
 <script setup lang="ts">
   /* eslint-disable max-lines */
   import { ref, computed } from 'vue';
-  import { useAppLocale } from '@/composables/useAppLocale';
-  import { Button, LanguageSwitcher, PageWrapper } from '@/components';
+  import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+  import { Button, LanguageSwitcher, PageWrapper } from '@workspace/ui';
   import dayjs from 'dayjs';
   import { paths } from '@/router/paths';
 
@@ -345,7 +345,7 @@
           <div class="bg-surface-secondary border-border-secondary space-y-2 rounded-lg border p-4">
             <h3 class="text-text-primary font-semibold">{{ t('demo.howToUse.step1Title') }}</h3>
             <pre class="text-text-secondary overflow-x-auto font-mono text-[11px]">
-import { useAppLocale } from '@/composables';
+import { useAppLocale } from '@workspace/core/composables';
 
 const { t, d, n, currentLocale, isRTL } = useAppLocale();
 const label = t('common.save');

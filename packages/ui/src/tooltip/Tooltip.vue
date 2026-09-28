@@ -4,17 +4,25 @@
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-  } from '@/components/ui/tooltip';
+  } from '@workspace/ui/ui/tooltip';
+
+  interface Props {
+    testId?: string;
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-tooltip',
+  });
 </script>
 
 <template>
   <TooltipProvider>
-    <Tooltip>
+    <Tooltip :data-testid="props.testId">
       <TooltipTrigger>
         <slot name="trigger" />
       </TooltipTrigger>
 
-      <TooltipContent>
+      <TooltipContent :data-testid="`${props.testId}-content`">
         <slot />
       </TooltipContent>
     </Tooltip>

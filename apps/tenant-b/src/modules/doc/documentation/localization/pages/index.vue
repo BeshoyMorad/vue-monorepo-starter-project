@@ -3,9 +3,9 @@
   import { computed, ref } from 'vue';
   import dayjs from 'dayjs';
 
-  import Card from '@/components/card/ExampleCard.vue';
-  import { Button, LanguageSwitcher } from '@/components';
-  import { useAppLocale } from '@/composables/useAppLocale';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import { Button, LanguageSwitcher } from '@workspace/ui';
+  import { useAppLocale } from '@workspace/core/composables/useAppLocale';
 
   import {
     LOCALIZATION_DOM,

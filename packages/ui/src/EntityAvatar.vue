@@ -1,18 +1,19 @@
 <script setup lang="ts">
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+  import { Avatar, AvatarImage, AvatarFallback } from '@workspace/ui/ui/avatar';
 
-  withDefaults(
+  const props = withDefaults(
     defineProps<{
       name: string;
       logo?: string | null;
       size?: 'sm' | 'md' | 'lg';
+      testId?: string;
     }>(),
-    { logo: null, size: 'md' }
+    { logo: null, size: 'md', testId: 'ui-entity-avatar' }
   );
 </script>
 
 <template>
-  <div class="flex items-center gap-2.5">
+  <div :data-testid="props.testId" class="flex items-center gap-2.5">
     <Avatar
       :class="{
         'size-6': size === 'sm',

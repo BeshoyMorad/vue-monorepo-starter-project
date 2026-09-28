@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
-  import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components';
+  import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@workspace/ui';
 
   import {
     ACCORDION_IMPORT_CODE,

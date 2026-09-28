@@ -5,7 +5,7 @@ interface User {
   role: string;
 }
 
-export const TABLE_IMPORT_CODE = `import { Table } from '@/components';`;
+export const TABLE_IMPORT_CODE = `import { Table } from '@workspace/ui';`;
 export const TABLE_CODE_HEADER_SCRIPT = `<script>`;
 export const TABLE_CODE_HEADER_TEMPLATE = `<template>`;
 

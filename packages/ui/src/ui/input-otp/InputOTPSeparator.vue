@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { HTMLAttributes } from 'vue';
   import { useForwardProps } from 'reka-ui';
-  import { Icon } from '@/components';
+  import { Icon } from '@workspace/ui';
 
   const props = defineProps<{ class?: HTMLAttributes['class'] }>();
 

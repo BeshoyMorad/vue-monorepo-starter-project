@@ -7,7 +7,7 @@
     FormControl,
     FormDescription,
     FormMessage,
-  } from '@/components/ui/form';
+  } from '@workspace/ui/ui/form';
   import BaseRadioGroup from './BaseRadioGroup.vue';
   import type { RadioGroupOption } from './index';
 

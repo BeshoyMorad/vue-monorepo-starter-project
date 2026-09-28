@@ -70,8 +70,8 @@ export const LOCALIZATION_DOM = {
 } as const;
 
 export const LOCALIZATION_USAGE_CODE = {
-  locale: `import { useAppLocale } from '@/composables/useAppLocale';
-  import { LanguageSwitcher } from '@/components';
+  locale: `import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+  import { LanguageSwitcher } from '@workspace/ui';
 
 const {
   t,                  // Translate a message using its localization key
@@ -102,8 +102,8 @@ const label = t('common.save');`,
           </span>
     <LanguageSwitcher />
 </template>`,
-  buttonLanguage: `import { Button } from '@/components';
-import { useAppLocale } from '@/composables/useAppLocale';
+  buttonLanguage: `import { Button } from '@workspace/ui';
+import { useAppLocale } from '@workspace/core/composables/useAppLocale';
 
 const {
   setLocale, // Change the application language
@@ -129,7 +129,7 @@ const changeLanguage = (locale: 'en' | 'ar') => {
 
   steps: [
     {
-      code: `import { useAppLocale } from '@/composables/useAppLocale';
+      code: `import { useAppLocale } from '@workspace/core/composables/useAppLocale';
 
 const { t, d, n } = useAppLocale();
 

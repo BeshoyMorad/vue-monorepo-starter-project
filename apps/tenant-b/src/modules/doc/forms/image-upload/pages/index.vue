@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
-  import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
-  import type { MediaValue } from '@/types/media';
+  import { Field } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import type { MediaValue } from '@workspace/core/types/media';
 
   import {
     IMAGE_UPLOAD_IMPORT_CODE,

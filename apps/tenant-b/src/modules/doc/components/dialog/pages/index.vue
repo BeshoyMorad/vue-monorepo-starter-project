@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { Button, Dialog, ConfirmDialog, FormDialog, Field } from '@/components';
-  import Codeblock from '@/components/codeblock/codeblock.vue';
+  import { Button, Dialog, ConfirmDialog, FormDialog, Field } from '@workspace/ui';
+  import Codeblock from '@workspace/ui/codeblock/codeblock.vue';
   import { DIALOG_VARIANTS } from '../constants/constants';
-  import { useAppLocale } from '@/composables';
+  import { useAppLocale } from '@workspace/core/composables';
   import { ref } from 'vue';
   const isOpen = ref(false);
   const name = ref('');

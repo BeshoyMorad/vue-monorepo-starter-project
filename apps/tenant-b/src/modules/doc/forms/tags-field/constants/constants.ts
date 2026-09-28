@@ -1,4 +1,4 @@
-export const TAGS_INPUT_IMPORT_CODE = `import { Field } from '@/components';`;
+export const TAGS_INPUT_IMPORT_CODE = `import { Field } from '@workspace/ui';`;
 
 export const TAGS_INPUT_BASIC_CODE = `<Field.TagsInput
   v-model="directEmails"

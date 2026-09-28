@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
-  import { InfiniteScroll, Button, Icon } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { InfiniteScroll, Button, Icon } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
   import {
     INFINITE_SCROLL_IMPORT_CODE,
     INFINITE_SCROLL_BASIC_CODE,

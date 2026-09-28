@@ -16,11 +16,13 @@ export { default as PageWrapper } from './PageWrapper.vue';
 export { default as StatusBadge } from './StatusBadge.vue';
 export { default as Tabs } from './Tabs.vue';
 export { default as LanguageSwitcher } from './LanguageSwitcher.vue';
-export { default as WalletAddress } from './WalletAddress.vue';
 
 // PlaceHolders
 export { default as EmptyPlaceholder } from './placeholders/EmptyPlaceholder.vue';
 export { default as ComingSoonPlaceholder } from './placeholders/ComingSoonPlaceholder.vue';
+
+// Shared Error Pages
+export * from './pages/errors';
 
 // UI Components
 export * from './ui/accordion';

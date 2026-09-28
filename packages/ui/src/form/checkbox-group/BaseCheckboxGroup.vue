@@ -2,7 +2,7 @@
   import { computed, useAttrs } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { checkboxGroupVariants, type CheckboxGroupOption } from './index';
-  import BaseCheckbox from '@/components/form/checkbox/BaseCheckbox.vue';
+  import BaseCheckbox from '@workspace/ui/form/checkbox/BaseCheckbox.vue';
 
   defineOptions({
     inheritAttrs: false,

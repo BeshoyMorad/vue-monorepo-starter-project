@@ -1,12 +1,12 @@
 <script setup lang="ts">
   import type { PaginationFirstProps } from 'reka-ui';
   import type { HTMLAttributes } from 'vue';
-  import type { ButtonVariants } from '@/components/ui/button';
+  import type { ButtonVariants } from '@workspace/ui/ui/button';
   import { reactiveOmit } from '@vueuse/core';
   import { PaginationFirst, useForwardProps } from 'reka-ui';
-  import { cn } from '@/utils';
-  import { buttonVariants } from '@/components/ui/button';
-  import { Icon } from '@/components';
+  import { cn } from '@workspace/core/utils';
+  import { buttonVariants } from '@workspace/ui/ui/button';
+  import { Icon } from '@workspace/ui';
 
   const props = withDefaults(
     defineProps<

@@ -1,14 +1,24 @@
 <script setup lang="ts">
-  defineProps<{
+  interface Props {
+    testId?: string;
     title?: string;
     subtitle?: string;
     fitHeight?: boolean;
     transparent?: boolean;
-  }>();
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-page-wrapper',
+    title: undefined,
+    subtitle: undefined,
+    fitHeight: false,
+    transparent: false,
+  });
 </script>
 
 <template>
   <div
+    :data-testid="props.testId"
     class="rounded-lg"
     :class="{
       'flex min-h-0 flex-1 flex-col gap-4 overflow-hidden': fitHeight,

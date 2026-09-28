@@ -1,12 +1,19 @@
 <script setup lang="ts">
-  defineProps<{
+  interface Props {
     variant: 'default' | 'success' | 'warning' | 'danger' | 'primary';
     color?: string;
-  }>();
+    testId?: string;
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    color: undefined,
+    testId: 'ui-status-badge',
+  });
 </script>
 
 <template>
   <span
+    :data-testid="props.testId"
     :class="[
       `rounded-full px-2 py-1 text-xs capitalize ${color}`,
       !Boolean(color) && {

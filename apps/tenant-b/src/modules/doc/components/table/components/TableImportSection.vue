@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import { useAppLocale } from '@workspace/core/composables';
 
   import { TABLE_IMPORT_CODE } from '../constants/constants';
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
   import {
     PAGINATION_META_COMPARISON_CODE_OFFSET,
     PAGINATION_META_COMPARISON_CODE_CURSOR,
   } from '../constants/constants';
-  import { Table } from '@/components';
+  import { Table } from '@workspace/ui';
   const paginationMetaColumns = [
     {
       accessorKey: 'property',

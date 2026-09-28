@@ -1,10 +1,10 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import { useAuthStore } from '@/stores/auth';
-import router from '@/router';
-import { paths } from '@/router/paths';
-import { config } from '@/config/env';
-import { getDeviceId } from '@/utils/device';
-import { handleOffline } from '@/composables/useNetwork';
+import { useAuthStore } from '@workspace/core/stores/auth';
+import { basePaths } from '@workspace/core/router/paths';
+import { config } from '@workspace/core/config/env';
+import { getDeviceId } from '@workspace/core/utils/device';
+import { handleOffline } from '@workspace/core/composables/useNetwork';
+import { getAppRouter } from '@workspace/core/router/factory';
 
 interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -22,17 +22,34 @@ const onTokenRefreshed = (newToken: string) => {
   refreshSubscribers = [];
 };
 
-function onRequest(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
+function onRequest(reqConfig: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
   const authStore = useAuthStore();
-  config.headers.set('Accept', 'application/json');
-  config.headers.set('Content-Type', 'application/json');
-  config.headers.set('device-id', getDeviceId());
+  reqConfig.headers.set('Accept', 'application/json');
+  reqConfig.headers.set('Content-Type', 'application/json');
+  reqConfig.headers.set('device-id', getDeviceId());
 
   if (authStore.accessToken) {
-    config.headers.set('Authorization', `Bearer ${authStore.accessToken}`);
+    reqConfig.headers.set('Authorization', `Bearer ${authStore.accessToken}`);
   }
 
-  return config;
+  return reqConfig;
+}
+
+function handleAuthAndErrors(status: number) {
+  const authStore = useAuthStore();
+  const router = getAppRouter();
+
+  if (status === 401) {
+    authStore.clearAuth();
+  } else if (status === 403) {
+    if (router) {
+      router.push({ name: basePaths.errors.accessDenied });
+    }
+  } else if (status === 500) {
+    if (router) {
+      router.push({ name: basePaths.errors.serverError });
+    }
+  }
 }
 
 async function onResponseError(error: AxiosError) {
@@ -40,22 +57,16 @@ async function onResponseError(error: AxiosError) {
   const originalRequest = error.config as ExtendedAxiosRequestConfig;
 
   if (!error.response) {
-    if (!navigator.onLine) {
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
       handleOffline();
     }
     return Promise.reject(error);
   }
 
   const status = error.response.status;
+  handleAuthAndErrors(status);
 
-  if (status === 401) {
-    authStore.clearAuth();
-    return Promise.reject(error);
-  } else if (status === 403) {
-    router.push({ name: paths.errors.accessDenied });
-    return Promise.reject(error);
-  } else if (status === 500) {
-    router.push({ name: paths.errors.serverError });
+  if (status === 401 || status === 403 || status === 500) {
     return Promise.reject(error);
   }
 

@@ -1,36 +1,17 @@
-import * as yup from 'yup';
+import { validateEnv, baseEnvSchema, type BaseEnv, createEnvValidator } from '@workspace/core/env';
 
-// 1. Define the schema matching your expected variables
-const envSchema = yup.object({
-  VITE_API_BASE_URL: yup.string().url('VITE_API_BASE_URL must be a valid URL').required(),
-  VITE_APP_ENV: yup.string().oneOf(['development', 'production', 'staging']).default('development'),
-  VITE_ENABLE_DEVTOOLS: yup
-    .boolean()
-    .transform((val) => String(val) === 'true')
-    .default(false),
-});
+export { validateEnv, baseEnvSchema, type BaseEnv, createEnvValidator };
 
-// 2. Validate the raw import.meta.env object
-let validatedEnv: yup.InferType<typeof envSchema>;
+const env = import.meta.env;
 
-try {
-  validatedEnv = envSchema.validateSync(import.meta.env, {
-    abortEarly: false, // Catch ALL errors at once, not just the first one
-    stripUnknown: true, // Remove variables we didn't explicitly define here
-  });
-} catch (error) {
-  if (error instanceof yup.ValidationError) {
-    console.error('❌ Invalid or missing Environment Variables:');
-    error.inner.forEach((err) => {
-      console.error(`   - ${err.path}: ${err.message}`);
-    });
-  }
-  throw new Error('Fix environment variables before starting the application.', { cause: error });
-}
-
-// 3. Export the strongly typed config object
 export const config = {
-  apiBaseUrl: validatedEnv.VITE_API_BASE_URL,
-  env: validatedEnv.VITE_APP_ENV,
-  enableDevtools: Boolean(validatedEnv.VITE_ENABLE_DEVTOOLS),
-} as const;
+  get apiBaseUrl() {
+    return env.VITE_API_BASE_URL || '';
+  },
+  get env() {
+    return env.VITE_APP_ENV || 'development';
+  },
+  get enableDevtools() {
+    return String(env.VITE_ENABLE_DEVTOOLS) === 'true';
+  },
+};

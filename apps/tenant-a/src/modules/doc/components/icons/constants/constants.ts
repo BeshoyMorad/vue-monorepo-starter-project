@@ -1,4 +1,4 @@
-export const ICON_IMPORT_CODE = `import { Icon } from '@/components';`;
+export const ICON_IMPORT_CODE = `import { Icon } from '@workspace/ui';`;
 
 export const ICON_BASIC_CODE = `<Icon icon="hugeicons--arrow-down-01" />`;
 

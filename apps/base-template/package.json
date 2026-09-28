@@ -20,6 +20,7 @@
     "@tanstack/vue-table": "^8.21.3",
     "@vee-validate/yup": "^4.15.1",
     "@workspace/core": "workspace:*",
+    "@workspace/locales": "workspace:*",
     "@workspace/ui": "workspace:*",
     "dayjs": "^1.11.21",
     "pinia": "^3.0.4",

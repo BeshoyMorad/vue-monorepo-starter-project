@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import Icon from '@/components/icon/Icon.vue';
-  import { copyToClipboard } from '@/utils/clipboard';
+  import Icon from '@workspace/ui/icon/Icon.vue';
+  import { copyToClipboard } from '@workspace/core/utils/clipboard';
 
   const props = withDefaults(
     defineProps<{
@@ -9,8 +9,9 @@
       text: string;
       /** Extra classes applied to the root button element. */
       class?: string;
+      testId?: string;
     }>(),
-    { class: '' }
+    { class: '', testId: 'ui-copy-text' }
   );
 
   const isCopied = ref(false);
@@ -28,6 +29,7 @@
 <template>
   <button
     type="button"
+    :data-testid="props.testId"
     :class="[
       'text-txt-default hover:text-primary group flex items-center gap-1.5 text-sm transition-colors',
       props.class,

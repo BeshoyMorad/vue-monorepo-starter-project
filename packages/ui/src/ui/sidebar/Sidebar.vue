@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import Icon from '@/components/icon/Icon.vue';
-  import { Field } from '@/components/form';
+  import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Field } from '@workspace/ui/form';
 
   const router = useRouter();
   const emit = defineEmits<{ close: [] }>();

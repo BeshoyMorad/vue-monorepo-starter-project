@@ -2,14 +2,16 @@
   "extends": "../tsconfig/vue.json",
   "compilerOptions": {
     "paths": {
+      "@workspace/core/*": ["../core/src/*"],
+      "@workspace/core": ["../core/src/index.ts"],
+      "@workspace/ui/*": ["./src/*"],
+      "@workspace/ui": ["./src/index.ts"],
+      "@workspace/locales/*": ["../locales/src/*"],
+      "@workspace/locales": ["../locales/src/index.ts"],
       "@/components/*": ["./src/*"],
       "@/components": ["./src/index.ts"],
-      "@/utils/*": ["../core/src/utils/*"],
-      "@/utils": ["../core/src/utils/index.ts"],
-      "@/types/*": ["../core/src/types/*"],
-      "@/types": ["../core/src/types/index.ts"],
-      "@/composables/*": ["../core/src/composables/*"],
-      "@/composables": ["../core/src/composables/index.ts"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/utils": ["./src/utils/index.ts"],
       "@/*": ["./src/*"]
     }
   },

@@ -8,8 +8,8 @@ export const USE_DATA_TABLE_DOM = {
   },
 };
 
-export const USE_DATA_TABLE_IMPORT_CODE = `import { useDataTable } from '@/composables';
-import { Table } from '@/components';`;
+export const USE_DATA_TABLE_IMPORT_CODE = `import { useDataTable } from '@workspace/core/composables';
+import { Table } from '@workspace/ui';`;
 
 export const USE_DATA_TABLE_BASIC_CODE = `const {
 data,              // Get the current table data
@@ -204,7 +204,7 @@ export const USE_DATA_TABLE_SORT_CODE = `<Table
     @limit-change="changeLimit"
 />`;
 
-export const USE_DATA_TABLE_INFINITE_SCROLL_CODE = `import { useDataTable } from '@/composables';
+export const USE_DATA_TABLE_INFINITE_SCROLL_CODE = `import { useDataTable } from '@workspace/core/composables';
 import { getMockCursorUsers } from '../constants/mockApi';
 
 const {

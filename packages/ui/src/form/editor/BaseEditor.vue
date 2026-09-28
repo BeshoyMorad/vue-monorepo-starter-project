@@ -5,7 +5,7 @@
   import Underline from '@tiptap/extension-underline';
   import Link from '@tiptap/extension-link';
   import Placeholder from '@tiptap/extension-placeholder';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
   import EditorToolbar from './EditorToolbar.vue';
   import './editor.css';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue';
-  import { Button, Icon } from '@/components';
+  import { Button, Icon } from '@workspace/ui';
   import {
     Pagination,
     PaginationContent,
@@ -14,8 +14,8 @@
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
-  } from '@/components';
-  import { TEST_IDS } from '@/lib/test-ids';
+  } from '@workspace/ui';
+  import { TEST_IDS } from '@workspace/core/lib/test-ids';
 
   interface Props {
     meta: Meta | CursorMeta | null | undefined;

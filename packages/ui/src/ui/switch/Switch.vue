@@ -4,7 +4,7 @@
   import { reactiveOmit } from '@vueuse/core';
   import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'reka-ui';
   import { cva } from 'class-variance-authority';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
 
   interface SwitchProps extends SwitchRootProps {
     class?: HTMLAttributes['class'];

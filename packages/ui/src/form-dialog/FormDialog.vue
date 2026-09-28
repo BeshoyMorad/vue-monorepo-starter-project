@@ -1,13 +1,13 @@
 <script setup lang="ts">
   import { useId } from 'vue';
-  import { Dialog, DialogClose } from '@/components/ui/dialog';
-  import { Button } from '@/components';
-  import { cn } from '@/utils';
-  import type { ButtonVariants } from '@/components/ui/button';
+  import { Dialog, DialogClose } from '@workspace/ui/ui/dialog';
+  import { Button } from '@workspace/ui/ui/button';
+  import { cn } from '@workspace/core/utils';
+  import type { ButtonVariants } from '@workspace/ui/ui/button';
   import type { HTMLAttributes } from 'vue';
 
   interface FormDialogProps {
-    testId: string;
+    testId?: string;
     title?: string;
     description?: string;
     cancelLabel?: string;
@@ -28,7 +28,7 @@
     (e: 'submit', event: SubmitEvent): void;
   }
   const {
-    testId,
+    testId = 'ui-form-dialog',
     title = undefined,
     description = undefined,
     cancelLabel = 'Cancel',
@@ -57,6 +57,7 @@
 <template>
   <Dialog
     v-model:open="isOpen"
+    :test-id="testId"
     :title="title"
     :description="description"
     :hide-close-icon="hideCloseIcon"
@@ -79,7 +80,7 @@
     <form
       v-auto-animate
       :id="formId"
-      :test-id="testId"
+      :data-testid="testId"
       class="w-full"
       @submit.prevent="onFormSubmit"
     >

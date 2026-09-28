@@ -1,8 +1,8 @@
-export const CHECKBOX_GROUP_IMPORT_CODE = `import { Field } from '@/components';
+export const CHECKBOX_GROUP_IMPORT_CODE = `import { Field } from '@workspace/ui';
 `;
 
 export const CHECKBOX_GROUP_BASIC_CODE = `<script setup lang="ts">
-import { Field } from '@/components';
+import { Field } from '@workspace/ui';
 
 const roles = [
   {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { computed, useAttrs, useId, useSlots } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { Switch } from '@/components/ui/switch';
+  import { Switch } from '@workspace/ui/ui/switch';
   import { cva } from 'class-variance-authority';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
 
   defineOptions({
     inheritAttrs: false,

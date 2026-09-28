@@ -7,9 +7,9 @@
     FormControl,
     FormDescription,
     FormMessage,
-  } from '@/components/ui/form';
+  } from '@workspace/ui/ui/form';
   import BaseFileUpload from './BaseFileUpload.vue';
-  import type { MediaValue } from '@/types/media';
+  import type { MediaValue } from '@workspace/core/types/media';
 
   defineOptions({
     inheritAttrs: false,

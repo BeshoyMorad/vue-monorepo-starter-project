@@ -8,11 +8,11 @@
     OptionValue extends keyof Option | ((data: Option) => Value)
   "
 >
-  import { useDataInfiniteScroll } from '@/composables';
+  import { useDataInfiniteScroll } from '@workspace/core/composables';
   import { computed } from 'vue';
-  import { Icon, InfiniteScroll } from '@/components';
+  import { Icon, InfiniteScroll } from '@workspace/ui';
   import { type AcceptableValue } from 'reka-ui';
-  import { ComboboxItemIndicator, ComboboxItem, Combobox } from '@/components/ui/combobox';
+  import { ComboboxItemIndicator, ComboboxItem, Combobox } from '@workspace/ui/ui/combobox';
   import type { QueryKey } from '@tanstack/vue-query';
 
   const ITEM_SIZE = 38;

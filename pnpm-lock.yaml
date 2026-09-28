@@ -59,6 +59,9 @@ importers:
       '@workspace/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@workspace/locales':
+        specifier: workspace:*
+        version: link:../../packages/locales
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -159,6 +162,9 @@ importers:
       '@workspace/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@workspace/locales':
+        specifier: workspace:*
+        version: link:../../packages/locales
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -259,6 +265,9 @@ importers:
       '@workspace/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@workspace/locales':
+        specifier: workspace:*
+        version: link:../../packages/locales
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -347,6 +356,9 @@ importers:
       '@vueuse/core':
         specifier: ^14.3.0
         version: 14.3.0(vue@3.5.35(typescript@6.0.3))
+      '@workspace/locales':
+        specifier: workspace:*
+        version: link:../locales
       axios:
         specifier: ^1.16.1
         version: 1.16.1
@@ -389,13 +401,25 @@ importers:
       ziggy-js:
         specifier: ^2.6.2
         version: 2.6.2
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
     devDependencies:
+      '@vue/test-utils':
+        specifier: ^2.4.11
+        version: 2.4.11(@vue/compiler-dom@3.5.35)(@vue/server-renderer@3.5.35(vue@3.5.35(typescript@6.0.3)))(vue@3.5.35(typescript@6.0.3))
       '@workspace/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
+      vite:
+        specifier: ^8.0.16
+        version: 8.0.16(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0)
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@24.12.4)(jsdom@29.1.1)(msw@2.15.0(@types/node@24.12.4)(typescript@6.0.3))(vite@8.0.16(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
       vue-tsc:
         specifier: ^3.3.3
         version: 3.3.3(typescript@6.0.3)
@@ -421,6 +445,19 @@ importers:
         specifier: ^8.60.0
         version: 8.60.0(eslint@10.4.1(jiti@2.7.0))(typescript@6.0.3)
 
+  packages/locales:
+    dependencies:
+      vue-i18n:
+        specifier: ^11.4.8
+        version: 11.4.8(vue@3.5.35(typescript@6.0.3))
+    devDependencies:
+      '@workspace/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ~6.0.3
+        version: 6.0.3
+
   packages/tsconfig: {}
 
   packages/ui:
@@ -428,6 +465,12 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.9.0
         version: 0.9.0
+      '@iconify-json/hugeicons':
+        specifier: ^1.2.28
+        version: 1.2.28
+      '@iconify/tailwind4':
+        specifier: ^1.2.3
+        version: 1.2.3(tailwindcss@4.3.0)
       '@internationalized/date':
         specifier: ^3.12.2
         version: 3.12.2
@@ -3182,6 +3225,9 @@ packages:
   ziggy-js@2.6.2:
     resolution: {integrity: sha512-41xc9wRvv5Olh8pZjKSaL5vDAjw4BfTDMFoeLwRpDGc2B+uqcdwIKd81EHs6uwpqahdRrU7uMab0xWj0hBSDjg==}
 
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
 snapshots:
 
   '@antfu/install-pkg@1.1.0':
@@ -5735,3 +5781,5 @@ snapshots:
   ziggy-js@2.6.2:
     dependencies:
       qs-esm: 7.0.3
+
+  zod@3.25.76: {}

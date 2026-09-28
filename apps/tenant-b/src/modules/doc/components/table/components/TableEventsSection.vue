@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { Table } from '@/components';
+  import { Table } from '@workspace/ui';
 
-  import { useAppLocale } from '@/composables';
+  import { useAppLocale } from '@workspace/core/composables';
   import { TABLE_EVENTS } from '../constants/constants';
 
   const { t } = useAppLocale();

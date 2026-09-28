@@ -7,7 +7,7 @@
     FormControl,
     FormDescription,
     FormMessage,
-  } from '@/components/ui/form';
+  } from '@workspace/ui/ui/form';
   import BaseCheckboxGroup from './BaseCheckboxGroup.vue';
   import type { CheckboxGroupOption } from '.';
 

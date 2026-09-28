@@ -1,14 +1,15 @@
 <script setup lang="ts" generic="TRow">
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core';
   import { type ColumnDef } from '@tanstack/vue-table';
-  import { Skeleton, EmptyPlaceholder } from '@/components';
+  import { Skeleton } from '@workspace/ui';
+  import { EmptyPlaceholder } from '@workspace/ui';
   import {
     Table,
     TableHeader,
     TableRow as UITableRow,
     TableCell,
     TableBody,
-  } from '@/components/ui/table';
+  } from '@workspace/ui/ui/table';
   import TableHead from './TableHead.vue';
   import TableRow from './TableRow.vue';
   import TablePagination from './TablePagination.vue';
@@ -16,6 +17,7 @@
   import { useDataTableState } from './useDataTableState';
 
   interface Props {
+    testId?: string;
     columns: ColumnDef<TRow, unknown>[];
     value: TRow[];
     loading?: boolean;
@@ -26,7 +28,15 @@
     isSearchEmpty?: boolean;
   }
 
-  const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-data-table',
+    loading: false,
+    meta: undefined,
+    limitOptions: undefined,
+    clickable: false,
+    isFilteredEmpty: false,
+    isSearchEmpty: false,
+  });
   const emit = defineEmits<{
     (e: 'sort', sorting: { sortKey?: string; order?: 'ASC' | 'DESC' }): void;
     (e: 'pageChange', page: number): void;
@@ -49,7 +59,7 @@
 </script>
 
 <template>
-  <Table container-class="rounded-md relative w-full">
+  <Table :data-testid="props.testId" container-class="rounded-md relative w-full">
     <TableHeader>
       <TableHead :table="table" />
     </TableHeader>

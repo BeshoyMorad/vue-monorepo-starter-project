@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { Field } from '@/components';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import { Field } from '@workspace/ui';
 
   import {
     CHECKBOX_GROUP_IMPORT_CODE,
@@ -15,7 +15,7 @@
     CHECKBOX_GROUP_DOC,
   } from '../constants/constants';
 
-  import type { CheckboxGroupOption } from '@/components/form/checkbox-group';
+  import type { CheckboxGroupOption } from '@workspace/ui/form/checkbox-group';
 
   const roles: CheckboxGroupOption[] = [
     {

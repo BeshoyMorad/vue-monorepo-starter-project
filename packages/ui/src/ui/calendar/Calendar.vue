@@ -7,8 +7,8 @@
   import { CalendarRoot, useDateFormatter, useForwardPropsEmits } from 'reka-ui';
   import { createYear, createYearRange, toDate } from 'reka-ui/date';
   import { computed, toRaw } from 'vue';
-  import { cn } from '@/utils';
-  import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
+  import { cn } from '@workspace/core/utils';
+  import { NativeSelect, NativeSelectOption } from '@workspace/ui/ui/native-select';
   import {
     CalendarCell,
     CalendarCellTrigger,

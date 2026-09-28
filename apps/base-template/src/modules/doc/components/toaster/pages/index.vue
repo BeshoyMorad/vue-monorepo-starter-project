@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { info, success, error, warn } from '@/utils/toast';
+  import { info, success, error, warn } from '@workspace/core/utils/toast';
 
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import {
     TOASTER_IMPORT_CODE,
@@ -13,7 +13,7 @@
     TOASTER_DOC,
     TOASTER_CODE_HEADER,
   } from '../constants/constants';
-  import Button from '@/components/ui/button/Button.vue';
+  import Button from '@workspace/ui/ui/button/Button.vue';
 </script>
 
 <template>

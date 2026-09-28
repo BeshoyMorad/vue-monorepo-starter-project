@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { Icon } from '@/components';
-  import { cn } from '@/utils';
+  import { Icon } from '@workspace/ui';
+  import { cn } from '@workspace/core/utils';
 
   interface Props {
     testId: string;

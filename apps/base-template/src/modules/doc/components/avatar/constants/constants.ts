@@ -2,7 +2,7 @@ export const AVATAR_IMPORT_CODE = `import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from '@/components';`;
+} from '@workspace/ui';`;
 
 export const AVATAR_BASIC_CODE = `<Avatar>
   <AvatarImage

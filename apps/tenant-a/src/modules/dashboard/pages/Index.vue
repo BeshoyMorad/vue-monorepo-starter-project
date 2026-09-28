@@ -9,20 +9,20 @@
     InfiniteScrollTable,
     Table,
     Tooltip,
-  } from '@/components';
-  import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+  } from '@workspace/ui';
+  import { Avatar, AvatarImage, AvatarFallback } from '@workspace/ui/ui/avatar';
 
-  import { formatDate } from '@/utils/formatter';
+  import { formatDate } from '@workspace/core/utils/formatter';
   import type { ColumnDef } from '@tanstack/vue-table';
   import { h } from 'vue';
   import { Form } from 'vee-validate';
   import { toTypedSchema } from '@vee-validate/yup';
   import * as yup from 'yup';
-  import { phoneSchema } from '@/utils/yupSchemas';
-  import { useDarkTheme, useFormMedia, extractMediaPayload } from '@/composables';
-  import { info, success } from '@/utils/toast';
+  import { phoneSchema } from '@workspace/core/utils/yupSchemas';
+  import { useDarkTheme, useFormMedia, extractMediaPayload } from '@workspace/core/composables';
+  import { info, success } from '@workspace/core/utils/toast';
   import { ref } from 'vue';
-  import type { MediaValue } from '@/types/media';
+  import type { MediaValue } from '@workspace/core/types/media';
   import { paths } from '@/router/paths';
 
   /* prettier-ignore */

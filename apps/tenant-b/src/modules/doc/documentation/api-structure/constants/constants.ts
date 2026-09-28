@@ -40,8 +40,8 @@ export const API_STRUCTURE_DOM = {
   },
 } as const;
 
-export const API_STRUCTURE_IMPORT_CODE = `import { apiRoute } from '@/lib/api/endpoints';
-import { QUERY_KEYS } from '@/lib/queryKeys';`;
+export const API_STRUCTURE_IMPORT_CODE = `import { apiRoute } from '@workspace/core/lib/api/endpoints';
+import { QUERY_KEYS } from '@workspace/core/lib/queryKeys';`;
 
 export const API_PROJECT_STRUCTURE = `📁 src/
 └── 📁 lib/
@@ -107,8 +107,8 @@ export function apiRoute<T extends keyof ApiRoutes = keyof ApiRoutes>(
   ) as string;
 }`;
 
-export const API_ROUTE_USAGE_CODE = `import { api } from '@/lib/api/client';
-import { apiRoute } from '@/lib/api/endpoints';
+export const API_ROUTE_USAGE_CODE = `import { api } from '@workspace/core/lib/api/client';
+import { apiRoute } from '@workspace/core/lib/api/endpoints';
 
 export const usersServices = {
   getUsers: async () => {
@@ -160,7 +160,7 @@ networks: {
 
 export const API_QUERY_KEYS_USAGE_CODE = `import { useQuery } from '@tanstack/vue-query';
 import { usersServices } from '@/modules/users/services';
-import { QUERY_KEYS } from '@/lib/query-keys';
+import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
 
 export function useUser() {
 
@@ -171,7 +171,7 @@ return useQuery({
 
 export const API_QUERY_KEYS_USAGE_CODE_MUTATION = `import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { usersServices } from '@/modules/users/services';
-import { QUERY_KEYS } from '@/lib/query-keys';
+import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
 
 export function useCreateUser() {
   const queryClient = useQueryClient();

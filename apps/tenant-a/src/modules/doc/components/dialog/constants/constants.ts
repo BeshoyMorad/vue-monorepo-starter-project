@@ -3,7 +3,7 @@ export const DIALOG_VARIANTS = [
     type: 'dialog',
     nameKey: 'dialog.variants.dialog.name',
     descriptionKey: 'dialog.variants.dialog.description',
-    importCode: `import { Dialog } from '@/components';`,
+    importCode: `import { Dialog } from '@workspace/ui';`,
     code: `<Dialog title="Dialog" description="Description">
   <template #trigger>
     <Button>Open</Button>
@@ -20,7 +20,7 @@ export const DIALOG_VARIANTS = [
     type: 'confirm',
     nameKey: 'dialog.variants.confirm.name',
     descriptionKey: 'dialog.variants.confirm.description',
-    importCode: `import { ConfirmDialog } from '@/components';`,
+    importCode: `import { ConfirmDialog } from '@workspace/ui';`,
     code: `<ConfirmDialog
   title="title"
   description="description"
@@ -35,7 +35,7 @@ export const DIALOG_VARIANTS = [
     type: 'form',
     nameKey: 'dialog.variants.form.name',
     descriptionKey: 'dialog.variants.form.description',
-    importCode: `import { FormDialog } from '@/components';`,
+    importCode: `import { FormDialog } from '@workspace/ui';`,
     code: `<FormDialog
   title="title"
   description="description"

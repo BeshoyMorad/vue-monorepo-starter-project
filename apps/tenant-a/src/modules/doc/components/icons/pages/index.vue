@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
-  import { Icon } from '@/components';
+  import { Icon } from '@workspace/ui';
   import {
     ICON_IMPORT_CODE,
     ICON_BASIC_CODE,

@@ -1,15 +1,15 @@
 export const MULTI_STEP_FORM_IMPORT_CODE = `import {
   MultiStepForm,
   Field,
-} from '@/components';
+} from '@workspace/ui';
 
-import type { StepDefinition } from '@/components';`;
+import type { StepDefinition } from '@workspace/ui';`;
 
 export const MULTI_STEP_FORM_BASIC_CODE = {
   script: `<script setup lang="ts">
 import { ref } from 'vue';
-import { MultiStepForm, Field } from '@/components';
-import type { StepDefinition } from '@/components';
+import { MultiStepForm, Field } from '@workspace/ui';
+import type { StepDefinition } from '@workspace/ui';
 import type { GenericObject } from 'vee-validate';
 import * as yup from 'yup';
 

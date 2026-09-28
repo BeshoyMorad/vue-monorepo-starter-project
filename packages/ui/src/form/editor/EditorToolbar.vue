@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
   import type { Editor } from '@tiptap/vue-3';
-  import { Button, Tooltip, Icon } from '@/components';
-  import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-  import { Input } from '@/components/ui/input';
-  import { cn } from '@/utils';
+  import { Button, Tooltip, Icon } from '@workspace/ui';
+  import { Popover, PopoverContent, PopoverTrigger } from '@workspace/ui/ui/popover';
+  import { Input } from '@workspace/ui/ui/input';
+  import { cn } from '@workspace/core/utils';
   import {
     type ToolbarItem,
     getHistoryGroup,
@@ -74,7 +74,7 @@
           <template #trigger>
             <Button
               type="button"
-              :variant="item.isActive?.() ? 'secondary' : 'ghost'"
+              :variant="item.isActive?.() ? 'default' : 'ghost'"
               size="icon-sm"
               :disabled="disabled || (item.disabled ? item.disabled() : false)"
               :test-id="`${testId}-${item.id}-btn`"
@@ -106,7 +106,7 @@
               <template #trigger>
                 <Button
                   type="button"
-                  :variant="editor.isActive('link') ? 'secondary' : 'ghost'"
+                  :variant="editor.isActive('link') ? 'default' : 'ghost'"
                   size="icon-sm"
                   :disabled="disabled"
                   :test-id="`${testId}-link-btn`"
@@ -139,7 +139,8 @@
               <Button
                 v-if="editor.isActive('link')"
                 type="button"
-                variant="danger-outline"
+                variant="danger"
+                outline
                 size="sm"
                 :test-id="`${testId}-link-remove-btn`"
                 class="h-7 px-2 text-xs"

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import { USE_DATA_INFINITE_SCROLL_PARAMS_CODE } from '../constants/constants';
   import { type MockUser, type UserFilters } from '../constants/data';
-  import { useDataInfiniteScroll } from '@/composables';
+  import { useDataInfiniteScroll } from '@workspace/core/composables';
   import { getMockOffsetUsers } from '../constants/mockApi';
-  import InfiniteScroll from '@/components/infinite-scroll/InfiniteScroll.vue';
-  import { Avatar, AvatarImage, AvatarFallback, Field } from '@/components';
+  import InfiniteScroll from '@workspace/ui/infinite-scroll/InfiniteScroll.vue';
+  import { Avatar, AvatarImage, AvatarFallback, Field } from '@workspace/ui';
 
   const { data, isFetchingNextPage, hasMore, fetchNextPage, search, baseParams } =
     useDataInfiniteScroll<MockUser, UserFilters>({

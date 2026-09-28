@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { useDarkTheme } from '@/composables';
-  import { Button } from '@/components';
+  import { useDarkTheme } from '@workspace/core/composables';
+  import { Button } from '@workspace/ui';
 
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import {
     USE_DARK_THEME_DOM,

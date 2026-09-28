@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import BaseInputText from '@/components/form/input-text/BaseInputText.vue';
-  import { Icon } from '@/components';
+  import BaseInputText from '@workspace/ui/form/input-text/BaseInputText.vue';
+  import { Icon } from '@workspace/ui';
 
   defineOptions({
     inheritAttrs: false,

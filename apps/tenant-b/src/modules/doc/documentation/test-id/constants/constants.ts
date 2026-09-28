@@ -32,7 +32,7 @@ export const TEST_IDS_DOM = {
   },
 } as const;
 
-export const TEST_IDS_IMPORT_CODE = `import { TEST_IDS } from '@/lib/test-ids';`;
+export const TEST_IDS_IMPORT_CODE = `import { TEST_IDS } from '@workspace/core/lib/test-ids';`;
 
 export const TEST_IDS_PROJECT_STRUCTURE = `📁 src/
 └── 📁 lib/
@@ -64,8 +64,8 @@ export const TEST_IDS = {
   },
 } as const;`;
 
-export const TEST_IDS_BUTTON_CODE = `import { TEST_IDS } from '@/lib/test-ids';
-import Button from '@/components/button/Button.vue';
+export const TEST_IDS_BUTTON_CODE = `import { TEST_IDS } from '@workspace/core/lib/test-ids';
+import Button from '@workspace/ui/button/Button.vue';
 
 <Button
   :test-id="TEST_IDS.buttons.submit"

@@ -4,7 +4,7 @@
 
   import { reactiveOmit } from '@vueuse/core';
   import { TagsInputItem, useForwardProps } from 'reka-ui';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
 
   const props = defineProps<TagsInputItemProps & { class?: HTMLAttributes['class'] }>();
 

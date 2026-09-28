@@ -1,15 +1,15 @@
 <script setup lang="ts">
   import { computed, useSlots } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
   import {
     NumberField,
     NumberFieldContent,
     NumberFieldDecrement,
     NumberFieldIncrement,
     NumberFieldInput,
-  } from '@/components/ui/number-field';
-  import { Icon } from '@/components';
+  } from '@workspace/ui/ui/number-field';
+  import { Icon } from '@workspace/ui';
 
   defineOptions({
     inheritAttrs: false,

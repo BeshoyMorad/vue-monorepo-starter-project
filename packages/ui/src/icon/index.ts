@@ -29,3 +29,5 @@ export const iconVariants = cva('shrink-0', {
 });
 
 export type IconVariants = VariantProps<typeof iconVariants>;
+
+export { default as Icon } from './Icon.vue';

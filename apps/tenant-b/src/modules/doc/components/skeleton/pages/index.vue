@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
-  import { Skeleton } from '@/components';
+  import { Skeleton } from '@workspace/ui';
 
   import {
     SKELETON_IMPORT_CODE,

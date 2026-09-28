@@ -27,8 +27,8 @@ export const USE_DATA_INFINITE_SCROLL_TABLE_CODE_TEMPLATE = `<InfiniteScrollTabl
   max-height="400px"
   @load-more="fetchNextPage"
 />`;
-export const USE_DATA_INFINITE_SCROLL_IMPORT_CODE = `import { useDataInfiniteScroll } from '@/composables';
-import { InfiniteScroll } from '@/components';`;
+export const USE_DATA_INFINITE_SCROLL_IMPORT_CODE = `import { useDataInfiniteScroll } from '@workspace/core/composables';
+import { InfiniteScroll } from '@workspace/ui';`;
 
 export const USE_DATA_INFINITE_SCROLL_BASIC_CODE = `const {
   data,                 // Get the accumulated data from all loaded pages

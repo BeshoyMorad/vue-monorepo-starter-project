@@ -1,16 +1,16 @@
 <script setup lang="ts">
   /* eslint-disable max-lines */
-  import type { MediaValue } from '@/types/media';
+  import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
-  import { cn } from '@/utils';
-  import { Icon, Button } from '@/components';
-  import { createMediaValue } from '@/composables/useFormMedia';
-  import { error } from '@/utils/toast';
+  import { cn } from '@workspace/core/utils';
+  import { Icon, Button } from '@workspace/ui';
+  import { createMediaValue } from '@workspace/core/composables/useFormMedia';
+  import { error } from '@workspace/core/utils/toast';
   import {
     DEFAULT_ALLOWED_IMAGE_TYPES,
     MIME_TO_EXTENSION,
     isImageMimeType,
-  } from '@/constants/file-upload';
+  } from '@workspace/core/constants';
   import ImageCropperDialog from './ImageCropperDialog.vue';
 
   defineOptions({

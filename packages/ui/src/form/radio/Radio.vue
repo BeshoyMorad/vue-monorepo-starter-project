@@ -6,7 +6,7 @@
     FormControl,
     FormDescription,
     FormMessage,
-  } from '@/components/ui/form';
+  } from '@workspace/ui/ui/form';
   import BaseRadio from './BaseRadio.vue';
 
   defineOptions({

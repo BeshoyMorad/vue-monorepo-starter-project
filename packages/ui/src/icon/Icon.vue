@@ -1,14 +1,20 @@
 <script setup lang="ts">
   import type { HtmlHTMLAttributes } from 'vue';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
   import { iconVariants, type IconVariants } from '.';
 
-  const props = defineProps<{
+  interface Props {
     testId?: string;
     icon: HtmlHTMLAttributes['class'];
     colored?: IconVariants['colored'];
     size?: IconVariants['size'];
-  }>();
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-icon',
+    colored: undefined,
+    size: undefined,
+  });
 </script>
 
 <template>

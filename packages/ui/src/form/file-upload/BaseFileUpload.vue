@@ -1,10 +1,10 @@
 <script setup lang="ts">
   /* eslint-disable max-lines */
-  import type { MediaValue } from '@/types/media';
+  import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
-  import { cn } from '@/utils';
-  import { Icon, Button } from '@/components';
-  import { error } from '@/utils/toast';
+  import { cn, formatFileSize } from '@workspace/core/utils';
+  import { Icon, Button } from '@workspace/ui';
+  import { error } from '@workspace/core/utils/toast';
   import {
     DEFAULT_ALLOWED_FILE_TYPES,
     MIME_TO_EXTENSION,
@@ -13,16 +13,15 @@
     isImageMimeType,
     isImageExtension,
     getFileExtension,
-    formatFileSize,
-  } from '@/constants/file-upload';
-  import { createMediaValueList } from '@/composables';
+  } from '@workspace/core/constants';
+  import { createMediaValueList } from '@workspace/core/composables';
 
   defineOptions({
     inheritAttrs: false,
   });
 
   interface Props {
-    testId: string;
+    testId?: string;
     modelValue?: MediaValue[];
     disabled?: boolean;
     placeholder?: string;
@@ -36,6 +35,7 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-base-file-upload',
     modelValue: () => [],
     disabled: false,
     placeholder: 'No files uploaded yet',
@@ -78,7 +78,7 @@
 
   const displayHint = computed(() => {
     const types = props.allowedTypes || DEFAULT_ALLOWED_FILE_TYPES;
-    const extensions = types.map((t) => MIME_TO_EXTENSION[t] || t.split('/')[1] || t);
+    const extensions = types.map((t: string) => MIME_TO_EXTENSION[t] || t.split('/')[1] || t);
     if (extensions.length === 0) return '';
     const base =
       extensions.length === 1

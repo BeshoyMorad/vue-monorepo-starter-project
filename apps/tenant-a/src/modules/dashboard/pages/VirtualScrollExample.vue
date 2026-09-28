@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
-  import { PageWrapper, InfiniteScroll, Button, Icon } from '@/components';
+  import { PageWrapper, InfiniteScroll, Button, Icon } from '@workspace/ui';
 
   interface UserItem {
     id: number;

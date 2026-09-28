@@ -1,4 +1,4 @@
-import { usePermissionStore } from '@/stores/permissions';
+import { usePermissionStore } from '@workspace/core/stores/permissions';
 
 export const useCan = () => {
   const store = usePermissionStore();

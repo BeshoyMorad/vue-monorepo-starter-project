@@ -5,8 +5,8 @@
   import { reactiveOmit } from '@vueuse/core';
   import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
   import { cva } from 'class-variance-authority';
-  import { cn } from '@/utils';
-  import { Icon } from '@/components';
+  import { cn } from '@workspace/core/utils';
+  import { Icon } from '@workspace/ui';
 
   interface CheckboxProps extends CheckboxRootProps {
     class?: HTMLAttributes['class'];

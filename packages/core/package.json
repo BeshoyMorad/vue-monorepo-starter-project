@@ -13,8 +13,11 @@
     "./utils": "./src/utils/index.ts",
     "./lib": "./src/lib/index.ts",
     "./types": "./src/types/index.ts",
-    "./constants": "./src/constants/file-upload.ts",
-    "./config": "./src/config/env.ts"
+    "./constants": "./src/constants/index.ts",
+    "./config": "./src/config/env.ts",
+    "./router": "./src/router/index.ts",
+    "./env": "./src/env/index.ts",
+    "./*": "./src/*"
   },
   "scripts": {
     "type-check": "vue-tsc --noEmit"
@@ -23,6 +26,7 @@
     "@tanstack/vue-query": "^5.100.14",
     "@vee-validate/yup": "^4.15.1",
     "@vueuse/core": "^14.3.0",
+    "@workspace/locales": "workspace:*",
     "axios": "^1.16.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.21",
@@ -36,11 +40,15 @@
     "vue-router": "^5.1.0",
     "vue-sonner": "^2.0.9",
     "yup": "^1.7.1",
-    "ziggy-js": "^2.6.2"
+    "ziggy-js": "^2.6.2",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@vue/test-utils": "^2.4.11",
     "@workspace/tsconfig": "workspace:*",
     "typescript": "~6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.10",
     "vue-tsc": "^3.3.3"
   }
 }

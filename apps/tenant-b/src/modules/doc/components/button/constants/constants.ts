@@ -1,4 +1,4 @@
-export const BUTTON_IMPORT_CODE = `import { Button } from '@/components';`;
+export const BUTTON_IMPORT_CODE = `import { Button } from '@workspace/ui';`;
 
 export const BUTTON_VARIANTS = [
   {

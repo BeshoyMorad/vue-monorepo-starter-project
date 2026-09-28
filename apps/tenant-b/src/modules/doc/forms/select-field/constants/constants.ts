@@ -1,4 +1,4 @@
-export const SELECT_IMPORT_CODE = `import { Field } from '@/components';`;
+export const SELECT_IMPORT_CODE = `import { Field } from '@workspace/ui';`;
 
 export const SELECT_BASIC_CODE_TEMPLATE = {
   code: `<Field.Select

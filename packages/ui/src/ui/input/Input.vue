@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { HTMLAttributes } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
   import { inputVariants } from '.';
 
   const props = defineProps<{

@@ -29,7 +29,7 @@ export const USE_DARK_THEME_DOM = {
   },
 };
 
-export const USE_DARK_THEME_IMPORT_CODE = `import { useDarkTheme } from '@/composables';`;
+export const USE_DARK_THEME_IMPORT_CODE = `import { useDarkTheme } from '@workspace/core/composables';`;
 
 export const USE_DARK_THEME_BASIC_CODE = `const { isDark, toggleDark } = useDarkTheme();`;
 

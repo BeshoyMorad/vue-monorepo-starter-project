@@ -1,4 +1,4 @@
-export const SKELETON_IMPORT_CODE = `import { Skeleton } from '@/components';`;
+export const SKELETON_IMPORT_CODE = `import { Skeleton } from '@workspace/ui';`;
 
 export const SKELETON_BASIC_CODE = `<Skeleton class="h-12 w-12" />`;
 

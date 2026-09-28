@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-// import { useAuthStore } from '@/stores/auth';
 import { computed } from 'vue';
 
 function parseDotNotation(permStr: string): [string, string] {

@@ -11,6 +11,8 @@
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
+@source '..';
+
 @plugin '@iconify/tailwind4' {
   prefixes: 'hugeicons', 'custom';
   scale: 1.5;

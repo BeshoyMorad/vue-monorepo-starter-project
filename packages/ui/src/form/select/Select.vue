@@ -8,7 +8,7 @@
     TOptionValue extends keyof Option | ((data: Option) => Value)
   "
 >
-  import { Combobox as UICombobox } from '@/components/ui/combobox';
+  import { Combobox as UICombobox } from '@workspace/ui/ui/combobox';
   import type { AcceptableValue } from 'reka-ui';
   import {
     FormField,
@@ -17,7 +17,7 @@
     FormControl,
     FormDescription,
     FormMessage,
-  } from '@/components/ui/form';
+  } from '@workspace/ui/ui/form';
 
   defineOptions({
     inheritAttrs: false,

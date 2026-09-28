@@ -1,7 +1,6 @@
 import { toast } from 'vue-sonner';
 import { h } from 'vue';
-import { CustomToast } from '@/components/ui/sonner';
-import { Icon } from '@/components';
+import { CustomToast, Icon } from '@workspace/ui';
 
 export type ToastVariant = 'info' | 'success' | 'error' | 'warn';
 

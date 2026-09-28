@@ -5,7 +5,7 @@
 </script>
 
 <script setup lang="ts">
-  import { TEST_IDS } from '@/lib/test-ids';
+  import { TEST_IDS } from '@workspace/core/lib/test-ids';
   import { onMounted, onUnmounted, ref as vueRef } from 'vue';
 
   defineProps<{

@@ -3,8 +3,8 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit } from '@vueuse/core';
   import { AccordionHeader, AccordionTrigger } from 'reka-ui';
-  import { cn } from '@/utils';
-  import { Icon } from '@/components';
+  import { cn } from '@workspace/core/utils';
+  import { Icon } from '@workspace/ui';
 
   const props = defineProps<AccordionTriggerProps & { class?: HTMLAttributes['class'] }>();
 

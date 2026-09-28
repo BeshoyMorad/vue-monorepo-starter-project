@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { server, mountWithProviders, findByTestId } from '@/tests/setup';
-import { TEST_IDS } from '@/lib/test-ids';
+import { TEST_IDS } from '@workspace/core/lib/test-ids';
 import { useStarterStore } from '@/modules/starter/stores/starterStore';
 import StarterDashboard from './StarterDashboard.vue';
 

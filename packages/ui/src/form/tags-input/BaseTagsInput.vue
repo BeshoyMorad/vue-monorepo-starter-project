@@ -6,7 +6,7 @@
     TagsInputItem,
     TagsInputItemDelete,
     TagsInputItemText,
-  } from '@/components/ui/tags-input';
+  } from '@workspace/ui/ui/tags-input';
 
   defineOptions({
     inheritAttrs: false,

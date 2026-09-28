@@ -72,16 +72,12 @@ export default defineConfig(() => {
 
     resolve: {
       alias: {
-        '@/components': fileURLToPath(new URL('../../packages/ui/src', import.meta.url)),
-        '@/composables': fileURLToPath(
-          new URL('../../packages/core/src/composables', import.meta.url)
+        '@workspace/ui/styles': fileURLToPath(
+          new URL('../../packages/ui/src/css/index.css', import.meta.url)
         ),
-        '@/stores': fileURLToPath(new URL('../../packages/core/src/stores', import.meta.url)),
-        '@/utils': fileURLToPath(new URL('../../packages/core/src/utils', import.meta.url)),
-        '@/lib': fileURLToPath(new URL('../../packages/core/src/lib', import.meta.url)),
-        '@/types': fileURLToPath(new URL('../../packages/core/src/types', import.meta.url)),
-        '@/constants': fileURLToPath(new URL('../../packages/core/src/constants', import.meta.url)),
-        '@/config': fileURLToPath(new URL('../../packages/core/src/config', import.meta.url)),
+        '@workspace/ui': fileURLToPath(new URL('../../packages/ui/src', import.meta.url)),
+        '@workspace/core': fileURLToPath(new URL('../../packages/core/src', import.meta.url)),
+        '@workspace/locales': fileURLToPath(new URL('../../packages/locales/src', import.meta.url)),
         '@/tests': fileURLToPath(new URL('./tests', import.meta.url)),
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },

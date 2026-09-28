@@ -1,9 +1,10 @@
-import router from '@/router';
 import { defineStore } from 'pinia';
 import { StorageSerializers, useLocalStorage } from '@vueuse/core';
-import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from '@/lib/api/token';
-import { paths } from '@/router/paths';
+import { basePaths } from '@workspace/core/router/paths';
+import { getAppRouter } from '@workspace/core/router/factory';
 
+const ACCESS_TOKEN_STORAGE_KEY = 'app_access_token';
+const REFRESH_TOKEN_STORAGE_KEY = 'app_refresh_token';
 const USER_STORAGE_KEY = 'user';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -26,7 +27,11 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken.value = '';
     refreshToken.value = '';
     user.value = null;
-    router.push({ name: paths.auth.login });
+
+    const activeRouter = getAppRouter();
+    if (activeRouter) {
+      activeRouter.push({ name: basePaths.auth.login });
+    }
   };
 
   const getRefreshToken = async () => {
@@ -41,6 +46,7 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   return {
+    // isAuthenticated,
     accessToken,
     refreshToken,
     user,

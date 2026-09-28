@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { useUploadImage } from './useUploadImage';
 import type { StorageServiceType } from './useUploadImage';
-import type { MediaValue, MediaPayload, MediaPayloadItem } from '@/types/media';
+import type { MediaValue, MediaPayload, MediaPayloadItem } from '@workspace/core/types/media';
 
 /**
  * Checks if a value matches the shape of a MediaValue object.

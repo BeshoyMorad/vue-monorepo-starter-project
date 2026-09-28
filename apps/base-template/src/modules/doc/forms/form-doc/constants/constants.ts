@@ -1,5 +1,5 @@
 export const FORM_IMPORT_CODE = `import { Form } from 'vee-validate';
-import { Field } from '@/components';`;
+import { Field } from '@workspace/ui';`;
 
 export const FORM_CODE_HEADER = {
   import: 'Import',
@@ -108,7 +108,7 @@ import * as yup from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
 import { Form } from 'vee-validate';
 
-import { Button, Field } from '@/components';
+import { Button, Field } from '@workspace/ui';
 
 const submittedValues = ref<Record<string, unknown> | null>(null);
 

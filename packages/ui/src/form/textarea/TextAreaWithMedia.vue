@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { cn } from '@/utils';
+  import { cn, formatFileSize } from '@workspace/core/utils';
   import { useField } from 'vee-validate';
-  import type { MediaValue } from '@/types/media';
-  import { error } from '@/utils/toast';
+  import type { MediaValue } from '@workspace/core/types/media';
+  import { error } from '@workspace/core/utils/toast';
   import {
     DEFAULT_ALLOWED_FILE_TYPES,
     EXTENSION_TO_ICON,
@@ -10,11 +10,10 @@
     isImageMimeType,
     isImageExtension,
     getFileExtension,
-    formatFileSize,
-  } from '@/constants/file-upload';
+  } from '@workspace/core/constants';
   import { computed, ref, watch } from 'vue';
-  import { createMediaValueList } from '@/composables';
-  import { Button, Field, Icon, Tooltip } from '@/components';
+  import { createMediaValueList } from '@workspace/core/composables';
+  import { Button, Field, Icon, Tooltip } from '@workspace/ui';
 
   const props = withDefaults(
     defineProps<{

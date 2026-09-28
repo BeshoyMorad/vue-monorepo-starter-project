@@ -1,12 +1,12 @@
 <script setup lang="ts">
   import { ref, onErrorCaptured, nextTick, type ComponentPublicInstance } from 'vue';
-  import { ExceptionState } from '@/components';
-  import { config } from '@/config/env';
-  import fallbackImage from '@/assets/images/internal-server-error.png';
+  import { ExceptionState } from '@workspace/ui';
+  import { config } from '@workspace/core/config';
 
   interface Props {
     fallbackTitle?: string;
     fallbackDescription?: string;
+    fallbackImage?: string;
     showDetails?: boolean;
     logError?: (error: Error, info: string, instance: ComponentPublicInstance | null) => void;
   }
@@ -14,6 +14,7 @@
   const props = withDefaults(defineProps<Props>(), {
     fallbackTitle: 'Something went wrong',
     fallbackDescription: 'An unexpected error occurred while loading this section.',
+    fallbackImage: undefined,
     showDetails: () => config.env === 'development',
     logError: undefined,
   });
@@ -84,7 +85,7 @@
 
   <ExceptionState
     v-else
-    :image="fallbackImage"
+    :image="props.fallbackImage"
     :title="fallbackTitle"
     :description="fallbackDescription"
     button-label="Try again"

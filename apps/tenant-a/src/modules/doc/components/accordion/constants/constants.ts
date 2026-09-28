@@ -3,7 +3,7 @@ export const ACCORDION_IMPORT_CODE = `import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components';`;
+} from '@workspace/ui';`;
 
 export const ACCORDION_BASIC_CODE = `<Accordion type="single" collapsible>
   <AccordionItem value="item-1">

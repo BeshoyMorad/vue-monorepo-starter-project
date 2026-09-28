@@ -1,6 +1,6 @@
 import type { LoginRequest, LoginResponse } from '@/modules/auth/types';
-import { api } from '@/lib/api/client';
-import { apiRoute } from '@/lib/api/endpoints';
+import { api } from '@workspace/core/lib/api/client';
+import { apiRoute } from '@workspace/core/lib/api/endpoints';
 
 export const authServices = {
   login: async (payload: LoginRequest) => {

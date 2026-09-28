@@ -7,9 +7,9 @@ import type {
   MultiStepFormOptions,
   FormPersistenceConfig,
   StorageType,
-} from '@/components/form/multi-step-form/types';
-import { applyApiErrorToForm, getApiFieldErrors } from '@/utils/apiError';
-import { isMediaValue } from '@/composables/useFormMedia';
+} from '@workspace/ui/form/multi-step-form/types';
+import { applyApiErrorToForm, getApiFieldErrors } from '@workspace/core/utils/apiError';
+import { isMediaValue } from '@workspace/core/composables/useFormMedia';
 
 export interface UseMultiStepFormReturn {
   /** The underlying VeeValidate form context (exposes values, errors, setFieldValue, etc.). */

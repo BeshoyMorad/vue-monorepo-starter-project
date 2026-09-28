@@ -9,8 +9,8 @@
     DialogPortal,
     useForwardPropsEmits,
   } from 'reka-ui';
-  import { cn } from '@/utils';
-  import { Icon } from '@/components';
+  import { cn } from '@workspace/core/utils';
+  import { Icon } from '@workspace/ui';
 
   defineOptions({
     inheritAttrs: false,

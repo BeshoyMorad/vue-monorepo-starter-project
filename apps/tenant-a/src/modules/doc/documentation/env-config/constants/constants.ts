@@ -44,7 +44,7 @@ export const ENV_DOM = {
   },
 } as const;
 
-export const ENV_IMPORT_CODE = `import { config } from '@/config/env';`;
+export const ENV_IMPORT_CODE = `import { config } from '@workspace/core/config';`;
 
 export const ENV_PROJECT_STRUCTURE = `
 📁 project-root/
@@ -103,7 +103,7 @@ try {
   );
 }`;
 
-export const ENV_USAGE_CODE = `import { config } from '@/config/env';
+export const ENV_USAGE_CODE = `import { config } from '@workspace/core/config';
 
 const apiBaseUrl = config.apiBaseUrl;
 const environment = config.env;

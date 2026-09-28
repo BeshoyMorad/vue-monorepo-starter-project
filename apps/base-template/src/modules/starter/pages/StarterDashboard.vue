@@ -2,7 +2,7 @@
   import { useStarterStore } from '@/modules/starter/stores/starterStore';
   import { useStarterData } from '@/modules/starter/composables/useStarterData';
   import StarterCard from '@/modules/starter/components/StarterCard.vue';
-  import { TEST_IDS } from '@/lib/test-ids';
+  import { TEST_IDS } from '@workspace/core/lib/test-ids';
   import { paths } from '@/router/paths';
   import { computed } from 'vue';
 

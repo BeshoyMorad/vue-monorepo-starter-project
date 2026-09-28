@@ -1,12 +1,11 @@
 <script setup lang="ts">
   import type { PrimitiveProps } from 'reka-ui';
   import { computed, type HTMLAttributes } from 'vue';
-  import type { ButtonVariants } from '.';
   import { Primitive } from 'reka-ui';
-  import { cn } from '@/utils';
-  import { buttonVariants } from '.';
-  import type { IconVariants } from '@/components/icon';
-  import { Icon } from '@/components';
+  import { cn } from '@workspace/core';
+  import { buttonVariants, type ButtonVariants } from '.';
+  import type { IconVariants } from '@workspace/ui/icon';
+  import { Icon } from '@workspace/ui';
 
   interface Props extends PrimitiveProps {
     testId: string;

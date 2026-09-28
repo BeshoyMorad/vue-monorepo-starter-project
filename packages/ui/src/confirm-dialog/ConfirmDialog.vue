@@ -1,13 +1,14 @@
 <script setup lang="ts">
   import { watch } from 'vue';
-  import { Dialog, DialogClose } from '@/components/ui/dialog';
-  import { Button, Icon } from '@/components';
-  import { cn } from '@/utils';
-  import type { ButtonVariants } from '@/components/ui/button';
+  import { Dialog, DialogClose } from '@workspace/ui/ui/dialog';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Icon } from '@workspace/ui/icon';
+  import { cn } from '@workspace/core';
+  import type { ButtonVariants } from '@workspace/ui/ui/button';
   import type { HTMLAttributes } from 'vue';
 
   interface ConfirmDialogProps {
-    testId: string;
+    testId?: string;
     icon?: string;
     title?: string;
     description?: string;
@@ -29,7 +30,7 @@
   }
 
   const {
-    testId,
+    testId = 'ui-confirm-dialog',
     icon = undefined,
     title = undefined,
     description = undefined,
@@ -73,6 +74,7 @@
 <template>
   <Dialog
     v-model:open="isOpen"
+    :test-id="testId"
     :hide-close-icon="hideCloseIcon"
     :hide-header="hideHeader"
     :content-class="contentClass"

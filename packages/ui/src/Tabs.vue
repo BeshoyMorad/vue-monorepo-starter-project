@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { usePermissionStore } from '@/stores/permissions';
+  import { usePermissionStore } from '@workspace/core/stores/permissions';
   import { computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
 
@@ -10,12 +10,14 @@
   }
 
   interface Props {
+    testId?: string;
     tabs: Tab[];
     modelValue?: string;
     mode?: 'route' | 'state';
   }
 
   const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-tabs',
     mode: 'state',
     modelValue: undefined,
   });
@@ -49,7 +51,10 @@
 </script>
 
 <template>
-  <div class="text-txt-default bg-background-surface-3 mb-4 flex w-fit rounded-lg text-sm">
+  <div
+    :data-testid="testId"
+    class="text-txt-default bg-background-surface-3 mb-4 flex w-fit rounded-lg text-sm"
+  >
     <button
       v-for="tab in tabs.filter((tab) => (tab.permission ? can(tab.permission) : true))"
       :key="tab.routeName"

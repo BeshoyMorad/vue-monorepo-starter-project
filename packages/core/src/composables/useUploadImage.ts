@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/vue-query';
 import axios, { isAxiosError } from 'axios';
-import { api } from '@/lib/api/client';
-import { apiRoute } from '@/lib/api/endpoints';
-import { error } from '@/utils/toast';
+import { api } from '@workspace/core/lib/api/client';
+import { apiRoute } from '@workspace/core/lib/api/endpoints';
+import { error } from '@workspace/core/utils/toast';
 
 export type StorageServiceType = 'PHOTO';
 

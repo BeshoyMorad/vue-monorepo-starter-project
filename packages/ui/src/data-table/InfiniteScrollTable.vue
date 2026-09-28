@@ -1,17 +1,17 @@
-<script setup lang="ts" generic="TRow extends { id: number | string }">
+<script setup lang="ts" generic="TRow">
   import { ref, computed, useTemplateRef, onMounted } from 'vue';
   import type { HTMLAttributes } from 'vue';
   import { useInfiniteScroll } from '@vueuse/core';
   import { type ColumnDef } from '@tanstack/vue-table';
-  import { cn } from '@/utils';
-  import { Icon, Skeleton, EmptyPlaceholder } from '@/components';
+  import { cn } from '@workspace/core/utils';
+  import { Icon, Skeleton, EmptyPlaceholder } from '@workspace/ui';
   import {
     Table,
     TableHeader,
     TableRow as UITableRow,
     TableCell,
     TableBody,
-  } from '@/components/ui/table';
+  } from '@workspace/ui/ui/table';
   import TableHead from './TableHead.vue';
   import TableRow from './TableRow.vue';
   import { useTableRowClick } from './useTableRowClick';

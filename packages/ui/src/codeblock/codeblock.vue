@@ -4,7 +4,7 @@
     header?: string;
   }>();
   import { ref } from 'vue';
-  import { success } from '@/utils/toast';
+  import { success } from '@workspace/core/utils/toast';
 
   const copied = ref(false);
 

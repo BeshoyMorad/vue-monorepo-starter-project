@@ -1,23 +1,30 @@
 <script setup lang="ts">
-  import { useAppLocale } from '@/composables/useAppLocale';
+  import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+  import Button from '@workspace/ui/ui/button/Button.vue';
   import {
-    Button,
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-  } from '@/components';
-  import type { LocaleCode } from '@/locales/config';
+  } from '@workspace/ui/ui/dropdown-menu';
+  import type { LocaleCode } from '@workspace/locales';
+
+  const props = withDefaults(
+    defineProps<{
+      testId?: string;
+    }>(),
+    { testId: 'ui-language-switcher' }
+  );
 
   const { currentLocaleMeta, supportedLocales, setLocale, isLoadingLocale } = useAppLocale();
 
   const handleLocaleSelect = (locale: LocaleCode) => {
-    setLocale(locale);
+    void setLocale(locale);
   };
 </script>
 
 <template>
-  <DropdownMenu>
+  <DropdownMenu :data-testid="props.testId">
     <DropdownMenuTrigger as-child>
       <Button outline size="sm" test-id="language-switcher-trigger" :loading="isLoadingLocale">
         <span class="text-base leading-none">{{ currentLocaleMeta.flag }}</span>

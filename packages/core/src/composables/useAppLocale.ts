@@ -9,8 +9,34 @@ import {
   SUPPORTED_LOCALE_CODES,
   type LocaleCode,
   type LocaleMeta,
-} from '@/locales/config';
-import { i18n, loadLocaleMessages } from '@/locales';
+} from '@workspace/locales';
+
+// App-level registry to allow multi-tenant / independent i18n configurations
+interface I18nGlobalLike {
+  locale: Ref<string> | string;
+  t: (key: string, ...args: unknown[]) => string;
+  d: (...args: unknown[]) => string;
+  n: (...args: unknown[]) => string;
+  tm: (key: string) => unknown;
+  rt: (key: unknown) => string;
+}
+
+interface I18nInstanceLike {
+  global: I18nGlobalLike;
+}
+
+let activeI18nInstance: I18nInstanceLike | null = null;
+let activeLocaleLoader: ((locale: LocaleCode) => Promise<void>) | null = null;
+
+export function registerAppI18n(
+  instance: unknown,
+  loader?: (locale: LocaleCode) => Promise<void>
+): void {
+  activeI18nInstance = instance as I18nInstanceLike;
+  if (loader) {
+    activeLocaleLoader = loader;
+  }
+}
 
 const currentLocaleState = ref<LocaleCode>(DEFAULT_LOCALE);
 const isLoadingLocale = ref(false);
@@ -38,9 +64,11 @@ function updateDocumentAttributes(meta: LocaleMeta): void {
 
 function getStoredOrDefaultLocale(): LocaleCode {
   try {
-    const savedLocale = localStorage.getItem(LOCALE_STORAGE_KEY) as LocaleCode | null;
-    if (savedLocale && SUPPORTED_LOCALE_CODES.includes(savedLocale)) {
-      return savedLocale;
+    if (typeof localStorage !== 'undefined') {
+      const savedLocale = localStorage.getItem(LOCALE_STORAGE_KEY) as LocaleCode | null;
+      if (savedLocale && SUPPORTED_LOCALE_CODES.includes(savedLocale)) {
+        return savedLocale;
+      }
     }
     if (typeof navigator !== 'undefined') {
       const browserLang = navigator.language.split('-')[0] as LocaleCode;
@@ -55,33 +83,54 @@ function getStoredOrDefaultLocale(): LocaleCode {
 }
 
 async function applyLocaleChange(locale: LocaleCode): Promise<void> {
-  await loadLocaleMessages(locale);
+  if (activeLocaleLoader) {
+    await activeLocaleLoader(locale);
+  }
   const meta = SUPPORTED_LOCALES[locale];
   await syncDayjsLocale(meta.dayjsLocale);
 
-  const globalLocale = i18n.global.locale as unknown as Ref<string>;
-  if (typeof globalLocale === 'object' && 'value' in globalLocale) {
-    globalLocale.value = locale;
+  if (activeI18nInstance?.global?.locale) {
+    const globalLocale = activeI18nInstance.global.locale;
+    if (typeof globalLocale === 'object' && 'value' in globalLocale) {
+      globalLocale.value = locale;
+    }
   }
+
   currentLocaleState.value = locale;
   updateDocumentAttributes(meta);
 
   try {
-    localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+    }
   } catch {
     // Safe fallback if localStorage is unavailable
   }
 }
 
 function getI18nTranslators() {
-  const composer = getCurrentInstance() ? useI18n({ useScope: 'global' }) : i18n.global;
+  if (getCurrentInstance()) {
+    try {
+      const composer = useI18n({ useScope: 'global' });
+      return {
+        t: composer.t,
+        d: composer.d,
+        n: composer.n,
+        tm: composer.tm,
+        rt: composer.rt,
+      };
+    } catch {
+      // Fallback to active instance if outside component context
+    }
+  }
 
+  const global = activeI18nInstance?.global;
   return {
-    t: composer.t,
-    d: composer.d,
-    n: composer.n,
-    tm: composer.tm,
-    rt: composer.rt,
+    t: (key: string, ...args: unknown[]) => global?.t(key, ...args) ?? key,
+    d: (...args: unknown[]) => global?.d(...args) ?? '',
+    n: (...args: unknown[]) => global?.n(...args) ?? '',
+    tm: (key: string) => global?.tm(key) ?? key,
+    rt: (val: unknown) => global?.rt(val) ?? String(val),
   };
 }
 

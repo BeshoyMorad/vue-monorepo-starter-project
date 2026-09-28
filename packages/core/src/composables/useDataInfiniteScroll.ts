@@ -5,7 +5,7 @@ import {
   type QueryKey,
   type UseInfiniteQueryReturnType,
 } from '@tanstack/vue-query';
-import { fetchTableData } from '@/lib/api/table';
+import { fetchTableData } from '@workspace/core/lib/api/table';
 import {
   useTableState,
   type TableStateOptions,

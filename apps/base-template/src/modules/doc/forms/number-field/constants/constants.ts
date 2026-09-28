@@ -1,4 +1,4 @@
-export const NUMBER_IMPORT_CODE = `import { Field } from '@/components';`;
+export const NUMBER_IMPORT_CODE = `import { Field } from '@workspace/ui';`;
 
 export const NUMBER_BASIC_CODE = `<Field.Number
   placeholder="Enter age..."
@@ -21,7 +21,7 @@ export const NUMBER_NO_STEPPERS_CODE = `<Field.Number
 
 export const NUMBER_V_MODEL_CODE = `<script setup lang="ts">
 import { ref } from 'vue';
-import { Field } from '@/components';
+import { Field } from '@workspace/ui';
 
 const numberValue = ref<number | undefined>(undefined);
 </script>

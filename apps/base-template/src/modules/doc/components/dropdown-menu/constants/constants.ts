@@ -3,7 +3,7 @@ export const DROPDOWN_MENU_IMPORT_CODE = `import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components';`;
+} from '@workspace/ui';`;
 
 export const DROPDOWN_MENU_BASIC_CODE = `<DropdownMenu>
   <DropdownMenuTrigger as-child>

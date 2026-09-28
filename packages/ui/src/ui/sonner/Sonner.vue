@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import 'vue-sonner/style.css';
-  import { Icon } from '@/components';
+  import { Icon } from '@workspace/ui';
   import { Toaster } from 'vue-sonner';
-  import { TEST_IDS } from '@/lib/test-ids';
+  import { TEST_IDS } from '@workspace/core/lib/test-ids';
 
   const TOAST_COLORS = {
     '--success-bg': 'linear-gradient(135deg, #15803d, #112c2c)',

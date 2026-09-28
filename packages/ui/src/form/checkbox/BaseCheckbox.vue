@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { computed, useAttrs, useId, useSlots } from 'vue';
-  import { Checkbox } from '@/components/ui/checkbox';
+  import { Checkbox } from '@workspace/ui/ui/checkbox';
   import { cva } from 'class-variance-authority';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
   import { useVModel } from '@vueuse/core';
 
   defineOptions({

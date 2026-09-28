@@ -3,8 +3,8 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit } from '@vueuse/core';
   import { NumberFieldDecrement, useForwardProps } from 'reka-ui';
-  import { cn } from '@/utils';
-  import { Icon } from '@/components';
+  import { cn } from '@workspace/core/utils';
+  import { Icon } from '@workspace/ui';
 
   const props = defineProps<NumberFieldDecrementProps & { class?: HTMLAttributes['class'] }>();
 

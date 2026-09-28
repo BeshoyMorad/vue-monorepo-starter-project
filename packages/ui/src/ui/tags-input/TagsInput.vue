@@ -3,8 +3,8 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit } from '@vueuse/core';
   import { TagsInputRoot, useForwardPropsEmits } from 'reka-ui';
-  import { cn } from '@/utils';
-  import { inputVariants } from '@/components/ui/input';
+  import { cn } from '@workspace/core/utils';
+  import { inputVariants } from '@workspace/ui/ui/input';
 
   const props = defineProps<TagsInputRootProps & { class?: HTMLAttributes['class'] }>();
   const emits = defineEmits<TagsInputRootEmits>();

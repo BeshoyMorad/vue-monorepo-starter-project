@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { Avatar, AvatarFallback, AvatarImage } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Avatar, AvatarFallback, AvatarImage } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import {
     AVATAR_IMPORT_CODE,

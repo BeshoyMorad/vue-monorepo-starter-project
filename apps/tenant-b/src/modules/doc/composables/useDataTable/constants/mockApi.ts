@@ -1,4 +1,4 @@
-import type { TableParams } from '@/composables';
+import type { TableParams } from '@workspace/core/composables';
 
 import { MOCK_USERS, type MockUser } from './data';
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Field } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import {
     DATE_PICKER_IMPORT_CODE,

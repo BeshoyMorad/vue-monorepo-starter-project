@@ -2,7 +2,7 @@
   import { computed, useAttrs, watch } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { REGEXP_ONLY_DIGITS } from 'vue-input-otp';
-  import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+  import { InputOTP, InputOTPGroup, InputOTPSlot } from '@workspace/ui/ui/input-otp';
 
   defineOptions({
     inheritAttrs: false,

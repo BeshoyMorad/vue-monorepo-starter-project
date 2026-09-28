@@ -3,7 +3,7 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit } from '@vueuse/core';
   import { ComboboxAnchor, useForwardProps } from 'reka-ui';
-  import { cn } from '@/utils';
+  import { cn } from '@workspace/core/utils';
 
   type Props = ComboboxAnchorProps & { class?: HTMLAttributes['class'] };
 

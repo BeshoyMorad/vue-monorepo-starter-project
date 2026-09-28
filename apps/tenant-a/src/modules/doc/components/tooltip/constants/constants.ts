@@ -1,4 +1,4 @@
-export const TOOLTIP_IMPORT_CODE = `import { Tooltip } from '@/components';`;
+export const TOOLTIP_IMPORT_CODE = `import { Tooltip } from '@workspace/ui';`;
 
 export const TOOLTIP_BASIC_CODE = `<Tooltip>
   <template #trigger>

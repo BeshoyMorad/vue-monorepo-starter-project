@@ -1,4 +1,4 @@
-export const IMAGE_UPLOAD_IMPORT_CODE = `import { Field } from '@/components';`;
+export const IMAGE_UPLOAD_IMPORT_CODE = `import { Field } from '@workspace/ui';`;
 
 export const IMAGE_UPLOAD_BASIC_CODE = `<Field.ImageUpload
   v-model="media"
@@ -49,7 +49,7 @@ export const IMAGE_UPLOAD_DISABLED_CODE = `<Field.ImageUpload
 
 export const IMAGE_UPLOAD_V_MODEL_CODE = `<script setup lang="ts">
 import { ref } from 'vue';
-import type { MediaValue } from '@/types/media';
+import type { MediaValue } from '@workspace/core/types/media';
 
 const media = ref<MediaValue | null>(null);
 </script>

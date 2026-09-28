@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue';
-  import { useDarkTheme } from '@/composables';
+  import { useDarkTheme } from '@workspace/core/composables';
+  import { getImagePath } from '@workspace/core/utils';
 
   const props = withDefaults(
     defineProps<{
@@ -21,17 +22,9 @@
     () =>
       props.fallback ??
       (isDark.value
-        ? '@/assets/images/dark-placeholder.webp'
-        : '@/assets/images/light-placeholder.webp')
+        ? getImagePath('default-image-dark.png')
+        : getImagePath('default-image-light.png'))
   );
-
-  /** Density srcset for built-in placeholders only (custom `fallback` is a single URL). */
-  const fallbackSrcset = computed(() => {
-    if (props.fallback) return undefined;
-    return isDark.value
-      ? '@/assets/images/dark-placeholder.webp 1x, @/assets/images/dark-placeholder@2x.webp 2x'
-      : '@/assets/images/light-placeholder.webp 1x, @/assets/images/light-placeholder@2x.webp 2x';
-  });
 
   const isUsingFallback = ref(!props.src);
   const currentSrc = ref(props.src || resolvedFallback.value);
@@ -63,10 +56,5 @@
 </script>
 
 <template>
-  <img
-    :src="currentSrc"
-    :srcset="isUsingFallback ? fallbackSrcset : undefined"
-    :alt="alt"
-    @error="handleError"
-  />
+  <img :src="currentSrc" :alt="alt" @error="handleError" />
 </template>

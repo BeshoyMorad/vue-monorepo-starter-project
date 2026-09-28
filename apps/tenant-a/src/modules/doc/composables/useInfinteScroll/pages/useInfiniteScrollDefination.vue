@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import { USE_DATA_INFINITE_SCROLL_BASIC_CODE } from '../constants/constants';
 </script>

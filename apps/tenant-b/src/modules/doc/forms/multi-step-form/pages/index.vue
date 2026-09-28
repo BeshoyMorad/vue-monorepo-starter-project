@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { MultiStepForm, Field, Button } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { MultiStepForm, Field, Button } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
   import type { GenericObject } from 'vee-validate';
-  import type { StepDefinition } from '@/components';
+  import type { StepDefinition } from '@workspace/ui';
 
   import {
     MULTI_STEP_FORM_IMPORT_CODE,

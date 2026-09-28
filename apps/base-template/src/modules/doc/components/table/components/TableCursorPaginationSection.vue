@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import type { ColumnDef } from '@tanstack/vue-table';
 
-  import { Table } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
+  import { Table } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import { useAppLocale } from '@workspace/core/composables';
 
   import { TABLE_CURSOR_PAGINATION, TABLE_CODE_HEADER_SCRIPT } from '../constants/constants';
   import { useTableCursorPagination } from '../composables/useTableCursorPagination';

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { useDataTable, type TableParams } from '@/composables';
-  import { Button, Field, Table } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { useDataTable, type TableParams } from '@workspace/core/composables';
+  import { Button, Field, Table } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
   import {
     USE_DATA_TABLE_IMPORT_CODE,
     USE_DATA_TABLE_BASIC_CODE,

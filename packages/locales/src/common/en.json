@@ -1,0 +1,51 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search...",
+    "loading": "Loading...",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "create": "Create",
+    "update": "Update",
+    "close": "Close",
+    "refresh": "Refresh",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "actions": "Actions",
+    "status": "Status",
+    "filter": "Filter",
+    "clear": "Clear",
+    "language": "Language",
+    "selectLanguage": "Select language",
+    "activeLanguage": "Current Language",
+    "ltr": "Left-to-Right",
+    "rtl": "Right-to-Left",
+    "direction": "Direction"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page or resource not found.",
+    "network": "Network connection error. Check your internet.",
+    "unauthorized": "You are not authorized to view this page.",
+    "forbidden": "Access forbidden.",
+    "serverError": "Internal server error. Please try again later.",
+    "validationFailed": "Please fix the validation errors before submitting."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "starter": "Starter",
+    "multiStepForm": "Multi-Step Form",
+    "virtualScroll": "Virtual Scroll",
+    "localization": "Localization Demo",
+    "demo": "Demo",
+    "settings": "Settings",
+    "profile": "Profile",
+    "login": "Login",
+    "logout": "Logout"
+  }
+}

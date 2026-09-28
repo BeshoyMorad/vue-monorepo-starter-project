@@ -1,8 +1,10 @@
 /* Tenant A: Blue Theme */
 @theme {
   --color-primary: #2563eb;
+  --color-bg-primary-default: red;
 }
 
 :root {
   --color-primary: #2563eb;
+  --color-bg-primary-default: red;
 }

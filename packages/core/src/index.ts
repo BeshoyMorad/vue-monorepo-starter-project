@@ -3,5 +3,7 @@ export * from './stores';
 export * from './utils';
 export * from './lib';
 export * from './types';
-export * from './constants/file-upload';
+export * from './constants';
 export * from './config/env';
+export * from './router';
+export * from './env';

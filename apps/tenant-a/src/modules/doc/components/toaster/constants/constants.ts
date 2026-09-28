@@ -3,7 +3,7 @@ export const TOASTER_IMPORT_CODE = `import {
   success,
   error,
   warn,
-} from '@/utils/toast';`;
+} from '@workspace/core/utils/toast';`;
 
 export const TOASTER_CODE_HEADER = {
   import: 'Import',

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
   import { USE_DATA_INFINITE_SCROLL_CURSOR_DOC } from '../constants/constants';
   import { type MockUser } from '../constants/data';
-  import { useDataInfiniteScroll } from '@/composables';
+  import { useDataInfiniteScroll } from '@workspace/core/composables';
   import { getMockOffsetUsers } from '../constants/mockApi';
-  import InfiniteScrollTable from '@/components/data-table/InfiniteScrollTable.vue';
+  import InfiniteScrollTable from '@workspace/ui/data-table/InfiniteScrollTable.vue';
   import type { ColumnDef } from '@tanstack/vue-table';
 
   const columns: ColumnDef<MockUser, unknown>[] = [

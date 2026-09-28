@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Skeleton } from '@/components/ui/skeleton';
+  import { Skeleton } from '@workspace/ui/ui/skeleton';
 </script>
 
 <template>

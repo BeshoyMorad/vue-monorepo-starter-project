@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useAppLocale } from '@/composables';
+  import { useAppLocale } from '@workspace/core/composables';
 
   import TableImportSection from '../components/TableImportSection.vue';
   import TableDefinitionSection from '../components/TableDefinitionSection.vue';

@@ -1,4 +1,4 @@
-export const PASSWORD_IMPORT_CODE = `import { Field } from '@/components';`;
+export const PASSWORD_IMPORT_CODE = `import { Field } from '@workspace/ui';`;
 
 export const PASSWORD_BASIC_CODE = `<Field.Password
   placeholder="Enter password..."
@@ -13,7 +13,7 @@ export const PASSWORD_LOADING_CODE = `<Field.Password
 
 export const PASSWORD_V_MODEL_CODE = `<script setup lang="ts">
 import { ref } from 'vue';
-import { Field } from '@/components';
+import { Field } from '@workspace/ui';
 
 const passwordValue = ref('');
 </script>

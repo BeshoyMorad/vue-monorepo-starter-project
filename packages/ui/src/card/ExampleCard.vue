@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Codeblock from '@/components/codeblock/codeblock.vue';
+  import Codeblock from '@workspace/ui/codeblock/codeblock.vue';
 
   interface Props {
     title?: string;

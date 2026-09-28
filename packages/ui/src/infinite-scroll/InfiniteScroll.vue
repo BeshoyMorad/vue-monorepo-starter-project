@@ -2,11 +2,12 @@
   import type { HTMLAttributes } from 'vue';
   import { computed, ref } from 'vue';
   import { useInfiniteScroll } from '@vueuse/core';
-  import { Icon } from '@/components';
-  import { cn } from '@/utils';
-  import { useVirtualScroll } from '@/composables';
+  import { Icon } from '@workspace/ui';
+  import { cn } from '@workspace/core/utils';
+  import { useVirtualScroll } from '@workspace/core/composables';
 
   interface Props {
+    testId?: string;
     hasMore: boolean;
     loading: boolean;
     disabled?: boolean;
@@ -27,6 +28,7 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
+    testId: 'ui-infinite-scroll',
     disabled: false,
     distance: 120,
     height: 'auto',
@@ -100,6 +102,7 @@
 <template>
   <div
     ref="containerRef"
+    :data-testid="props.testId"
     :class="
       cn('w-full overflow-y-auto', [
         {

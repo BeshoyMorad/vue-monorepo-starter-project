@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { Button } from '@/components';
-  import Codeblock from '@/components/codeblock/codeblock.vue';
+  import { Button } from '@workspace/ui';
+  import Codeblock from '@workspace/ui/codeblock/codeblock.vue';
   import { BUTTON_IMPORT_CODE, BUTTON_VARIANTS, BUTTON_OUTLINE } from '../constants/constants';
-  import Card from '@/components/card/ExampleCard.vue';
-  import { useAppLocale } from '@/composables';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
+  import { useAppLocale } from '@workspace/core/composables';
   import { ref } from 'vue';
 
   type ButtonVariant = (typeof BUTTON_VARIANTS)[number]['variant'];

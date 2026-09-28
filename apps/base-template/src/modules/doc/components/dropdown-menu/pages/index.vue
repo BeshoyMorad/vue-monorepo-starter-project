@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
-  import Button from '@/components/ui/button/Button.vue';
+  import Button from '@workspace/ui/ui/button/Button.vue';
 
   import {
     DropdownMenu,
@@ -20,7 +20,7 @@
     DropdownMenuSubContent,
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
-  } from '@/components';
+  } from '@workspace/ui';
 
   import {
     DROPDOWN_MENU_IMPORT_CODE,

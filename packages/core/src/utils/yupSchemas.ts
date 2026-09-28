@@ -1,4 +1,4 @@
-import type { MediaValue } from '@/types/media';
+import type { MediaValue } from '@workspace/core/types/media';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import * as yup from 'yup';
 

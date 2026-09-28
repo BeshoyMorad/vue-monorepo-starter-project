@@ -4,8 +4,8 @@
   import { toTypedSchema } from '@vee-validate/yup';
   import { Form } from 'vee-validate';
 
-  import { Button, Field } from '@/components';
-  import Card from '@/components/card/ExampleCard.vue';
+  import { Button, Field } from '@workspace/ui';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
 
   import {
     FORM_IMPORT_CODE,

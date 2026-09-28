@@ -2,8 +2,8 @@
   import { computed, useAttrs, useId } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { radioGroupVariants, type RadioGroupOption } from './index';
-  import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-  import { cn } from '@/utils';
+  import { RadioGroup, RadioGroupItem } from '@workspace/ui/ui/radio-group';
+  import { cn } from '@workspace/core/utils';
 
   defineOptions({
     inheritAttrs: false,
