@@ -1,0 +1,10 @@
+import { success } from './toast';
+
+export async function copyToClipboard(text: string) {
+  await navigator.clipboard.writeText(text);
+  success('Copied to clipboard');
+}
+
+export const pasteFromClipboard = async () => {
+  return await navigator.clipboard.readText();
+};

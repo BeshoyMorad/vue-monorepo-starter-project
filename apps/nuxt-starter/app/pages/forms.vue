@@ -1,0 +1,18 @@
+<script setup lang="ts">
+  import { definePageMeta } from '#imports';
+  import { paths } from '@/constants/route-names';
+
+  definePageMeta({
+    name: paths.formsPaths.root,
+    redirect: { name: paths.formsPaths.overview },
+    middleware: 'auth',
+    title: 'Forms',
+    sidebar: true,
+    icon: 'hugeicons--input-short-text',
+    order: 3,
+  });
+</script>
+
+<template>
+  <NuxtPage />
+</template>

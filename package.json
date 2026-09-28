@@ -18,6 +18,8 @@
     "build:tenant-a": "pnpm --filter @workspace/tenant-a build",
     "dev:tenant-b": "pnpm --filter @workspace/tenant-b dev",
     "build:tenant-b": "pnpm --filter @workspace/tenant-b build",
+    "dev:nuxt": "pnpm --filter @workspace/nuxt-starter dev",
+    "build:nuxt": "pnpm --filter @workspace/nuxt-starter build",
     "tenant:add": "node scripts/add-tenant.js",
     "tenant:remove": "node scripts/remove-tenant.js",
     "verify": "node scripts/verify.mjs",
