@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BasePhoneInputProps } from '@/types/form';
   import { type CountryCode } from 'libphonenumber-js';
   import { cn } from '@/utils';
   import { allCountries } from '@/utils/countries';
@@ -8,18 +9,9 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultCountry?: CountryCode;
-    placeholder?: string;
-    disabled?: boolean;
-    showClear?: boolean;
-  }
+  // ─── BasePhoneInputProps & Emits ────────────────────────────────────────────────────────────
 
-  // ─── Props & Emits ────────────────────────────────────────────────────────────
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BasePhoneInputProps>(), {
     modelValue: '',
     defaultCountry: 'US',
     placeholder: '000 000 0000',

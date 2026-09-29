@@ -1,25 +1,13 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BasePhoneInputProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
-  import type { CountryCode } from 'libphonenumber-js';
   import { FormField } from '@/components/ui/form';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultCountry?: CountryCode;
-    placeholder?: string;
-    disabled?: boolean;
-    showClear?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = BasePhoneInputProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: '',

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseInputTextProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { cn } from '@/utils';
 
@@ -6,16 +7,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    icon?: string;
-    iconPosition?: 'left' | 'right';
-    loading?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputTextProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     icon: undefined,

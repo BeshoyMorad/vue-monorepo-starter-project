@@ -1,5 +1,5 @@
 // import { useAuthStore } from '@/stores/auth';
-import type { CanPermission } from '@/types/permissions';
+import type { CanPermission } from '@/types/auth';
 
 function parseDotNotation(permStr: string): [string, string] {
   const [resource = '', ...action] = permStr.split('.');

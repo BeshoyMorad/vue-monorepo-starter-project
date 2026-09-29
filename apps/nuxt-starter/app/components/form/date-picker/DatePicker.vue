@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseDatePickerProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
 
@@ -6,22 +7,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: Date | string | null;
-    defaultValue?: Date | string | null;
-    dateFormat?: string;
-    minDate?: Date;
-    maxDate?: Date;
-    disabled?: boolean;
-    placeholder?: string;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = BaseDatePickerProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

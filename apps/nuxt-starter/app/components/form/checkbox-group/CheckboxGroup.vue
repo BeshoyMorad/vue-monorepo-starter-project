@@ -1,28 +1,13 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseCheckboxGroupProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
-
-  import type { CheckboxGroupOption } from '@/types/form';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: CheckboxGroupOption[];
-    modelValue?: unknown[];
-    defaultValue?: unknown[];
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    shape?: 'circle' | 'square';
-    disabled?: boolean;
-    label?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = BaseCheckboxGroupProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

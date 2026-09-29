@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseFileUploadProps } from '@/types/form';
   import type { MediaValue } from '@/types/media';
 
   import { cn } from '@/utils';
@@ -19,21 +20,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue[];
-    disabled?: boolean;
-    placeholder?: string;
-    buttonLabel?: string;
-    ariaInvalid?: boolean;
-    allowedTypes?: string[];
-    maxFiles?: number;
-    maxSizeMb?: number;
-    hasDisplayHint?: boolean;
-    hasPlaceholder?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseFileUploadProps>(), {
     modelValue: () => [],
     disabled: false,
     placeholder: 'No files uploaded yet',

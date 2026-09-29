@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseImageUploadProps } from '@/types/form';
   /* eslint-disable max-lines */
   import type { MediaValue } from '@/types/media';
 
@@ -15,20 +16,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue | null;
-    disabled?: boolean;
-    placeholder?: string;
-    sizePreset?: 'logo' | 'smallLogo' | 'avatar' | 'default';
-    ariaInvalid?: boolean;
-    allowedTypes?: string[];
-    crop?: boolean;
-    cropAspectRatio?: number;
-    maxSizeMb?: number;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseImageUploadProps>(), {
     modelValue: null,
     disabled: false,
     placeholder: 'Upload image',

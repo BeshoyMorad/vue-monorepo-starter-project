@@ -1,4 +1,4 @@
-import type { TableParams } from '@/types/table';
+import type { TableParams } from '@/types/data-table';
 
 import type { MockUser } from '@/features/doc/types';
 import { MOCK_USERS } from '@/features/doc/composables/useDataTable/constants/data';

@@ -7,7 +7,7 @@
     getHistoryGroup,
     getMarksGroup,
   } from './toolbar-items';
-  import type { ToolbarItem } from './types';
+  import type { ToolbarItem } from '@/types/form';
 
   const props = withDefaults(
     defineProps<{

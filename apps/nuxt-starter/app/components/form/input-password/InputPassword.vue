@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseInputPasswordProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
 
@@ -6,16 +7,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = BaseInputPasswordProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

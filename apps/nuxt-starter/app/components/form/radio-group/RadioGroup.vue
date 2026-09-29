@@ -1,27 +1,13 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseRadioGroupProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
-  import type { RadioGroupOption } from '@/types/form';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: RadioGroupOption[];
-    modelValue?: string;
-    defaultValue?: string;
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    disabled?: boolean;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = BaseRadioGroupProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

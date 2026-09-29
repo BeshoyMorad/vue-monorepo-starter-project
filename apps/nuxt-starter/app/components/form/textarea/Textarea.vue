@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
+  import type { FormFieldWrapperProps } from '@/types/form';
   import { Textarea as UITextarea } from '@/components/ui/textarea';
   import { FormField } from '@/components/ui/form';
 
@@ -7,15 +8,10 @@
     inheritAttrs: false,
   });
 
-  interface Props {
+  interface Props extends FormFieldWrapperProps {
     testId: string;
     modelValue?: string | number;
     defaultValue?: string | number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
   }
 
   const props = withDefaults(defineProps<Props>(), {

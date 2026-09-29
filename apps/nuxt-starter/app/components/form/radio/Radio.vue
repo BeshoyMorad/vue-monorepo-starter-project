@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseRadioProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
 
@@ -6,19 +7,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    value?: string;
-    disabled?: boolean;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = BaseRadioProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

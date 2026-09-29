@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseInputNumberProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
 
@@ -6,26 +7,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: number;
-    defaultValue?: number;
-    icon?: string;
-    iconPosition?: 'left' | 'right';
-    loading?: boolean;
-    hideSteppers?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-    // NumberField specific props to forward
-    min?: number;
-    max?: number;
-    step?: number;
-    disabled?: boolean;
-    formatOptions?: Intl.NumberFormatOptions;
-  }
+  type Props = BaseInputNumberProps & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

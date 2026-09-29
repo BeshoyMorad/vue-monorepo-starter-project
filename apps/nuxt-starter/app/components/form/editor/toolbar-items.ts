@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/vue-3';
-import type { ToolbarItem } from './types';
+import type { ToolbarItem } from '@/types/form';
 
 export function getHistoryGroup(ed: Editor): ToolbarItem[] {
   return [

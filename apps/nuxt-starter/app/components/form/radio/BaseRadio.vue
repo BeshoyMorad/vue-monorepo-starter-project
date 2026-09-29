@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseRadioProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
 
   import { cn } from '@/utils';
@@ -7,17 +8,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    value?: string;
-    disabled?: boolean;
-    label?: string;
-    id?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseRadioProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     value: '',

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import type { AppEnvConfig } from '@/types/env';
+import type { AppEnvConfig } from '@/types/config';
 
 const envSchema: yup.ObjectSchema<AppEnvConfig> = yup.object({
   apiBaseUrl: yup

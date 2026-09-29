@@ -1,5 +1,5 @@
 import type * as yup from 'yup';
-import type { Network } from '@/types/network';
+import type { Network } from '@/types/blockchain';
 import type { availableAssetsSchema } from '@/features/assets/schemas/available-assets.schema';
 import type { customTokenSchema } from '@/features/assets/schemas/custom-token.schema';
 

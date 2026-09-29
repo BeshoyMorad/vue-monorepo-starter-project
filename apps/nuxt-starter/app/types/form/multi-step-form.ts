@@ -76,15 +76,3 @@ export interface UseMultiStepFormReturn {
   /** Clear persisted form state from storage. */
   clearStorage: () => void;
 }
-
-export interface RadioGroupOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
-export interface CheckboxGroupOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}

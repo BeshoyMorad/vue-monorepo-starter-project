@@ -8,6 +8,7 @@
     OptionValue extends keyof Option | ((data: Option) => Value)
   "
 >
+  import type { FormFieldWrapperProps } from '@/types/form';
   import type { AcceptableValue } from 'reka-ui';
   import { FormField } from '@/components/ui/form';
   import type { QueryKey } from '@tanstack/vue-query';
@@ -16,7 +17,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
+  interface Props extends FormFieldWrapperProps {
     testId: string;
     endpoint: string;
     queryKey: QueryKey;
@@ -35,11 +36,6 @@
     maxSelectedLabels?: number;
     initialOptions?: Option[] | Option;
     excludeValues?: Value[];
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
   }
 
   withDefaults(defineProps<Props>(), {

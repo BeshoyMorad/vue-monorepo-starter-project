@@ -1,4 +1,4 @@
-import type { TableParams } from '@/types/table';
+import type { TableParams } from '@/types/data-table';
 import type { MockUser } from '@/features/doc/types';
 import type { OffsetPaginatedResponse, CursorPaginatedResponse } from '@/types/api';
 

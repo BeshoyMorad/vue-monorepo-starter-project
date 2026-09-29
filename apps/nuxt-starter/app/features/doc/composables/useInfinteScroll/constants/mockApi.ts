@@ -1,4 +1,4 @@
-import type { TableParams } from '@/types/table';
+import type { TableParams } from '@/types/data-table';
 
 import type { MockAvatarUser } from '@/features/doc/types';
 import { MOCK_USERS } from '@/features/doc/composables/useInfinteScroll/constants/data';

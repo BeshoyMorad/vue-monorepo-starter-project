@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseImageUploadProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
 
@@ -8,21 +9,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue | null;
-    disabled?: boolean;
-    placeholder?: string;
-    sizePreset?: 'logo' | 'smallLogo' | 'avatar' | 'default';
-    allowedTypes?: string[];
-    crop?: boolean;
-    cropAspectRatio?: number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
+  type Props = Omit<BaseImageUploadProps, 'ariaInvalid' | 'maxSizeMb'> & FormFieldWrapperProps;
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: null,

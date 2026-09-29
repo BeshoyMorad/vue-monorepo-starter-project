@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseDatePickerProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
 
@@ -10,19 +11,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: Date | string | null;
-    defaultValue?: Date | string | null;
-    dateFormat?: string;
-    minDate?: Date;
-    maxDate?: Date;
-    disabled?: boolean;
-    placeholder?: string;
-    id?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseDatePickerProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     dateFormat: 'DD MMM, YYYY',

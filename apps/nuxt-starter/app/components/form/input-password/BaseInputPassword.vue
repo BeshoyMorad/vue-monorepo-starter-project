@@ -1,17 +1,12 @@
 <script setup lang="ts">
+  import type { BaseInputPasswordProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputPasswordProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
   });

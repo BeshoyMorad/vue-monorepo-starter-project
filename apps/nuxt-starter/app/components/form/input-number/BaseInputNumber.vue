@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseInputNumberProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { cn } from '@/utils';
 
@@ -6,22 +7,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: number;
-    defaultValue?: number;
-    icon?: string;
-    iconPosition?: 'left' | 'right';
-    loading?: boolean;
-    hideSteppers?: boolean;
-    min?: number;
-    max?: number;
-    step?: number;
-    disabled?: boolean;
-    formatOptions?: Intl.NumberFormatOptions;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputNumberProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     icon: undefined,

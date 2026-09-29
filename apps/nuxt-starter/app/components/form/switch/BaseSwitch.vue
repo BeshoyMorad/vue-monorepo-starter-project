@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { BaseSwitchProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
 
   import { cva } from 'class-variance-authority';
@@ -21,18 +22,7 @@
     },
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: boolean;
-    defaultValue?: boolean;
-    size?: 'small' | 'default' | 'large';
-    disabled?: boolean;
-    readonly?: boolean;
-    label?: string;
-    id?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseSwitchProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     size: 'default',

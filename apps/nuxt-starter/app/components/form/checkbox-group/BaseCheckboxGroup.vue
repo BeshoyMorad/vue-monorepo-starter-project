@@ -1,24 +1,13 @@
 <script setup lang="ts">
+  import type { BaseCheckboxGroupProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { checkboxGroupVariants } from './index';
-  import type { CheckboxGroupOption } from '@/types/form';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: CheckboxGroupOption[];
-    modelValue?: unknown[];
-    defaultValue?: unknown[];
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    shape?: 'circle' | 'square';
-    disabled?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseCheckboxGroupProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     layout: 'vertical',

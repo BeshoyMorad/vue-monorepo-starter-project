@@ -44,7 +44,8 @@ app/
 ├── pages/            File-based routes (definePageMeta sets name/layout/middleware)
 ├── plugins/          api, vue-query, dayjs, error-handler
 ├── stores/           Pinia stores
-├── types/            Shared TypeScript types, one file per domain
+├── types/            Shared types in folders: api, auth, blockchain, common, config, data-table,
+│                     form (+ form/fields), locale, media, router, ui
 └── utils/            Small helpers (not auto-imported)
 i18n/
 ├── locales/          en.ts / ar.ts merge common and feature messages
@@ -61,9 +62,16 @@ tests/
 - **Routes.** Add a file under `app/pages`. Give it a name from `app/constants/route-names.ts`
   in `definePageMeta` and navigate by name. Set `sidebar: true`, `title`, and `order` to show it
   in the sidebar.
-- **Types.** Shared types live in `app/types/<domain>.ts` and are imported with `import type`.
-  A type used by only one component stays in that component (for example its `Props`).
-  Feature types go in `app/features/<feature>/types.ts`. There are no global ambient types.
+- **Types.** Shared types live in `app/types/<folder>/`, grouped like the composables. Each
+  folder's `index.ts` re-exports its files, so import from the folder:
+  `import type { ApiResponse } from '@/types/api'`. A type used by only one component stays in
+  that component (for example its `Props`). Feature types go in
+  `app/features/<feature>/types.ts`. The `.d.ts` files in `locale/` and `router/` only augment
+  vue-i18n and the route meta, and are not re-exported.
+  Form fields keep their base props in `app/types/form/fields/<field>.ts` (e.g.
+  `BaseCheckboxProps`), and the vee-validate wrapper uses
+  `type Props = BaseCheckboxProps & FormFieldWrapperProps`, both from `@/types/form`.
+  Do not share prop types through generics: Vue's compiler resolves them once for all files.
 - **Auth and permissions.** `auth.global.ts` protects every page. Make a page public with
   `definePageMeta({ auth: false })`. To require permissions, add
   `middleware: ['permission']` and `permissions: 'admins.list'` (or a list, with

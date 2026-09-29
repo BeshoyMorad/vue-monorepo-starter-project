@@ -1,4 +1,4 @@
-import type { CanPermission } from '@/types/permissions';
+import type { CanPermission } from '@/types/auth';
 
 /** Custom route meta used by the sidebar, overview cards, document title and middleware. */
 interface AppRouteMeta {

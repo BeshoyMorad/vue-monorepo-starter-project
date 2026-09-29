@@ -1,5 +1,5 @@
 import { type Ref } from 'vue';
-import type { UseVirtualScrollOptions, UseVirtualScrollReturn } from '@/types/virtual-scroll';
+import type { UseVirtualScrollOptions, UseVirtualScrollReturn } from '@/types/ui';
 
 function resolveValue<R>(val: Ref<R> | (() => R) | R | undefined, defaultValue: R): R {
   if (val === undefined) return defaultValue;

@@ -6,7 +6,7 @@ import type {
   TableSort,
   TableStateOptions,
   TableStateReturn,
-} from '@/types/table';
+} from '@/types/data-table';
 
 // eslint-disable-next-line max-lines-per-function
 export function useTableState<TFilters extends object>(

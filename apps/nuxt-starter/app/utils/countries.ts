@@ -1,5 +1,5 @@
 import { getCountries, getCountryCallingCode, type CountryCode } from 'libphonenumber-js';
-import type { CountryOption } from '@/types/country';
+import type { CountryOption } from '@/types/common';
 
 /**
  * Convert an ISO 3166-1 alpha-2 country code to a flag emoji using

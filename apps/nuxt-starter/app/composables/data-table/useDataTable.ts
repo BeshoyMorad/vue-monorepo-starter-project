@@ -13,7 +13,7 @@ import type {
   TableParams,
   UseDataTableReturn,
   UseTableOptions,
-} from '@/types/table';
+} from '@/types/data-table';
 import { useTableState } from './useTableState';
 
 export function useDataTable<TData = unknown, TFilters extends object = object, TError = Error>(

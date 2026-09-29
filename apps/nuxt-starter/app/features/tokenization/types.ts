@@ -1,5 +1,5 @@
 import type * as yup from 'yup';
-import type { Network } from '@/types/network';
+import type { Network } from '@/types/blockchain';
 import type { createTokenSchema } from '@/features/tokenization/schemas/token.schema';
 
 // ----------------------------------------------------------------------

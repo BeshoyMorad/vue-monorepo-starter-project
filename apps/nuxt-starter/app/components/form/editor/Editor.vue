@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { FormFieldWrapperProps, BaseEditorProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
   import { FormField } from '@/components/ui/form';
 
@@ -8,22 +9,8 @@
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    placeholder?: string;
-    disabled?: boolean;
-    readonly?: boolean;
-    minHeight?: string;
-    maxHeight?: string;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    class?: HTMLAttributes['class'];
-    containerClass?: HTMLAttributes['class'];
-  }
+  type Props = Omit<BaseEditorProps, 'invalid'> &
+    Omit<FormFieldWrapperProps, 'containerClass'> & { containerClass?: HTMLAttributes['class'] };
 
   const props = withDefaults(defineProps<Props>(), {
     modelValue: undefined,

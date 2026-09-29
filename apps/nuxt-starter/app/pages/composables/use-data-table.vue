@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { paths } from '@/constants/route-names';
-  import type { TableParams } from '@/types/table';
+  import type { TableParams } from '@/types/data-table';
   import { Field } from '@/components/form';
   import {
     USE_DATA_TABLE_IMPORT_CODE,

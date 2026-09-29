@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { CanPermission } from '@/types/permissions';
+  import type { CanPermission } from '@/types/auth';
 
   interface Tab {
     name: string;

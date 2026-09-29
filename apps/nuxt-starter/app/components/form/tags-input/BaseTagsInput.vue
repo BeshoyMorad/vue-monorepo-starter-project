@@ -1,20 +1,12 @@
 <script setup lang="ts">
+  import type { BaseTagsInputProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string[];
-    defaultValue?: string[];
-    placeholder?: string;
-    disabled?: boolean;
-    tagClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseTagsInputProps>(), {
     modelValue: () => [],
     defaultValue: () => [],
     placeholder: undefined,

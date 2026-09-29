@@ -65,7 +65,7 @@ NUXT_PUBLIC_APP_ENV=development
 NUXT_PUBLIC_ENABLE_DEVTOOLS=true`;
 
 export const ENV_SCHEMA_CODE = `import * as yup from 'yup';
-import type { AppEnvConfig } from '@/types/env';
+import type { AppEnvConfig } from '@/types/config';
 
 const envSchema: yup.ObjectSchema<AppEnvConfig> = yup.object({
   apiBaseUrl: yup

@@ -9,7 +9,7 @@ import type {
   FormatPercentageOptions,
   FormatSubscriptZerosOptions,
   FormatTimeOptions,
-} from '@/types/formatter';
+} from '@/types/common';
 
 // ==============================================================================
 // Currency

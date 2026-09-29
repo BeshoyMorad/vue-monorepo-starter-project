@@ -8,6 +8,7 @@
     TOptionValue extends keyof Option | ((data: Option) => Value)
   "
 >
+  import type { FormFieldWrapperProps } from '@/types/form';
   import type { AcceptableValue } from 'reka-ui';
   import { FormField } from '@/components/ui/form';
 
@@ -15,7 +16,7 @@
     inheritAttrs: false,
   });
 
-  interface Props {
+  interface Props extends FormFieldWrapperProps {
     testId: string;
     options: Option[];
     optionLabel: string;
@@ -32,11 +33,6 @@
     maxSelectedLabels?: number;
     selectedItemsLabel?: string;
     loading?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
   }
 
   withDefaults(defineProps<Props>(), {
