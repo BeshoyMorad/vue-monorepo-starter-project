@@ -1,5 +1,3 @@
-export * from './multi-step-form';
-
 // ── Primitive Form Fields (Synchronous) ─────────────────────────────────────
 import InputText from './input-text/InputText.vue';
 import Textarea from './textarea/Textarea.vue';

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { BaseRadioGroupProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
-  import { radioGroupVariants } from './index';
+  import { optionGroupVariants } from '@/components/form/option-group-variants';
   import { cn } from '@/utils';
 
   defineOptions({
@@ -39,7 +39,7 @@
   });
 
   const rootClasses = computed(() =>
-    radioGroupVariants({ layout: props.layout, size: props.size })
+    optionGroupVariants({ layout: props.layout, size: props.size })
   );
 </script>
 

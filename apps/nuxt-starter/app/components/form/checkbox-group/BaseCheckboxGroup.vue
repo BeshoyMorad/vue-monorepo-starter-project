@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { BaseCheckboxGroupProps } from '@/types/form';
   import { useVModel } from '@vueuse/core';
-  import { checkboxGroupVariants } from './index';
+  import { optionGroupVariants } from '@/components/form/option-group-variants';
 
   defineOptions({
     inheritAttrs: false,
@@ -32,7 +32,7 @@
   });
 
   const rootClasses = computed(() =>
-    checkboxGroupVariants({ layout: props.layout, size: props.size })
+    optionGroupVariants({ layout: props.layout, size: props.size })
   );
 
   const onOptionChange = (optionValue: unknown, checked: boolean) => {

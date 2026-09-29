@@ -1,6 +1,7 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
-export const radioGroupVariants = cva('flex flex-wrap', {
+/** Layout and spacing classes shared by the checkbox group and the radio group. */
+export const optionGroupVariants = cva('flex flex-wrap', {
   variants: {
     layout: {
       vertical: 'flex-col',
@@ -16,5 +17,3 @@ export const radioGroupVariants = cva('flex flex-wrap', {
     layout: 'vertical',
   },
 });
-
-export type RadioGroupVariants = VariantProps<typeof radioGroupVariants>;
