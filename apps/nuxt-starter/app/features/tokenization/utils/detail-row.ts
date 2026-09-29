@@ -1,15 +1,3 @@
-/** One label/value row in the token details panel. */
-export interface DetailRow {
-  label: string;
-  /** Full value, used for copying and the tooltip. */
-  value: string | null;
-  /** Value shown in the row, often shortened. Falls back to `value`. */
-  valueToShow: string | null;
-  copy: boolean;
-  tooltip: boolean;
-  testId: string;
-}
-
 const MAX_ERROR_LENGTH = 60;
 
 /** Shortens a long error message for display and keeps the full text for copying. */

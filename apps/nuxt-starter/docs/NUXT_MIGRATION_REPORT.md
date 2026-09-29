@@ -26,7 +26,7 @@ missing dependencies exist.
 ### 2. Target stack
 
 - **Nuxt 4** with the default `app/` source directory.
-- **Rendering mode: SPA (`ssr: false`)**. Auth tokens live in `localStorage` and many composables
+- **Rendering mode: SPA (`ssr: false`)**. Auth tokens live in `localStorage` (for now) and many composables
   touch `window`/`navigator`. Turning on SSR would change auth to cookies, which is a product
   decision, not a migration step. Code touched during the migration is made SSR-safe where it is
   cheap (guards on `window`, `navigator`, `document`), so enabling SSR later is a smaller step.

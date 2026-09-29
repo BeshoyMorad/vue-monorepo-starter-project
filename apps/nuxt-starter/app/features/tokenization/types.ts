@@ -114,3 +114,15 @@ export interface TokenStatusProperty {
   color: string;
   icon?: string;
 }
+
+/** One label/value row in the token details panel. */
+export interface DetailRow {
+  label: string;
+  /** Full value, used for copying and the tooltip. */
+  value: string | null;
+  /** Value shown in the row, often shortened. Falls back to `value`. */
+  valueToShow: string | null;
+  copy: boolean;
+  tooltip: boolean;
+  testId: string;
+}

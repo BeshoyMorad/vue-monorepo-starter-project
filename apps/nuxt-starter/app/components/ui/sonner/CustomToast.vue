@@ -4,7 +4,6 @@
 
 <script setup lang="ts">
   import { TEST_IDS } from '@/lib/test-ids';
-  import { ref as vueRef } from 'vue';
 
   defineProps<{
     title: string;
@@ -12,7 +11,7 @@
     duration?: number;
   }>();
 
-  const toastRef = vueRef<HTMLElement | null>(null);
+  const toastRef = ref<HTMLElement | null>(null);
   let parentToast: Element | null = null;
 
   // When one toast is hovered, it pauses EVERY toast

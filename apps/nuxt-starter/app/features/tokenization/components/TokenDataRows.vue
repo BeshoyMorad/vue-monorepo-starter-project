@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import DataRow from '@/features/tokenization/components/DataRow.vue';
-  import type { DetailRow } from '@/features/tokenization/utils/detail-row';
+  import type { DetailRow } from '@/features/tokenization/types';
 
   defineProps<{
     rows: DetailRow[];

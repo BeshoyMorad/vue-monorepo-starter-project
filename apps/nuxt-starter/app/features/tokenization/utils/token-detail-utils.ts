@@ -1,5 +1,6 @@
 import type { Token } from '@/features/tokenization/types';
-import { truncateError, type DetailRow } from '@/features/tokenization/utils/detail-row';
+import type { DetailRow } from '@/features/tokenization/types';
+import { truncateError } from '@/features/tokenization/utils/detail-row';
 import { formatStatus } from '@/utils/formatStatus';
 import { formatDate, formatNumber } from '@/utils/formatter';
 import { truncate } from '@/utils/formatText';

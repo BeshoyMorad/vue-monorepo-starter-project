@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { DetailRow } from '@/features/tokenization/utils/detail-row';
+  import type { DetailRow } from '@/features/tokenization/types';
 
   defineProps<{
     row: DetailRow;
