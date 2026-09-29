@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import { apiRoute } from '@/lib/api/endpoints';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { useGetTokenNetworks } from '@/features/tokenization/composables/useGetTokenNetworks';

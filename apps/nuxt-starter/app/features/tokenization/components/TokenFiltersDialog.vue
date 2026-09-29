@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import { TEST_IDS } from '@/lib/test-ids';
   import type { TokenFilter } from '@/features/tokenization/types';
   import { TOKEN_STATUSES } from '@/features/tokenization/constants/token-statuses';

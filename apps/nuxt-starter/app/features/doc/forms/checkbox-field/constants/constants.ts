@@ -1,4 +1,4 @@
-export const CHECKBOX_IMPORT_CODE = `import { Field } from '@/components';`;
+export const CHECKBOX_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const CHECKBOX_BASIC_CODE = `<Field.Checkbox
   label="Default Checkbox"

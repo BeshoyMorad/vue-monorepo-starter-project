@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { useRouter } from '#imports';
 import { paths } from '@/constants/route-names';
-import { getSidebarLinks, getSidebarSections } from './navigation';
+import { getSidebarLinks, getSidebarSections } from '@/utils/navigation';
 
 describe('file-based routes', () => {
   it.each([

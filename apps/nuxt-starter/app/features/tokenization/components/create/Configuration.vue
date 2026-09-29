@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import { QUERY_KEYS } from '@/lib/query-keys';
   import { useVaultOwnerResolve } from '@/features/tokenization/composables/useVaultOwnerResolve';
   import { useCreateTokenFormState } from '@/features/tokenization/composables/useCreateTokenFormState';

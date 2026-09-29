@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/vue-table';
 import type { AssetVault } from '@/features/assets/types';
-import { EntityAvatar, StatusBadge, WalletAddress } from '@/components';
+import { EntityAvatar, StatusBadge, WalletAddress } from '#components';
 import AssetActions from '@/features/assets/components/AssetActions.vue';
 import { formatStatus } from '@/utils/formatStatus';
 

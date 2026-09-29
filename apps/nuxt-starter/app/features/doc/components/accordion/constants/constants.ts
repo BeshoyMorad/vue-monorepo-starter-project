@@ -1,9 +1,4 @@
-export const ACCORDION_IMPORT_CODE = `import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components';`;
+export const ACCORDION_IMPORT_CODE = `// Auto-imported by Nuxt: <Accordion>, <AccordionContent>, <AccordionItem>, <AccordionTrigger>. No import needed.`;
 
 export const ACCORDION_BASIC_CODE = `<Accordion type="single" collapsible>
   <AccordionItem value="item-1">

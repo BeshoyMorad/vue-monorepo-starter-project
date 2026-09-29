@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { paths } from '@/constants/route-names';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   import {
     DATE_PICKER_IMPORT_CODE,

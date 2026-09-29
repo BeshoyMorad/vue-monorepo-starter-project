@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/vue-table';
 import type { Token } from '@/features/tokenization/types';
-import { EntityAvatar, StatusBadge, WalletAddress } from '@/components';
+import { EntityAvatar, StatusBadge, WalletAddress } from '#components';
 import TokenActions from '@/features/tokenization/components/TokenActions.vue';
 import { formatStatus } from '@/utils/formatStatus';
 

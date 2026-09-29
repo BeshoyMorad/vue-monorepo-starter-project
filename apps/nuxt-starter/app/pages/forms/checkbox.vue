@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { paths } from '@/constants/route-names';
 
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   import {
     CHECKBOX_IMPORT_CODE,

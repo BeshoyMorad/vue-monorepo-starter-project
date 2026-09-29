@@ -12,7 +12,7 @@
     getFileExtension,
     formatFileSize,
   } from '@/constants/file-upload';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   const props = withDefaults(
     defineProps<{

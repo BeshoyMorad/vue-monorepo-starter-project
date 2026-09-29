@@ -51,6 +51,9 @@ i18n/
 └── i18n.config.ts    Number and date formats
 server/
 └── api/examples/     Demo API routes used by the Data Fetching docs page
+tests/
+├── setup.ts          MSW server and mountWithProviders helper
+└── nuxt/             All unit tests, in folders that mirror app/ (tests/nuxt/utils, ...)
 ```
 
 ## Conventions
@@ -73,8 +76,12 @@ server/
   shadcn primitives in `ui/` keep their names (`<Button>`, `<Tooltip>`); `data-table/` gets a
   `Data` prefix (`<DataTable>`); the custom tooltip is `<AppTooltip>`; form fields get a `Form`
   prefix (`<FormInputText>`) but pages normally use the `Field` namespace, which is a plain
-  object and is still imported from `@/components`. Components used in script (for example in
-  `h()` or `typeof`) still need an explicit import. See the `components` key in
+  object and is still imported from `@/components/form`. Components used in script (for
+  example in `h()` or `typeof`) are imported from `#components`, Nuxt's module of all
+  registered components, by their auto-import name. See the `components` key in
   `nuxt.config.ts`.
+- **Tests.** Tests live in `tests/nuxt/`, never in `app/`. Put a test at the path that mirrors
+  the file it covers (`app/composables/useX.ts` is tested in `tests/nuxt/composables/useX.spec.ts`)
+  and import the code with `@/`.
 - **Data fetching.** Use `useFetch`/`useAsyncData` for read-only content and TanStack Query for
   interactive data. The Documentation > Data Fetching page shows both.

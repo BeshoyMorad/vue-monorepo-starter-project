@@ -1,5 +1,6 @@
 import type { ColumnDef } from '@tanstack/vue-table';
-import { Field, EntityAvatar, StatusBadge } from '@/components';
+import { Field } from '@/components/form';
+import { EntityAvatar, StatusBadge } from '#components';
 import type { Asset } from '@/features/assets/types';
 import { TEST_IDS } from '@/lib/test-ids';
 

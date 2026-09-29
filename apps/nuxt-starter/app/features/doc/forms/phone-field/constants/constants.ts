@@ -1,4 +1,4 @@
-export const PHONE_IMPORT_CODE = `import { Field } from '@/components';`;
+export const PHONE_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const PHONE_BASIC_CODE = `<Field.Phone
   placeholder="12 345 6789"

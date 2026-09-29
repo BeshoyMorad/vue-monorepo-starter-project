@@ -56,8 +56,9 @@ export default defineNuxtConfig({
   //   form/multi-step-form/*  plain names:                   <MultiStepForm>, <StepIndicator>
   //   form/*             'Form' prefix:                      <FormInputText>, <FormBaseCheckbox>
   //   everything else    plain names:                        <Icon>, <PageWrapper>, <ExceptionState>
-  // Pages normally use form fields through the `Field` namespace from `@/components`, which
-  // is a plain object and must still be imported.
+  // Pages normally use form fields through the `Field` namespace from `@/components/form`,
+  // which is a plain object and must still be imported. Script code (h(), typeof) imports
+  // components from `#components` by these names.
   components: [
     { path: '~/components/ui', pathPrefix: false, extensions: ['.vue'] },
     { path: '~/components/data-table', pathPrefix: false, prefix: 'Data', extensions: ['.vue'] },

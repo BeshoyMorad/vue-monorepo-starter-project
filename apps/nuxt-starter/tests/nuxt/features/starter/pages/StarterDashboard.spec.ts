@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { server, mountWithProviders, findByTestId } from '~~/tests/setup';
 import { TEST_IDS } from '@/lib/test-ids';
 import { useStarterStore } from '@/features/starter/stores/starterStore';
-import StarterDashboard from './StarterDashboard.vue';
+import StarterDashboard from '@/features/starter/pages/StarterDashboard.vue';
 
 describe('StarterDashboard.vue', () => {
   it('renders loading state, then renders profile card on success, and interacts with Pinia', async () => {

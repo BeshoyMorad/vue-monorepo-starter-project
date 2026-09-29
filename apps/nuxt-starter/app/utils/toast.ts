@@ -1,6 +1,6 @@
 import { toast } from 'vue-sonner';
 import { CustomToast } from '@/components/ui/sonner';
-import { Icon } from '@/components';
+import { Icon } from '#components';
 import type { ToastOptions, ToastVariant } from '@/types/toast';
 
 const VARIANTS = {

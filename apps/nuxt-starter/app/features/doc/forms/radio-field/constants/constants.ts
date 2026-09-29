@@ -1,4 +1,4 @@
-export const RADIO_IMPORT_CODE = `import { Field } from '@/components';`;
+export const RADIO_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const RADIO_BASIC_CODE = `<Field.Radio
   label="Standalone Radio (Option A)"

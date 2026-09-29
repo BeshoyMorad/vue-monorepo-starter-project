@@ -1,9 +1,4 @@
-export const DROPDOWN_MENU_IMPORT_CODE = `import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components';`;
+export const DROPDOWN_MENU_IMPORT_CODE = `// Auto-imported by Nuxt: <DropdownMenu>, <DropdownMenuContent>, <DropdownMenuItem>, <DropdownMenuTrigger>. No import needed.`;
 
 export const DROPDOWN_MENU_BASIC_CODE = `<DropdownMenu>
   <DropdownMenuTrigger as-child>

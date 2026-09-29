@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import type { AssetVault } from '@/features/assets/types';
   import { TEST_IDS } from '@/lib/test-ids';
   import { useToggleAssetStatus } from '@/features/assets/composables/useToggleAssetStatus';

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { OffsetMeta } from '@/types/api';
   import type { TokenFilter, Token } from '@/features/tokenization/types';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import { tokenColumns } from '@/features/tokenization/columns';
   import { TEST_IDS } from '@/lib/test-ids';
   import { QUERY_KEYS } from '@/lib/query-keys';

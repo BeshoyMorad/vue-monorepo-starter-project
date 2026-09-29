@@ -1,4 +1,4 @@
-export const RADIO_GROUP_IMPORT_CODE = `import { Field } from '@/components';`;
+export const RADIO_GROUP_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const RADIO_GROUP_BASIC_CODE = `<Field.RadioGroup
   :options="genders"

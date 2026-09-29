@@ -1,4 +1,4 @@
-export const IMAGE_UPLOAD_IMPORT_CODE = `import { Field } from '@/components';`;
+export const IMAGE_UPLOAD_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const IMAGE_UPLOAD_BASIC_CODE = `<Field.ImageUpload
   v-model="media"

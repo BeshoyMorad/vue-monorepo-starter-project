@@ -1,4 +1,4 @@
-export const TEXTAREA_IMPORT_CODE = `import { Field } from '@/components';
+export const TEXTAREA_IMPORT_CODE = `import { Field } from '@/components/form';
 `;
 
 export const TEXTAREA_BASIC_CODE = `< Field.TextArea
@@ -19,7 +19,7 @@ placeholder = "Write your bio..."
   /> `;
 
 export const TEXTAREA_V_MODEL_CODE = `< script setup lang = "ts" >
-import { Field } from '@/components';
+import { Field } from '@/components/form';
 const textAreaValue = ref('');
 </script>
 

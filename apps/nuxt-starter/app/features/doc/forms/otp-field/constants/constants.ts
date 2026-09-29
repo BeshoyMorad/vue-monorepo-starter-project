@@ -1,4 +1,4 @@
-export const OTP_IMPORT_CODE = `import { Field } from '@/components';`;
+export const OTP_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const OTP_BASIC_CODE = `<Field.Otp
   :length="6"

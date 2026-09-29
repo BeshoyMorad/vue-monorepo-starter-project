@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { OffsetMeta, CursorMeta } from '@/types/api';
   /* eslint-disable max-lines */
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   import { formatDate } from '@/utils/formatter';
   import type { ColumnDef } from '@tanstack/vue-table';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { MultiStepForm } from '@/components';
+  import { MultiStepForm } from '#components';
   import { paths } from '@/constants/route-names';
   import { getApiErrorMessage } from '@/utils/apiError';
   import { useCreateToken } from '@/features/tokenization/composables';

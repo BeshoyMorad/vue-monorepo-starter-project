@@ -1,13 +1,10 @@
-export const MULTI_STEP_FORM_IMPORT_CODE = `import {
-  MultiStepForm,
-  Field,
-} from '@/components';
+export const MULTI_STEP_FORM_IMPORT_CODE = `import { Field } from '@/components/form';
 
 import type { StepDefinition } from '@/types/form';`;
 
 export const MULTI_STEP_FORM_BASIC_CODE = {
   script: `<script setup lang="ts">
-import { Field } from '@/components';
+import { Field } from '@/components/form';
 import type { StepDefinition } from '@/types/form';
 import type { GenericObject } from 'vee-validate';
 import * as yup from 'yup';

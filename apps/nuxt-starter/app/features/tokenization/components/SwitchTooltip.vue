@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   interface Props {
     name?: string;

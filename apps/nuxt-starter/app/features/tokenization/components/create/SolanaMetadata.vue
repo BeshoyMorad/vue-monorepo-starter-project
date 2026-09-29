@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useFieldArray } from 'vee-validate';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import { generateId } from '@/utils/generateId';
 
   interface InternalRow {

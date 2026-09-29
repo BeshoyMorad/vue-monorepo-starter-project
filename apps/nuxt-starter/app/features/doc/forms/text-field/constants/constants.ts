@@ -1,4 +1,4 @@
-export const TEXT_IMPORT_CODE = `import { Field } from '@/components';`;
+export const TEXT_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const TEXT_BASIC_CODE = `<Field.Text
   placeholder="Enter your name..."

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { paths } from '@/constants/route-names';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import type { GenericObject } from 'vee-validate';
   import type { StepDefinition } from '@/types/form';
 

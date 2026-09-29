@@ -237,7 +237,7 @@ This part finishes the three steps that were only partly done.
   the example.
 - The mock permission store granted `admin.list`, but the permission types only define
   `admins`, so no typed check could pass. It now grants `admins.list`.
-- `tests/nuxt/middleware.spec.ts` covers both middleware files.
+- `tests/nuxt/middleware/middleware.spec.ts` covers both middleware files.
 
 ### 2. Auto-imports
 

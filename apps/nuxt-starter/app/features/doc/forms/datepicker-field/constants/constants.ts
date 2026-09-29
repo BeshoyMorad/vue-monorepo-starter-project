@@ -1,4 +1,4 @@
-export const DATE_PICKER_IMPORT_CODE = `import { Field } from '@/components';`;
+export const DATE_PICKER_IMPORT_CODE = `import { Field } from '@/components/form';`;
 
 export const DATE_PICKER_BASIC_CODE = `<Field.DatePicker
   placeholder="Pick a birth date..."

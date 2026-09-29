@@ -1,4 +1,4 @@
-export const SWITCH_IMPORT_CODE = `import { Field } from '@/components';
+export const SWITCH_IMPORT_CODE = `import { Field } from '@/components/form';
 `;
 
 export const SWITCH_BASIC_CODE = `<Field.Switch

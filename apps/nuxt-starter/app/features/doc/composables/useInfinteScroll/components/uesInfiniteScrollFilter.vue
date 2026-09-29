@@ -2,7 +2,7 @@
   import { USE_DATA_INFINITE_SCROLL_PARAMS_CODE } from '@/features/doc/composables/useInfinteScroll/constants/constants';
   import type { MockAvatarUser, MockUserFilters } from '@/features/doc/types';
   import { getMockOffsetUsers } from '@/features/doc/composables/useInfinteScroll/constants/mockApi';
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   const filterOptions = [
     { label: 'All', value: 'all' },

@@ -1,8 +1,4 @@
-export const AVATAR_IMPORT_CODE = `import {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-} from '@/components';`;
+export const AVATAR_IMPORT_CODE = `// Auto-imported by Nuxt: <Avatar>, <AvatarImage>, <AvatarFallback>. No import needed.`;
 
 export const AVATAR_BASIC_CODE = `<Avatar>
   <AvatarImage

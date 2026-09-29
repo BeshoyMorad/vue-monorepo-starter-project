@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { useAppLocale } from './useAppLocale';
+import { useAppLocale } from '@/composables/useAppLocale';
 import { DEFAULT_LOCALE } from '@/constants/locales';
 import arAuth from '@/features/auth/locales/ar.json';
 

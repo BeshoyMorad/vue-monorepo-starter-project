@@ -3,7 +3,7 @@
   import { toTypedSchema } from '@vee-validate/yup';
   import { Form } from 'vee-validate';
 
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
 
   import {
     FORM_IMPORT_CODE,

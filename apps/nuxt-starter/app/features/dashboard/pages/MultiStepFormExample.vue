@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Field } from '@/components';
+  import { Field } from '@/components/form';
   import { paths } from '@/constants/route-names';
   import { success } from '@/utils/toast';
   import { phoneSchema } from '@/utils/yupSchemas';
