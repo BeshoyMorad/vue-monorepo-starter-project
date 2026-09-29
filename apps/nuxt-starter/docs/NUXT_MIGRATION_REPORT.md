@@ -277,7 +277,25 @@ This part finishes the three steps that were only partly done.
 | `nuxt build`    | Passes                                                                                                              |
 | Headless Chrome | Every docs, component, form, composable and error route renders with no console errors and no unresolved components |
 
-### 5. Still open
+### 5. TanStack Query SSR hydration (step 6)
 
-- Step 6 of the plan (TanStack Query SSR hydration) is not done. It only matters once SSR is
-  enabled. The query client is a module singleton, which must become per-request at that point.
+- `app/lib/query-client.ts` now exports `createQueryClient()` instead of a shared instance.
+  `plugins/vue-query.ts` creates one client per app instance, so on the server each request
+  gets its own cache. App code already used `useQueryClient()`, so nothing else changed.
+- On the server the plugin dehydrates the cache into `useState('vue-query')` on
+  `app:rendered`. In the browser it hydrates that state before components mount.
+- A query runs during server rendering only if its component waits for it with
+  `onServerPrefetch(suspense)`. The Data Fetching page does this, and its query's `staleTime`
+  equals its polling interval so hydrated data is not refetched on mount.
+- `useDarkTheme` now touches `document` only in the browser. It was the first crash when the
+  app was rendered on the server.
+
+Checked with a temporary `ssr: true` build that was not kept. The Data Fetching page rendered
+its stats and articles on the server, and the payload contained the dehydrated query. In the
+browser the page made no stats request until the first 5-second poll, with no console errors.
+Other pages were not checked under SSR.
+
+### 6. Still open
+
+- **Enabling SSR** still needs auth tokens in cookies (`useCookie`) instead of `localStorage`,
+  and a pass over other browser-only code. The hydration plugin is ready for it.

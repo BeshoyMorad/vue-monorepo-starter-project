@@ -47,7 +47,12 @@
     isError: statsError,
     dataUpdatedAt,
     refetch: refetchStats,
+    suspense: statsSuspense,
   } = useServerStatsQuery();
+
+  // With SSR on, wait for the query during server rendering so its result is dehydrated into
+  // the page payload. Does nothing while the app runs with ssr: false.
+  onServerPrefetch(statsSuspense);
 
   const lastUpdated = computed(() =>
     dataUpdatedAt.value ? new Date(dataUpdatedAt.value).toLocaleTimeString() : '-'

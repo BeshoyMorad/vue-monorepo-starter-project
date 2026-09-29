@@ -13,7 +13,9 @@ export const useDarkTheme = () => {
     initialValue: 'light',
     onChanged(isDark, defaultHandler) {
       defaultHandler(isDark ? 'dark' : 'light');
-      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+      if (import.meta.client) {
+        document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+      }
     },
   });
 

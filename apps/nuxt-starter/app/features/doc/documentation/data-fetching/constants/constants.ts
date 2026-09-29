@@ -23,7 +23,7 @@ export const DATA_FETCHING_DOM = {
     description:
       'For interactive data: dashboards, tables with filters, anything that polls, refetches on focus, or is invalidated after a mutation. Queries are cached by key and shared by every component that uses them.',
     howToUse:
-      'Wrap useQuery in a composable in the feature’s composables folder, and register its key in app/lib/query-keys.ts. This example polls every 5 seconds and pauses while the tab is hidden.',
+      'Wrap useQuery in a composable in the feature’s composables folder, and register its key in app/lib/query-keys.ts. This example polls every 5 seconds and pauses while the tab is hidden. Call onServerPrefetch(suspense) so the query also runs during server rendering once SSR is enabled.',
   },
 } as const;
 
@@ -70,9 +70,13 @@ export function useServerStatsQuery() {
     queryFn: () => $fetch('/api/examples/server-stats'),
     refetchInterval: 5000,             // poll every 5 seconds
     refetchIntervalInBackground: false, // pause while the tab is hidden
-    staleTime: 0,                       // always treat cached data as stale
+    staleTime: 5000,                    // fresh until the next poll
   });
 }`;
 
-export const TANSTACK_USAGE_CODE = `const { data, isPending, isFetching, isError, dataUpdatedAt, refetch } =
-  useServerStatsQuery();`;
+export const TANSTACK_USAGE_CODE = `const { data, isPending, isFetching, isError, dataUpdatedAt, refetch, suspense } =
+  useServerStatsQuery();
+
+// With SSR on: fetch during server rendering. plugins/vue-query.ts dehydrates the cache into
+// the payload and hydrates it in the browser, so the query is not fetched twice.
+onServerPrefetch(suspense);`;
