@@ -6,8 +6,8 @@
 
   import { Table } from '@/components/ui/table';
 
-  import { useTableRowClick } from './useTableRowClick';
-  import { useDataTableState } from './useDataTableState';
+  import { useTableRowClick } from '@/composables/data-table/useTableRowClick';
+  import { useDataTableState } from '@/composables/data-table/useDataTableState';
 
   defineOptions({
     inheritAttrs: false,

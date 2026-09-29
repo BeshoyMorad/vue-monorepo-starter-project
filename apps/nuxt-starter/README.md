@@ -34,7 +34,7 @@ app/
 ├── app.vue           Root component: layout + page
 ├── assets/           Images, icons, and global CSS (assets/css)
 ├── components/       Shared UI (components/ui = shadcn-vue)
-├── composables/      Shared logic (useDataTable, useMultiStepForm, ...)
+├── composables/      Shared logic in folders: auth, data-table, form, locale, media, network, ui
 ├── config/env.ts     Validated runtime config (getEnvConfig)
 ├── constants/        Route names, locales, file-upload constants
 ├── features/         Feature folders: components, services, schemas, types.ts
@@ -68,8 +68,11 @@ tests/
   `definePageMeta({ auth: false })`. To require permissions, add
   `middleware: ['permission']` and `permissions: 'admins.list'` (or a list, with
   `permissionsOperator: 'and'`). Users without them go to the access-denied page.
-- **Auto-imports.** Vue and Nuxt APIs, everything exported from `app/composables/*.ts`, and
-  Pinia stores in `app/stores/` need no import. `app/utils/` is left out on purpose, so helpers
+- **Auto-imports.** Vue and Nuxt APIs, everything re-exported by an
+  `app/composables/<folder>/index.ts`, and Pinia stores in `app/stores/` need no import.
+  Add a composable to a folder and re-export it from that folder's `index.ts` to make it
+  global. Leave a helper out of `index.ts` to keep it private and import it by path (as
+  `data-table/useTableState.ts` is). `app/utils/` is left out on purpose, so helpers
   such as the toast `error()` are imported from `@/utils/...`. Feature folders are not scanned
   either: import feature composables and components explicitly.
 - **Components.** Components under `app/components/` are auto-imported in templates. Names:
@@ -81,7 +84,7 @@ tests/
   registered components, by their auto-import name. See the `components` key in
   `nuxt.config.ts`.
 - **Tests.** Tests live in `tests/nuxt/`, never in `app/`. Put a test at the path that mirrors
-  the file it covers (`app/composables/useX.ts` is tested in `tests/nuxt/composables/useX.spec.ts`)
+  the file it covers (`app/composables/form/useX.ts` is tested in `tests/nuxt/composables/form/useX.spec.ts`)
   and import the code with `@/`.
 - **Data fetching.** Use `useFetch`/`useAsyncData` for read-only content and TanStack Query for
   interactive data. The Documentation > Data Fetching page shows both.

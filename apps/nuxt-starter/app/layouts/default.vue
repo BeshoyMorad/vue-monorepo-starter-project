@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { paths } from '@/constants/route-names';
+  import logoUrl from '@/assets/images/logo2.png';
 
   const isSidebarOpen = ref(false);
   const { toggleDark } = useDarkTheme();
@@ -43,7 +44,7 @@
               <span
                 class="flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
               >
-                <NuxtImg src="/images/logo.png" alt="" width="32" height="32" />
+                <img :src="logoUrl" alt="" width="32" height="32" class="size-8 object-contain" />
               </span>
 
               <span class="hidden font-semibold lg:block"> Nuxt Starter </span>

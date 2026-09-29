@@ -245,6 +245,12 @@ This part finishes the three steps that were only partly done.
   still not globals. Composables in `app/composables/*.ts` and stores (through `@pinia/nuxt`)
   are auto-imported. The composables barrel `app/composables/index.ts` was deleted because it
   duplicated every name.
+- Composables were later grouped into folders (`auth`, `data-table`, `form`, `locale`, `media`,
+  `network`, `ui`). Each folder's `index.ts` lists its public composables, and
+  `imports.dirs: ['composables/*/index.ts']` makes only those global. The installed unimport
+  version scans only top-level files by default, so the glob is required. The data-table
+  helpers `useTableState`, `useDataTableState` and `useTableRowClick` stay private: the last two
+  moved from `components/data-table/` into `composables/data-table/`.
 - Component folders are registered so every name is unique. See the `components` key in
   `nuxt.config.ts` and the README. Tags that changed: data-table components get a `Data`
   prefix, the custom tooltip is `AppTooltip`, form internals get a `Form` prefix, `Toaster` is

@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 
-// Keep in sync with DARK_THEME_STORAGE_KEY in app/composables/useDarkTheme.ts.
+// Keep in sync with DARK_THEME_STORAGE_KEY in app/composables/ui/useDarkTheme.ts.
 const THEME_STORAGE_KEY = 'vue-starter-theme';
 
 // Runs before the app mounts so the page never flashes the wrong theme.
@@ -33,11 +33,16 @@ export default defineNuxtConfig({
     domains: [],
   },
 
-  // Auto-imports: Vue and Nuxt APIs, `app/composables/*` and `app/stores/*` (via @pinia/nuxt).
+  // Auto-imports: Vue and Nuxt APIs, what each `app/composables/<folder>/index.ts` re-exports,
+  // and `app/stores/*` (via @pinia/nuxt).
   // `app/utils/` is left out on purpose: the toast helpers `error()`, `warn()`, `info()` and
   // `success()` would otherwise become globals. Import utils explicitly from `@/utils/*`.
+  // Composables are grouped in folders (auth/, data-table/, ...). Only each folder's index.ts is
+  // scanned, so helpers it does not re-export stay private. Nuxt's default scan only reads
+  // top-level files in composables/, hence the explicit glob.
   imports: {
     scan: true,
+    dirs: ['composables/*/index.ts'],
   },
 
   hooks: {

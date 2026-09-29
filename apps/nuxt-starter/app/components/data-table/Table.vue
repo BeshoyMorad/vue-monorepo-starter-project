@@ -3,8 +3,8 @@
   import { cn } from '@/utils';
   import { type ColumnDef } from '@tanstack/vue-table';
   import { Table } from '@/components/ui/table';
-  import { useTableRowClick } from './useTableRowClick';
-  import { useDataTableState } from './useDataTableState';
+  import { useTableRowClick } from '@/composables/data-table/useTableRowClick';
+  import { useDataTableState } from '@/composables/data-table/useDataTableState';
 
   interface Props {
     columns: ColumnDef<TRow, unknown>[];

@@ -7,6 +7,7 @@ import type {
   UseDataInfiniteScrollOptions,
   UseDataInfiniteScrollReturn,
 } from '@/types/table';
+import { useTableState } from './useTableState';
 
 // eslint-disable-next-line max-lines-per-function
 export function useDataInfiniteScroll<

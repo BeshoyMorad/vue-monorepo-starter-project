@@ -14,6 +14,7 @@ import type {
   UseDataTableReturn,
   UseTableOptions,
 } from '@/types/table';
+import { useTableState } from './useTableState';
 
 export function useDataTable<TData = unknown, TFilters extends object = object, TError = Error>(
   options: UseTableOptions<TFilters>

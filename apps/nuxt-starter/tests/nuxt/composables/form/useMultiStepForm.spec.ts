@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { defineComponent } from 'vue';
 import { mount } from '@vue/test-utils';
-import { useMultiStepForm } from '@/composables/useMultiStepForm';
+import { useMultiStepForm } from '@/composables/form/useMultiStepForm';
 import type { MultiStepFormOptions } from '@/types/form';
 import * as yup from 'yup';
 
