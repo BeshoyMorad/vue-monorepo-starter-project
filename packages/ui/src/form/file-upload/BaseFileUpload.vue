@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  /* eslint-disable max-lines */
   import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
   import { cn, formatFileSize } from '@workspace/core/utils';
@@ -15,26 +14,13 @@
     getFileExtension,
   } from '@workspace/core/constants';
   import { createMediaValueList } from '@workspace/core/composables';
+  import type { BaseFileUploadProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId?: string;
-    modelValue?: MediaValue[];
-    disabled?: boolean;
-    placeholder?: string;
-    buttonLabel?: string;
-    ariaInvalid?: boolean;
-    allowedTypes?: string[];
-    maxFiles?: number;
-    maxSizeMb?: number;
-    hasDisplayHint?: boolean;
-    hasPlaceholder?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseFileUploadProps>(), {
     testId: 'ui-base-file-upload',
     modelValue: () => [],
     disabled: false,

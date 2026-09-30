@@ -1,4 +1,4 @@
-import type { TableParams } from '@workspace/core/composables/useTableState';
+import type { TableParams } from '@workspace/core/composables';
 import { getApiClient } from './client';
 
 /**
