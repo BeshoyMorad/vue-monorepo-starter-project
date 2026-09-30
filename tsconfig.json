@@ -4,6 +4,7 @@
     { "path": "./apps/base-template" },
     { "path": "./apps/tenant-a" },
     { "path": "./apps/tenant-b" },
+    { "path": "./apps/website" },
     { "path": "./packages/ui" },
     { "path": "./packages/core" }
   ]

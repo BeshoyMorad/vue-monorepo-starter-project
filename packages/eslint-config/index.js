@@ -6,7 +6,17 @@ import typescriptEslint from 'typescript-eslint';
 
 export const createEslintConfig = () => {
   return typescriptEslint.config(
-    { ignores: ['*.d.ts', '**/coverage', '**/dist', '**/node_modules', '**/.turbo'] },
+    {
+      ignores: [
+        '*.d.ts',
+        '**/coverage',
+        '**/dist',
+        '**/.output',
+        '**/.nuxt',
+        '**/node_modules',
+        '**/.turbo',
+      ],
+    },
     {
       extends: [
         eslint.configs.recommended,

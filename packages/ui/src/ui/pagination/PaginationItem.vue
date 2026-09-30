@@ -31,7 +31,8 @@
     :class="
       cn(
         buttonVariants({
-          variant: isActive ? 'outline' : 'ghost',
+          variant: 'ghost',
+          outline: isActive,
           size,
         }),
         props.class

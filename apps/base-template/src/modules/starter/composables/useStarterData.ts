@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/vue-query';
 import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
-import { api } from '@workspace/core/lib/api/client';
-import { apiRoute } from '@workspace/core/lib/api/endpoints';
+import { api, apiRoute } from '@/api';
 import type { StarterProfile } from '@/modules/starter/types';
 
 export function useStarterData() {

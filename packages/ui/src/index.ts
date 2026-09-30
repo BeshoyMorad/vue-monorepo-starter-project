@@ -1,3 +1,5 @@
+import './env.d.ts';
+
 export { default as Icon } from './icon/Icon.vue';
 export { default as Image } from './image/Image.vue';
 export { default as InfiniteScroll } from './infinite-scroll/InfiniteScroll.vue';

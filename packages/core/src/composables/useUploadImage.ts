@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/vue-query';
 import axios, { isAxiosError } from 'axios';
-import { api } from '@workspace/core/lib/api/client';
-import { apiRoute } from '@workspace/core/lib/api/endpoints';
+import { getApiClient } from '@workspace/core/lib/api/client';
 import { error } from '@workspace/core/utils/toast';
 
 export type StorageServiceType = 'PHOTO';
@@ -24,26 +23,24 @@ export interface UploadImageResponse {
  *
  * @returns The mutation object. If successful, `mutateAsync` resolves to the `mediaId` string.
  */
-export function useUploadImage() {
+export function useUploadImage(endpoint: string = '/media/upload') {
   return useMutation({
     mutationFn: async ({ serviceType, files }: UploadImagePayload) => {
       if (!files.length) {
         return '';
       }
 
+      const client = getApiClient();
       const fileMetadata = files.map((file) => ({
         fileSize: file.size,
         contentType: file.type,
       }));
 
       // 1. Request presigned URLs from our backend
-      const response = await api.post<ApiResponse<UploadImageResponse>>(
-        apiRoute('storage.presigned-url'),
-        {
-          serviceType,
-          media: fileMetadata,
-        }
-      );
+      const response = await client.post<ApiResponse<UploadImageResponse>>(endpoint, {
+        serviceType,
+        media: fileMetadata,
+      });
 
       const { mediaId, presignedUrls } = response.data.data;
 

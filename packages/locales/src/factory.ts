@@ -1,4 +1,5 @@
 import { createI18n, type I18n } from 'vue-i18n';
+import type { ObjectPlugin } from 'vue';
 import { DEFAULT_LOCALE, FALLBACK_LOCALE, SUPPORTED_LOCALES, type LocaleCode } from './config';
 import { defaultDatetimeFormats, defaultNumberFormats } from './formats';
 
@@ -15,7 +16,7 @@ export interface CreateAppI18nOptions<Messages extends Record<string, unknown>> 
 }
 
 export interface AppI18nResult {
-  i18n: I18n;
+  i18n: I18n & ObjectPlugin;
   loadLocaleMessages: (locale: LocaleCode) => Promise<void>;
   numberFormats: NumberFormatsSchema;
   datetimeFormats: DatetimeFormatsSchema;
@@ -39,7 +40,7 @@ export function createAppI18n<Messages extends Record<string, unknown>>(
     fallbackLocale,
     messages: {
       [defaultLocale]: defaultMessages as never,
-    },
+    } as never,
     datetimeFormats: datetimeFormats as never,
     numberFormats: numberFormats as never,
   });

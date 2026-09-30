@@ -6,6 +6,7 @@ export * from './formats';
 export * from './factory';
 export { commonEn, commonAr };
 
+export type CommonLocaleSchema = typeof commonEn;
 export type LocaleDictionary = Record<string, unknown>;
 
 /**

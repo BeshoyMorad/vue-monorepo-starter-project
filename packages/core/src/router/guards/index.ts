@@ -1,2 +1,2 @@
-export * from './authGuard';
-export * from './guestGuard';
+export * from './checkRoutePermission';
+export * from './permissionGuard';

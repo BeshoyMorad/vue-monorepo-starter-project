@@ -3,7 +3,7 @@ import { authServices } from '@/modules/auth/services';
 import type { SubmissionContext } from 'vee-validate';
 import type { LoginForm } from '@/modules/auth/schemas/login.schema';
 import type { LoginRequest, LoginResponse } from '@/modules/auth/types';
-import { useAuthStore } from '@workspace/core/stores/auth';
+import { useAuthStore } from '@/stores/auth';
 import { useAuthRedirect } from '@workspace/core/composables/useAuthRedirect';
 import { applyApiErrorToForm } from '@workspace/core/utils/apiError';
 

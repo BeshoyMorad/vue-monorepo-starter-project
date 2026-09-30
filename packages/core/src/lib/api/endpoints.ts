@@ -1,40 +1,18 @@
 import { route as ziggyRoute } from 'ziggy-js';
 import type { Config, RouteParams } from 'ziggy-js';
 
-const apiBaseUrl = '';
-const routes = {
-  // USERS
-  'users.list': { uri: 'users', methods: ['GET'] },
-  'users.create': { uri: 'users', methods: ['POST'] },
-  'users.detail': { uri: 'users/{id}', methods: ['GET'] },
-  'users.edit': { uri: 'users/{id}', methods: ['PATCH'] },
-  'users.delete': { uri: 'users/{id}', methods: ['DELETE'] },
+export type { Config as ZiggyConfig, RouteParams };
 
-  'auth.login': { uri: 'login', methods: ['POST'] },
-  'auth.logout': { uri: 'logout', methods: ['POST'] },
-  'auth.refresh-token': { uri: 'refresh-token', methods: ['POST'] },
-  'auth.profile': { uri: 'profile', methods: ['GET'] },
-
-  // STARTER
-  'starter.profile': { uri: 'starter/profile', methods: ['GET'] },
-
-  // STORAGE
-  'storage.presigned-url': { uri: 'storage/presigned-url', methods: ['POST'] },
-} as const satisfies Config['routes'];
-
-export const Ziggy: Config = {
-  url: apiBaseUrl,
-  port: null,
-  defaults: {},
-  routes,
-};
-
-type ApiRoutes = typeof routes;
-
-export function apiRoute<T extends keyof ApiRoutes = keyof ApiRoutes>(
-  name: T,
-  params?: RouteParams<T>,
-  absolute?: boolean
-): string {
-  return ziggyRoute(name, params, absolute ?? true, Ziggy) as string;
+/**
+ * Creates an application-specific type-safe apiRoute helper.
+ *
+ * Each consumer application defines its own endpoints and initializes its
+ * router helper via `createApiRoute(config)`.
+ */
+export function createApiRoute<TConfig extends Config>(ziggyConfig: TConfig) {
+  return function apiRoute<
+    T extends Extract<keyof TConfig['routes'], string> = Extract<keyof TConfig['routes'], string>,
+  >(name: T, params?: RouteParams<T>, absolute?: boolean): string {
+    return ziggyRoute(name as string, params as never, absolute ?? false, ziggyConfig) as string;
+  };
 }

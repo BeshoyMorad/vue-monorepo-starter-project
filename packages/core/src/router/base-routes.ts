@@ -1,6 +1,5 @@
-import type { RouteRecordRaw, RouteComponent } from 'vue-router';
+import type { RouteRecordRaw, RouteComponent, NavigationGuard } from 'vue-router';
 import { basePaths } from './paths';
-import { guestGuard, authGuard } from './guards';
 
 export interface BaseRouteComponents {
   authLayout?: RouteComponent | (() => Promise<RouteComponent>);
@@ -13,15 +12,25 @@ export interface BaseRouteComponents {
   notFoundComponent?: RouteComponent | (() => Promise<RouteComponent>);
 }
 
-function createAuthRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
+export interface BaseRouteGuards {
+  authGuard?: NavigationGuard;
+  guestGuard?: NavigationGuard;
+}
+
+function createAuthRoutes(
+  components: BaseRouteComponents,
+  guards: BaseRouteGuards
+): RouteRecordRaw[] {
   if (!components.loginComponent) return [];
+
+  const beforeEnter = guards.guestGuard ? [guards.guestGuard] : undefined;
 
   if (components.authLayout) {
     return [
       {
         path: '/auth',
         component: components.authLayout,
-        beforeEnter: [guestGuard],
+        beforeEnter,
         children: [
           {
             path: 'login',
@@ -39,21 +48,25 @@ function createAuthRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
       path: '/login',
       name: basePaths.auth.login,
       component: components.loginComponent,
-      beforeEnter: [guestGuard],
+      beforeEnter,
       meta: { title: 'Sign In', sidebar: false },
     },
   ];
 }
 
-function createSystemRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
+function createSystemRoutes(
+  components: BaseRouteComponents,
+  guards: BaseRouteGuards
+): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = [];
+  const beforeEnter = guards.authGuard ? [guards.authGuard] : undefined;
 
   if (components.settingsComponent) {
     routes.push({
       path: '/settings',
       name: basePaths.system.settings,
       component: components.settingsComponent,
-      beforeEnter: [authGuard],
+      beforeEnter,
       meta: { title: 'Settings', sidebar: true },
     });
   }
@@ -63,7 +76,7 @@ function createSystemRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
       path: '/profile',
       name: basePaths.system.profile,
       component: components.profileComponent,
-      beforeEnter: [authGuard],
+      beforeEnter,
       meta: { title: 'Profile', sidebar: true },
     });
   }
@@ -113,10 +126,16 @@ function createErrorRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
   return routes;
 }
 
-export function createBaseRoutes(components: BaseRouteComponents = {}): RouteRecordRaw[] {
+/**
+ * Creates standard base routes with optional application-level guards.
+ */
+export function createBaseRoutes(
+  components: BaseRouteComponents = {},
+  guards: BaseRouteGuards = {}
+): RouteRecordRaw[] {
   return [
-    ...createAuthRoutes(components),
-    ...createSystemRoutes(components),
+    ...createAuthRoutes(components, guards),
+    ...createSystemRoutes(components, guards),
     ...createErrorRoutes(components),
   ];
 }
