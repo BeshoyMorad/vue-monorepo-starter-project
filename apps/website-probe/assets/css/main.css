@@ -1,0 +1,50 @@
+/* Website design system entry: Tailwind v4 + website design tokens */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import 'tailwindcss';
+@import './colors.css';
+@import './token.css';
+@import './spacing.css';
+@import './borders.css';
+@import './effects.css';
+@import './typography.css';
+@import './utilities.css';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Scan website sources and the shared UI components for class names */
+@source '../..';
+@source '../../../../packages/ui/src';
+
+/* Icons (hugeicons + custom SVGs from packages/ui). Configured in JS so the
+   icon folder resolves the same in `nuxt dev` and in the editor extension. */
+@plugin './iconify.plugin.mjs';
+
+@theme {
+  /* Base primary alias used by shared UI components (e.g. bg-primary in Tabs) */
+  --color-primary: var(--color-primary-500);
+}
+
+@theme inline {
+  --font-sans: 'Exo 2', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+.heading-font {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.code-font {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 100;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
