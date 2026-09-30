@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     '@workspace/locales': fileURLToPath(new URL('../../packages/locales/src', import.meta.url)),
   },
 
-  css: ['@workspace/ui/styles', '~/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
 
   // Nuxt Modules
   modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
@@ -85,8 +85,8 @@ export default defineNuxtConfig({
   i18n: {
     restructureDir: false,
     locales: [
-      { code: 'en', name: 'English', file: 'en.ts', dir: 'ltr' },
-      { code: 'ar', name: 'العربية', file: 'ar.ts', dir: 'rtl' },
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.ts', dir: 'ltr' },
+      { code: 'ar', language: 'ar-SA', name: 'العربية', file: 'ar.ts', dir: 'rtl' },
     ],
     defaultLocale: 'en',
     lazy: false,
@@ -95,9 +95,21 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false,
   },
 
+  // Values are overridable at runtime through NUXT_PUBLIC_* env variables
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api.example.com',
+      appName: process.env.NUXT_PUBLIC_APP_NAME || 'Ibbil',
+    },
+  },
+
+  app: {
+    head: {
+      titleTemplate: '%s | Ibbil',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ],
     },
   },
 

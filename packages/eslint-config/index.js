@@ -11,10 +11,11 @@ export const createEslintConfig = () => {
         '*.d.ts',
         '**/coverage',
         '**/dist',
-        '**/.output',
-        '**/.nuxt',
         '**/node_modules',
         '**/.turbo',
+        '**/.nuxt',
+        '**/.output',
+        '**/.data',
       ],
     },
     {

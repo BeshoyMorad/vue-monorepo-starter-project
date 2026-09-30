@@ -1,9 +1,7 @@
-import type { AxiosInstance } from '@workspace/core';
+import type { ApiFetch } from '~/api/client';
 
 /**
- * Returns the Nuxt 3 application configured Axios API client.
+ * Returns the app's fetch client (token, locale and error handling included).
+ * Call it inside TanStack Query functions rather than directly in components.
  */
-export const useApi = (): AxiosInstance => {
-  const { $api } = useNuxtApp();
-  return $api;
-};
+export const useApi = (): ApiFetch => useNuxtApp().$api;

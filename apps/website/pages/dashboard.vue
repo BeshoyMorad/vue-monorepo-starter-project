@@ -18,10 +18,10 @@
   // Demo ID for query options factory
   const activeUserId = ref<number | string>(1);
 
-  // Construct shared query options from @workspace/core by passing the Axios client
+  // Construct shared query options from @workspace/core by passing the fetch client
   const currentQueryOptions = computed(() => userQueryOptions(api, activeUserId.value));
 
-  // SSR Prefetching: Server loads data via Axios, dehydrates into HTML payload
+  // SSR Prefetching: Server loads data via the fetch client, dehydrates into HTML payload
   if (import.meta.server && $queryClient) {
     await $queryClient.prefetchQuery(userQueryOptions(api, activeUserId.value));
   }

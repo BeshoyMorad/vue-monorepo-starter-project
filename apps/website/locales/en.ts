@@ -1,6 +1,25 @@
 import { commonEn, mergeLocaleMessages } from '@workspace/locales';
 
 export const websiteEn = {
+  errors: {
+    title: 'Error',
+    tooManyRequests: 'Too many requests. Please wait a moment and try again.',
+  },
+  errorPage: {
+    backHome: 'Back to home',
+    notFound: {
+      title: 'Page not found',
+      description: "The page you're looking for doesn't exist or has been moved.",
+    },
+    forbidden: {
+      title: 'Access denied',
+      description: "You don't have permission to view this page.",
+    },
+    serverError: {
+      title: 'Something went wrong',
+      description: 'An unexpected error occurred. Please try again later.',
+    },
+  },
   website: {
     hero: {
       badge: 'Nuxt 3 + TanStack Query + Tailwind v4',

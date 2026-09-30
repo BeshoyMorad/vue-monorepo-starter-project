@@ -2,6 +2,25 @@ import { commonAr, mergeLocaleMessages } from '@workspace/locales';
 
 export default defineI18nLocale(async () => {
   const websiteAr = {
+    errors: {
+      title: 'خطأ',
+      tooManyRequests: 'طلبات كثيرة جدًا. يرجى الانتظار قليلًا ثم المحاولة مرة أخرى.',
+    },
+    errorPage: {
+      backHome: 'العودة إلى الرئيسية',
+      notFound: {
+        title: 'الصفحة غير موجودة',
+        description: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
+      },
+      forbidden: {
+        title: 'غير مصرح بالدخول',
+        description: 'ليس لديك صلاحية لعرض هذه الصفحة.',
+      },
+      serverError: {
+        title: 'حدث خطأ ما',
+        description: 'حدث خطأ غير متوقع. يرجى المحاولة لاحقًا.',
+      },
+    },
     website: {
       hero: {
         badge: 'Nuxt 3 + TanStack Query + Tailwind v4',

@@ -4,6 +4,7 @@ export interface WebsiteConfig {
   apiBaseUrl: string;
   nodeEnv: string;
   appTitle: string;
+  appName: string;
   appEnv: string;
   env: string;
   defaultLocale: string;
@@ -18,6 +19,7 @@ export const getWebsiteConfig = (): WebsiteConfig => {
   return {
     apiBaseUrl: (runtimeConfig.public.apiBaseUrl as string) || '',
     appTitle: 'Vue Monorepo Website',
+    appName: runtimeConfig.public.appName,
     appEnv: process.env.NODE_ENV || 'development',
     env: process.env.NODE_ENV || 'development',
     nodeEnv: process.env.NODE_ENV || 'development',

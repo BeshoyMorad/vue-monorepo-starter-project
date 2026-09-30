@@ -12,7 +12,8 @@ Designed for enterprise teams to rapidly scaffold, build, and deploy multiple br
 ├── apps/
 │   ├── base-template/        # Base reference template for new tenants
 │   ├── tenant-a/             # Sample Tenant A (Blue theme, port 3001)
-│   └── tenant-b/             # Sample Tenant B (Red theme, port 3002)
+│   ├── tenant-b/             # Sample Tenant B (Red theme, port 3002)
+│   └── nuxt-starter/         # Standalone Nuxt 4 SPA starter (port 3003)
 │
 ├── packages/
 │   ├── ui/                   # Shared Vue UI component library & Design System
@@ -74,6 +75,9 @@ pnpm dev:tenant-a
 
 # Tenant B (http://localhost:3002)
 pnpm dev:tenant-b
+
+# Nuxt starter (http://localhost:3003)
+pnpm dev:nuxt
 ```
 
 ### Building for Production
@@ -90,6 +94,7 @@ Or build a specific tenant application:
 pnpm build:base
 pnpm build:tenant-a
 pnpm build:tenant-b
+pnpm build:nuxt
 ```
 
 ### Code Quality & Validation
