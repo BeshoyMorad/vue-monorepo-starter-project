@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     '@workspace/locales': fileURLToPath(new URL('../../packages/locales/src', import.meta.url)),
   },
 
-  css: ['@workspace/ui/styles', '~/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
 
   // Nuxt Modules
   modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
