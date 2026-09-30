@@ -7,6 +7,9 @@ settings:
 overrides:
   vue: 3.5.35
 
+patchedDependencies:
+  '@vueuse/core@14.3.0': d20cde5b140cb41dab099426b85814430afdacaa04fbb4d37a5d351a5dcb206c
+
 importers:
 
   .:
@@ -61,7 +64,7 @@ importers:
         version: 4.15.1(vue@3.5.35(typescript@6.0.3))(yup@1.7.1)
       '@vueuse/core':
         specifier: ^14.3.0
-        version: 14.3.0(vue@3.5.35(typescript@6.0.3))
+        version: 14.3.0(patch_hash=d20cde5b140cb41dab099426b85814430afdacaa04fbb4d37a5d351a5dcb206c)(vue@3.5.35(typescript@6.0.3))
       '@workspace/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -204,7 +207,7 @@ importers:
         version: 4.15.1(vue@3.5.35(typescript@6.0.3))(yup@1.7.1)
       '@vueuse/core':
         specifier: ^14.3.0
-        version: 14.3.0(vue@3.5.35(typescript@6.0.3))
+        version: 14.3.0(patch_hash=d20cde5b140cb41dab099426b85814430afdacaa04fbb4d37a5d351a5dcb206c)(vue@3.5.35(typescript@6.0.3))
       '@workspace/locales':
         specifier: workspace:*
         version: link:../locales
@@ -361,7 +364,7 @@ importers:
         version: 4.15.1(vue@3.5.35(typescript@6.0.3))(yup@1.7.1)
       '@vueuse/core':
         specifier: ^14.3.0
-        version: 14.3.0(vue@3.5.35(typescript@6.0.3))
+        version: 14.3.0(patch_hash=d20cde5b140cb41dab099426b85814430afdacaa04fbb4d37a5d351a5dcb206c)(vue@3.5.35(typescript@6.0.3))
       '@workspace/core':
         specifier: workspace:*
         version: link:../core
@@ -8646,7 +8649,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@vueuse/core@14.3.0(vue@3.5.35(typescript@6.0.3))':
+  '@vueuse/core@14.3.0(patch_hash=d20cde5b140cb41dab099426b85814430afdacaa04fbb4d37a5d351a5dcb206c)(vue@3.5.35(typescript@6.0.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
       '@vueuse/metadata': 14.3.0
@@ -11043,7 +11046,7 @@ snapshots:
       '@internationalized/date': 3.12.2
       '@internationalized/number': 3.6.7
       '@tanstack/vue-virtual': 3.13.26(vue@3.5.35(typescript@6.0.3))
-      '@vueuse/core': 14.3.0(vue@3.5.35(typescript@6.0.3))
+      '@vueuse/core': 14.3.0(patch_hash=d20cde5b140cb41dab099426b85814430afdacaa04fbb4d37a5d351a5dcb206c)(vue@3.5.35(typescript@6.0.3))
       '@vueuse/shared': 14.3.0(vue@3.5.35(typescript@6.0.3))
       aria-hidden: 1.2.6
       defu: 6.1.7
