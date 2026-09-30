@@ -1,8 +1,0 @@
-/* Tenant B: Red Theme */
-@theme {
-  --color-primary: #dc2626;
-}
-
-:root {
-  --color-primary: #dc2626;
-}

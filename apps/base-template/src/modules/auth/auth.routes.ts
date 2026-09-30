@@ -1,4 +1,4 @@
-import { guestGuard } from '@workspace/core/router';
+import { guestGuard } from '@/router/guards';
 import { paths } from '@/router/paths';
 import type { RouteRecordRaw } from 'vue-router';
 

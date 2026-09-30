@@ -19,6 +19,7 @@
     "@tanstack/vue-query": "^5.100.14",
     "@tanstack/vue-table": "^8.21.3",
     "@vee-validate/yup": "^4.15.1",
+    "@vueuse/core": "^14.3.0",
     "@workspace/core": "workspace:*",
     "@workspace/locales": "workspace:*",
     "@workspace/ui": "workspace:*",

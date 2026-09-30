@@ -1,12 +1,11 @@
 <script setup lang="ts">
-  import { usePermissionStore } from '@workspace/core/stores/permissions';
   import { computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
 
-  interface Tab {
+  export interface Tab {
     name: string;
     routeName: string;
-    permission?: CanPermission<Models>;
+    permission?: string | string[];
   }
 
   interface Props {
@@ -14,12 +13,14 @@
     tabs: Tab[];
     modelValue?: string;
     mode?: 'route' | 'state';
+    can?: (permission: string | string[]) => boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     testId: 'ui-tabs',
     mode: 'state',
     modelValue: undefined,
+    can: undefined,
   });
 
   const emit = defineEmits<{
@@ -28,13 +29,21 @@
 
   const router = useRouter();
   const route = useRoute();
-  const { can } = usePermissionStore();
 
   const activeTab = computed(() => {
     if (props.mode === 'route') {
       return route.name;
     }
     return props.modelValue;
+  });
+
+  const visibleTabs = computed(() => {
+    return props.tabs.filter((tab) => {
+      if (tab.permission && props.can) {
+        return props.can(tab.permission);
+      }
+      return true;
+    });
   });
 
   const handleTabClick = (tab: Tab) => {
@@ -56,7 +65,7 @@
     class="text-txt-default bg-background-surface-3 mb-4 flex w-fit rounded-lg text-sm"
   >
     <button
-      v-for="tab in tabs.filter((tab) => (tab.permission ? can(tab.permission) : true))"
+      v-for="tab in visibleTabs"
       :key="tab.routeName"
       :data-test-id="getTestId(tab)"
       class="min-w-40 cursor-pointer rounded-lg px-6 py-3 whitespace-nowrap transition-colors duration-200"

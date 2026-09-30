@@ -41,6 +41,7 @@ Designed for enterprise teams to rapidly scaffold, build, and deploy multiple br
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **Node.js**: `>= 20.x`
 - **pnpm**: `>= 9.x` (Recommended: `pnpm@11.5.0`)
 
@@ -58,11 +59,13 @@ pnpm install
 ### Development
 
 Run all apps concurrently in watch mode via Turborepo:
+
 ```bash
 pnpm dev
 ```
 
 Or run an individual tenant application:
+
 ```bash
 # Base template (http://localhost:3000)
 pnpm dev:base
@@ -80,11 +83,13 @@ pnpm dev:nuxt
 ### Building for Production
 
 Build all applications and packages with Turborepo caching:
+
 ```bash
 pnpm build
 ```
 
 Or build a specific tenant application:
+
 ```bash
 pnpm build:base
 pnpm build:tenant-a
@@ -117,15 +122,17 @@ The design system is centralized inside `@workspace/ui/styles`. Global typograph
 Each tenant inherits the entire design system and simply overrides brand tokens in its own `src/css/theme.css`:
 
 ### 1. Unified CSS Import (`apps/<tenant>/src/css/index.css`)
+
 ```css
 /* 1. Import unified design system from packages/ui */
-@import "@workspace/ui/styles";
+@import '@workspace/ui/styles';
 
 /* 2. Apply tenant-specific branding overrides */
-@import "./theme.css";
+@import './theme.css';
 ```
 
 ### 2. Tenant Brand Tokens (`apps/<tenant>/src/css/theme.css`)
+
 ```css
 :root {
   /* Brand Primary Colors */
@@ -144,41 +151,62 @@ Each tenant inherits the entire design system and simply overrides brand tokens 
 ## 🏢 Multi-Tenant Automation
 
 ### Adding a New Tenant
-Use the automated CLI script to scaffold a new tenant from `base-template`:
+
+Use the automated CLI script to scaffold a new tenant from either `base-template` (Vite SPA) or `website` (Nuxt 3 SSR):
+
 ```bash
-pnpm tenant:add <tenant-name> [port]
+# General syntax
+pnpm tenant:add <tenant-name> [template] [port]
+pnpm tenant:add <tenant-name> --template=<base-template|website> [--port=<port>]
 ```
-**Example:**
+
+**Examples:**
+
 ```bash
-pnpm tenant:add tenant-c 3003
+# 1. Scaffold a Vite SPA Dashboard (defaults to base-template)
+pnpm tenant:add tenant-c
+
+# 2. Scaffold a Vite SPA with custom port
+pnpm tenant:add tenant-c base-template 3003
+
+# 3. Scaffold a Nuxt 3 SSR/ISR Website
+pnpm tenant:add client-portal website 3005
+# Or using flags:
+pnpm tenant:add client-portal --template=website --port=3005
 ```
+
 This automatically:
-1. Clones `apps/base-template` into `apps/tenant-c`.
-2. Updates `package.json` package name to `@workspace/tenant-c`.
-3. Configures port `3003` in `apps/tenant-c/vite.config.ts`.
-4. Registers `dev:tenant-c` and `build:tenant-c` scripts in root `package.json`.
-5. Links workspace dependencies via `pnpm install`.
+
+1. Clones the selected template (`apps/base-template` or `apps/website`) into `apps/<tenant-name>`.
+2. Updates `package.json` package name to `@workspace/<tenant-name>`.
+3. Configures port in `vite.config.ts` (for Vite) or `nuxt.config.ts` (for Nuxt).
+4. Registers `dev:<tenant-name>` and `build:<tenant-name>` scripts in root `package.json`.
+5. Links workspace dependencies and prepares types via `pnpm install`.
 
 ### Removing a Tenant
+
 ```bash
 pnpm tenant:remove <tenant-name>
 ```
+
 **Example:**
+
 ```bash
 pnpm tenant:remove tenant-c
 ```
-*(Note: Protected directories such as `base-template` cannot be removed).*
+
+_(Note: Protected core directories `base-template` and `website` cannot be removed)._
 
 ---
 
 ## 📦 Shared Workspace Packages
 
-| Package | Workspace Specifier | Purpose |
-| :--- | :--- | :--- |
-| **UI** | `@workspace/ui` | Vue 3 UI component library, shadcn-vue base components, icons, and centralized CSS design system. |
-| **Core** | `@workspace/core` | Business logic, Pinia stores, Vue composables, API client, TanStack Query keys, validation schemas, and utilities. |
-| **TSConfig** | `@workspace/tsconfig` | Shared `tsconfig` presets (`base.json`, `vue.json`, `node.json`). |
-| **ESLint Config** | `@workspace/eslint-config` | Unified ESLint flat config with Vue, TypeScript, and Prettier integration. |
+| Package           | Workspace Specifier        | Purpose                                                                                                            |
+| :---------------- | :------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| **UI**            | `@workspace/ui`            | Vue 3 UI component library, shadcn-vue base components, icons, and centralized CSS design system.                  |
+| **Core**          | `@workspace/core`          | Business logic, Pinia stores, Vue composables, API client, TanStack Query keys, validation schemas, and utilities. |
+| **TSConfig**      | `@workspace/tsconfig`      | Shared `tsconfig` presets (`base.json`, `vue.json`, `node.json`).                                                  |
+| **ESLint Config** | `@workspace/eslint-config` | Unified ESLint flat config with Vue, TypeScript, and Prettier integration.                                         |
 
 ---
 

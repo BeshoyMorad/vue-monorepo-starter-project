@@ -40,8 +40,8 @@ export const API_STRUCTURE_DOM = {
   },
 } as const;
 
-export const API_STRUCTURE_IMPORT_CODE = `import { apiRoute } from '@workspace/core/lib/api/endpoints';
-import { QUERY_KEYS } from '@workspace/core/lib/queryKeys';`;
+export const API_STRUCTURE_IMPORT_CODE = `import { api, apiRoute } from '@/api';
+import { QUERY_KEYS } from '@workspace/core/lib/query-keys';`;
 
 export const API_PROJECT_STRUCTURE = `📁 src/
 └── 📁 lib/

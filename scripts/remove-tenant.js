@@ -11,24 +11,70 @@ const rootDir = path.resolve(__dirname, '..');
 const appsDir = path.resolve(rootDir, 'apps');
 const rootPkgPath = path.resolve(rootDir, 'package.json');
 
-const rawTenantName = process.argv[2];
+// Core templates and protected directories that cannot be removed
+const PROTECTED_DIRECTORIES = ['base-template', 'website'];
+
+function printHelp() {
+  console.log(`
+\x1b[1m\x1b[34mTenant Removal Tool\x1b[0m
+
+\x1b[1mUsage:\x1b[0m
+  pnpm run tenant:remove <tenant-name>
+  pnpm run tenant:remove --name=<tenant-name>
+
+\x1b[1mProtected Core Directories (Cannot be removed):\x1b[0m
+  • \x1b[33mbase-template\x1b[0m : Vite SPA dashboard base template
+  • \x1b[33mwebsite\x1b[0m       : Nuxt 3 SSR website template
+
+\x1b[1mExamples:\x1b[0m
+  pnpm run tenant:remove tenant-c
+  pnpm run tenant:remove @workspace/tenant-c
+`);
+}
+
+function parseArgs(args) {
+  let tenantName = null;
+  let help = false;
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === '--help' || arg === '-h') {
+      help = true;
+      break;
+    }
+    if (arg.startsWith('--name=')) {
+      tenantName = arg.split('=')[1];
+    } else if (arg === '--name' || arg === '-n') {
+      tenantName = args[++i];
+    } else if (!arg.startsWith('-') && !tenantName) {
+      tenantName = arg;
+    }
+  }
+
+  return { tenantName, help };
+}
+
+const { tenantName: rawTenantName, help } = parseArgs(process.argv.slice(2));
+
+if (help) {
+  printHelp();
+  process.exit(0);
+}
 
 if (!rawTenantName) {
   console.error('\x1b[31m%s\x1b[0m', 'Error: Tenant name is required.');
-  console.log('\nUsage: pnpm run tenant:remove <tenant-name>');
-  console.log('Example: pnpm run tenant:remove tenant-c\n');
+  printHelp();
   process.exit(1);
 }
 
-// Normalize tenant name: allow 'tenant-c' or '@workspace/tenant-c'
+// Normalize tenant name: allow 'tenant-c', '@workspace/tenant-c', or 'apps/tenant-c'
 const tenantName = rawTenantName
   .replace(/^@workspace\//, '')
   .replace(/^apps\//, '')
   .trim();
 
 // Safeguard protected directories
-const protectedDirectories = ['base-template'];
-if (protectedDirectories.includes(tenantName.toLowerCase())) {
+if (PROTECTED_DIRECTORIES.includes(tenantName.toLowerCase())) {
   console.error(
     '\x1b[31m%s\x1b[0m',
     `Error: Cannot remove protected core directory "${tenantName}". Action aborted.`
@@ -49,20 +95,34 @@ if (!fs.existsSync(targetDir)) {
   process.exit(1);
 }
 
-console.log(`\n\x1b[34m▶ Removing tenant: ${tenantName} from ${targetDir}...\x1b[0m`);
+console.log(`\n\x1b[34m▶ Removing tenant: \x1b[1m${tenantName}\x1b[0m from ${targetDir}...\x1b[0m`);
 
 try {
   fs.rmSync(targetDir, { recursive: true, force: true });
   console.log(`\x1b[32m✔ Removed folder apps/${tenantName}\x1b[0m`);
 
-  // Remove dev and build scripts from root package.json if present
+  // Remove scripts from root package.json if present
   if (fs.existsSync(rootPkgPath)) {
     const rootPkg = JSON.parse(fs.readFileSync(rootPkgPath, 'utf8'));
     if (rootPkg.scripts) {
-      delete rootPkg.scripts[`dev:${tenantName}`];
-      delete rootPkg.scripts[`build:${tenantName}`];
-      fs.writeFileSync(rootPkgPath, JSON.stringify(rootPkg, null, 2) + '\n', 'utf8');
-      console.log(`\x1b[32m✔ Cleaned scripts from root package.json\x1b[0m`);
+      let cleaned = false;
+      const scriptKeysToRemove = [
+        `dev:${tenantName}`,
+        `build:${tenantName}`,
+        `preview:${tenantName}`,
+      ];
+
+      for (const key of scriptKeysToRemove) {
+        if (rootPkg.scripts[key]) {
+          delete rootPkg.scripts[key];
+          cleaned = true;
+        }
+      }
+
+      if (cleaned) {
+        fs.writeFileSync(rootPkgPath, JSON.stringify(rootPkg, null, 2) + '\n', 'utf8');
+        console.log(`\x1b[32m✔ Cleaned scripts from root package.json\x1b[0m`);
+      }
     }
   }
 

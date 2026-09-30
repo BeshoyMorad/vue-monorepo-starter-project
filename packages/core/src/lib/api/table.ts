@@ -1,5 +1,5 @@
 import type { TableParams } from '@workspace/core/composables/useTableState';
-import { api } from './client';
+import { getApiClient } from './client';
 
 /**
  * Service function to fetch paginated table data.
@@ -12,7 +12,9 @@ export const fetchTableData = async <TResponse>(
   endpoint: string,
   params: TableParams
 ): Promise<TResponse> => {
+  const client = getApiClient();
   const cleanParams: Record<string, unknown> = {};
+
   // Merge general filters at the root level, ignoring empties/nulls
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== '') {
@@ -20,7 +22,7 @@ export const fetchTableData = async <TResponse>(
     }
   });
 
-  const { data } = await api.get<TResponse>(endpoint, {
+  const { data } = await client.get<TResponse>(endpoint, {
     params: cleanParams,
   });
 

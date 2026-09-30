@@ -1,0 +1,7 @@
+@source '../../packages/ui/src/**/*.{vue,js,ts}';
+@source '../**/*.{vue,js,ts}';
+
+:root {
+  color-scheme: light dark;
+  --color-bg-primary-default: red;
+}

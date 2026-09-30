@@ -1,5 +1,4 @@
 export { useDarkTheme } from './useDarkTheme';
-export { useCan } from './useCan';
 export { useDataTable } from './useDataTable';
 export type { TableParams } from './useTableState';
 export type { UseTableOptions } from './useDataTable';

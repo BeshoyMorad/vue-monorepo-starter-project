@@ -78,12 +78,12 @@ export function useDataInfiniteScroll<
         return fetchTableData<CursorPaginatedResponse<TData>>(toValue(options.endpoint), {
           ...cleanParams,
           cursor: (pageParam as string | null) ?? undefined,
-        } as unknown as TableParams);
+        });
       } else {
         return fetchTableData<OffsetPaginatedResponse<TData>>(toValue(options.endpoint), {
           ...cleanParams,
           page: pageParam as number,
-        } as unknown as TableParams);
+        });
       }
     },
     getNextPageParam: (lastPage) => {
