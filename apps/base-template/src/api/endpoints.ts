@@ -21,12 +21,12 @@ export const routes = {
   'storage.presigned-url': { uri: 'storage/presigned-url', methods: ['POST'] },
 } as const satisfies ZiggyConfig['routes'];
 
-export const Ziggy: ZiggyConfig = {
+export const Ziggy = {
   url: '',
   port: null,
   defaults: {},
   routes,
-};
+} as const satisfies ZiggyConfig;
 
 export type ApiRoutes = typeof routes;
 export const apiRoute = createApiRoute(Ziggy);
