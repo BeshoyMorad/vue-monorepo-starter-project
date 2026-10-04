@@ -25,11 +25,19 @@
     <aside
       class="border-gold-500 sticky top-0 hidden h-screen flex-col justify-between overflow-hidden border-e-2 p-12 text-white lg:flex"
     >
-      <img
+      <!-- Panel is 46% of the viewport from lg up and hidden below, so request ~half-width sources at each large breakpoint.
+           `class` goes on the <picture> wrapper: it must be absolute too, or it becomes a flex item
+           and justify-between pushes the header down. `img-attrs` goes on the inner <img>. -->
+      <NuxtPicture
         src="/images/auth/camel.jpg"
         alt=""
-        class="absolute inset-0 size-full object-cover"
-        fetchpriority="high"
+        sizes="lg:50vw xl:50vw 2xl:50vw"
+        class="absolute inset-0"
+        :img-attrs="{
+          class: 'size-full object-cover',
+          fetchpriority: 'high',
+        }"
+        preload
       />
       <!-- Overlays measured on ibbil.com: dark green towards the outer edge + a gold glow -->
       <div
@@ -51,7 +59,7 @@
             class="inline-flex items-center gap-1.5 rounded-lg border border-white/30 bg-white/10 px-3 py-[5px] text-[13px] font-medium text-white/90 transition-colors hover:bg-white/20"
           >
             <Icon icon="hugeicons--arrow-left-02" class="size-4 rtl:rotate-180" />
-            {{ t('auth.brand.home') }}
+            <span class="icon-label">{{ t('auth.brand.home') }}</span>
           </NuxtLink>
         </div>
       </header>

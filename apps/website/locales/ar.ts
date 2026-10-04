@@ -51,6 +51,7 @@ export default defineI18nLocale(async () => {
         },
       },
     },
+    localeSwitcher: { label: 'اللغة والمنطقة' },
     nav: {
       home: 'الرئيسية',
       tanstackQuery: 'استعلام TanStack على الخادم',

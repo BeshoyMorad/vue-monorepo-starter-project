@@ -53,6 +53,7 @@ export const websiteEn = {
       },
     },
   },
+  localeSwitcher: { label: 'Language & region' },
   nav: {
     home: 'Home',
     tanstackQuery: 'TanStack Query SSR',

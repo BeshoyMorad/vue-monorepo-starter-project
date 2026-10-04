@@ -28,7 +28,25 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   // Nuxt Modules
-  modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
+  modules: ['@pinia/nuxt', '@nuxtjs/i18n', '@nuxt/image'],
+
+  // Nuxt Image: use <NuxtImg>/<NuxtPicture> for raster images (png, jpg, webp).
+  // SVGs stay as plain <img>, since there is nothing to resize or re-encode.
+  // The default IPX provider resizes and converts images from /public on the fly.
+  image: {
+    quality: 80,
+    // WebP only: at the same quality setting sharp's AVIF output came out ~40% larger than WebP for our photos.
+    // <NuxtPicture> still adds the original format as the <img> fallback.
+    format: ['webp'],
+    // Mirrors Tailwind's default breakpoints so `sizes="lg:50vw"` style hints line up
+    screens: {
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536,
+    },
+  },
 
   // Auto-import UI components from @workspace/ui and local components
   components: [

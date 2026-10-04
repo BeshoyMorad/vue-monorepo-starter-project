@@ -122,6 +122,15 @@
   color: oklch(0.45 0 0);
 }
 /* "Remember me" (container-class="auth-check") */
+.auth-ui .auth-check label,
+.auth-ui .auth-check button[role='checkbox'] {
+  cursor: pointer;
+}
+/* Expo Arabic draws Latin letters ~1px above the middle of the line box, so English text
+   looks raised next to the checkbox. Arabic glyphs are already centred. */
+.auth-ui .auth-check label:lang(en) {
+  transform: translateY(1px);
+}
 .auth-ui .auth-check button[role='checkbox'] {
   border-color: oklch(0.85 0 0);
 }
@@ -129,6 +138,18 @@
   font-size: 14px;
   font-weight: 500;
   color: oklch(0.45 0 0);
+}
+
+/*
+ * Text next to an icon in a button (class="icon-label"). Expo Arabic places glyphs high in
+ * the line box, so a label looks raised beside a centred icon. Measured at 13px: Latin cap
+ * height sat ~2.4px above the icon centre, Arabic ~1.6px. em values keep it right at any size.
+ */
+.icon-label:lang(en) {
+  transform: translateY(0.18em);
+}
+.icon-label:lang(ar) {
+  transform: translateY(0.12em);
 }
 
 /* Red asterisk after the label of required form fields: container-class="field-required" */

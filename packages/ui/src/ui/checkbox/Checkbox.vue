@@ -24,7 +24,7 @@
 
   const trackVariants = cva(
     [
-      'peer shrink-0 border shadow-xs transition-shadow outline-none',
+      'peer shrink-0 cursor-pointer border shadow-xs transition-shadow outline-none',
       'focus-visible:bg-bg-pressed',
       'data-[state=checked]:bg-bg-primary-default data-[state=checked]:border-bg-primary-default',
       'aria-invalid:border-border-danger aria-invalid:bg-bg-danger-default-invert',
