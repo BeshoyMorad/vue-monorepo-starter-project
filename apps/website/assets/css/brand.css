@@ -126,10 +126,9 @@
 .auth-ui .auth-check button[role='checkbox'] {
   cursor: pointer;
 }
-/* Expo Arabic draws Latin letters ~1px above the middle of the line box, so English text
-   looks raised next to the checkbox. Arabic glyphs are already centred. */
+/* Same nudge as .icon-label: English text sits slightly high next to the checkbox */
 .auth-ui .auth-check label:lang(en) {
-  transform: translateY(1px);
+  transform: translateY(0.5px);
 }
 .auth-ui .auth-check button[role='checkbox'] {
   border-color: oklch(0.85 0 0);
@@ -141,15 +140,13 @@
 }
 
 /*
- * Text next to an icon in a button (class="icon-label"). Expo Arabic places glyphs high in
- * the line box, so a label looks raised beside a centred icon. Measured at 13px: Latin cap
- * height sat ~2.4px above the icon centre, Arabic ~1.6px. em values keep it right at any size.
+ * Text next to an icon (class="icon-label"). The icon should line up with the middle of the
+ * lowercase letters, which carry most of a word. Measured from rendered pixels on the auth
+ * screens, English text sat ~0.5px above that line (13–26px) and Arabic was already level.
+ * The class must be on a block or flex item (transforms don't apply to plain inline text).
  */
 .icon-label:lang(en) {
-  transform: translateY(0.18em);
-}
-.icon-label:lang(ar) {
-  transform: translateY(0.12em);
+  transform: translateY(0.5px);
 }
 
 /* Red asterisk after the label of required form fields: container-class="field-required" */
@@ -198,4 +195,45 @@
 .auth-ui .auth-otp [data-slot='form-message'],
 .auth-ui .auth-otp [data-slot='form-description'] {
   text-align: center;
+}
+
+/*
+ * Moving between auth screens and forgot-password steps (AUTH_TRANSITION and
+ * AUTH_STEP_TRANSITION in constants/auth.ts): the old card fades up and out, the new one
+ * fades in from slightly below.
+ */
+.auth-swap-enter-active,
+.auth-step-enter-active {
+  transition:
+    opacity 220ms ease-out,
+    transform 220ms ease-out;
+}
+.auth-swap-leave-active,
+.auth-step-leave-active {
+  transition:
+    opacity 140ms ease-in,
+    transform 140ms ease-in;
+}
+.auth-swap-enter-from,
+.auth-step-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.auth-swap-leave-to,
+.auth-step-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+/* Language switch re-renders the same screen: swap instantly (middleware/auth-transition.global.ts) */
+[data-auth-instant] .auth-swap-enter-active,
+[data-auth-instant] .auth-swap-leave-active {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-swap-enter-from,
+  .auth-swap-leave-to,
+  .auth-step-enter-from,
+  .auth-step-leave-to {
+    transform: none;
+  }
 }

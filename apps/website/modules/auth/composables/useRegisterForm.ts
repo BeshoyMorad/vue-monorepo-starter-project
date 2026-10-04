@@ -15,7 +15,6 @@ export function useRegisterForm() {
   const localePath = useLocalePath();
   const verification = useVerificationStore();
   const service = useAuthService();
-  const { showError } = useApiFormError();
 
   const schema = createRegisterSchema(t);
   const { handleSubmit, values } = useForm<RegisterFormValues>({
@@ -31,12 +30,14 @@ export function useRegisterForm() {
   });
   // Submit stays disabled until required fields are filled (project rule)
   const canSubmit = useCanSubmit(schema, values);
+  const { showError, formError, clearFormError } = useApiFormError(values);
 
   const register = useMutation({
     mutationFn: (body: RegisterRequest) => service.register(body),
   });
 
   const onSubmit = handleSubmit(async (values, { setErrors }) => {
+    clearFormError();
     try {
       const { token } = await register.mutateAsync({
         fullName: values.fullName,
@@ -52,5 +53,5 @@ export function useRegisterForm() {
     }
   });
 
-  return { onSubmit, canSubmit, isPending: register.isPending };
+  return { onSubmit, canSubmit, formError, isPending: register.isPending };
 }

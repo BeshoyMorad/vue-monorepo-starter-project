@@ -22,8 +22,6 @@ import { useOtpForm } from './useOtpForm';
 export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string) => void) {
   const { t } = useI18n();
   const service = useAuthService();
-  const { showError } = useApiFormError();
-
   const schema = createForgotPasswordSchema(t);
   const { handleSubmit, values } = useForm<ForgotPasswordFormValues>({
     validationSchema: toTypedSchema(schema),
@@ -31,23 +29,22 @@ export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string
   });
   // Submit stays disabled until required fields are filled (project rule)
   const canSubmit = useCanSubmit(schema, values);
+  const { showError, formError, clearFormError } = useApiFormError(values);
 
   const request = useMutation({ mutationFn: (phone: string) => service.forgotPassword(phone) });
 
   const onSubmit = handleSubmit(async ({ phone }, { setErrors }) => {
+    clearFormError();
     try {
       const { token } = await request.mutateAsync(phone);
       onSent(phone, token);
     } catch (error) {
-      showError(
-        error,
-        (errors) => setErrors({ phone: errors.identifier ?? errors.phone }),
-        'phone'
-      );
+      // The API may report the number as `identifier`
+      showError(error, (errors) => setErrors({ phone: errors.identifier ?? errors.phone }));
     }
   });
 
-  return { onSubmit, canSubmit, isPending: request.isPending };
+  return { onSubmit, canSubmit, formError, isPending: request.isPending };
 }
 
 /** Error codes meaning the reset session is gone and the flow must restart. */
@@ -63,10 +60,10 @@ export function useResetCodeForm(
 ) {
   const { t } = useI18n();
   const service = useAuthService();
-  const { showError } = useApiFormError();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
 
-  const { handleSubmit, clearOtp, canSubmit, validateOtp } = useOtpForm();
+  const { handleSubmit, values, clearOtp, canSubmit, validateOtp } = useOtpForm();
+  const { showError, formError, clearFormError } = useApiFormError(values);
 
   const verify = useMutation({
     mutationFn: (otp: string) => service.verifyResetOtp({ otp, token: session.token.value }),
@@ -74,6 +71,7 @@ export function useResetCodeForm(
   // Re-requesting the code issues a new reset session token
   const resend = useMutation({
     mutationFn: () => service.forgotPassword(session.phone.value),
+    onMutate: clearFormError,
     onSuccess: ({ token }) => {
       session.token.value = token;
       clearOtp();
@@ -84,11 +82,12 @@ export function useResetCodeForm(
   });
 
   const onSubmit = handleSubmit(async ({ otp }, { setErrors }) => {
+    clearFormError();
     try {
       const { token } = await verify.mutateAsync(otp);
       onVerified(token);
     } catch (error) {
-      showError(error, setErrors, 'otp');
+      showError(error, setErrors);
     }
   });
 
@@ -98,6 +97,7 @@ export function useResetCodeForm(
   return {
     onSubmit,
     canSubmit,
+    formError,
     validateOtp,
     isPending: verify.isPending,
     resend: () => resend.mutate(),
@@ -114,8 +114,6 @@ export function useResetPasswordForm(resetToken: Ref<string>, onExpired: () => v
   const { t } = useI18n();
   const localePath = useLocalePath();
   const service = useAuthService();
-  const { showError, toast, describe } = useApiFormError();
-
   const schema = createResetPasswordSchema(t);
   const { handleSubmit, values } = useForm<ResetPasswordFormValues>({
     validationSchema: toTypedSchema(schema),
@@ -123,6 +121,7 @@ export function useResetPasswordForm(resetToken: Ref<string>, onExpired: () => v
   });
   // Submit stays disabled until required fields are filled (project rule)
   const canSubmit = useCanSubmit(schema, values);
+  const { showError, formError, clearFormError, toast, describe } = useApiFormError(values);
 
   const reset = useMutation({
     mutationFn: (newPassword: string) =>
@@ -130,6 +129,7 @@ export function useResetPasswordForm(resetToken: Ref<string>, onExpired: () => v
   });
 
   const onSubmit = handleSubmit(async ({ newPassword }, { setErrors }) => {
+    clearFormError();
     try {
       await reset.mutateAsync(newPassword);
       notify('success', { title: t('auth.successTitle'), body: t('auth.forgot.success') });
@@ -140,9 +140,9 @@ export function useResetPasswordForm(resetToken: Ref<string>, onExpired: () => v
         onExpired();
         return;
       }
-      showError(error, setErrors, 'newPassword');
+      showError(error, setErrors);
     }
   });
 
-  return { onSubmit, canSubmit, isPending: reset.isPending };
+  return { onSubmit, canSubmit, formError, isPending: reset.isPending };
 }

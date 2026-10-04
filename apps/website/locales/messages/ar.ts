@@ -38,6 +38,7 @@ export const apiErrorsAr: typeof apiErrorsEn = {
     INVALID_OTP: invalidOtp,
     InvalidOtp: invalidOtp,
     PASSWORD_RESET_TOKEN_INVALID: 'انتهت صلاحية جلسة إعادة التعيين. يرجى البدء من جديد.',
+    PASSWORD_UNCHANGED: 'هذا هو رقمك السري الحالي. اختر رقماً سرياً مختلفاً.',
     PHONE_ALREADY_EXISTS: 'رقم الجوال هذا مسجل مسبقاً.',
     EMAIL_ALREADY_EXISTS: 'البريد الإلكتروني هذا مسجل مسبقاً.',
     NATIONAL_ID_ALREADY_EXISTS: 'رقم الهوية هذا مسجل مسبقاً.',
@@ -68,7 +69,7 @@ export const apiErrorsAr: typeof apiErrorsEn = {
       TOO_SHORT: 'أدخل اسمك الكامل (حرفان على الأقل)',
       TOO_LONG: 'الاسم الكامل طويل جداً',
     },
-    nationalId: { INVALID_FORMAT: 'أدخل من 10 إلى 14 رقماً بدون مسافات' },
+    nationalId: { INVALID_FORMAT: 'رقم الهوية الوطنية غير صحيح. تحقق من الأرقام وحاول مرة أخرى.' },
     otp: { TOO_SHORT: otp, TOO_LONG: otp, INVALID_FORMAT: otp },
   },
 };

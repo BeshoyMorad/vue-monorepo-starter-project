@@ -4,12 +4,13 @@
   import { useLoginForm } from '~/modules/auth/composables/useLoginForm';
   import AuthCard from './AuthCard.vue';
   import SaudiPhoneField from './SaudiPhoneField.vue';
+  import AuthFormError from './AuthFormError.vue';
   import AuthPrompt from './AuthPrompt.vue';
   import AuthSubmitButton from './AuthSubmitButton.vue';
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { onSubmit, canSubmit, isPending } = useLoginForm();
+  const { onSubmit, canSubmit, formError, isPending } = useLoginForm();
 </script>
 
 <template>
@@ -59,6 +60,7 @@
       <AuthSubmitButton test-id="login-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.login.submit') }}
       </AuthSubmitButton>
+      <AuthFormError test-id="login-error" :message="formError" />
 
       <AuthPrompt
         test-id="login-register-link"

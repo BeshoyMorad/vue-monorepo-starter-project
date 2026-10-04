@@ -38,7 +38,6 @@ export function useLoginForm() {
   const authStore = useAuthStore();
   const verification = useVerificationStore();
   const service = useAuthService();
-  const { showError } = useApiFormError();
 
   const schema = createLoginSchema(t);
   const { handleSubmit, values } = useForm<LoginFormValues>({
@@ -47,12 +46,14 @@ export function useLoginForm() {
   });
   // Submit stays disabled until required fields are filled (project rule)
   const canSubmit = useCanSubmit(schema, values);
+  const { showError, formError, clearFormError } = useApiFormError(values);
 
   const login = useMutation({ mutationFn: (body: LoginRequest) => service.login(body) });
 
   const redirect = getSafeRedirect(route.query[REDIRECT_QUERY_KEY]);
 
   const onSubmit = handleSubmit(async (values, { setErrors }) => {
+    clearFormError();
     try {
       const session = await login.mutateAsync({
         identifier: values.identifier,
@@ -77,10 +78,10 @@ export function useLoginForm() {
         await navigateTo(localePath(paths.auth.verify));
         return;
       }
-      // Wrong credentials etc. are shown under the password field
-      showError(error, setErrors, 'password');
+      // Wrong credentials etc. are shown under the submit button
+      showError(error, setErrors);
     }
   });
 
-  return { onSubmit, canSubmit, isPending: login.isPending };
+  return { onSubmit, canSubmit, formError, isPending: login.isPending };
 }

@@ -1,8 +1,10 @@
 import * as yup from 'yup';
 import {
-  NATIONAL_ID_REGEX,
   confirmPasswordRule,
   currentPasswordRule,
+  emailRule,
+  fullNameRule,
+  nationalIdRule,
   newPasswordRule,
   otpRule,
   phoneRule,
@@ -19,22 +21,10 @@ export type LoginFormValues = yup.InferType<ReturnType<typeof createLoginSchema>
 
 export const createRegisterSchema = (t: Translate) =>
   yup.object({
-    fullName: yup
-      .string()
-      .trim()
-      .required(t('auth.validation.required'))
-      .min(2, t('auth.validation.fullName'))
-      .max(201, t('auth.validation.fullName')),
-    nationalId: yup
-      .string()
-      .required(t('auth.validation.required'))
-      .matches(NATIONAL_ID_REGEX, t('auth.validation.nationalId')),
+    fullName: fullNameRule(t),
+    nationalId: nationalIdRule(t),
     phone: phoneRule(t),
-    email: yup
-      .string()
-      .trim()
-      .required(t('auth.validation.required'))
-      .email(t('auth.validation.email')),
+    email: emailRule(t),
     password: newPasswordRule(t),
     confirmPassword: confirmPasswordRule(t, 'password'),
   });

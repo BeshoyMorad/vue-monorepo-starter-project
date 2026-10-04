@@ -4,26 +4,26 @@
   import { useRegisterForm } from '~/modules/auth/composables/useRegisterForm';
   import AuthCard from './AuthCard.vue';
   import SaudiPhoneField from './SaudiPhoneField.vue';
-  import AuthIconTile from './AuthIconTile.vue';
-  import AuthStepBadge from './AuthStepBadge.vue';
+  import AuthCardHeader from './AuthCardHeader.vue';
+  import AuthFormError from './AuthFormError.vue';
+  import AuthPrompt from './AuthPrompt.vue';
   import AuthSubmitButton from './AuthSubmitButton.vue';
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { onSubmit, canSubmit, isPending } = useRegisterForm();
+  const { onSubmit, canSubmit, formError, isPending } = useRegisterForm();
 </script>
 
 <template>
   <AuthCard wide>
-    <header class="border-border-disabled space-y-5 border-b p-6 sm:p-8">
-      <AuthStepBadge :current="1" :total="2" :label="t('auth.register.stepLabel')" />
-      <div class="flex items-center gap-4">
-        <AuthIconTile icon="hugeicons--user-add-01" />
-        <div>
-          <h1 class="text-primary-500 text-2xl font-bold">{{ t('auth.register.title') }}</h1>
-          <p class="text-text-placeholder mt-1">{{ t('auth.register.subtitle') }}</p>
-        </div>
-      </div>
+    <header class="border-border-disabled border-b p-6 sm:p-8">
+      <AuthCardHeader
+        icon="hugeicons--user-add-01"
+        :title="t('auth.register.title')"
+        :step="{ current: 1, total: 2, label: t('auth.register.stepLabel') }"
+      >
+        <p>{{ t('auth.register.subtitle') }}</p>
+      </AuthCardHeader>
     </header>
 
     <form class="space-y-6 p-6 sm:p-8" method="post" novalidate @submit="onSubmit">
@@ -32,7 +32,7 @@
           <span class="bg-sand-100 inline-flex size-7 items-center justify-center rounded-lg">
             <Icon icon="hugeicons--user" class="size-4" />
           </span>
-          {{ t('auth.register.personal') }}
+          <span class="icon-label">{{ t('auth.register.personal') }}</span>
         </h2>
         <div class="grid items-start gap-4 sm:grid-cols-2">
           <Field.Text
@@ -73,12 +73,10 @@
 
       <section class="border-border-disabled space-y-4 border-t pt-6">
         <h2 class="text-primary-500 flex items-center gap-2 font-bold">
-          <span
-            class="bg-gold-50 text-gold-600 inline-flex size-7 items-center justify-center rounded-lg"
-          >
+          <span class="bg-sand-100 inline-flex size-7 items-center justify-center rounded-lg">
             <Icon icon="hugeicons--square-lock-02" class="size-4" />
           </span>
-          {{ t('auth.register.security') }}
+          <span class="icon-label">{{ t('auth.register.security') }}</span>
         </h2>
         <div class="grid items-start gap-4 sm:grid-cols-2">
           <Field.Password
@@ -101,17 +99,14 @@
       <AuthSubmitButton test-id="register-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.register.submit') }}
       </AuthSubmitButton>
+      <AuthFormError test-id="register-error" :message="formError" />
 
-      <p class="text-text-placeholder text-center text-sm">
-        {{ t('auth.register.haveAccount') }}
-        <NuxtLink
-          :to="localePath(paths.auth.login)"
-          data-test-id="register-login-link"
-          class="text-primary-500 font-bold hover:underline"
-        >
-          {{ t('auth.register.signIn') }}
-        </NuxtLink>
-      </p>
+      <AuthPrompt
+        test-id="register-login-link"
+        :text="t('auth.register.haveAccount')"
+        :link-text="t('auth.register.signIn')"
+        :to="localePath(paths.auth.login)"
+      />
     </form>
   </AuthCard>
 </template>

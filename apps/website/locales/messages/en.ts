@@ -43,6 +43,7 @@ export const apiErrorsEn = {
     INVALID_OTP: invalidOtp,
     InvalidOtp: invalidOtp,
     PASSWORD_RESET_TOKEN_INVALID: 'This reset session has expired. Please start again.',
+    PASSWORD_UNCHANGED: 'This is your current password. Choose a different one.',
     PHONE_ALREADY_EXISTS: 'This mobile number is already registered.',
     EMAIL_ALREADY_EXISTS: 'This email is already registered.',
     NATIONAL_ID_ALREADY_EXISTS: 'This national ID is already registered.',
@@ -75,7 +76,7 @@ export const apiErrorsEn = {
       TOO_SHORT: 'Enter your full name (2 characters or more)',
       TOO_LONG: 'Full name is too long',
     },
-    nationalId: { INVALID_FORMAT: 'Enter 10–14 digits without spaces' },
+    nationalId: { INVALID_FORMAT: "This national ID isn't valid. Check the digits and try again." },
     otp: { TOO_SHORT: otp, TOO_LONG: otp, INVALID_FORMAT: otp },
   },
 };

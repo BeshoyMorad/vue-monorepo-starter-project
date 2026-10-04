@@ -30,3 +30,13 @@ export const resendSecondsLeft = (sentAt?: number) =>
 
 /** Query parameter that carries the page to return to after login. */
 export const REDIRECT_QUERY_KEY = 'redirect';
+
+/**
+ * Page transition between auth screens (login, register, verify, forgot password).
+ * Styles: .auth-swap-* in assets/css/brand.css. Skipped on language switch, see
+ * middleware/auth-transition.global.ts.
+ */
+export const AUTH_TRANSITION = { name: 'auth-swap', mode: 'out-in' } as const;
+
+/** Same animation between the forgot-password steps; never skipped. */
+export const AUTH_STEP_TRANSITION = { name: 'auth-step', mode: 'out-in' } as const;

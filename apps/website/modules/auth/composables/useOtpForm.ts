@@ -15,6 +15,7 @@ export function useOtpForm() {
 
   return {
     handleSubmit,
+    values,
     clearOtp: () => resetField('otp'),
     // Submit stays disabled until all digits are entered (project rule)
     canSubmit: useCanSubmit(schema, values, {

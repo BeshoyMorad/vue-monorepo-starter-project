@@ -20,10 +20,10 @@ export function useVerifyAccountForm() {
   const authStore = useAuthStore();
   const verification = useVerificationStore();
   const service = useAuthService();
-  const { showError } = useApiFormError();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
 
-  const { handleSubmit, clearOtp, canSubmit, validateOtp } = useOtpForm();
+  const { handleSubmit, values, clearOtp, canSubmit, validateOtp } = useOtpForm();
+  const { showError, formError, clearFormError } = useApiFormError(values);
 
   const verify = useMutation({
     mutationFn: (otp: string) =>
@@ -32,6 +32,7 @@ export function useVerifyAccountForm() {
 
   const resend = useMutation({
     mutationFn: () => service.resendOtp(verification.pending?.token ?? ''),
+    onMutate: clearFormError,
     onSuccess: () => {
       verification.markCodeSent();
       cooldown.start();
@@ -46,6 +47,7 @@ export function useVerifyAccountForm() {
     if (!pending) {
       return;
     }
+    clearFormError();
     try {
       const session = await verify.mutateAsync(otp);
       authStore.setSession({
@@ -57,7 +59,7 @@ export function useVerifyAccountForm() {
       notify('success', { title: t('auth.successTitle'), body: t('auth.verify.success') });
       await navigateTo(pending.redirect ?? localePath(paths.home));
     } catch (error) {
-      showError(error, setErrors, 'otp');
+      showError(error, setErrors);
     }
   });
 
@@ -69,6 +71,7 @@ export function useVerifyAccountForm() {
     pending: computed(() => verification.pending),
     onSubmit,
     canSubmit,
+    formError,
     validateOtp,
     isPending: verify.isPending,
     resend: () => resend.mutate(),
