@@ -11,8 +11,13 @@ node_modules
 dist
 dist-ssr
 .turbo
+
+# Nuxt
 .nuxt
 .output
+.data
+.nitro
+.cache
 .env
 *.local
 

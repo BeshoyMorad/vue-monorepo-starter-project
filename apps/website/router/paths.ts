@@ -5,8 +5,12 @@ export const paths = {
   dashboard: '/dashboard',
   ssgExample: '/ssg-example',
   isrExample: '/isr-example',
+  // Same URLs as ibbil.com
   auth: {
-    login: `/${basePaths.auth.login}`,
+    login: `/auth/${basePaths.auth.login}`,
+    register: '/auth/register',
+    verify: '/auth/verify',
+    forgotPassword: `/auth/${basePaths.auth.forgotPassword}`,
   },
   errors: {
     notFound: `/${basePaths.errors.notFound}`,

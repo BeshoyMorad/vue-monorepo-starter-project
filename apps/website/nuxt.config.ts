@@ -29,10 +29,28 @@ export default defineNuxtConfig({
     '@workspace/locales': fileURLToPath(new URL('../../packages/locales/src', import.meta.url)),
   },
 
-  css: ['@workspace/ui/styles', '~/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
 
   // Nuxt Modules
-  modules: ['@pinia/nuxt', '@nuxtjs/i18n'],
+  modules: ['@pinia/nuxt', '@nuxtjs/i18n', '@nuxt/image'],
+
+  // Nuxt Image: use <NuxtImg>/<NuxtPicture> for raster images (png, jpg, webp).
+  // SVGs stay as plain <img>, since there is nothing to resize or re-encode.
+  // The default IPX provider resizes and converts images from /public on the fly.
+  image: {
+    quality: 80,
+    // WebP only: at the same quality setting sharp's AVIF output came out ~40% larger than WebP for our photos.
+    // <NuxtPicture> still adds the original format as the <img> fallback.
+    format: ['webp'],
+    // Mirrors Tailwind's default breakpoints so `sizes="lg:50vw"` style hints line up
+    screens: {
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536,
+    },
+  },
 
   // Auto-import UI components from @workspace/ui and local components
   components: [
@@ -92,8 +110,8 @@ export default defineNuxtConfig({
     },
     restructureDir: false,
     locales: [
-      { code: 'en', name: 'English', file: 'en.ts', dir: 'ltr' },
-      { code: 'ar', name: 'العربية', file: 'ar.ts', dir: 'rtl' },
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.ts', dir: 'ltr' },
+      { code: 'ar', language: 'ar-SA', name: 'العربية', file: 'ar.ts', dir: 'rtl' },
     ],
     defaultLocale: 'en',
     lazy: false,
@@ -102,9 +120,21 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false,
   },
 
+  // Values are overridable at runtime through NUXT_PUBLIC_* env variables
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api.example.com',
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api.ibbil.com/api/v1',
+      appName: process.env.NUXT_PUBLIC_APP_NAME || 'Ibbil',
+    },
+  },
+
+  app: {
+    head: {
+      titleTemplate: '%s | Ibbil',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ],
     },
   },
 

@@ -5,10 +5,18 @@ export const routes = {
   'users.list': { uri: 'users', methods: ['GET'] },
   'users.detail': { uri: 'users/{id}', methods: ['GET'] },
 
-  // AUTH
-  'auth.login': { uri: 'login', methods: ['POST'] },
-  'auth.logout': { uri: 'logout', methods: ['POST'] },
-  'auth.profile': { uri: 'profile', methods: ['GET'] },
+  // AUTH (customers)
+  'auth.customers.login': { uri: 'auth/customers/login', methods: ['POST'] },
+  'auth.customers.register': { uri: 'auth/customers/register', methods: ['POST'] },
+  'auth.contact.verify': { uri: 'auth/contact/verify', methods: ['POST'] },
+  'auth.contact.send': { uri: 'auth/contact/send', methods: ['POST'] },
+  'auth.otp.resend': { uri: 'auth/otp/resend', methods: ['POST'] },
+  'auth.password.forgot': { uri: 'auth/password/forgot', methods: ['POST'] },
+  'auth.password.forgot.verify': { uri: 'auth/password/forgot/verify', methods: ['POST'] },
+  'auth.password.reset': { uri: 'auth/password/reset', methods: ['POST'] },
+  'auth.password.update': { uri: 'auth/password', methods: ['PUT'] },
+  'auth.refresh-token': { uri: 'auth/refresh-token', methods: ['POST'] },
+  'auth.logout': { uri: 'auth/logout', methods: ['POST'] },
 } as const satisfies ZiggyConfig['routes'];
 
 export const Ziggy = {

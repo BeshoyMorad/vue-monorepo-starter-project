@@ -1,0 +1,201 @@
+/*
+ * Ibbil brand palette (taken from ibbil.com: green #2d533d, gold #d4a044).
+ * Overrides the generic primary scale from colors.css so every shared component
+ * (buttons, focus rings, links) picks up the brand without per-component changes.
+ * Remove this import from main.css to go back to the base palette.
+ */
+@theme {
+  --color-primary-50: #eef4f0;
+  --color-primary-100: #d7e6dc;
+  --color-primary-200: #b0cdb9;
+  --color-primary-300: #82ad91;
+  --color-primary-400: #568a6a;
+  --color-primary-500: #2d533d;
+  --color-primary-600: #264734;
+  --color-primary-700: #1f3a2b;
+  --color-primary-800: #182e22;
+  --color-primary-900: #112018;
+  --color-primary-950: #0a140f;
+
+  --color-gold-50: #fbf6ec;
+  --color-gold-100: #f6ead0;
+  --color-gold-200: #eed6a3;
+  --color-gold-300: #e5c070;
+  --color-gold-400: #dcad54;
+  --color-gold-500: #d4a044;
+  --color-gold-600: #c09030;
+  --color-gold-700: #9a7226;
+  --color-gold-800: #74561d;
+  --color-gold-900: #4e3a13;
+
+  --font-brand: 'Expo Arabic', ui-sans-serif, system-ui, sans-serif;
+
+  --color-sand-50: #faf8f4;
+  --color-sand-100: #f3efe7;
+  --color-sand-200: #ece3d3;
+}
+
+/* Ibbil's brand font (Latin + Arabic), from ibbil.com */
+@font-face {
+  font-family: 'Expo Arabic';
+  src: url('/fonts/expo-arabic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Auth screens (layouts/auth.vue adds .auth-ui). Values measured on ibbil.com so the
+ * shared form components match the reference without changing the UI package.
+ */
+.auth-ui [data-slot='form-item'] {
+  gap: 6px;
+}
+.auth-ui [data-slot='form-label'] {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-500);
+  text-transform: none;
+}
+/* As in the Ibbil design, labels stay green on error: the field border and message turn red */
+.auth-ui [data-slot='form-label'][data-error='true'] {
+  color: var(--color-primary-500);
+}
+.auth-ui [data-slot='form-description'] {
+  font-size: 12px;
+  line-height: 16px;
+  color: oklch(0.45 0 0);
+}
+.auth-ui [data-slot='form-message'] {
+  font-size: 12px;
+}
+/* Text and password inputs (container-class="auth-field") */
+.auth-ui .auth-field input {
+  height: 46px;
+  border-radius: 16px;
+  border: 1px solid oklch(0.9 0 0);
+  background-color: #fafbfa;
+  padding-left: 14px;
+  padding-right: 14px;
+  font-size: 14px;
+  color: oklch(0.2 0 0);
+}
+.auth-ui .auth-field input.pl-10 {
+  padding-left: 40px;
+}
+.auth-ui .auth-field input.pr-10 {
+  padding-right: 40px;
+}
+/* The shared input places icons with physical left/right: mirror them for Arabic */
+[dir='rtl'] .auth-ui .auth-field input.pl-10:not(.pr-10) {
+  padding-left: 14px;
+  padding-right: 40px;
+}
+[dir='rtl'] .auth-ui .auth-field input.pr-10:not(.pl-10) {
+  padding-left: 40px;
+  padding-right: 14px;
+}
+[dir='rtl'] .auth-ui .auth-field span.left-3 {
+  left: auto;
+  right: 0.75rem;
+}
+[dir='rtl'] .auth-ui .auth-field span.right-3 {
+  right: auto;
+  left: 0.75rem;
+}
+.auth-ui .auth-field input::placeholder {
+  color: oklch(0.45 0 0);
+}
+.auth-ui .auth-field input:hover {
+  border-color: oklch(0.82 0 0);
+}
+.auth-ui .auth-field input:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.12);
+  --tw-ring-shadow: 0 0 #0000;
+}
+.auth-ui .auth-field input[aria-invalid='true'] {
+  border-color: var(--color-red-500);
+}
+.auth-ui .auth-field input ~ span,
+.auth-ui .auth-field span:has(+ input) {
+  color: oklch(0.45 0 0);
+}
+/* "Remember me" (container-class="auth-check") */
+.auth-ui .auth-check label,
+.auth-ui .auth-check button[role='checkbox'] {
+  cursor: pointer;
+}
+/* Expo Arabic draws Latin letters ~1px above the middle of the line box, so English text
+   looks raised next to the checkbox. Arabic glyphs are already centred. */
+.auth-ui .auth-check label:lang(en) {
+  transform: translateY(1px);
+}
+.auth-ui .auth-check button[role='checkbox'] {
+  border-color: oklch(0.85 0 0);
+}
+.auth-ui .auth-check label {
+  font-size: 14px;
+  font-weight: 500;
+  color: oklch(0.45 0 0);
+}
+
+/*
+ * Text next to an icon in a button (class="icon-label"). Expo Arabic places glyphs high in
+ * the line box, so a label looks raised beside a centred icon. Measured at 13px: Latin cap
+ * height sat ~2.4px above the icon centre, Arabic ~1.6px. em values keep it right at any size.
+ */
+.icon-label:lang(en) {
+  transform: translateY(0.18em);
+}
+.icon-label:lang(ar) {
+  transform: translateY(0.12em);
+}
+
+/* Red asterisk after the label of required form fields: container-class="field-required" */
+.field-required [data-slot='form-label']::after {
+  content: '*';
+  margin-inline-start: -4px;
+  color: oklch(0.55 0.22 25);
+}
+
+/*
+ * Verification code (container-class="auth-otp"): six separate rounded boxes as in the
+ * Ibbil design. Boxes shrink on narrow screens so all six always fit the card.
+ */
+.auth-ui .auth-otp div:has(> [data-slot='input-otp-group']) {
+  width: 100%;
+  /* grid items don't shrink below their content by default */
+  min-width: 0;
+  justify-content: center;
+}
+.auth-ui .auth-otp [data-slot='input-otp-group'] {
+  width: 100%;
+  max-width: 348px;
+  justify-content: center;
+  gap: clamp(6px, 2.5vw, 12px);
+}
+.auth-ui .auth-otp [data-slot='input-otp-slot'] {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 48px;
+  height: 52px;
+  border: 1px solid oklch(0.9 0 0);
+  border-radius: 14px;
+  background-color: #fafbfa;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary-500);
+  box-shadow: none;
+}
+.auth-ui .auth-otp [data-slot='input-otp-slot'][data-active='true'] {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.12);
+}
+.auth-ui .auth-otp [data-slot='input-otp-slot'][aria-invalid='true'] {
+  border-color: oklch(0.55 0.22 25);
+}
+.auth-ui .auth-otp [data-slot='form-message'],
+.auth-ui .auth-otp [data-slot='form-description'] {
+  text-align: center;
+}

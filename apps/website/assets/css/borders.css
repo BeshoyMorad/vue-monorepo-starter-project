@@ -1,0 +1,12 @@
+@theme {
+  /* Border radius (alias -> global number token) */
+  --radius-none: 0px; /* number/0 */
+  --radius-sm: 0.125rem; /* number/0-5, 2px */
+  --radius: 0.25rem; /* number/1, 4px */
+  --radius-md: 0.375rem; /* number/1-5, 6px */
+  --radius-lg: 0.5rem; /* number/2, 8px */
+  --radius-xl: 0.75rem; /* number/3, 12px */
+  --radius-2xl: 1rem; /* number/4, 16px */
+  --radius-3xl: 1.5rem; /* number/6, 24px */
+  --radius-full: 9999px;
+}

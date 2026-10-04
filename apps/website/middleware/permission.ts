@@ -1,18 +1,19 @@
 import { usePermissionStore } from '~/stores/permissions';
-import { checkRoutePermission } from '@workspace/core/router/guards/checkRoutePermission';
-import { paths } from '~/router/paths';
 
+/**
+ * Blocks a page unless the user has the permission(s) declared in page meta.
+ * Usage: definePageMeta({ middleware: ['auth', 'permission'], permission: 'orders.list' })
+ */
 export default defineNuxtRouteMiddleware((to) => {
-  const requiredPermission = to.meta?.permission as string | string[] | undefined;
-  if (!requiredPermission) {
+  const required = to.meta.permission;
+  if (!required) {
     return;
   }
 
   const permissionStore = usePermissionStore();
-  const operator = (to.meta?.permissionOperator as 'or' | 'and') || 'or';
-  const hasAccess = checkRoutePermission(permissionStore.permissions, requiredPermission, operator);
-
-  if (!hasAccess) {
-    return navigateTo(paths.errors.accessDenied);
+  if (permissionStore.can(required, to.meta.permissionOperator ?? 'or')) {
+    return;
   }
+
+  return abortNavigation(createError({ statusCode: 403, statusMessage: 'Forbidden' }));
 });
