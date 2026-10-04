@@ -10,7 +10,7 @@
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { onSubmit, isPending } = useRegisterForm();
+  const { onSubmit, canSubmit, isPending } = useRegisterForm();
 </script>
 
 <template>
@@ -98,7 +98,7 @@
         </div>
       </section>
 
-      <AuthSubmitButton test-id="register-submit" :loading="isPending">
+      <AuthSubmitButton test-id="register-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.register.submit') }}
       </AuthSubmitButton>
 

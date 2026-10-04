@@ -2,6 +2,8 @@ import { computed, onMounted, ref, type Ref } from 'vue';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useMutation } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
+import { useCanSubmit } from '~/composables/useCanSubmit';
+import { OTP_LENGTH } from '~/modules/auth/schemas/rules';
 import { notify } from '@workspace/core/utils/toast';
 import { OTP_RESEND_COOLDOWN } from '~/constants/auth';
 import { paths } from '~/router/paths';
@@ -12,7 +14,7 @@ import {
   type ResetPasswordFormValues,
 } from '~/modules/auth/schemas';
 import { useAuthService } from '~/modules/auth/services';
-import { useApiFormError } from './useApiFormError';
+import { useApiFormError } from '~/composables/useApiFormError';
 import { useCountdown } from './useCountdown';
 
 /** Password reset step 1: sends a code to the phone. Emits the reset session via `onSent`. */
@@ -21,10 +23,13 @@ export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string
   const service = useAuthService();
   const { showError } = useApiFormError();
 
-  const { handleSubmit } = useForm<ForgotPasswordFormValues>({
-    validationSchema: toTypedSchema(createForgotPasswordSchema(t)),
+  const schema = createForgotPasswordSchema(t);
+  const { handleSubmit, values } = useForm<ForgotPasswordFormValues>({
+    validationSchema: toTypedSchema(schema),
     initialValues: { phone: '' },
   });
+  // Submit stays disabled until required fields are filled (project rule)
+  const canSubmit = useCanSubmit(schema, values);
 
   const request = useMutation({ mutationFn: (phone: string) => service.forgotPassword(phone) });
 
@@ -41,7 +46,7 @@ export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string
     }
   });
 
-  return { onSubmit, isPending: request.isPending };
+  return { onSubmit, canSubmit, isPending: request.isPending };
 }
 
 /**
@@ -57,9 +62,14 @@ export function useResetPasswordForm(session: { phone: Ref<string>; token: Ref<s
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
   const resetToken = ref<string | null>(null);
 
-  const { handleSubmit, resetField } = useForm<ResetPasswordFormValues>({
-    validationSchema: toTypedSchema(createResetPasswordSchema(t)),
+  const schema = createResetPasswordSchema(t);
+  const { handleSubmit, resetField, values } = useForm<ResetPasswordFormValues>({
+    validationSchema: toTypedSchema(schema),
     initialValues: { otp: '', newPassword: '', confirmPassword: '' },
+  });
+  // Submit stays disabled until required fields are filled (project rule)
+  const canSubmit = useCanSubmit(schema, values, {
+    otp: (v) => String(v ?? '').length === OTP_LENGTH,
   });
 
   const verify = useMutation({
@@ -103,6 +113,7 @@ export function useResetPasswordForm(session: { phone: Ref<string>; token: Ref<s
 
   return {
     onSubmit,
+    canSubmit,
     isPending: computed(() => verify.isPending.value || reset.isPending.value),
     resend: () => resend.mutate(),
     resendIn: cooldown.remaining,

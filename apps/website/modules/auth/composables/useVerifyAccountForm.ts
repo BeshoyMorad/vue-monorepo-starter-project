@@ -2,6 +2,8 @@ import { computed, onMounted } from 'vue';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useMutation } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
+import { useCanSubmit } from '~/composables/useCanSubmit';
+import { OTP_LENGTH } from '~/modules/auth/schemas/rules';
 import { notify } from '@workspace/core/utils/toast';
 import { OTP_RESEND_COOLDOWN } from '~/constants/auth';
 import { paths } from '~/router/paths';
@@ -9,7 +11,7 @@ import { useAuthStore } from '~/stores/auth';
 import { createOtpSchema, type OtpFormValues } from '~/modules/auth/schemas';
 import { useAuthService } from '~/modules/auth/services';
 import { useVerificationStore } from '~/modules/auth/stores/verification';
-import { useApiFormError } from './useApiFormError';
+import { useApiFormError } from '~/composables/useApiFormError';
 import { useCountdown } from './useCountdown';
 
 /**
@@ -25,9 +27,14 @@ export function useVerifyAccountForm() {
   const { showError } = useApiFormError();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
 
-  const { handleSubmit, resetField } = useForm<OtpFormValues>({
-    validationSchema: toTypedSchema(createOtpSchema(t)),
+  const schema = createOtpSchema(t);
+  const { handleSubmit, resetField, values } = useForm<OtpFormValues>({
+    validationSchema: toTypedSchema(schema),
     initialValues: { otp: '' },
+  });
+  // Submit stays disabled until required fields are filled (project rule)
+  const canSubmit = useCanSubmit(schema, values, {
+    otp: (v) => String(v ?? '').length === OTP_LENGTH,
   });
 
   const verify = useMutation({
@@ -71,6 +78,7 @@ export function useVerifyAccountForm() {
   return {
     pending: computed(() => verification.pending),
     onSubmit,
+    canSubmit,
     isPending: verify.isPending,
     resend: () => resend.mutate(),
     isResending: resend.isPending,

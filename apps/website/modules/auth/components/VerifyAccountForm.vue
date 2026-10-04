@@ -11,7 +11,8 @@
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { pending, onSubmit, isPending, resend, resendIn, canResend } = useVerifyAccountForm();
+  const { pending, onSubmit, canSubmit, isPending, resend, resendIn, canResend } =
+    useVerifyAccountForm();
 
   // Keep "+9665…" left-to-right inside Arabic text
   const phone = computed(() => `⁦${pending.value?.phone ?? ''}⁩`);
@@ -50,7 +51,7 @@
         dir="ltr"
       />
 
-      <AuthSubmitButton test-id="verify-submit" :loading="isPending">
+      <AuthSubmitButton test-id="verify-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.verify.submit') }}
       </AuthSubmitButton>
 

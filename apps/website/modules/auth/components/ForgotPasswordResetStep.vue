@@ -13,7 +13,7 @@
   defineEmits<{ back: [] }>();
 
   const { t } = useI18n();
-  const { onSubmit, isPending, resend, resendIn, canResend } = useResetPasswordForm({
+  const { onSubmit, canSubmit, isPending, resend, resendIn, canResend } = useResetPasswordForm({
     phone: toRef(props, 'phone'),
     token,
   });
@@ -78,7 +78,7 @@
         container-class="auth-field field-required"
       />
 
-      <AuthSubmitButton test-id="reset-submit" :loading="isPending">
+      <AuthSubmitButton test-id="reset-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.forgot.resetSubmit') }}
       </AuthSubmitButton>
     </form>

@@ -27,44 +27,35 @@ export function getApiErrorCode(err: unknown): string | undefined {
   return getApiError(err)?.code;
 }
 
-/** Backend message for a failed request, or `fallback`. */
+/** Backend message for a failed request, or `fallback`. Prefer the translated helpers. */
 export function getApiErrorMessage(err: unknown, fallback: string): string {
   return getApiError(err)?.message || fallback;
 }
 
-/** Field errors from a validation response (`error.details.fields`), one message per field. */
-export function getApiFieldErrors(err: unknown): Record<string, string> | undefined {
-  const fields = getApiError(err)?.details?.fields;
+export interface FieldErrorEntry {
+  code?: string;
+  message?: string;
+}
+
+/**
+ * Per-field errors of a validation response, whatever the format:
+ * `error.fields` = { phone: 'INVALID_PHONE' } (current API) or
+ * `error.details.fields` = { phone: { code, message } } (API docs).
+ */
+export function getApiFieldErrorEntries(err: unknown): Record<string, FieldErrorEntry> | undefined {
+  const error = getApiError(err);
+  const fields = error?.fields ?? error?.details?.fields;
   if (!fields || typeof fields !== 'object') {
     return undefined;
   }
 
-  const result: Record<string, string> = {};
+  const result: Record<string, FieldErrorEntry> = {};
   for (const [field, value] of Object.entries(fields)) {
-    if (value?.message) {
-      result[field] = value.message;
+    if (typeof value === 'string') {
+      result[field] = { code: value };
+    } else if (value && typeof value === 'object') {
+      result[field] = { code: value.code, message: value.message };
     }
   }
   return Object.keys(result).length > 0 ? result : undefined;
-}
-
-/**
- * Shows a failed request on a vee-validate form: field errors go to their inputs,
- * anything else goes under `fallbackField`. Send such requests with `silent: true`
- * so the global toast doesn't duplicate the message.
- */
-export function applyApiErrorToForm(
-  err: unknown,
-  setErrors: (errors: Record<string, string>) => void,
-  fallbackField?: string,
-  fallbackMessage = ''
-): void {
-  const fieldErrors = getApiFieldErrors(err);
-  if (fieldErrors) {
-    setErrors(fieldErrors);
-    return;
-  }
-  if (fallbackField) {
-    setErrors({ [fallbackField]: getApiErrorMessage(err, fallbackMessage) });
-  }
 }

@@ -1,5 +1,6 @@
 import type { FetchContext, FetchResponse } from 'ofetch';
 import type { ApiFailure } from '~/types/api';
+import { describeApiErrorBody } from '~/utils/apiErrorMessages';
 
 export interface InterceptorContext {
   /** Current access token, if any. */
@@ -8,6 +9,8 @@ export interface InterceptorContext {
   getLocale: () => string;
   /** Translates an i18n key. */
   t: (key: string) => string;
+  /** Whether an i18n key exists (used to translate API error codes). */
+  te: (key: string) => boolean;
   /** Shows a global error message (toast). No-op on the server. */
   notify: (message: string) => void;
 }
@@ -37,25 +40,25 @@ export const createRequestHook =
   };
 
 /**
- * Maps a failed response to a user-facing message, or null when the caller should
- * decide what to show (404 renders a page-level error).
+ * Maps a failed response to a user-facing message in the current language, or null when
+ * the caller should decide what to show (404 renders a page-level error).
+ * The API's error code is translated (locales: apiErrors.codes); the status decides the
+ * fallback when the code is unknown.
  */
-function resolveErrorMessage(status: number, data: unknown, t: InterceptorContext['t']) {
-  const backendMessage = (data as ApiFailure | undefined)?.error?.message;
-
+function resolveErrorMessage(status: number, data: unknown, ctx: InterceptorContext) {
   if (status === 404) {
     return null;
   }
-  if (status === 403) {
-    return backendMessage || t('errors.forbidden');
-  }
-  if (status === 429) {
-    return t('errors.tooManyRequests');
-  }
   if (status >= 500) {
-    return t('errors.serverError');
+    return ctx.t('errors.serverError');
   }
-  return backendMessage || t('errors.generic');
+  const fallbackKey =
+    status === 403
+      ? 'errors.forbidden'
+      : status === 429
+        ? 'errors.tooManyRequests'
+        : 'errors.generic';
+  return describeApiErrorBody((data as ApiFailure | undefined)?.error, ctx, fallbackKey);
 }
 
 /**
@@ -72,7 +75,7 @@ export const createResponseErrorHook =
       return;
     }
 
-    const message = resolveErrorMessage(response.status, response._data, ctx.t);
+    const message = resolveErrorMessage(response.status, response._data, ctx);
     if (message) {
       ctx.notify(message);
     }

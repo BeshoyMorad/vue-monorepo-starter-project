@@ -9,7 +9,7 @@
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { onSubmit, isPending } = useLoginForm();
+  const { onSubmit, canSubmit, isPending } = useLoginForm();
 </script>
 
 <template>
@@ -56,7 +56,7 @@
         </NuxtLink>
       </div>
 
-      <AuthSubmitButton test-id="login-submit" :loading="isPending">
+      <AuthSubmitButton test-id="login-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.login.submit') }}
       </AuthSubmitButton>
 

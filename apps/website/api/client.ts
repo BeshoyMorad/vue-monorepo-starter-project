@@ -98,6 +98,7 @@ export function createWebsiteApi(): ApiFetch {
     getToken: () => authStore.accessToken,
     getLocale: () => i18n.locale.value,
     t: (key) => i18n.t(key),
+    te: (key) => i18n.te(key),
     notify: (message) => {
       if (import.meta.client) {
         showToast('error', { title: i18n.t('errors.title'), body: message });

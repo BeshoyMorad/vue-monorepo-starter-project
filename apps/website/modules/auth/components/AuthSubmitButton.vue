@@ -3,10 +3,11 @@
 
   /**
    * Full-width primary submit button with a trailing arrow (mirrored in RTL).
-   * Disabled until the page is interactive: before hydration the browser would submit
-   * the form natively and could put the password in the URL.
+   * Disabled until the page is interactive (before hydration the browser would submit
+   * the form natively and could put the password in the URL), and while `disabled` is
+   * set, e.g. until the required fields are filled (see useCanSubmit).
    */
-  defineProps<{ testId: string; loading?: boolean }>();
+  defineProps<{ testId: string; loading?: boolean; disabled?: boolean }>();
 
   const isInteractive = ref(false);
   onMounted(() => {
@@ -20,7 +21,7 @@
     size="lg"
     :test-id="testId"
     :loading="loading"
-    :disabled="!isInteractive"
+    :disabled="!isInteractive || disabled"
     icon="hugeicons--arrow-right-02"
     icon-position="right"
     icon-class="rtl:rotate-180"

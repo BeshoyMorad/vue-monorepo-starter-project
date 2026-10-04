@@ -29,7 +29,7 @@ export const authAr: AuthLocaleSchema = {
     required: 'هذا الحقل مطلوب',
     phone: 'أدخل رقم جوال سعودي صحيح، مثل 5XXXXXXXX',
     passwordMin: 'يجب ألا يقل الرقم السري عن 8 أحرف',
-    passwordStrength: 'استخدم حرفاً كبيراً وحرفاً صغيراً ورقماً واحداً على الأقل',
+    passwordStrength: 'استخدم حروفاً كبيرة وصغيرة ورقماً ورمزاً',
     passwordMatch: 'الرقمان السريان غير متطابقين',
     email: 'أدخل بريداً إلكترونياً صحيحاً',
     nationalId: 'أدخل من 10 إلى 14 رقماً بدون مسافات',

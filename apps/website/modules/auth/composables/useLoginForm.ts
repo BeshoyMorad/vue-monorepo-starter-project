@@ -1,16 +1,31 @@
 import { toTypedSchema } from '@vee-validate/yup';
 import { useMutation } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
+import { useCanSubmit } from '~/composables/useCanSubmit';
 import { REDIRECT_QUERY_KEY } from '~/constants/auth';
 import { paths } from '~/router/paths';
 import { useAuthStore } from '~/stores/auth';
-import { getApiError, getApiErrorCode } from '~/utils/apiError';
+import { getApiError } from '~/utils/apiError';
 import { getSafeRedirect } from '~/utils/redirect';
 import { createLoginSchema, type LoginFormValues } from '~/modules/auth/schemas';
 import { useAuthService } from '~/modules/auth/services';
 import { useVerificationStore } from '~/modules/auth/stores/verification';
 import type { AccountNotVerifiedDetails, LoginRequest } from '~/modules/auth/types';
-import { useApiFormError } from './useApiFormError';
+import { useApiFormError } from '~/composables/useApiFormError';
+
+/**
+ * The verification session of a 403 "account not verified" login response, if that's the
+ * error. Accepts the documented code (AccountNotVerified) and the newer UPPER_SNAKE style,
+ * with the token in `error.details` or directly on `error`.
+ */
+function getAccountNotVerifiedDetails(err: unknown): AccountNotVerifiedDetails | undefined {
+  const error = getApiError(err);
+  if (!error?.code || !/not[_]?verified/i.test(error.code)) {
+    return undefined;
+  }
+  const source = (error.details ?? error) as Partial<AccountNotVerifiedDetails>;
+  return source.token ? (source as AccountNotVerifiedDetails) : undefined;
+}
 
 /**
  * Login form: validates, signs in, then opens `?redirect=` or home.
@@ -25,10 +40,13 @@ export function useLoginForm() {
   const service = useAuthService();
   const { showError } = useApiFormError();
 
-  const { handleSubmit } = useForm<LoginFormValues>({
-    validationSchema: toTypedSchema(createLoginSchema(t)),
+  const schema = createLoginSchema(t);
+  const { handleSubmit, values } = useForm<LoginFormValues>({
+    validationSchema: toTypedSchema(schema),
     initialValues: { identifier: '', password: '', remember: false },
   });
+  // Submit stays disabled until required fields are filled (project rule)
+  const canSubmit = useCanSubmit(schema, values);
 
   const login = useMutation({ mutationFn: (body: LoginRequest) => service.login(body) });
 
@@ -47,8 +65,8 @@ export function useLoginForm() {
       });
       await navigateTo(redirect ?? localePath(paths.home));
     } catch (error) {
-      if (getApiErrorCode(error) === 'AccountNotVerified') {
-        const details = getApiError(error)?.details as unknown as AccountNotVerifiedDetails;
+      const details = getAccountNotVerifiedDetails(error);
+      if (details) {
         verification.start({
           token: details.token,
           phone: values.identifier,
@@ -64,5 +82,5 @@ export function useLoginForm() {
     }
   });
 
-  return { onSubmit, isPending: login.isPending };
+  return { onSubmit, canSubmit, isPending: login.isPending };
 }

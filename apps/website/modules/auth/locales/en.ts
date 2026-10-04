@@ -27,7 +27,7 @@ export const authEn = {
     required: 'This field is required',
     phone: 'Enter a valid Saudi mobile number, e.g. 5XXXXXXXX',
     passwordMin: 'Password must be at least 8 characters',
-    passwordStrength: 'Use at least one uppercase letter, one lowercase letter and one number',
+    passwordStrength: 'Use uppercase and lowercase letters, a number and a symbol',
     passwordMatch: "Passwords don't match",
     email: 'Enter a valid email address',
     nationalId: 'Enter 10–14 digits without spaces',

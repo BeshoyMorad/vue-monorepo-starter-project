@@ -13,7 +13,7 @@
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { onSubmit, isPending } = useForgotPasswordPhoneForm((phone, token) =>
+  const { onSubmit, canSubmit, isPending } = useForgotPasswordPhoneForm((phone, token) =>
     emit('sent', phone, token)
   );
 </script>
@@ -44,7 +44,7 @@
         {{ t('auth.forgot.notice') }}
       </p>
 
-      <AuthSubmitButton test-id="forgot-submit" :loading="isPending">
+      <AuthSubmitButton test-id="forgot-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.forgot.submit') }}
       </AuthSubmitButton>
 

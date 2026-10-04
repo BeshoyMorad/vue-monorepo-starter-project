@@ -55,7 +55,7 @@
 
 <template>
   <template v-if="name">
-    <FormField v-slot="{ componentField, errorMessage }" :name="name">
+    <FormField v-slot="{ value, handleChange, handleBlur, errorMessage }" :name="name">
       <FormItem :class="containerClass">
         <FormControl>
           <BaseCheckbox
@@ -67,7 +67,9 @@
             :shape="shape"
             :size="size"
             :test-id="testId"
-            v-bind="componentField"
+            :model-value="value === true"
+            @update:model-value="(checked: boolean) => handleChange(checked === true)"
+            @blur="handleBlur"
           />
         </FormControl>
 

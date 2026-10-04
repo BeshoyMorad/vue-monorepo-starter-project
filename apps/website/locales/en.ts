@@ -1,8 +1,11 @@
 import { commonEn, mergeLocaleMessages } from '@workspace/locales';
 import { authEn } from '~/modules/auth/locales/en';
+import { apiErrorsEn, validationEn } from './messages/en';
 
 export const websiteEn = {
   auth: authEn,
+  apiErrors: apiErrorsEn,
+  validation: validationEn,
   errors: {
     title: 'Error',
     tooManyRequests: 'Too many requests. Please wait a moment and try again.',
