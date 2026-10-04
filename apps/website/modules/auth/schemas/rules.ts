@@ -43,5 +43,5 @@ export const confirmPasswordRule = (t: Translate, field: string) =>
 export const otpRule = (t: Translate) =>
   yup
     .string()
-    .required(t(key('otp')))
+    .required(t(key('otpRequired')))
     .matches(OTP_REGEX, t(key('otp')));

@@ -13,6 +13,8 @@ export interface PendingVerification {
   remember?: boolean;
   /** Page to open after verification. */
   redirect?: string | null;
+  /** When the current code was sent (ms), so the resend countdown survives a remount. */
+  codeSentAt?: number;
 }
 
 /**
@@ -31,7 +33,14 @@ export const useVerificationStore = defineStore('auth-verification', () => {
   const pending = computed(() => cookie.value);
 
   const start = (value: PendingVerification) => {
-    cookie.value = value;
+    cookie.value = { codeSentAt: Date.now(), ...value };
+  };
+
+  /** Records that a new code was just sent. */
+  const markCodeSent = () => {
+    if (cookie.value) {
+      cookie.value = { ...cookie.value, codeSentAt: Date.now() };
+    }
   };
 
   const updateToken = (token: string) => {
@@ -44,5 +53,5 @@ export const useVerificationStore = defineStore('auth-verification', () => {
     cookie.value = null;
   };
 
-  return { pending, start, updateToken, clear };
+  return { pending, start, updateToken, markCodeSent, clear };
 });

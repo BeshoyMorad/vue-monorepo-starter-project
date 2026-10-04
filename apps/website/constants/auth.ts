@@ -9,6 +9,8 @@ export const AUTH_COOKIES = {
   remember: 'ibbil_remember',
   /** Pending OTP verification (register / unverified login), short-lived. */
   verification: 'ibbil_verification',
+  /** Forgot-password flow in progress (current step), short-lived. */
+  passwordReset: 'ibbil_password_reset',
 } as const;
 
 /** Refresh the access token this long before it expires. */
@@ -19,6 +21,12 @@ export const VERIFICATION_MAX_AGE = 60 * 15;
 
 /** Seconds to wait before the user can request a new OTP. */
 export const OTP_RESEND_COOLDOWN = 60;
+
+/** Seconds of resend cooldown left for a code sent at `sentAt` (ms timestamp). */
+export const resendSecondsLeft = (sentAt?: number) =>
+  sentAt
+    ? Math.max(0, OTP_RESEND_COOLDOWN - Math.floor((Date.now() - sentAt) / 1000))
+    : OTP_RESEND_COOLDOWN;
 
 /** Query parameter that carries the page to return to after login. */
 export const REDIRECT_QUERY_KEY = 'redirect';

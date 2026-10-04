@@ -57,8 +57,9 @@
   color: var(--color-primary-500);
   text-transform: none;
 }
+/* As in the Ibbil design, labels stay green on error: the field border and message turn red */
 .auth-ui [data-slot='form-label'][data-error='true'] {
-  color: var(--color-red-600);
+  color: var(--color-primary-500);
 }
 .auth-ui [data-slot='form-description'] {
   font-size: 12px;
@@ -135,4 +136,45 @@
   content: '*';
   margin-inline-start: -4px;
   color: oklch(0.55 0.22 25);
+}
+
+/*
+ * Verification code (container-class="auth-otp"): six separate rounded boxes as in the
+ * Ibbil design. Boxes shrink on narrow screens so all six always fit the card.
+ */
+.auth-ui .auth-otp div:has(> [data-slot='input-otp-group']) {
+  width: 100%;
+  /* grid items don't shrink below their content by default */
+  min-width: 0;
+  justify-content: center;
+}
+.auth-ui .auth-otp [data-slot='input-otp-group'] {
+  width: 100%;
+  max-width: 348px;
+  justify-content: center;
+  gap: clamp(6px, 2.5vw, 12px);
+}
+.auth-ui .auth-otp [data-slot='input-otp-slot'] {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 48px;
+  height: 52px;
+  border: 1px solid oklch(0.9 0 0);
+  border-radius: 14px;
+  background-color: #fafbfa;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary-500);
+  box-shadow: none;
+}
+.auth-ui .auth-otp [data-slot='input-otp-slot'][data-active='true'] {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.12);
+}
+.auth-ui .auth-otp [data-slot='input-otp-slot'][aria-invalid='true'] {
+  border-color: oklch(0.55 0.22 25);
+}
+.auth-ui .auth-otp [data-slot='form-message'],
+.auth-ui .auth-otp [data-slot='form-description'] {
+  text-align: center;
 }

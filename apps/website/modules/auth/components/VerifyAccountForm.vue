@@ -11,7 +11,7 @@
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const { pending, onSubmit, canSubmit, isPending, resend, resendIn, canResend } =
+  const { pending, onSubmit, canSubmit, validateOtp, isPending, resend, resendIn, canResend } =
     useVerifyAccountForm();
 
   // Keep "+9665…" left-to-right inside Arabic text
@@ -41,15 +41,18 @@
         <p class="text-text-placeholder">{{ t('auth.verify.subtitle', { phone }) }}</p>
       </div>
 
-      <Field.Otp
-        name="otp"
-        test-id="verify-otp"
-        :length="6"
-        integer-only
-        :label="t('auth.fields.otp.label')"
-        container-class="[&_[data-slot=form-label]]:sr-only flex flex-col items-center"
-        dir="ltr"
-      />
+      <!-- focusout bubbles from the hidden code input, so this shows "required" on leave -->
+      <div @focusout="validateOtp">
+        <Field.Otp
+          name="otp"
+          test-id="verify-otp"
+          :length="6"
+          integer-only
+          :label="t('auth.fields.otp.label')"
+          container-class="auth-otp"
+          dir="ltr"
+        />
+      </div>
 
       <AuthSubmitButton test-id="verify-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.verify.submit') }}

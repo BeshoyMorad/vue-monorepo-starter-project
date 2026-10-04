@@ -46,9 +46,9 @@ export type OtpFormValues = yup.InferType<ReturnType<typeof createOtpSchema>>;
 export const createForgotPasswordSchema = (t: Translate) => yup.object({ phone: phoneRule(t) });
 export type ForgotPasswordFormValues = yup.InferType<ReturnType<typeof createForgotPasswordSchema>>;
 
+/** Password reset step 3 (the code is verified in step 2). */
 export const createResetPasswordSchema = (t: Translate) =>
   yup.object({
-    otp: otpRule(t),
     newPassword: newPasswordRule(t),
     confirmPassword: confirmPasswordRule(t, 'newPassword'),
   });

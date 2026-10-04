@@ -1,18 +1,14 @@
 import { computed, onMounted } from 'vue';
-import { toTypedSchema } from '@vee-validate/yup';
 import { useMutation } from '@tanstack/vue-query';
-import { useForm } from 'vee-validate';
-import { useCanSubmit } from '~/composables/useCanSubmit';
-import { OTP_LENGTH } from '~/modules/auth/schemas/rules';
 import { notify } from '@workspace/core/utils/toast';
-import { OTP_RESEND_COOLDOWN } from '~/constants/auth';
+import { OTP_RESEND_COOLDOWN, resendSecondsLeft } from '~/constants/auth';
 import { paths } from '~/router/paths';
 import { useAuthStore } from '~/stores/auth';
-import { createOtpSchema, type OtpFormValues } from '~/modules/auth/schemas';
 import { useAuthService } from '~/modules/auth/services';
 import { useVerificationStore } from '~/modules/auth/stores/verification';
 import { useApiFormError } from '~/composables/useApiFormError';
 import { useCountdown } from './useCountdown';
+import { useOtpForm } from './useOtpForm';
 
 /**
  * Phone verification (after registration or an unverified login).
@@ -27,15 +23,7 @@ export function useVerifyAccountForm() {
   const { showError } = useApiFormError();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
 
-  const schema = createOtpSchema(t);
-  const { handleSubmit, resetField, values } = useForm<OtpFormValues>({
-    validationSchema: toTypedSchema(schema),
-    initialValues: { otp: '' },
-  });
-  // Submit stays disabled until required fields are filled (project rule)
-  const canSubmit = useCanSubmit(schema, values, {
-    otp: (v) => String(v ?? '').length === OTP_LENGTH,
-  });
+  const { handleSubmit, clearOtp, canSubmit, validateOtp } = useOtpForm();
 
   const verify = useMutation({
     mutationFn: (otp: string) =>
@@ -45,8 +33,9 @@ export function useVerifyAccountForm() {
   const resend = useMutation({
     mutationFn: () => service.resendOtp(verification.pending?.token ?? ''),
     onSuccess: () => {
+      verification.markCodeSent();
       cooldown.start();
-      resetField('otp');
+      clearOtp();
       notify('success', { title: t('auth.successTitle'), body: t('auth.verify.resent') });
     },
     onError: (error) => showError(error),
@@ -73,12 +62,14 @@ export function useVerifyAccountForm() {
   });
 
   // The API sends the first code when the flow starts
-  onMounted(() => cooldown.start());
+  // Resume the countdown (the page remounts when the language changes)
+  onMounted(() => cooldown.start(resendSecondsLeft(verification.pending?.codeSentAt)));
 
   return {
     pending: computed(() => verification.pending),
     onSubmit,
     canSubmit,
+    validateOtp,
     isPending: verify.isPending,
     resend: () => resend.mutate(),
     isResending: resend.isPending,

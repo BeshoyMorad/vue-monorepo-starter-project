@@ -23,7 +23,7 @@
     <form class="space-y-5 p-6 sm:p-8" method="post" novalidate @submit="onSubmit">
       <div class="flex items-center gap-3">
         <AuthIconTile icon="hugeicons--reset-password" />
-        <AuthStepBadge :current="1" :total="2" />
+        <AuthStepBadge :current="1" :total="3" />
       </div>
 
       <h1 class="text-primary-500 text-[26.4px] leading-[33px] font-extrabold tracking-[-0.66px]">

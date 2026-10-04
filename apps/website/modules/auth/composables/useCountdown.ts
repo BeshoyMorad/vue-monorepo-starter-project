@@ -12,10 +12,11 @@ export function useCountdown(seconds: number) {
     }
   };
 
-  const start = () => {
+  /** Starts (or resumes) the countdown; `from` defaults to the full duration. */
+  const start = (from = seconds) => {
     stop();
-    remaining.value = seconds;
-    if (import.meta.server) {
+    remaining.value = Math.max(0, from);
+    if (import.meta.server || remaining.value === 0) {
       return;
     }
     timer = setInterval(() => {

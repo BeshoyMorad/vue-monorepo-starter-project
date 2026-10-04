@@ -1,11 +1,10 @@
-import { computed, onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, type Ref } from 'vue';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useMutation } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
 import { useCanSubmit } from '~/composables/useCanSubmit';
-import { OTP_LENGTH } from '~/modules/auth/schemas/rules';
 import { notify } from '@workspace/core/utils/toast';
-import { OTP_RESEND_COOLDOWN } from '~/constants/auth';
+import { OTP_RESEND_COOLDOWN, resendSecondsLeft } from '~/constants/auth';
 import { paths } from '~/router/paths';
 import {
   createForgotPasswordSchema,
@@ -13,9 +12,11 @@ import {
   type ForgotPasswordFormValues,
   type ResetPasswordFormValues,
 } from '~/modules/auth/schemas';
+import { getApiErrorCode } from '~/utils/apiError';
 import { useAuthService } from '~/modules/auth/services';
 import { useApiFormError } from '~/composables/useApiFormError';
 import { useCountdown } from './useCountdown';
+import { useOtpForm } from './useOtpForm';
 
 /** Password reset step 1: sends a code to the phone. Emits the reset session via `onSent`. */
 export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string) => void) {
@@ -49,74 +50,99 @@ export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string
   return { onSubmit, canSubmit, isPending: request.isPending };
 }
 
+/** Error codes meaning the reset session is gone and the flow must restart. */
+const RESET_SESSION_EXPIRED = ['PASSWORD_RESET_TOKEN_INVALID', 'OTP_EXPIRED', 'UNAUTHENTICATED'];
+
 /**
- * Password reset step 2: verifies the code, then sets the new password.
- * The two API calls run on one submit; if only the reset fails, the verified token is
- * kept so the user doesn't need a new code.
+ * Password reset step 2: verifies the code sent to the phone.
+ * On success it hands the reset token to step 3 via `onVerified`.
  */
-export function useResetPasswordForm(session: { phone: Ref<string>; token: Ref<string> }) {
+export function useResetCodeForm(
+  session: { phone: Ref<string>; token: Ref<string>; codeSentAt: Ref<number | undefined> },
+  onVerified: (resetToken: string) => void
+) {
   const { t } = useI18n();
-  const localePath = useLocalePath();
   const service = useAuthService();
   const { showError } = useApiFormError();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
-  const resetToken = ref<string | null>(null);
 
-  const schema = createResetPasswordSchema(t);
-  const { handleSubmit, resetField, values } = useForm<ResetPasswordFormValues>({
-    validationSchema: toTypedSchema(schema),
-    initialValues: { otp: '', newPassword: '', confirmPassword: '' },
-  });
-  // Submit stays disabled until required fields are filled (project rule)
-  const canSubmit = useCanSubmit(schema, values, {
-    otp: (v) => String(v ?? '').length === OTP_LENGTH,
-  });
+  const { handleSubmit, clearOtp, canSubmit, validateOtp } = useOtpForm();
 
   const verify = useMutation({
     mutationFn: (otp: string) => service.verifyResetOtp({ otp, token: session.token.value }),
   });
-  const reset = useMutation({
-    mutationFn: (body: { newPassword: string; token: string }) => service.resetPassword(body),
-  });
+  // Re-requesting the code issues a new reset session token
   const resend = useMutation({
     mutationFn: () => service.forgotPassword(session.phone.value),
     onSuccess: ({ token }) => {
       session.token.value = token;
-      resetToken.value = null;
-      resetField('otp');
+      clearOtp();
       cooldown.start();
       notify('success', { title: t('auth.successTitle'), body: t('auth.verify.resent') });
     },
     onError: (error) => showError(error),
   });
 
-  const onSubmit = handleSubmit(async ({ otp, newPassword }, { setErrors }) => {
-    if (!resetToken.value) {
-      try {
-        resetToken.value = (await verify.mutateAsync(otp)).token;
-      } catch (error) {
-        showError(error, setErrors, 'otp');
-        return;
-      }
-    }
-
+  const onSubmit = handleSubmit(async ({ otp }, { setErrors }) => {
     try {
-      await reset.mutateAsync({ newPassword, token: resetToken.value });
-      notify('success', { title: t('auth.successTitle'), body: t('auth.forgot.success') });
-      await navigateTo(localePath(paths.auth.login));
+      const { token } = await verify.mutateAsync(otp);
+      onVerified(token);
     } catch (error) {
-      showError(error, setErrors, 'newPassword');
+      showError(error, setErrors, 'otp');
     }
   });
 
-  onMounted(() => cooldown.start());
+  // Resume the countdown (the step remounts when the language changes)
+  onMounted(() => cooldown.start(resendSecondsLeft(session.codeSentAt.value)));
 
   return {
     onSubmit,
     canSubmit,
-    isPending: computed(() => verify.isPending.value || reset.isPending.value),
+    validateOtp,
+    isPending: verify.isPending,
     resend: () => resend.mutate(),
     resendIn: cooldown.remaining,
     canResend: computed(() => !cooldown.isRunning.value && !resend.isPending.value),
   };
+}
+
+/**
+ * Password reset step 3: sets the new password with the token from step 2, then goes to
+ * login. If the reset session has expired, `onExpired` restarts the flow.
+ */
+export function useResetPasswordForm(resetToken: Ref<string>, onExpired: () => void) {
+  const { t } = useI18n();
+  const localePath = useLocalePath();
+  const service = useAuthService();
+  const { showError, toast, describe } = useApiFormError();
+
+  const schema = createResetPasswordSchema(t);
+  const { handleSubmit, values } = useForm<ResetPasswordFormValues>({
+    validationSchema: toTypedSchema(schema),
+    initialValues: { newPassword: '', confirmPassword: '' },
+  });
+  // Submit stays disabled until required fields are filled (project rule)
+  const canSubmit = useCanSubmit(schema, values);
+
+  const reset = useMutation({
+    mutationFn: (newPassword: string) =>
+      service.resetPassword({ newPassword, token: resetToken.value }),
+  });
+
+  const onSubmit = handleSubmit(async ({ newPassword }, { setErrors }) => {
+    try {
+      await reset.mutateAsync(newPassword);
+      notify('success', { title: t('auth.successTitle'), body: t('auth.forgot.success') });
+      await navigateTo(localePath(paths.auth.login));
+    } catch (error) {
+      if (RESET_SESSION_EXPIRED.includes(getApiErrorCode(error) ?? '')) {
+        toast(describe(error));
+        onExpired();
+        return;
+      }
+      showError(error, setErrors, 'newPassword');
+    }
+  });
+
+  return { onSubmit, canSubmit, isPending: reset.isPending };
 }
