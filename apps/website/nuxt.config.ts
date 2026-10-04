@@ -27,6 +27,13 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // Global CSS ships as one cached file instead of being inlined into every HTML response
+  // (it was ~130KB per page, re-downloaded on every visit and never cached).
+  features: { inlineStyles: false },
+
+  // Serve pre-compressed (brotli + gzip) copies of the built JS, CSS, fonts and SVGs.
+  nitro: { compressPublicAssets: true },
+
   // Nuxt Modules
   modules: ['@pinia/nuxt', '@nuxtjs/i18n', '@nuxt/image'],
 

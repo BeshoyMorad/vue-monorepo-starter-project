@@ -1,6 +1,11 @@
 <script setup lang="ts">
   import { Icon } from '@workspace/ui';
-  import LocaleSwitcher from '~/components/LocaleSwitcher.vue';
+  import AuthScreenSkeleton from '~/modules/auth/components/skeleton/AuthScreenSkeleton.vue';
+  import AuthCard from '~/modules/auth/components/AuthCard.vue';
+  import {
+    AUTH_CARD_SHAPES,
+    useAuthScreenLoading,
+  } from '~/modules/auth/composables/useAuthScreenLoading';
   import { paths } from '~/router/paths';
 
   /**
@@ -16,7 +21,52 @@
   // browser in dark mode would render white labels on the white card. Set on <html> so
   // teleported popovers (e.g. the country picker) stay light too.
   useHead({ htmlAttrs: { style: 'color-scheme: light' } });
+
+  // Brand photo for the desktop panel. Phones never see the panel, so the photo is only
+  // offered to wide screens (<source media>) and phones download nothing: the <img> itself
+  // is a 1×1 inline placeholder. The preload carries the same media query.
+  const HERO_MEDIA = '(min-width: 1024px)';
+  const hero = useImage().getSizes('/images/auth/camel.jpg', {
+    sizes: 'lg:46vw xl:46vw 2xl:46vw',
+    // It sits under 40–88% dark overlays: q60 is visually identical there to q80, a third lighter
+    modifiers: { format: 'webp', quality: 60 },
+  });
+  const BLANK_PIXEL =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+  const apiOrigin = new URL(useRuntimeConfig().public.apiBaseUrl).origin;
+  useHead({
+    // Toasts and anything else outside the auth container use the brand font too, so the
+    // site's Google font (Exo 2) is never downloaded on auth pages
+    bodyAttrs: { class: 'font-brand' },
+    link: [
+      // The forms post to the API: open that connection while the user is still typing
+      { rel: 'preconnect', href: apiOrigin, crossorigin: '' },
+      {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: '/fonts/expo-arabic.woff2',
+        crossorigin: '',
+      },
+      {
+        rel: 'preload',
+        as: 'image',
+        type: 'image/webp',
+        imagesrcset: hero.srcset,
+        imagesizes: hero.sizes,
+        media: HERO_MEDIA,
+        fetchpriority: 'high',
+      },
+    ],
+  });
   const year = new Date().getFullYear();
+
+  // One card for every auth screen: its content changes (screens, steps, or the skeleton of
+  // the next screen while it loads) and its shape animates, instead of cards replacing
+  // each other
+  const { loading: loadingScreen, cardScreen } = useAuthScreenLoading();
+  const cardShape = computed(() => AUTH_CARD_SHAPES[cardScreen.value]);
 </script>
 
 <template>
@@ -31,22 +81,18 @@
 
     <!-- Brand panel (desktop) -->
     <aside
-      class="auth-on-brand border-gold-500 sticky top-0 hidden h-screen flex-col justify-between overflow-hidden border-e-2 p-12 text-white lg:flex"
+      class="auth-on-brand bg-primary-700 border-gold-500 sticky top-0 hidden h-screen flex-col justify-between overflow-hidden border-e-2 p-12 text-white lg:flex"
     >
-      <!-- Panel is 46% of the viewport from lg up and hidden below, so request ~half-width sources at each large breakpoint.
-           `class` goes on the <picture> wrapper: it must be absolute too, or it becomes a flex item
-           and justify-between pushes the header down. `img-attrs` goes on the inner <img>. -->
-      <NuxtPicture
-        src="/images/auth/camel.jpg"
-        alt=""
-        sizes="lg:50vw xl:50vw 2xl:50vw"
-        class="absolute inset-0"
-        :img-attrs="{
-          class: 'size-full object-cover',
-          fetchpriority: 'high',
-        }"
-        preload
-      />
+      <picture class="absolute inset-0">
+        <source :media="HERO_MEDIA" type="image/webp" :srcset="hero.srcset" :sizes="hero.sizes" />
+        <img
+          :src="BLANK_PIXEL"
+          alt=""
+          class="size-full object-cover"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
       <!-- Overlays measured on ibbil.com: dark green towards the outer edge + a gold glow -->
       <div
         class="absolute inset-0 bg-linear-to-l from-[rgb(31_58_43/0.4)] via-[rgb(31_58_43/0.68)] to-[rgb(31_58_43/0.88)] rtl:bg-linear-to-r"
@@ -60,7 +106,11 @@
           <img src="/images/brand/ibbil-logo.svg" :alt="t('auth.brand.logoAlt')" class="h-11" />
         </NuxtLink>
         <div class="flex items-center gap-2">
-          <LocaleSwitcher />
+          <!-- Server-rendered as usual; its JavaScript (the dropdown menu) loads once it is on
+               screen, after the page itself. The hidden copy (the mobile header on desktop,
+               the brand panel on phones) never loads. Not on-interaction: a quick hover then
+               click lost the click while the menu was still loading. -->
+          <LazyLocaleSwitcher hydrate-on-visible />
           <NuxtLink
             :to="localePath(paths.home)"
             data-test-id="auth-home-link"
@@ -100,7 +150,7 @@
         <NuxtLink :to="localePath(paths.home)" data-test-id="auth-logo-mobile">
           <img src="/images/brand/ibbil-logo.svg" :alt="t('auth.brand.logoAlt')" class="h-10" />
         </NuxtLink>
-        <LocaleSwitcher />
+        <LazyLocaleSwitcher hydrate-on-visible />
       </header>
 
       <main
@@ -108,7 +158,12 @@
         tabindex="-1"
         class="flex flex-1 items-center justify-center px-4 py-8 outline-none sm:px-8 lg:py-12"
       >
-        <slot />
+        <AuthCard :accent="cardShape.accent" :wide="cardShape.wide">
+          <AuthScreenSkeleton v-if="loadingScreen" :screen="loadingScreen" />
+          <div v-show="!loadingScreen">
+            <slot />
+          </div>
+        </AuthCard>
       </main>
 
       <footer class="text-text-placeholder pb-6 text-center text-sm lg:hidden">

@@ -12,6 +12,7 @@ export const authAr: AuthLocaleSchema = {
   stepOf: 'الخطوة {current} من {total}',
   a11y: {
     skipToForm: 'انتقل إلى النموذج',
+    loading: 'جارٍ التحميل…',
     showPassword: 'إظهار الرقم السري',
     submitHint: 'املأ جميع الحقول المطلوبة للمتابعة',
     resendInLong: 'يمكنك طلب رمز جديد خلال {seconds} ثانية',

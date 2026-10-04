@@ -48,7 +48,7 @@
 </script>
 
 <template>
-  <div class="flex w-full justify-center">
+  <div>
     <Transition v-bind="AUTH_STEP_TRANSITION">
       <ForgotPasswordResetStep
         v-if="reset.state?.resetToken"

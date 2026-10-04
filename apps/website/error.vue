@@ -3,6 +3,8 @@
   import { ExceptionState } from '@workspace/ui';
   import { paths } from '~/router/paths';
 
+  useSiteFonts();
+
   const props = defineProps<{ error: NuxtError }>();
 
   useHtmlAttrs();

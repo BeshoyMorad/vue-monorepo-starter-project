@@ -2,6 +2,8 @@
   import { Button, PageWrapper } from '@workspace/ui';
   import { paths } from '~/router/paths';
 
+  useSiteFonts();
+
   const localePath = useLocalePath();
   const { locale, setLocale } = useI18n();
 

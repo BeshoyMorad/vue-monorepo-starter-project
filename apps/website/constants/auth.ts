@@ -1,3 +1,14 @@
+import { focusHeading } from '~/utils/focus';
+
+/**
+ * Once a new auth screen or step has entered (client-side only: transitions don't run on
+ * the first page load), focus its heading so screen readers announce it and keyboard users
+ * continue from the top of the form.
+ */
+function focusEnteredHeading(el: Element) {
+  focusHeading(el.querySelector('h1'));
+}
+
 /** Cookie names used to persist the session. Readable on both server (SSR) and client. */
 export const AUTH_COOKIES = {
   accessToken: 'ibbil_access_token',
@@ -36,7 +47,15 @@ export const REDIRECT_QUERY_KEY = 'redirect';
  * Styles: .auth-swap-* in assets/css/brand.css. Skipped on language switch, see
  * middleware/auth-transition.global.ts.
  */
-export const AUTH_TRANSITION = { name: 'auth-swap', mode: 'out-in' } as const;
+export const AUTH_TRANSITION = {
+  name: 'auth-swap',
+  mode: 'out-in',
+  onAfterEnter: focusEnteredHeading,
+} as const;
 
 /** Same animation between the forgot-password steps; never skipped. */
-export const AUTH_STEP_TRANSITION = { name: 'auth-step', mode: 'out-in' } as const;
+export const AUTH_STEP_TRANSITION = {
+  name: 'auth-step',
+  mode: 'out-in',
+  onAfterEnter: focusEnteredHeading,
+} as const;

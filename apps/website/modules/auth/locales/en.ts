@@ -11,6 +11,7 @@ export const authEn = {
   /** Text for screen readers and keyboard users only */
   a11y: {
     skipToForm: 'Skip to form',
+    loading: 'Loading…',
     showPassword: 'Show password',
     submitHint: 'Fill in all required fields to continue',
     resendInLong: 'You can request a new code in {seconds} seconds',

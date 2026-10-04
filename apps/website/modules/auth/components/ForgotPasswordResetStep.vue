@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { Field } from '@workspace/ui';
+  // Direct imports: the `Field` object from '@workspace/ui' bundles every form field
+  // (phone library, date picker, image cropper…) even when only one is used
+  import InputPassword from '@workspace/ui/form/input-password/InputPassword.vue';
   import { useResetPasswordForm } from '~/modules/auth/composables/useForgotPasswordForms';
-  import AuthCard from './AuthCard.vue';
   import AuthCardHeader from './AuthCardHeader.vue';
   import AuthFormError from './AuthFormError.vue';
   import AuthSubmitButton from './AuthSubmitButton.vue';
@@ -18,42 +19,40 @@
 </script>
 
 <template>
-  <AuthCard accent>
-    <form class="space-y-5 p-6 sm:p-8" method="post" novalidate @submit="onSubmit">
-      <AuthCardHeader
-        icon="hugeicons--password-validation"
-        :title="t('auth.forgot.resetTitle')"
-        :step="{ current: 3, total: 3, label: t('auth.forgot.stepReset') }"
-      >
-        <p>{{ t('auth.forgot.resetSubtitle') }}</p>
-      </AuthCardHeader>
+  <form class="space-y-5 p-6 sm:p-8" method="post" novalidate @submit="onSubmit">
+    <AuthCardHeader
+      icon="hugeicons--password-validation"
+      :title="t('auth.forgot.resetTitle')"
+      :step="{ current: 3, total: 3, label: t('auth.forgot.stepReset') }"
+    >
+      <p>{{ t('auth.forgot.resetSubtitle') }}</p>
+    </AuthCardHeader>
 
-      <Field.Password
-        :toggle-label="t('auth.a11y.showPassword')"
-        name="newPassword"
-        test-id="reset-new-password"
-        icon="hugeicons--square-lock-02"
-        autocomplete="new-password"
-        :label="t('auth.fields.newPassword.label')"
-        :description="t('auth.fields.password.rules')"
-        aria-required="true"
-        container-class="auth-field field-required"
-      />
-      <Field.Password
-        :toggle-label="t('auth.a11y.showPassword')"
-        name="confirmPassword"
-        test-id="reset-confirm-password"
-        icon="hugeicons--square-lock-02"
-        autocomplete="new-password"
-        :label="t('auth.fields.confirmPassword.label')"
-        aria-required="true"
-        container-class="auth-field field-required"
-      />
+    <InputPassword
+      :toggle-label="t('auth.a11y.showPassword')"
+      name="newPassword"
+      test-id="reset-new-password"
+      icon="hugeicons--square-lock-02"
+      autocomplete="new-password"
+      :label="t('auth.fields.newPassword.label')"
+      :description="t('auth.fields.password.rules')"
+      aria-required="true"
+      container-class="auth-field field-required"
+    />
+    <InputPassword
+      :toggle-label="t('auth.a11y.showPassword')"
+      name="confirmPassword"
+      test-id="reset-confirm-password"
+      icon="hugeicons--square-lock-02"
+      autocomplete="new-password"
+      :label="t('auth.fields.confirmPassword.label')"
+      aria-required="true"
+      container-class="auth-field field-required"
+    />
 
-      <AuthSubmitButton test-id="reset-submit" :loading="isPending" :disabled="!canSubmit">
-        {{ t('auth.forgot.resetSubmit') }}
-      </AuthSubmitButton>
-      <AuthFormError test-id="reset-error" :message="formError" />
-    </form>
-  </AuthCard>
+    <AuthSubmitButton test-id="reset-submit" :loading="isPending" :disabled="!canSubmit">
+      {{ t('auth.forgot.resetSubmit') }}
+    </AuthSubmitButton>
+    <AuthFormError test-id="reset-error" :message="formError" />
+  </form>
 </template>

@@ -1,8 +1,11 @@
 <script setup lang="ts">
-  import { Field, Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui';
+  // Direct imports: the `Field` object from '@workspace/ui' bundles every form field
+  // (phone library, date picker, image cropper…) even when only one is used
+  import InputPassword from '@workspace/ui/form/input-password/InputPassword.vue';
+  import InputText from '@workspace/ui/form/input-text/InputText.vue';
   import { paths } from '~/router/paths';
   import { useRegisterForm } from '~/modules/auth/composables/useRegisterForm';
-  import AuthCard from './AuthCard.vue';
   import SaudiPhoneField from './SaudiPhoneField.vue';
   import AuthCardHeader from './AuthCardHeader.vue';
   import AuthFormError from './AuthFormError.vue';
@@ -15,7 +18,7 @@
 </script>
 
 <template>
-  <AuthCard wide>
+  <div>
     <header class="border-border-disabled border-b p-6 sm:p-8">
       <AuthCardHeader
         icon="hugeicons--user-add-01"
@@ -35,7 +38,7 @@
           <span class="icon-label">{{ t('auth.register.personal') }}</span>
         </h2>
         <div class="grid items-start gap-4 sm:grid-cols-2">
-          <Field.Text
+          <InputText
             name="fullName"
             test-id="register-full-name"
             autocomplete="name"
@@ -44,7 +47,7 @@
             aria-required="true"
             container-class="auth-field field-required"
           />
-          <Field.Text
+          <InputText
             name="nationalId"
             test-id="register-national-id"
             inputmode="numeric"
@@ -63,7 +66,7 @@
             required
             container-class="field-required"
           />
-          <Field.Text
+          <InputText
             name="email"
             type="email"
             test-id="register-email"
@@ -83,7 +86,7 @@
           <span class="icon-label">{{ t('auth.register.security') }}</span>
         </h2>
         <div class="grid items-start gap-4 sm:grid-cols-2">
-          <Field.Password
+          <InputPassword
             :toggle-label="t('auth.a11y.showPassword')"
             name="password"
             test-id="register-password"
@@ -93,7 +96,7 @@
             aria-required="true"
             container-class="auth-field field-required"
           />
-          <Field.Password
+          <InputPassword
             :toggle-label="t('auth.a11y.showPassword')"
             name="confirmPassword"
             test-id="register-confirm-password"
@@ -117,5 +120,5 @@
         :to="localePath(paths.auth.login)"
       />
     </form>
-  </AuthCard>
+  </div>
 </template>
