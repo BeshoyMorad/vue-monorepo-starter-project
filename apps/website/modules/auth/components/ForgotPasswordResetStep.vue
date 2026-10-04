@@ -29,19 +29,24 @@
       </AuthCardHeader>
 
       <Field.Password
+        :toggle-label="t('auth.a11y.showPassword')"
         name="newPassword"
         test-id="reset-new-password"
         icon="hugeicons--square-lock-02"
         autocomplete="new-password"
         :label="t('auth.fields.newPassword.label')"
+        :description="t('auth.fields.password.rules')"
+        aria-required="true"
         container-class="auth-field field-required"
       />
       <Field.Password
+        :toggle-label="t('auth.a11y.showPassword')"
         name="confirmPassword"
         test-id="reset-confirm-password"
         icon="hugeicons--square-lock-02"
         autocomplete="new-password"
         :label="t('auth.fields.confirmPassword.label')"
+        aria-required="true"
         container-class="auth-field field-required"
       />
 

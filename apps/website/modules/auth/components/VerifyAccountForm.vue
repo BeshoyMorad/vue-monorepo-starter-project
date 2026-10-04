@@ -5,23 +5,14 @@
   import AuthCard from './AuthCard.vue';
   import AuthCardHeader from './AuthCardHeader.vue';
   import AuthFormError from './AuthFormError.vue';
-  import AuthPrompt from './AuthPrompt.vue';
+  import AuthBackLink from './AuthBackLink.vue';
   import AuthSubmitButton from './AuthSubmitButton.vue';
   import ResendCode from './ResendCode.vue';
 
   const { t } = useI18n();
   const localePath = useLocalePath();
-  const {
-    pending,
-    onSubmit,
-    canSubmit,
-    formError,
-    validateOtp,
-    isPending,
-    resend,
-    resendIn,
-    canResend,
-  } = useVerifyAccountForm();
+  const { pending, onSubmit, canSubmit, formError, isPending, resend, resendIn, canResend } =
+    useVerifyAccountForm();
 
   // Keep "+9665…" left-to-right inside Arabic text
   const phone = computed(() => `⁦${pending.value?.phone ?? ''}⁩`);
@@ -40,24 +31,25 @@
             : undefined
         "
       >
-        <p v-if="pending?.source === 'login'" class="text-gold-700 text-sm">
+        <p v-if="pending?.source === 'login'" class="text-gold-800 text-sm">
           {{ t('auth.verify.notVerified') }}
         </p>
         <p>{{ t('auth.verify.subtitle', { phone }) }}</p>
       </AuthCardHeader>
 
-      <!-- focusout bubbles from the hidden code input, so this shows "required" on leave -->
-      <div @focusout="validateOtp">
-        <Field.Otp
-          name="otp"
-          test-id="verify-otp"
-          :length="6"
-          integer-only
-          :label="t('auth.fields.otp.label')"
-          container-class="auth-otp"
-          dir="ltr"
-        />
-      </div>
+      <!-- Errors only on submit, never while typing; the code submits itself once complete
+           (typed, pasted or filled from the SMS; see useOtpForm) -->
+      <Field.Otp
+        name="otp"
+        test-id="verify-otp"
+        :length="6"
+        integer-only
+        :label="t('auth.fields.otp.label')"
+        validate-on-submit-only
+        aria-required="true"
+        container-class="auth-otp"
+        dir="ltr"
+      />
 
       <AuthSubmitButton test-id="verify-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.verify.submit') }}
@@ -71,11 +63,17 @@
         @resend="resend"
       />
 
-      <AuthPrompt
-        test-id="verify-back-link"
-        :link-text="t('auth.verify.back')"
-        :to="localePath(paths.auth.login)"
-      />
+      <!-- From registration: back to the (still filled-in) form; from login: back to sign in -->
+      <AuthBackLink
+        v-if="pending?.source === 'register'"
+        test-id="verify-change-details"
+        :to="localePath(paths.auth.register)"
+      >
+        {{ t('auth.verify.changeDetails') }}
+      </AuthBackLink>
+      <AuthBackLink v-else test-id="verify-back-link" :to="localePath(paths.auth.login)">
+        {{ t('auth.verify.back') }}
+      </AuthBackLink>
     </form>
   </AuthCard>
 </template>

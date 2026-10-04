@@ -13,6 +13,9 @@ const phone = 'Enter a valid Saudi mobile number, e.g. 5XXXXXXXX';
 const passwordMin = 'Password must be at least 8 characters';
 const passwordFormat = 'Use uppercase and lowercase letters, a number and a symbol';
 const otp = 'Enter the 6-digit code';
+const phoneInUse = 'This mobile number already has an account. Sign in, or use a different number.';
+const emailInUse = 'This email already has an account. Sign in, or use a different email.';
+const nationalIdInUse = 'This national ID already has an account. Sign in to that account instead.';
 
 export const apiErrorsEn = {
   codes: {
@@ -44,9 +47,12 @@ export const apiErrorsEn = {
     InvalidOtp: invalidOtp,
     PASSWORD_RESET_TOKEN_INVALID: 'This reset session has expired. Please start again.',
     PASSWORD_UNCHANGED: 'This is your current password. Choose a different one.',
-    PHONE_ALREADY_EXISTS: 'This mobile number is already registered.',
-    EMAIL_ALREADY_EXISTS: 'This email is already registered.',
-    NATIONAL_ID_ALREADY_EXISTS: 'This national ID is already registered.',
+    PHONE_IN_USE: phoneInUse,
+    PHONE_ALREADY_EXISTS: phoneInUse,
+    EMAIL_IN_USE: emailInUse,
+    EMAIL_ALREADY_EXISTS: emailInUse,
+    NATIONAL_ID_IN_USE: nationalIdInUse,
+    NATIONAL_ID_ALREADY_EXISTS: nationalIdInUse,
     // Field-level codes (generic wording)
     INVALID_VALUE: 'Invalid value',
     INVALID_TYPE: required,

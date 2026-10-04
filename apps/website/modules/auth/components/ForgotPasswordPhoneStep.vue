@@ -33,6 +33,7 @@
         :label="t('auth.fields.phone.label')"
         :description="t('auth.fields.phone.hint')"
         :placeholder="t('auth.fields.phone.placeholder')"
+        required
         container-class="field-required"
       />
 

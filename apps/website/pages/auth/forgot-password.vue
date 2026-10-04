@@ -9,11 +9,27 @@
   definePageMeta({ layout: 'auth', guestOnly: true, pageTransition: AUTH_TRANSITION });
 
   const { t } = useI18n();
-  useSeoMeta({ title: () => t('auth.forgot.title') });
 
   // Step 1: phone → sends a code. Step 2: code → verified reset token. Step 3: new password.
   // The current step lives in a short-lived store, so switching language keeps it.
   const reset = usePasswordResetStore();
+
+  // The steps share one URL, so the title names the current one (screen readers announce it)
+  const step = computed(() =>
+    reset.state?.resetToken
+      ? { current: 3, title: 'auth.forgot.resetTitle' }
+      : reset.state
+        ? { current: 2, title: 'auth.forgot.codeTitle' }
+        : { current: 1, title: 'auth.forgot.title' }
+  );
+  useSeoMeta({
+    title: () =>
+      t('auth.a11y.stepTitle', {
+        title: t(step.value.title),
+        current: step.value.current,
+        total: 3,
+      }),
+  });
   const sessionToken = computed({
     get: () => reset.state?.sessionToken ?? '',
     set: (token: string) => reset.codeResent(token),

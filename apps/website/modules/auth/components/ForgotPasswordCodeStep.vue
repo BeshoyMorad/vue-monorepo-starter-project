@@ -14,7 +14,7 @@
   const emit = defineEmits<{ verified: [resetToken: string]; back: [] }>();
 
   const { t } = useI18n();
-  const { onSubmit, canSubmit, formError, validateOtp, isPending, resend, resendIn, canResend } =
+  const { onSubmit, canSubmit, formError, isPending, resend, resendIn, canResend } =
     useResetCodeForm(
       { phone: toRef(props, 'phone'), token, codeSentAt: toRef(props, 'codeSentAt') },
       (resetToken) => emit('verified', resetToken)
@@ -37,7 +37,7 @@
           <button
             type="button"
             data-test-id="reset-change-number"
-            class="text-gold-600 hover:text-gold-700 cursor-pointer font-semibold"
+            class="text-gold-800 hover:text-gold-900 cursor-pointer rounded-md font-semibold hover:underline"
             @click="$emit('back')"
           >
             {{ t('auth.forgot.changeNumber') }}
@@ -45,18 +45,19 @@
         </p>
       </AuthCardHeader>
 
-      <!-- focusout bubbles from the hidden code input, so this shows "required" on leave -->
-      <div @focusout="validateOtp">
-        <Field.Otp
-          name="otp"
-          test-id="reset-otp"
-          :length="6"
-          integer-only
-          :label="t('auth.fields.otp.label')"
-          container-class="auth-otp"
-          dir="ltr"
-        />
-      </div>
+      <!-- Errors only on submit, never while typing; the code submits itself once complete
+           (typed, pasted or filled from the SMS; see useOtpForm) -->
+      <Field.Otp
+        name="otp"
+        test-id="reset-otp"
+        :length="6"
+        integer-only
+        :label="t('auth.fields.otp.label')"
+        validate-on-submit-only
+        aria-required="true"
+        container-class="auth-otp"
+        dir="ltr"
+      />
 
       <AuthSubmitButton test-id="reset-code-submit" :loading="isPending" :disabled="!canSubmit">
         {{ t('auth.forgot.codeSubmit') }}

@@ -5,9 +5,18 @@ export const authEn = {
     subtitle: 'Insurance, transport, permits, veterinary care and stores in one place.',
     copyright: 'All rights reserved for Ibbil Platform © {year}',
     home: 'Home',
-    logoAlt: 'Ibbil',
+    logoAlt: 'Ibbil home page',
   },
   stepOf: 'Step {current} of {total}',
+  /** Text for screen readers and keyboard users only */
+  a11y: {
+    skipToForm: 'Skip to form',
+    showPassword: 'Show password',
+    submitHint: 'Fill in all required fields to continue',
+    resendInLong: 'You can request a new code in {seconds} seconds',
+    resendReady: 'You can now request a new code',
+    stepTitle: '{title} (step {current} of {total})',
+  },
   successTitle: 'Success',
   fields: {
     phone: {
@@ -15,7 +24,11 @@ export const authEn = {
       hint: 'Enter your mobile number without the country code',
       placeholder: '5XXXXXXXX',
     },
-    password: { label: 'Password', placeholder: 'Enter your password' },
+    password: {
+      label: 'Password',
+      placeholder: 'Enter your password',
+      rules: 'At least 8 characters, with uppercase and lowercase letters, a number and a symbol',
+    },
     confirmPassword: { label: 'Confirm Password' },
     newPassword: { label: 'New Password' },
     fullName: { label: 'Full Name', placeholder: 'Enter your full name' },
@@ -81,10 +94,12 @@ export const authEn = {
     submit: 'Verify',
     success: 'Your mobile number is verified. Welcome to Ibbil!',
     notVerified: "Your account isn't verified yet. Enter the code we sent to your phone.",
+    noCode: "Didn't receive the code?",
     resend: 'Resend code',
     resendIn: 'Resend code in {seconds}s',
     resent: 'A new code has been sent',
     back: 'Back to sign in',
+    changeDetails: 'Change registration details',
   },
   forgot: {
     title: 'Forgot your password?',

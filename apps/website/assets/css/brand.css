@@ -110,8 +110,9 @@
   border-color: oklch(0.82 0 0);
 }
 .auth-ui .auth-field input:focus {
+  /* Green border plus a soft halo: clearly visible without a heavy outline */
   border-color: var(--color-primary-500);
-  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.12);
+  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.16);
   --tw-ring-shadow: 0 0 #0000;
 }
 .auth-ui .auth-field input[aria-invalid='true'] {
@@ -149,9 +150,11 @@
   transform: translateY(0.5px);
 }
 
-/* Red asterisk after the label of required form fields: container-class="field-required" */
+/* Red asterisk after the label of required form fields: container-class="field-required".
+   Hidden from screen readers (empty alt text after the slash); the fields announce
+   "required" through aria-required instead. */
 .field-required [data-slot='form-label']::after {
-  content: '*';
+  content: '*' / '';
   margin-inline-start: -4px;
   color: oklch(0.55 0.22 25);
 }
@@ -187,7 +190,7 @@
 }
 .auth-ui .auth-otp [data-slot='input-otp-slot'][data-active='true'] {
   border-color: var(--color-primary-500);
-  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.12);
+  box-shadow: 0 0 0 3px rgb(45 83 61 / 0.16);
 }
 .auth-ui .auth-otp [data-slot='input-otp-slot'][aria-invalid='true'] {
   border-color: oklch(0.55 0.22 25);
@@ -236,4 +239,32 @@
   .auth-step-leave-to {
     transform: none;
   }
+}
+
+/*
+ * Keyboard focus on the auth screens (shown only when navigating with the keyboard): a soft
+ * ring on every link and button that follows its corners (text links carry rounded-md),
+ * green on light backgrounds and white on the green brand panel and mobile header.
+ * Headings get focus from script (see AuthCard) and need no ring.
+ */
+.auth-ui a:focus-visible,
+.auth-ui button:focus-visible,
+.auth-ui [role='checkbox']:focus-visible {
+  outline: 2px solid rgb(45 83 61 / 0.45);
+  outline-offset: 3px;
+}
+.auth-ui .auth-on-brand a:focus-visible,
+.auth-ui .auth-on-brand button:focus-visible,
+.auth-ui .auth-skip-link:focus-visible {
+  outline-color: rgb(255 255 255 / 0.7);
+}
+.auth-ui h1:focus {
+  outline: none;
+}
+
+/* Back-link arrow (AuthBackLink): its label is bold and full of capitals and tall letters, so
+   it reads higher than the lowercase middle the arrow is centred on. 1px up looks level.
+   Arabic letters already sit on the arrow's centre line. */
+.auth-back-arrow:lang(en) {
+  translate: 0 -1px;
 }

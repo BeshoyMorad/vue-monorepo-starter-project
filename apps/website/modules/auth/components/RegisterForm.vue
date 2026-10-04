@@ -41,6 +41,7 @@
             autocomplete="name"
             :label="t('auth.fields.fullName.label')"
             :placeholder="t('auth.fields.fullName.placeholder')"
+            aria-required="true"
             container-class="auth-field field-required"
           />
           <Field.Text
@@ -50,6 +51,7 @@
             maxlength="14"
             :label="t('auth.fields.nationalId.label')"
             :description="t('auth.fields.nationalId.hint')"
+            aria-required="true"
             container-class="auth-field field-required"
           />
           <SaudiPhoneField
@@ -58,6 +60,7 @@
             :label="t('auth.fields.phone.label')"
             :description="t('auth.fields.phone.hint')"
             :placeholder="t('auth.fields.phone.placeholder')"
+            required
             container-class="field-required"
           />
           <Field.Text
@@ -66,6 +69,7 @@
             test-id="register-email"
             autocomplete="email"
             :label="t('auth.fields.email.label')"
+            aria-required="true"
             container-class="auth-field field-required"
           />
         </div>
@@ -80,17 +84,22 @@
         </h2>
         <div class="grid items-start gap-4 sm:grid-cols-2">
           <Field.Password
+            :toggle-label="t('auth.a11y.showPassword')"
             name="password"
             test-id="register-password"
             autocomplete="new-password"
             :label="t('auth.fields.password.label')"
+            :description="t('auth.fields.password.rules')"
+            aria-required="true"
             container-class="auth-field field-required"
           />
           <Field.Password
+            :toggle-label="t('auth.a11y.showPassword')"
             name="confirmPassword"
             test-id="register-confirm-password"
             autocomplete="new-password"
             :label="t('auth.fields.confirmPassword.label')"
+            aria-required="true"
             container-class="auth-field field-required"
           />
         </div>

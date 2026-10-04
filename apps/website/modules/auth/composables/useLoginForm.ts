@@ -1,4 +1,5 @@
 import { toTypedSchema } from '@vee-validate/yup';
+import { focusFirstInvalidField } from '~/utils/focus';
 import { useMutation } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
 import { useCanSubmit } from '~/composables/useCanSubmit';
@@ -81,7 +82,7 @@ export function useLoginForm() {
       // Wrong credentials etc. are shown under the submit button
       showError(error, setErrors);
     }
-  });
+  }, focusFirstInvalidField);
 
   return { onSubmit, canSubmit, formError, isPending: login.isPending };
 }

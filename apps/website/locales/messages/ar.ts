@@ -10,6 +10,9 @@ const phone = 'أدخل رقم جوال سعودي صحيح، مثل 5XXXXXXXX';
 const passwordMin = 'يجب ألا يقل الرقم السري عن 8 أحرف';
 const passwordFormat = 'استخدم حروفاً كبيرة وصغيرة ورقماً ورمزاً';
 const otp = 'أدخل الرمز المكوّن من 6 أرقام';
+const phoneInUse = 'رقم الجوال هذا مرتبط بحساب مسبقاً. سجّل الدخول، أو استخدم رقماً آخر.';
+const emailInUse = 'البريد الإلكتروني هذا مرتبط بحساب مسبقاً. سجّل الدخول، أو استخدم بريداً آخر.';
+const nationalIdInUse = 'رقم الهوية هذا مرتبط بحساب مسبقاً. سجّل الدخول إلى ذلك الحساب.';
 
 export const apiErrorsAr: typeof apiErrorsEn = {
   codes: {
@@ -39,9 +42,12 @@ export const apiErrorsAr: typeof apiErrorsEn = {
     InvalidOtp: invalidOtp,
     PASSWORD_RESET_TOKEN_INVALID: 'انتهت صلاحية جلسة إعادة التعيين. يرجى البدء من جديد.',
     PASSWORD_UNCHANGED: 'هذا هو رقمك السري الحالي. اختر رقماً سرياً مختلفاً.',
-    PHONE_ALREADY_EXISTS: 'رقم الجوال هذا مسجل مسبقاً.',
-    EMAIL_ALREADY_EXISTS: 'البريد الإلكتروني هذا مسجل مسبقاً.',
-    NATIONAL_ID_ALREADY_EXISTS: 'رقم الهوية هذا مسجل مسبقاً.',
+    PHONE_IN_USE: phoneInUse,
+    PHONE_ALREADY_EXISTS: phoneInUse,
+    EMAIL_IN_USE: emailInUse,
+    EMAIL_ALREADY_EXISTS: emailInUse,
+    NATIONAL_ID_IN_USE: nationalIdInUse,
+    NATIONAL_ID_ALREADY_EXISTS: nationalIdInUse,
     INVALID_VALUE: 'قيمة غير صحيحة',
     INVALID_TYPE: required,
     REQUIRED: required,

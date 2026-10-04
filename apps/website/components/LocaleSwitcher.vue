@@ -45,6 +45,7 @@
       <button
         type="button"
         data-test-id="locale-switcher"
+        :aria-label="`${t('localeSwitcher.label')}: ${current?.name}`"
         class="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border px-3 py-[5px] text-[13px] font-medium transition-colors"
         :class="
           tone === 'light'
@@ -52,7 +53,7 @@
             : 'border-primary-100 bg-primary-50 text-primary-500 hover:bg-primary-100'
         "
       >
-        <span class="text-sm leading-none">{{ FLAGS[locale] }}</span>
+        <span class="text-sm leading-none" aria-hidden="true">{{ FLAGS[locale] }}</span>
         <span class="icon-label">{{ current?.name }}</span>
         <Icon
           icon="hugeicons--arrow-down-01"
@@ -80,7 +81,7 @@
         :class="{ 'bg-primary-50 data-highlighted:bg-primary-50': item.code === locale }"
         @select="select(item.code)"
       >
-        <span class="text-lg leading-none">{{ FLAGS[item.code] }}</span>
+        <span class="text-lg leading-none" aria-hidden="true">{{ FLAGS[item.code] }}</span>
         <span class="flex min-w-0 flex-1 flex-col gap-0.5 text-start">
           <span class="text-sm font-semibold text-[oklch(0.2_0_0)]">{{ item.name }}</span>
           <span class="truncate text-xs text-[oklch(0.5_0_0)]">{{ regionName(item) }}</span>

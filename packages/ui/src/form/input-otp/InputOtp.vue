@@ -26,6 +26,12 @@
     name?: string;
     description?: string;
     containerClass?: string;
+    /**
+     * Validate only when the form is submitted, not on input, change, blur or v-model
+     * updates (vee-validate's defaults), so a half-typed code doesn't show "incomplete"
+     * while the user is typing.
+     */
+    validateOnSubmitOnly?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -38,6 +44,7 @@
     name: undefined,
     description: undefined,
     containerClass: undefined,
+    validateOnSubmitOnly: false,
   });
 
   const emits = defineEmits<{
@@ -52,7 +59,14 @@
 
 <template>
   <template v-if="name">
-    <FormField v-slot="{ componentField }" :name="name">
+    <FormField
+      v-slot="{ componentField }"
+      :name="name"
+      :validate-on-model-update="!validateOnSubmitOnly"
+      :validate-on-blur="!validateOnSubmitOnly"
+      :validate-on-change="!validateOnSubmitOnly"
+      :validate-on-input="false"
+    >
       <FormItem :class="containerClass">
         <FormLabel v-if="label">{{ label }}</FormLabel>
 

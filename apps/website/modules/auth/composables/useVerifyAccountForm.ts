@@ -1,10 +1,12 @@
 import { computed, onMounted } from 'vue';
+import { focusFirstInvalidField } from '~/utils/focus';
 import { useMutation } from '@tanstack/vue-query';
 import { notify } from '@workspace/core/utils/toast';
 import { OTP_RESEND_COOLDOWN, resendSecondsLeft } from '~/constants/auth';
 import { paths } from '~/router/paths';
 import { useAuthStore } from '~/stores/auth';
 import { useAuthService } from '~/modules/auth/services';
+import { useRegisterDraftStore } from '~/modules/auth/stores/registerDraft';
 import { useVerificationStore } from '~/modules/auth/stores/verification';
 import { useApiFormError } from '~/composables/useApiFormError';
 import { useCountdown } from './useCountdown';
@@ -22,7 +24,7 @@ export function useVerifyAccountForm() {
   const service = useAuthService();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
 
-  const { handleSubmit, values, clearOtp, canSubmit, validateOtp } = useOtpForm();
+  const { handleSubmit, values, clearOtp, canSubmit, submitOnComplete } = useOtpForm();
   const { showError, formError, clearFormError } = useApiFormError(values);
 
   const verify = useMutation({
@@ -56,12 +58,14 @@ export function useVerifyAccountForm() {
         remember: pending.remember ?? false,
       });
       verification.clear();
+      useRegisterDraftStore().clear();
       notify('success', { title: t('auth.successTitle'), body: t('auth.verify.success') });
       await navigateTo(pending.redirect ?? localePath(paths.home));
     } catch (error) {
       showError(error, setErrors);
     }
-  });
+  }, focusFirstInvalidField);
+  submitOnComplete(onSubmit, verify.isPending);
 
   // The API sends the first code when the flow starts
   // Resume the countdown (the page remounts when the language changes)
@@ -72,7 +76,6 @@ export function useVerifyAccountForm() {
     onSubmit,
     canSubmit,
     formError,
-    validateOtp,
     isPending: verify.isPending,
     resend: () => resend.mutate(),
     isResending: resend.isPending,

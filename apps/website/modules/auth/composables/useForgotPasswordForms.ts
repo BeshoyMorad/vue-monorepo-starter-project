@@ -1,4 +1,5 @@
 import { computed, onMounted, type Ref } from 'vue';
+import { focusFirstInvalidField } from '~/utils/focus';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useMutation } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
@@ -42,7 +43,7 @@ export function useForgotPasswordPhoneForm(onSent: (phone: string, token: string
       // The API may report the number as `identifier`
       showError(error, (errors) => setErrors({ phone: errors.identifier ?? errors.phone }));
     }
-  });
+  }, focusFirstInvalidField);
 
   return { onSubmit, canSubmit, formError, isPending: request.isPending };
 }
@@ -62,7 +63,7 @@ export function useResetCodeForm(
   const service = useAuthService();
   const cooldown = useCountdown(OTP_RESEND_COOLDOWN);
 
-  const { handleSubmit, values, clearOtp, canSubmit, validateOtp } = useOtpForm();
+  const { handleSubmit, values, clearOtp, canSubmit, submitOnComplete } = useOtpForm();
   const { showError, formError, clearFormError } = useApiFormError(values);
 
   const verify = useMutation({
@@ -89,7 +90,8 @@ export function useResetCodeForm(
     } catch (error) {
       showError(error, setErrors);
     }
-  });
+  }, focusFirstInvalidField);
+  submitOnComplete(onSubmit, verify.isPending);
 
   // Resume the countdown (the step remounts when the language changes)
   onMounted(() => cooldown.start(resendSecondsLeft(session.codeSentAt.value)));
@@ -98,7 +100,6 @@ export function useResetCodeForm(
     onSubmit,
     canSubmit,
     formError,
-    validateOtp,
     isPending: verify.isPending,
     resend: () => resend.mutate(),
     resendIn: cooldown.remaining,
@@ -142,7 +143,7 @@ export function useResetPasswordForm(resetToken: Ref<string>, onExpired: () => v
       }
       showError(error, setErrors);
     }
-  });
+  }, focusFirstInvalidField);
 
   return { onSubmit, canSubmit, formError, isPending: reset.isPending };
 }

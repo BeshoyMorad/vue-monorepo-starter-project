@@ -21,9 +21,17 @@
 
 <template>
   <div class="auth-ui font-brand min-h-screen text-[oklch(0.2_0_0)] lg:grid lg:grid-cols-[46%_1fr]">
+    <!-- First stop for keyboard users: jumps past the brand links straight to the form -->
+    <a
+      href="#auth-main"
+      class="auth-skip-link bg-primary-500 sr-only z-50 rounded-lg text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:px-4 focus:py-2.5"
+    >
+      {{ t('auth.a11y.skipToForm') }}
+    </a>
+
     <!-- Brand panel (desktop) -->
     <aside
-      class="border-gold-500 sticky top-0 hidden h-screen flex-col justify-between overflow-hidden border-e-2 p-12 text-white lg:flex"
+      class="auth-on-brand border-gold-500 sticky top-0 hidden h-screen flex-col justify-between overflow-hidden border-e-2 p-12 text-white lg:flex"
     >
       <!-- Panel is 46% of the viewport from lg up and hidden below, so request ~half-width sources at each large breakpoint.
            `class` goes on the <picture> wrapper: it must be absolute too, or it becomes a flex item
@@ -68,9 +76,10 @@
         <p class="text-gold-500 text-xs leading-4 font-semibold tracking-[2.64px] uppercase">
           {{ t('auth.brand.eyebrow') }}
         </p>
-        <h2 class="text-4xl leading-[45px] font-extrabold tracking-[-0.9px]">
+        <!-- A paragraph, not a heading: the form's h1 is the first heading of the page -->
+        <p class="text-4xl leading-[45px] font-extrabold tracking-[-0.9px]">
           {{ t('auth.brand.title') }}
-        </h2>
+        </p>
         <p class="max-w-96 text-base leading-[26px] text-white/80">
           {{ t('auth.brand.subtitle') }}
         </p>
@@ -85,20 +94,26 @@
     <div
       class="flex min-h-screen flex-col bg-[#f4f1ea] bg-[radial-gradient(at_100%_0,rgb(212_160_68/0.14),transparent_52%),radial-gradient(at_0_100%,rgb(45_83_61/0.07),transparent_48%)]"
     >
-      <header class="bg-primary-500 flex items-center justify-between px-4 py-4 lg:hidden">
+      <header
+        class="auth-on-brand bg-primary-500 flex items-center justify-between px-4 py-4 lg:hidden"
+      >
         <NuxtLink :to="localePath(paths.home)" data-test-id="auth-logo-mobile">
           <img src="/images/brand/ibbil-logo.svg" :alt="t('auth.brand.logoAlt')" class="h-10" />
         </NuxtLink>
         <LocaleSwitcher />
       </header>
 
-      <main class="flex flex-1 items-center justify-center px-4 py-8 sm:px-8 lg:py-12">
+      <main
+        id="auth-main"
+        tabindex="-1"
+        class="flex flex-1 items-center justify-center px-4 py-8 outline-none sm:px-8 lg:py-12"
+      >
         <slot />
       </main>
 
-      <p class="text-text-placeholder pb-6 text-center text-sm lg:hidden">
+      <footer class="text-text-placeholder pb-6 text-center text-sm lg:hidden">
         {{ t('auth.brand.copyright', { year }) }}
-      </p>
+      </footer>
     </div>
   </div>
 </template>

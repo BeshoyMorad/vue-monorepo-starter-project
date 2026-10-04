@@ -20,15 +20,21 @@
     description?: string;
     placeholder?: string;
     containerClass?: string;
+    /** Announced as required to screen readers (the visual asterisk comes from containerClass) */
+    required?: boolean;
   }>();
 
   const DIAL_CODE = '+966';
 
   const toLocal = (value: unknown) => String(value ?? '').replace(DIAL_CODE, '');
 
+  /** Arabic-Indic (٠-٩) and Persian (۰-۹) digits, typed by Arabic keyboards, as 0-9. */
+  const toLatinDigits = (text: string) =>
+    text.replace(/[\u0660-\u0669\u06F0-\u06F9]/g, (d) => String(d.charCodeAt(0) % 16));
+
   /** Keeps digits only and drops a leading 0 (05XXXXXXXX → 5XXXXXXXX). */
   const toE164 = (local: string | number) => {
-    const digits = String(local).replace(/\D/g, '').replace(/^0+/, '');
+    const digits = toLatinDigits(String(local)).replace(/\D/g, '').replace(/^0+/, '');
     return digits ? `${DIAL_CODE}${digits}` : '';
   };
 </script>
@@ -54,6 +60,7 @@
             autocomplete="tel-national"
             maxlength="10"
             :placeholder="placeholder"
+            :aria-required="required || undefined"
             :data-test-id="testId"
             class="w-full min-w-0 flex-1"
             @update:model-value="(local) => handleChange(toE164(local))"

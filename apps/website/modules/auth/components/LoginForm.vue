@@ -26,16 +26,19 @@
         :label="t('auth.fields.phone.label')"
         :description="t('auth.fields.phone.hint')"
         :placeholder="t('auth.fields.phone.placeholder')"
+        required
         container-class="field-required"
       />
 
       <Field.Password
+        :toggle-label="t('auth.a11y.showPassword')"
         name="password"
         test-id="login-password"
         icon="hugeicons--square-lock-02"
         autocomplete="current-password"
         :label="t('auth.fields.password.label')"
         :placeholder="t('auth.fields.password.placeholder')"
+        aria-required="true"
         container-class="auth-field field-required"
       />
 
@@ -51,7 +54,7 @@
         <NuxtLink
           :to="localePath(paths.auth.forgotPassword)"
           data-test-id="login-forgot-link"
-          class="text-gold-500 hover:text-gold-600 shrink-0 text-sm font-semibold"
+          class="text-gold-800 hover:text-gold-900 shrink-0 rounded-md text-sm font-semibold hover:underline"
         >
           {{ t('auth.login.forgot') }}
         </NuxtLink>
