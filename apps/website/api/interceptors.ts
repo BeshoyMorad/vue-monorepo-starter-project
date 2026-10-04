@@ -1,8 +1,8 @@
 import type { FetchContext, FetchResponse } from 'ofetch';
-import { getDeviceId } from '@workspace/core/utils/device';
+import type { ApiFailure } from '~/types/api';
 
 export interface InterceptorContext {
-  /** Current session token, if any. */
+  /** Current access token, if any. */
   getToken: () => string | null | undefined;
   /** Active UI locale, sent to the backend so messages come back translated. */
   getLocale: () => string;
@@ -10,14 +10,17 @@ export interface InterceptorContext {
   t: (key: string) => string;
   /** Shows a global error message (toast). No-op on the server. */
   notify: (message: string) => void;
-  /** Clears the session and sends the user to login. */
-  onSessionExpired: () => Promise<void>;
 }
 
 type ResponseContext = FetchContext & { response: FetchResponse<unknown> };
 type RequestErrorContext = FetchContext & { error: Error };
 
-/** Adds the headers every request needs: JSON, locale, device id and bearer token. */
+/**
+ * Adds the headers every request needs: JSON, locale and bearer token.
+ * Only send headers the API allows in CORS (Accept, Accept-Language, Authorization,
+ * Content-Type, X-Currency, X-Language, X-Request-ID, X-Requested-With, X-Tenant-ID):
+ * any other header makes the browser's preflight fail.
+ */
 export const createRequestHook =
   (ctx: InterceptorContext) =>
   ({ options }: FetchContext): void => {
@@ -25,12 +28,7 @@ export const createRequestHook =
     headers.set('Accept', 'application/json');
     headers.set('Accept-Language', ctx.getLocale());
 
-    const deviceId = getDeviceId();
-    if (deviceId) {
-      headers.set('device-id', deviceId);
-    }
-
-    const token = ctx.getToken();
+    const token = options.skipAuth ? null : ctx.getToken();
     if (token && !headers.has('Authorization')) {
       headers.set('Authorization', `Bearer ${token}`);
     }
@@ -40,12 +38,12 @@ export const createRequestHook =
 
 /**
  * Maps a failed response to a user-facing message, or null when the caller should
- * decide what to show (404 renders a page-level error, 401 is handled separately).
+ * decide what to show (404 renders a page-level error).
  */
 function resolveErrorMessage(status: number, data: unknown, t: InterceptorContext['t']) {
-  const backendMessage = (data as Partial<ApiErrorResponse> | undefined)?.message;
+  const backendMessage = (data as ApiFailure | undefined)?.error?.message;
 
-  if (status === 401 || status === 404) {
+  if (status === 404) {
     return null;
   }
   if (status === 403) {
@@ -61,27 +59,16 @@ function resolveErrorMessage(status: number, data: unknown, t: InterceptorContex
 }
 
 /**
- * Handles HTTP error responses (status >= 400):
- * - 401 with a session → clear session and redirect to login (once, even for parallel requests)
- * - 403 / 429 / 5xx / other 4xx → toast, unless the request was sent with `silent: true`
+ * Toasts HTTP errors (status >= 400) unless the request was sent with `silent: true`.
+ * A 401 on a request that carried a token is left to the client, which refreshes the
+ * session or redirects to login (see api/client.ts).
  * The request still rejects with a FetchError, so TanStack Query / callers see the error.
  */
-export const createResponseErrorHook = (ctx: InterceptorContext) => {
-  let sessionExpiry: Promise<void> | null = null;
-
-  return async ({ response, options }: ResponseContext): Promise<void> => {
-    if (response.status === 401) {
-      const hadSession = new Headers(options.headers).has('Authorization');
-      if (hadSession && !options.skipAuthRedirect) {
-        sessionExpiry ??= ctx.onSessionExpired().finally(() => {
-          sessionExpiry = null;
-        });
-        await sessionExpiry;
-      }
-      return;
-    }
-
-    if (options.silent) {
+export const createResponseErrorHook =
+  (ctx: InterceptorContext) =>
+  ({ response, options }: ResponseContext): void => {
+    const sentToken = new Headers(options.headers).has('Authorization');
+    if (options.silent || (response.status === 401 && sentToken)) {
       return;
     }
 
@@ -90,7 +77,6 @@ export const createResponseErrorHook = (ctx: InterceptorContext) => {
       ctx.notify(message);
     }
   };
-};
 
 /** Handles requests that never got a response (offline, DNS, timeout). Aborts are ignored. */
 export const createRequestErrorHook =

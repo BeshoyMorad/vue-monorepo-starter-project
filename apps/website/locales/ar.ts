@@ -1,7 +1,9 @@
 import { commonAr, mergeLocaleMessages } from '@workspace/locales';
+import { authAr } from '~/modules/auth/locales/ar';
 
 export default defineI18nLocale(async () => {
   const websiteAr = {
+    auth: authAr,
     errors: {
       title: 'خطأ',
       tooManyRequests: 'طلبات كثيرة جدًا. يرجى الانتظار قليلًا ثم المحاولة مرة أخرى.',

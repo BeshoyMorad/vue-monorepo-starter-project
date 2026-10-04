@@ -1,7 +1,8 @@
 import type { FetchError } from 'ofetch';
+import type { ApiErrorBody, ApiFailure } from '~/types/api';
 
 /** True when `err` is an HTTP error thrown by the fetch client. */
-export function isFetchError(err: unknown): err is FetchError<Partial<ApiErrorResponse>> {
+export function isFetchError(err: unknown): err is FetchError<ApiFailure> {
   return err instanceof Error && err.name === 'FetchError';
 }
 
@@ -16,23 +17,32 @@ export function isClientError(err: unknown): boolean {
   return status !== undefined && status >= 400 && status < 500;
 }
 
-/** Backend message for a failed request, or `fallback`. */
-export function getApiErrorMessage(err: unknown, fallback: string): string {
-  return (isFetchError(err) && err.data?.message) || fallback;
+/** The `error` object of a failed API response, if any. */
+export function getApiError(err: unknown): ApiErrorBody | undefined {
+  return (isFetchError(err) && err.data?.error) || undefined;
 }
 
-/** Field errors from a validation response, flattened to one message per field. */
+/** Backend error code, e.g. 'ValidationError' or 'AccountNotVerified'. */
+export function getApiErrorCode(err: unknown): string | undefined {
+  return getApiError(err)?.code;
+}
+
+/** Backend message for a failed request, or `fallback`. */
+export function getApiErrorMessage(err: unknown, fallback: string): string {
+  return getApiError(err)?.message || fallback;
+}
+
+/** Field errors from a validation response (`error.details.fields`), one message per field. */
 export function getApiFieldErrors(err: unknown): Record<string, string> | undefined {
-  const errors = isFetchError(err) ? err.data?.errors : undefined;
-  if (!errors || typeof errors !== 'object') {
+  const fields = getApiError(err)?.details?.fields;
+  if (!fields || typeof fields !== 'object') {
     return undefined;
   }
 
   const result: Record<string, string> = {};
-  for (const [field, value] of Object.entries(errors)) {
-    const message = Array.isArray(value) ? value.find((v) => typeof v === 'string') : value;
-    if (typeof message === 'string') {
-      result[field] = message;
+  for (const [field, value] of Object.entries(fields)) {
+    if (value?.message) {
+      result[field] = value.message;
     }
   }
   return Object.keys(result).length > 0 ? result : undefined;

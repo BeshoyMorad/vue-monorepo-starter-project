@@ -5,6 +5,7 @@
 @import 'tailwindcss';
 @import './colors.css';
 @import './token.css';
+@import './brand.css';
 @import './spacing.css';
 @import './borders.css';
 @import './effects.css';

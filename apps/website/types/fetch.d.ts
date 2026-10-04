@@ -14,6 +14,11 @@ declare module 'ofetch' {
      * Use it for auth endpoints where 401 means "wrong credentials", not "session expired".
      */
     skipAuthRedirect?: boolean;
+    /**
+     * Don't attach the bearer token or refresh it first.
+     * Use it for public endpoints (login, register, OTP, password reset, token refresh).
+     */
+    skipAuth?: boolean;
   }
 }
 

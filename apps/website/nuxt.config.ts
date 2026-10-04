@@ -98,7 +98,7 @@ export default defineNuxtConfig({
   // Values are overridable at runtime through NUXT_PUBLIC_* env variables
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api.example.com',
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api.ibbil.com/api/v1',
       appName: process.env.NUXT_PUBLIC_APP_NAME || 'Ibbil',
     },
   },

@@ -1,6 +1,9 @@
 <script setup lang="ts">
   import { PageWrapper, StatusBadge, Button, CopyText } from '@workspace/ui';
 
+  // The site starts at sign-in: guests opening "/" are sent to the login page
+  definePageMeta({ requiresAuth: true });
+
   // SEO-Critical Data Fetching via Nuxt native useAsyncData / useFetch
   const { data: pageInfo } = await useAsyncData('marketing-hero-data', async () => {
     return {

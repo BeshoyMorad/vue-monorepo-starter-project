@@ -23,9 +23,11 @@ export default defineNuxtRouteMiddleware((to) => {
   const locale = getRouteLocale(to);
 
   if (requiresAuth && !authStore.isAuthenticated) {
+    // Home is where login lands anyway, so it needs no ?redirect=
+    const isHome = to.path === localePath(paths.home, locale);
     return navigateTo({
       path: localePath(paths.auth.login, locale),
-      query: { [REDIRECT_QUERY_KEY]: to.fullPath },
+      query: isHome ? undefined : { [REDIRECT_QUERY_KEY]: to.fullPath },
     });
   }
 
