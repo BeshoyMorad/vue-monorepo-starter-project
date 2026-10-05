@@ -58,6 +58,15 @@
   @media (max-width: 480px) {
     .row {
       grid-template-columns: repeat(2, 1fr);
+      gap: 20px 12px;
+    }
+    dd {
+      font-size: 28px;
+      line-height: 34px;
+    }
+    dt {
+      font-size: 14px;
+      line-height: 20px;
     }
   }
 </style>

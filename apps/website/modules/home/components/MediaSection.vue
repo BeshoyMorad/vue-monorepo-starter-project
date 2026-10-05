@@ -238,10 +238,31 @@
       width: 100%;
     }
   }
+  @media (max-width: 640px) {
+    .latest {
+      gap: 12px;
+    }
+    .story {
+      gap: 12px;
+      padding: 12px;
+    }
+    h3 {
+      font-size: 15px;
+      line-height: 22px;
+    }
+    .featured {
+      min-height: 0;
+      padding: 120px 16px 16px;
+    }
+    .featured h3 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
   @media (max-width: 480px) {
     .cover {
-      width: 96px;
-      height: 96px;
+      width: 88px;
+      height: 88px;
     }
   }
 </style>

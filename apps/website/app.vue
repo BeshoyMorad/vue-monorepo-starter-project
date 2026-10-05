@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { DirectionProvider } from '@workspace/ui/ui/direction';
+
   // The toast container only matters after the user does something: load it after the page
   // instead of in the entry bundle (it rendered client-only already)
   const Toaster = defineAsyncComponent(() =>
@@ -6,13 +8,19 @@
   );
 
   useHtmlAttrs();
+
+  // reka-ui menus and dialogs render outside the page: give them the locale's direction too
+  const { localeProperties } = useI18n();
+  const dir = computed(() => (localeProperties.value.dir === 'rtl' ? 'rtl' : 'ltr'));
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-  <ClientOnly>
-    <Toaster />
-  </ClientOnly>
+  <DirectionProvider :dir="dir">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+    <ClientOnly>
+      <Toaster />
+    </ClientOnly>
+  </DirectionProvider>
 </template>

@@ -14,16 +14,21 @@
       :text="t('home.services.text')"
     />
     <ul class="container grid">
-      <li v-for="item in services" :key="item.id" class="card">
-        <div class="slot">
-          <span class="slot__icon"><Icon :icon="item.icon" class="size-12" /></span>
-        </div>
-        <h3>{{ t(`home.services.items.${item.id}.title`) }}</h3>
-        <p>{{ t(`home.services.items.${item.id}.text`) }}</p>
-        <a class="btn btn--glass card__cta" href="#">
-          {{ t('home.services.explore') }}
-          <span class="sr-only">: {{ t(`home.services.items.${item.id}.title`) }}</span>
-          <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
+      <li v-for="item in services" :key="item.id">
+        <!-- The whole card is one link, named by its heading and text -->
+        <a class="card" href="#">
+          <span class="slot">
+            <span class="slot__icon"><Icon :icon="item.icon" class="size-12" /></span>
+          </span>
+          <span class="card__body">
+            <h3>{{ t(`home.services.items.${item.id}.title`) }}</h3>
+            <p>{{ t(`home.services.items.${item.id}.text`) }}</p>
+          </span>
+          <span class="btn btn--glass card__cta" aria-hidden="true">
+            {{ t('home.services.explore') }}
+            <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
+          </span>
+          <Icon icon="hugeicons--arrow-right-01" class="card__chev size-5 rtl:rotate-180" />
         </a>
       </li>
     </ul>
@@ -40,6 +45,7 @@
     gap: 24px;
   }
   .card {
+    height: 100%;
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -64,6 +70,17 @@
     background: var(--chip);
     color: var(--primary);
   }
+  .card:hover .card__cta {
+    background: rgb(45 83 61 / 0.12);
+  }
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card__chev {
+    display: none;
+  }
   h3 {
     color: var(--primary);
     font: 700 18px/28px var(--font);
@@ -81,9 +98,46 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+  /* Phone: compact rows, icon | title + text | arrow */
   @media (max-width: 640px) {
     .grid {
       grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .card {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 56px 1fr 20px;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+    }
+    .slot,
+    .slot__icon {
+      width: 56px;
+      height: 56px;
+    }
+    .slot__icon > span {
+      width: 28px;
+      height: 28px;
+    }
+    .card__body {
+      gap: 2px;
+    }
+    h3 {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    p {
+      font-size: 13px;
+      line-height: 20px;
+    }
+    .card__cta {
+      display: none;
+    }
+    .card__chev {
+      display: block;
+      color: var(--primary);
     }
   }
 </style>

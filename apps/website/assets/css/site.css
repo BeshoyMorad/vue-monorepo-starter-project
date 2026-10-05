@@ -38,6 +38,12 @@
 .site-ui .section > .container {
   width: 100%;
 }
+@media (max-width: 640px) {
+  .site-ui .section {
+    gap: 28px;
+    padding-block: 48px;
+  }
+}
 
 .site-ui .btn {
   display: inline-flex;
@@ -112,4 +118,11 @@
 }
 .site-ui .on-dark :is(a, button, select, input):focus-visible {
   outline-color: rgb(255 255 255 / 0.7);
+}
+
+/* The header is sticky on desktop (AppHeader.vue): keep anchor targets (#about, #media) clear of it */
+@media (min-width: 1025px) {
+  .site-ui [id] {
+    scroll-margin-top: 136px;
+  }
 }

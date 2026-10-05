@@ -5,16 +5,15 @@
  * Icons are full class names so Tailwind's icon plugin finds them when scanning sources.
  */
 
-/** Gold navigation bar under the header */
+/** Gold navigation bar under the header, in reading order (Figma: Navigation Bar 11422:34002) */
 export const topNav = [
-  { id: 'feed', to: '#' },
-  { id: 'supplies', to: '#' },
-  { id: 'veterinary', to: '#' },
-  { id: 'insurance', to: '#' },
-  { id: 'transport', to: '#' },
-  { id: 'permits', to: '#' },
-  { id: 'trading', to: '#' },
-  { id: 'media', to: '#media' },
+  { id: 'stores', to: '#', icon: 'hugeicons--store-01' },
+  { id: 'insurance', to: '#', icon: 'hugeicons--shield-01' },
+  { id: 'transport', to: '#', icon: 'hugeicons--delivery-truck-01' },
+  { id: 'veterinary', to: '#', icon: 'hugeicons--stethoscope' },
+  { id: 'permits', to: '#', icon: 'hugeicons--legal-document-01' },
+  { id: 'services', to: '#services', icon: 'hugeicons--customer-service-01' },
+  { id: 'media', to: '#media', icon: 'hugeicons--news' },
 ] as const;
 
 export const slides = ['marketplace', 'services', 'trading'] as const;

@@ -74,4 +74,17 @@
   .sh__text {
     color: var(--caption);
   }
+  @media (max-width: 640px) {
+    .sh {
+      gap: 8px;
+    }
+    .sh__title {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    .sh__text {
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
 </style>

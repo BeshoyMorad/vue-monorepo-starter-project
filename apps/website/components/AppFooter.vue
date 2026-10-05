@@ -111,9 +111,16 @@
       grid-template-columns: 1fr 1fr;
     }
   }
+  /* Phone: link columns side by side, brand block across the full width */
   @media (max-width: 560px) {
     .cols {
-      grid-template-columns: 1fr;
+      gap: 32px 16px;
+      padding-block: 40px;
+    }
+    .brand {
+      grid-column: 1 / -1;
+      padding-top: 24px;
+      border-top: 0.5px solid var(--border-on-dark);
     }
   }
 </style>

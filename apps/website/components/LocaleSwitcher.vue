@@ -9,7 +9,16 @@
     Icon,
   } from '@workspace/ui';
 
-  withDefaults(defineProps<{ tone?: 'light' | 'dark' }>(), { tone: 'light' });
+  /** light/dark: auth screens. glass: the green site header (borderless translucent pill, Figma) */
+  withDefaults(defineProps<{ tone?: 'light' | 'dark' | 'glass' }>(), { tone: 'light' });
+
+  const TONES = {
+    light:
+      'gap-1.5 border px-3 py-[5px] text-[13px] font-medium border-white/30 bg-white/10 text-white/90 hover:bg-white/20 data-[state=open]:bg-white/20',
+    dark: 'gap-1.5 border px-3 py-[5px] text-[13px] font-medium border-primary-100 bg-primary-50 text-primary-500 hover:bg-primary-100',
+    glass:
+      'gap-1.5 p-1.5 text-xs leading-4 font-bold bg-white/15 text-white hover:bg-white/25 data-[state=open]:bg-white/25',
+  } as const;
 
   const FLAGS: Record<string, string> = { en: '🇺🇸', ar: '🇸🇦' };
 
@@ -46,12 +55,8 @@
         type="button"
         data-test-id="locale-switcher"
         :aria-label="`${t('localeSwitcher.label')}: ${current?.name}`"
-        class="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border px-3 py-[5px] text-[13px] font-medium transition-colors"
-        :class="
-          tone === 'light'
-            ? 'border-white/30 bg-white/10 text-white/90 hover:bg-white/20 data-[state=open]:bg-white/20'
-            : 'border-primary-100 bg-primary-50 text-primary-500 hover:bg-primary-100'
-        "
+        class="inline-flex cursor-pointer items-center rounded-lg transition-colors"
+        :class="TONES[tone]"
       >
         <span class="text-sm leading-none" aria-hidden="true">{{ FLAGS[locale] }}</span>
         <span class="icon-label">{{ current?.name }}</span>

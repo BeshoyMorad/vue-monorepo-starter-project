@@ -94,9 +94,35 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
+  /* Phone: 2 x 2 tiles. The description is the same for every category and the whole tile
+     is the link, so the text and the browse chip are dropped. */
   @media (max-width: 600px) {
     .grid {
-      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .card {
+      gap: 12px;
+      padding: 16px 12px;
+    }
+    .card__img {
+      width: 96px;
+      height: 96px;
+    }
+    .card__icon {
+      width: 84px;
+      height: 84px;
+    }
+    .card__icon > span {
+      width: 40px;
+      height: 40px;
+    }
+    h3 {
+      font-size: 15px;
+      line-height: 22px;
+    }
+    p,
+    .btn--chip {
+      display: none;
     }
   }
 </style>

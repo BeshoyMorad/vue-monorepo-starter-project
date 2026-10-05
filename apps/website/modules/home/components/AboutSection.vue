@@ -123,6 +123,50 @@
     }
     .frame {
       width: 100%;
+      padding: 8px;
+    }
+    .frame__img {
+      aspect-ratio: 16 / 10;
+    }
+    /* Feature cards become compact rows: icon beside the text */
+    .feats {
+      gap: 10px;
+    }
+    .feat {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 2px 12px;
+      align-items: center;
+      padding: 12px 14px;
+    }
+    .feat__icon {
+      grid-row: span 2;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+  }
+  /* Phone: tighter spacing and type */
+  @media (max-width: 640px) {
+    .about {
+      padding-block: 48px;
+    }
+    .about__row {
+      gap: 32px;
+    }
+    .about__copy {
+      gap: 16px;
+    }
+    .lead {
+      font-size: 18px;
+      line-height: 28px;
+    }
+    .desc {
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .acts .btn {
+      flex: 1;
     }
   }
 </style>
