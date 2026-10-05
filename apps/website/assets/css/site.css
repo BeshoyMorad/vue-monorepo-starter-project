@@ -126,3 +126,51 @@
     scroll-margin-top: 136px;
   }
 }
+
+/* Profile pages (PROFILE_TRANSITION in modules/account/constants.ts), same feel as the
+   auth screens: the old page fades up and out, the new one fades in from below */
+.profile-swap-enter-active {
+  transition:
+    opacity 220ms ease-out,
+    transform 220ms ease-out;
+}
+.profile-swap-leave-active {
+  transition:
+    opacity 140ms ease-in,
+    transform 140ms ease-in;
+}
+.profile-swap-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.profile-swap-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-swap-enter-from,
+  .profile-swap-leave-to {
+    transform: none;
+  }
+}
+/* Content swaps inside a profile page (e.g. another overview section) */
+.profile-fade-enter-active {
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+}
+.profile-fade-leave-active {
+  transition: opacity 120ms ease-in;
+}
+.profile-fade-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.profile-fade-leave-to {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-fade-enter-from {
+    transform: none;
+  }
+}

@@ -5,10 +5,11 @@
   import ProfileSidebar from './ProfileSidebar.vue';
 
   /**
-   * Frame of the profile pages: breadcrumb, sidebar and the page content.
-   * `title` is the page's h1 (visually hidden: the breadcrumb shows where you are).
+   * Frame of the profile pages (pages/profile.vue): breadcrumb, sidebar and the page.
+   * Each page has its own visually hidden h1 (id="profile-title"): the breadcrumb shows
+   * where you are.
    */
-  defineProps<{ profile?: CustomerProfile; title: string; settings?: boolean }>();
+  defineProps<{ profile?: CustomerProfile; settings?: boolean }>();
   const { t } = useI18n();
   const localePath = useLocalePath();
 </script>
@@ -42,7 +43,6 @@
           </li>
         </ol>
       </nav>
-      <h1 id="profile-title" class="sr-only">{{ title }}</h1>
 
       <div class="profile__grid">
         <div class="profile__side">

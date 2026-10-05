@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { useGlideMarker } from '~/modules/account/composables/useGlideMarker';
   import type { CustomerProfile } from '~/modules/account/types';
   import { activityDate } from '~/modules/account/utils';
   import { paths } from '~/router/paths';
@@ -31,6 +32,10 @@
     { id: 'favorites', icon: 'hugeicons--favourite', to: '#' },
   ]);
   const isCurrent = (to: string) => to !== '#' && route.path === to;
+
+  // One highlight glides to the current section (see useGlideMarker)
+  const list = ref<HTMLElement>();
+  const { box, animate, style } = useGlideMarker(list, () => route.path);
   const lastActivity = computed(() => activityDate(props.profile?.lastLoginAt));
 </script>
 
@@ -50,7 +55,14 @@
     </div>
 
     <nav class="side__nav" :aria-label="t('account.nav.label')">
-      <ul>
+      <ul ref="list" class="side__list" :class="{ 'side__list--glide': box }">
+        <li
+          v-if="box"
+          class="side__marker"
+          :class="{ 'side__marker--animate': animate }"
+          :style="style"
+          aria-hidden="true"
+        />
         <li v-for="item in items" :key="item.id">
           <NuxtLink
             :to="item.to"
@@ -130,10 +142,58 @@
   .side__nav {
     padding: 12px;
   }
-  .side__nav ul {
+  .side__list {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+  /* The gliding highlight: soft fill and the gold bar on the start side */
+  .side__marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 12px;
+    background: linear-gradient(to right, #eef0ef, #f7f8f7);
+    pointer-events: none;
+  }
+  [dir='rtl'] .side__marker {
+    background: linear-gradient(to left, #eef0ef, #f7f8f7);
+  }
+  .side__marker::before {
+    content: '';
+    position: absolute;
+    inset-block: 8px;
+    inset-inline-start: -12px;
+    width: 3px;
+    border-radius: 99px;
+    background: var(--color-gold-500);
+  }
+  .side__marker--animate {
+    transition:
+      transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      width 350ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      height 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  /* With the marker in place, the current item drops its own fill and bar */
+  .side__list--glide .item--on {
+    background: none;
+  }
+  .side__list--glide .item--on::before {
+    display: none;
+  }
+  .item__icon,
+  .item__label {
+    transition:
+      background-color 250ms,
+      color 250ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .side__marker--animate,
+    .item__icon,
+    .item__label {
+      transition: none;
+    }
   }
   .item {
     position: relative;
@@ -211,8 +271,11 @@
       overflow-x: auto;
       scrollbar-width: none;
     }
-    .side__nav ul {
+    .side__list {
       flex-direction: row;
+    }
+    .side__marker::before {
+      display: none;
     }
     .item {
       width: auto;

@@ -43,6 +43,15 @@
     });
   });
   const max = computed(() => Math.max(...parts.value.map((part) => part.value), 1));
+
+  // Drawn in: arcs sweep and bars grow from zero when shown (and when the view changes)
+  const drawn = ref(false);
+  const draw = () => {
+    drawn.value = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => (drawn.value = true)));
+  };
+  onMounted(draw);
+  watch(() => props.view, draw);
 </script>
 
 <template>
@@ -65,7 +74,7 @@
           fill="none"
           :stroke="arc.color"
           stroke-width="13"
-          :stroke-dasharray="arc.dash"
+          :stroke-dasharray="drawn ? arc.dash : `0 ${C}`"
           :stroke-dashoffset="arc.offset"
           transform="rotate(-90 50 50)"
           class="donut__arc"
@@ -85,7 +94,10 @@
           <span class="bars__track">
             <span
               class="bars__fill"
-              :style="{ width: `${(part.value / max) * 100}%`, background: part.color }"
+              :style="{
+                width: drawn ? `${(part.value / max) * 100}%` : '0%',
+                background: part.color,
+              }"
               :title="`${part.label}: ${number(part.value)}`"
             />
           </span>
@@ -123,7 +135,9 @@
     width: min(100%, 250px);
   }
   .donut__arc {
-    transition: stroke-width 0.15s;
+    transition:
+      stroke-dasharray 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      stroke-width 0.15s;
   }
   .donut__arc:hover {
     stroke-width: 15;
@@ -158,6 +172,7 @@
     background: #f3f4f6;
   }
   .bars__fill {
+    transition: width 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
     display: block;
     height: 100%;
     min-width: 0;
@@ -195,6 +210,12 @@
   .legend__value {
     color: var(--text);
     font-weight: 700;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .donut__arc,
+    .bars__fill {
+      transition: none;
+    }
   }
   @media (max-width: 640px) {
     .chart {

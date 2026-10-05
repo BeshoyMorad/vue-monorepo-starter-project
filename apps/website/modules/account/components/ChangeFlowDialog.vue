@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { Dialog } from '@workspace/ui/ui/dialog';
+  import { DIALOG_STEP_TRANSITION } from '~/modules/account/constants';
   import type { ConfirmChangeRequest } from '~/modules/account/types';
   import CodeConfirmForm from './CodeConfirmForm.vue';
 
@@ -43,19 +44,23 @@
     :description="description"
     content-class="site-ui auth-ui font-brand sm:max-w-md"
   >
-    <slot v-if="!step" name="request" :sent="(value: SentStep) => (step = value)" />
-    <CodeConfirmForm
-      v-else
-      :key="step.token"
-      :test-id="testId"
-      :token="step.token"
-      :text="step.text"
-      :submit-label="submitLabel"
-      :back-label="backLabel"
-      :confirm="confirm"
-      :resend="step.again"
-      :on-confirmed="onConfirmed"
-      @back="step = null"
-    />
+    <Transition v-bind="DIALOG_STEP_TRANSITION">
+      <div v-if="!step" key="request">
+        <slot name="request" :sent="(value: SentStep) => (step = value)" />
+      </div>
+      <CodeConfirmForm
+        v-else
+        :key="step.token"
+        :test-id="testId"
+        :token="step.token"
+        :text="step.text"
+        :submit-label="submitLabel"
+        :back-label="backLabel"
+        :confirm="confirm"
+        :resend="step.again"
+        :on-confirmed="onConfirmed"
+        @back="step = null"
+      />
+    </Transition>
   </Dialog>
 </template>

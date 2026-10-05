@@ -6,24 +6,25 @@
   import ContactCard from '~/modules/account/components/ContactCard.vue';
   import DeleteAccountCard from '~/modules/account/components/DeleteAccountCard.vue';
   import ProfileForm from '~/modules/account/components/ProfileForm.vue';
-  import ProfileShell from '~/modules/account/components/ProfileShell.vue';
   import { useAccountProfile } from '~/modules/account/composables/useAccountProfile';
 
   /**
    * Account settings (ibbil.com/en/profile/user-settings): user details, contact
    * information, password, bank account and account deletion. Guests sign in first.
    */
-  definePageMeta({ layout: 'site', requiresAuth: true });
+  definePageMeta({ requiresAuth: true });
 
   const { t } = useI18n();
   useSeoMeta({ title: () => t('account.seo.settings'), robots: 'noindex, nofollow' });
 
-  const profile = useServerPrefetch(useAccountProfile());
+  // Same cached query as the parent page (pages/profile.vue): no second request
+  const profile = useAccountProfile();
   const data = computed(() => profile.data.value ?? undefined);
 </script>
 
 <template>
-  <ProfileShell :profile="data" :title="t('account.seo.settings')" settings>
+  <div class="page">
+    <h1 id="profile-title" class="sr-only">{{ t('account.seo.settings') }}</h1>
     <template v-if="profile.isPending.value">
       <Skeleton v-for="n in 3" :key="n" class="h-56 rounded-[20px]" />
     </template>
@@ -41,10 +42,15 @@
       <BankCard :profile="data" />
       <DeleteAccountCard />
     </template>
-  </ProfileShell>
+  </div>
 </template>
 
 <style scoped>
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
   .state {
     display: flex;
     flex-direction: column;

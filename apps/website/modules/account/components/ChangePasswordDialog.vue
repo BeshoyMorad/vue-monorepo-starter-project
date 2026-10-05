@@ -3,6 +3,7 @@
   import Icon from '@workspace/ui/icon/Icon.vue';
   import { Dialog, DialogDescription, DialogTitle } from '@workspace/ui/ui/dialog';
   import { useAuthService } from '~/modules/auth/services';
+  import { DIALOG_STEP_TRANSITION } from '~/modules/account/constants';
   import type { ContactChannel, CustomerProfile } from '~/modules/account/types';
   import CodeConfirmForm from './CodeConfirmForm.vue';
   import NewPasswordForm from './NewPasswordForm.vue';
@@ -85,25 +86,27 @@
       </li>
     </ol>
 
-    <PasswordChannelStep
-      v-if="step === 0"
-      :profile="profile"
-      @sent="onSent"
-      @cancel="open = false"
-    />
-    <CodeConfirmForm
-      v-else-if="step === 1 && sent"
-      test-id="password-code"
-      :token="sent.token"
-      :text="t('account.password.codeSent', { target: `⁦${sent.target}⁩` })"
-      :submit-label="t('account.password.verifyCode')"
-      :back-label="t('account.password.back')"
-      :confirm="confirmCode"
-      :resend="resend"
-      :on-confirmed="toPasswordStep"
-      @back="step = 0"
-    />
-    <NewPasswordForm v-else-if="step === 2" :token="resetToken" @done="onDone" />
+    <Transition v-bind="DIALOG_STEP_TRANSITION">
+      <PasswordChannelStep
+        v-if="step === 0"
+        :profile="profile"
+        @sent="onSent"
+        @cancel="open = false"
+      />
+      <CodeConfirmForm
+        v-else-if="step === 1 && sent"
+        test-id="password-code"
+        :token="sent.token"
+        :text="t('account.password.codeSent', { target: `⁦${sent.target}⁩` })"
+        :submit-label="t('account.password.verifyCode')"
+        :back-label="t('account.password.back')"
+        :confirm="confirmCode"
+        :resend="resend"
+        :on-confirmed="toPasswordStep"
+        @back="step = 0"
+      />
+      <NewPasswordForm v-else-if="step === 2" :token="resetToken" @done="onDone" />
+    </Transition>
   </Dialog>
 </template>
 
@@ -134,6 +137,14 @@
   }
   .stepper__item--done:not(:last-child)::after {
     background: var(--color-primary-300);
+  }
+  .stepper__item::after,
+  .stepper__dot {
+    transition:
+      background-color 300ms,
+      border-color 300ms,
+      box-shadow 300ms,
+      color 300ms;
   }
   .stepper__dot {
     width: 28px;
