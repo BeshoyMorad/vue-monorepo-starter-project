@@ -1,0 +1,203 @@
+// Section texts from the homepage design (translated from the Arabic).
+// Lists, stats and media items are sample copy until the final content is provided.
+export const homeEn = {
+  seo: {
+    title: 'Home',
+    description:
+      'Ibbil: an integrated marketplace for camel services in Saudi Arabia, from insurance, transport and permits to feed, veterinary care and camel trading.',
+  },
+  readMore: 'Read more',
+  header: {
+    brand: 'Ibbil',
+    logoAlt: 'Ibbil home page',
+    mainNav: 'Main navigation',
+    sectionsNav: 'Platform sections',
+    home: 'Home',
+    about: 'About us',
+    contact: 'Contact us',
+    cart: 'Cart',
+    login: 'Sign in',
+    logout: 'Sign out',
+    join: 'Join as a merchant or service provider',
+    skipToContent: 'Skip to content',
+    search: {
+      label: 'Search the platform',
+      scopeLabel: 'Search scope',
+      placeholder: 'Search transport',
+      submit: 'Search',
+      all: 'All',
+    },
+  },
+  topNav: {
+    feed: 'Feed',
+    supplies: 'Camel supplies',
+    veterinary: 'Veterinary',
+    insurance: 'Insurance',
+    transport: 'Transport',
+    permits: 'Permits',
+    trading: 'Camel trading',
+    media: 'Media center',
+  },
+  hero: {
+    label: 'Ibbil highlights',
+    slideOf: 'Slide {current} of {total}',
+    goTo: 'Go to slide {n}',
+    pause: 'Pause autoplay',
+    play: 'Play autoplay',
+    text: 'Everything your camels need in one place: trusted stores, certified services and an easy, secure checkout.',
+    services: 'Our services',
+    slides: {
+      marketplace: {
+        eyebrow: 'Ibbil Platform',
+        pre: 'Your ',
+        hi: 'complete',
+        post: ' camel services marketplace',
+        cta: 'Shop now',
+      },
+      services: {
+        eyebrow: 'Certified services',
+        pre: 'Insurance, transport and permits ',
+        hi: 'in one click',
+        post: '',
+        cta: 'Request a service',
+      },
+      trading: {
+        eyebrow: 'Camel trading',
+        pre: 'Buy, sell and rent ',
+        hi: 'camels',
+        post: ' with confidence',
+        cta: 'Start trading',
+      },
+    },
+  },
+  about: {
+    eyebrow: 'Ibbil Platform',
+    title: 'About us',
+    lead: 'Ibbil is the first platform to offer an integrated marketplace for every camel-related service in Saudi Arabia.',
+    text: 'It covers insurance, transport and permits, feed, food and camel supply stores, and veterinary services, as well as trading, renting and co-owning camels. Shop across many stores and use every service offered by the merchants, vets and store owners on Ibbil.',
+    imageAlt: 'A camel caravan',
+    services: 'Our services',
+    learnMore: 'Learn more',
+    features: {
+      trusted: { title: 'Trusted merchants', text: 'Verified stores and service providers.' },
+      payments: { title: 'Secure payments', text: 'Protected from order to delivery.' },
+      support: { title: 'Ongoing support', text: 'Our team is with you at every step.' },
+    },
+  },
+  services: {
+    eyebrow: 'What we offer',
+    title: 'Platform services',
+    text: 'Pick the service you need and get started right away on Ibbil.',
+    explore: 'Explore the service',
+    items: {
+      insurance: {
+        title: 'Insurance',
+        text: 'Camel insurance policies from licensed insurers, issued online.',
+      },
+      transport: {
+        title: 'Transport',
+        text: 'Safe camel transport between cities with licensed carriers and trip tracking.',
+      },
+      permits: {
+        title: 'Permits',
+        text: 'Get camel transport and movement permits easily, in one place.',
+      },
+      veterinary: {
+        title: 'Veterinary',
+        text: 'Book a visit or a consultation with vets who specialize in camels.',
+      },
+      trading: {
+        title: 'Camel trading',
+        text: 'List your camels for sale or browse offers from verified owners.',
+      },
+      rental: {
+        title: 'Rental and co-ownership',
+        text: 'Rent camels or co-own them under clear contracts.',
+      },
+    },
+  },
+  categories: {
+    eyebrow: 'Ibbil Market',
+    title: 'Shop by category',
+    text: 'Pick a category and explore trusted stores on Ibbil.',
+    itemText:
+      'Selected products from trusted stores, with clear prices and delivery to every region.',
+    browse: 'Browse stores',
+    all: 'View all stores',
+    items: {
+      feed: 'Feed and food',
+      supplies: 'Camel supplies',
+      medicine: 'Veterinary medicine',
+      camels: 'Camels',
+    },
+  },
+  stats: {
+    eyebrow: 'Ibbil Platform',
+    title: 'Statistics',
+    items: {
+      merchants: { value: '350+', label: 'Merchants' },
+      providers: { value: '120+', label: 'Service providers' },
+      products: { value: '8,000+', label: 'Products' },
+      orders: { value: '25,000+', label: 'Orders' },
+      customers: { value: '40,000+', label: 'Customers' },
+      cities: { value: '60+', label: 'Cities' },
+    },
+  },
+  media: {
+    eyebrow: 'Media center',
+    title: 'Latest news and coverage',
+    text: 'Follow news from the camel world and the platform through articles, photos, videos and events.',
+    filterLabel: 'Content type',
+    views: '{n} views',
+    empty: 'Nothing in this section yet.',
+    center: 'Media center',
+    tabs: { news: 'News', photos: 'Photos', videos: 'Videos', events: 'Events' },
+    stories: {
+      launch: 'Ibbil launches online camel insurance',
+      festival: 'Ibbil takes part in the King Abdulaziz Camel Festival',
+      insurance: 'New partnership expands transport between regions',
+      gallery: 'Photos from our tour of camel markets',
+      tour: 'Video walkthrough: book a vet in minutes',
+      expo: 'Merchants and service providers meetup in Riyadh',
+    },
+    featured: {
+      meta: 'News · September 2026',
+      title: 'Ibbil launches its integrated camel services marketplace',
+      text: 'The platform brings merchants, vets and service providers together to make life easier for camel owners.',
+    },
+  },
+  footer: {
+    description:
+      'Ibbil is a specialized platform offering complete camel services in Saudi Arabia, including insurance, transport, permits, feed and veterinary care.',
+    social: 'Our social media accounts',
+    vision: 'Saudi Vision 2030',
+    copyright: '© {year} Ibbil. All rights reserved.',
+    columns: {
+      platform: 'Platform',
+      services: 'Services',
+      policies: 'Terms and policies',
+    },
+    links: {
+      about: 'About us',
+      contact: 'Contact us',
+      join: 'Join as a merchant',
+      faq: 'FAQ',
+      insurance: 'Insurance',
+      transport: 'Transport',
+      permits: 'Permits',
+      veterinary: 'Veterinary',
+      terms: 'Terms and conditions',
+      privacy: 'Privacy policy',
+      returns: 'Return policy',
+    },
+    socials: {
+      x: 'X',
+      instagram: 'Instagram',
+      snapchat: 'Snapchat',
+      youtube: 'YouTube',
+      tiktok: 'TikTok',
+    },
+  },
+};
+
+export type HomeLocaleSchema = typeof homeEn;

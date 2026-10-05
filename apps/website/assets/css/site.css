@@ -1,0 +1,115 @@
+/*
+ * Public site (layouts/site.vue adds .site-ui): the tokens and shared classes the homepage
+ * sections use. Colors come from the brand scale in brand.css. Text colors are picked for
+ * at least 4.5:1 contrast: gold text is gold-800 on light backgrounds and gold-300 on green.
+ */
+.site-ui {
+  --primary: var(--color-primary-500);
+  --secondary: var(--color-gold-500);
+  /* Gold for small text: on light backgrounds / on the green brand color */
+  --secondary-text: var(--color-gold-800);
+  --secondary-on-dark: var(--color-gold-300);
+  --on-secondary: var(--color-primary-800);
+  --text: oklch(0.2 0 0);
+  --caption: #4b5563;
+  --muted: #6b7280;
+  --border: rgb(45 83 61 / 0.15);
+  --border-on-dark: rgb(255 255 255 / 0.2);
+  --invert: var(--color-sand-200);
+  --modal2: var(--color-sand-50);
+  --chip: #e6efed;
+  --glass: rgb(255 255 255 / 0.15);
+  --radius: 16px;
+  --font: var(--font-brand);
+
+  font-family: var(--font-brand);
+  color: var(--text);
+  background: #fff;
+}
+
+/* Vertical rhythm of a homepage section: heading, content, closing button, centered */
+.site-ui .section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-block: 64px;
+}
+.site-ui .section > .container {
+  width: 100%;
+}
+
+.site-ui .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: 600 14px/20px var(--font);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+.site-ui .btn--primary {
+  background: var(--primary);
+  color: #fff;
+}
+.site-ui .btn--primary:hover {
+  background: var(--color-primary-600);
+}
+.site-ui .btn--secondary {
+  background: var(--secondary);
+  color: var(--on-secondary);
+}
+.site-ui .btn--secondary:hover {
+  background: var(--color-gold-400);
+}
+.site-ui .btn--outline {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.site-ui .btn--outline:hover {
+  background: var(--color-primary-50);
+}
+.site-ui .btn--chip {
+  background: var(--chip);
+  color: var(--primary);
+}
+/* Glass: translucent tint over whatever is behind it (green on white, white on photos) */
+.site-ui .btn--glass {
+  background: rgb(45 83 61 / 0.06);
+  color: var(--primary);
+}
+.site-ui .btn--glass:hover {
+  background: rgb(45 83 61 / 0.12);
+}
+
+/* Directional arrow inside "explore / read more" buttons: points forward in both directions */
+.site-ui .btn .site-arrow {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+/* Image placeholder until the real photos and illustrations are supplied */
+.site-ui .ph {
+  display: block;
+  background:
+    radial-gradient(at 30% 20%, rgb(212 160 68 / 0.35), transparent 60%),
+    linear-gradient(135deg, var(--color-primary-200), var(--color-sand-200));
+}
+
+/* Keyboard focus, as soft as in the auth screens: 2px 45%-green ring, offset 3px */
+.site-ui :is(a, button, select, input):focus-visible {
+  outline: 2px solid rgb(45 83 61 / 0.45);
+  outline-offset: 3px;
+}
+.site-ui .on-dark :is(a, button, select, input):focus-visible {
+  outline-color: rgb(255 255 255 / 0.7);
+}

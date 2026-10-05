@@ -1,10 +1,12 @@
 import { commonAr, mergeLocaleMessages } from '@workspace/locales';
 import { authAr } from '~/modules/auth/locales/ar';
+import { homeAr } from '~/modules/home/locales/ar';
 import { apiErrorsAr, validationAr } from './messages/ar';
 
 export default defineI18nLocale(async () => {
   const websiteAr = {
     auth: authAr,
+    home: homeAr,
     apiErrors: apiErrorsAr,
     validation: validationAr,
     errors: {
