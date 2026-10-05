@@ -1,4 +1,4 @@
-import type { TableParams } from '@workspace/core/composables';
+import type { TableParams } from '@workspace/core/composables/types';
 import { getApiClient } from './client';
 
 /**
@@ -22,9 +22,7 @@ export const fetchTableData = async <TResponse>(
     }
   });
 
-  const { data } = await client.get<TResponse>(endpoint, {
-    params: cleanParams,
+  return client.get<TResponse>(endpoint, {
+    query: cleanParams,
   });
-
-  return data;
 };

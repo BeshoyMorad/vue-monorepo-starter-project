@@ -1,7 +1,9 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
   import type { Editor } from '@tiptap/vue-3';
-  import { Button, Tooltip, Icon } from '@workspace/ui';
+  import { Button } from '@workspace/ui/ui/button';
+  import Tooltip from '@workspace/ui/tooltip/Tooltip.vue';
+  import { Icon } from '@workspace/ui/icon';
   import { Popover, PopoverContent, PopoverTrigger } from '@workspace/ui/ui/popover';
   import { Input } from '@workspace/ui/ui/input';
   import { cn } from '@workspace/core/utils';

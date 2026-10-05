@@ -1,9 +1,9 @@
-import type { AxiosInstance } from '@workspace/core';
+import type { ApiClient } from '@workspace/core/lib';
 
 /**
- * Returns the Nuxt 3 application configured Axios API client.
+ * Returns the Nuxt 3 application configured ofetch API client.
  */
-export const useApi = (): AxiosInstance => {
+export const useApi = (): ApiClient => {
   const { $api } = useNuxtApp();
   return $api;
 };

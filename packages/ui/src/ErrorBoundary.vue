@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, onErrorCaptured, nextTick, type ComponentPublicInstance } from 'vue';
-  import { ExceptionState } from '@workspace/ui';
+  import ExceptionState from '@workspace/ui/ExceptionState.vue';
 
   interface Props {
     fallbackTitle?: string;

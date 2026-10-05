@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { HtmlHTMLAttributes } from 'vue';
   import { cn } from '@workspace/core/utils';
-  import { iconVariants, type IconVariants } from '.';
+  import { iconVariants, type IconVariants } from './variants';
 
   interface Props {
     testId?: string;

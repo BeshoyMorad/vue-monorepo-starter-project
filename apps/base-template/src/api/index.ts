@@ -4,7 +4,7 @@ import { createApiClient } from '@workspace/core/lib';
 import { error as toastError } from '@workspace/core/utils/toast';
 
 /**
- * Base-Template Configured Axios API Client.
+ * Base-Template Configured ofetch API Client.
  */
 export const api = createApiClient({
   baseURL: config.apiBaseUrl,

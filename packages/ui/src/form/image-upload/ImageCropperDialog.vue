@@ -2,7 +2,8 @@
   import { ref } from 'vue';
   import { Cropper } from 'vue-advanced-cropper';
   import 'vue-advanced-cropper/dist/style.css';
-  import { Button, Dialog } from '@workspace/ui';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Dialog } from '@workspace/ui/ui/dialog';
   import { TEST_IDS } from '@workspace/core/lib/test-ids';
 
   interface Props {

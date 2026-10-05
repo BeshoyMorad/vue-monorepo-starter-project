@@ -1,16 +1,16 @@
-import type { AxiosInstance } from '@workspace/core/api';
+import type { ApiClient } from '@workspace/core/lib';
 import type { QueryClient } from '@tanstack/vue-query';
 
 declare module '#app' {
   interface NuxtApp {
-    $api: AxiosInstance;
+    $api: ApiClient;
     $queryClient: QueryClient;
   }
 }
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    $api: AxiosInstance;
+    $api: ApiClient;
     $queryClient: QueryClient;
   }
 }

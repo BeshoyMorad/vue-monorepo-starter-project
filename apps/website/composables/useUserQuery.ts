@@ -2,7 +2,7 @@ import { computed, toValue, type Ref } from 'vue';
 import { useQuery, queryOptions } from '@tanstack/vue-query';
 import { useApi } from '~/composables/useApi';
 import { apiRoute } from '~/api/endpoints';
-import type { AxiosInstance } from '@workspace/core';
+import type { ApiClient } from '@workspace/core/lib';
 
 export interface UserItem {
   id: string | number;
@@ -15,12 +15,11 @@ export interface UserItem {
 /**
  * Nuxt 3 user query options for SSR prefetching & client hydration.
  */
-export const userQueryOptions = (api: AxiosInstance, id: string | number) =>
+export const userQueryOptions = (api: ApiClient, id: string | number) =>
   queryOptions({
     queryKey: ['users', 'details', id],
     queryFn: async (): Promise<UserItem> => {
-      const { data } = await api.get<UserItem>(apiRoute('users.detail', { id }));
-      return data;
+      return await api.get<UserItem>(apiRoute('users.detail', { id }));
     },
     staleTime: 1000 * 60,
   });

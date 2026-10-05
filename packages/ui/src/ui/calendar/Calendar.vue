@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import type { CalendarRootEmits, CalendarRootProps, DateValue } from 'reka-ui';
   import type { HTMLAttributes, Ref } from 'vue';
-  import type { LayoutTypes } from '.';
+  import type { LayoutTypes } from './types';
   import { getLocalTimeZone, today } from '@internationalized/date';
   import { createReusableTemplate, reactiveOmit, useVModel } from '@vueuse/core';
   import { CalendarRoot, useDateFormatter, useForwardPropsEmits } from 'reka-ui';
@@ -9,19 +9,17 @@
   import { computed, toRaw } from 'vue';
   import { cn } from '@workspace/core/utils';
   import { NativeSelect, NativeSelectOption } from '@workspace/ui/ui/native-select';
-  import {
-    CalendarCell,
-    CalendarCellTrigger,
-    CalendarGrid,
-    CalendarGridBody,
-    CalendarGridHead,
-    CalendarGridRow,
-    CalendarHeadCell,
-    CalendarHeader,
-    CalendarHeading,
-    CalendarNextButton,
-    CalendarPrevButton,
-  } from '.';
+  import CalendarCell from './CalendarCell.vue';
+  import CalendarCellTrigger from './CalendarCellTrigger.vue';
+  import CalendarGrid from './CalendarGrid.vue';
+  import CalendarGridBody from './CalendarGridBody.vue';
+  import CalendarGridHead from './CalendarGridHead.vue';
+  import CalendarGridRow from './CalendarGridRow.vue';
+  import CalendarHeadCell from './CalendarHeadCell.vue';
+  import CalendarHeader from './CalendarHeader.vue';
+  import CalendarHeading from './CalendarHeading.vue';
+  import CalendarNextButton from './CalendarNextButton.vue';
+  import CalendarPrevButton from './CalendarPrevButton.vue';
 
   const props = withDefaults(
     defineProps<

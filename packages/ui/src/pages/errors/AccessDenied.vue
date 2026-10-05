@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ExceptionState } from '@workspace/ui';
+  import ExceptionState from '@workspace/ui/ExceptionState.vue';
   import { useRouter } from 'vue-router';
 
   const props = withDefaults(

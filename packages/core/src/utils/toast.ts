@@ -1,6 +1,20 @@
 import { toast } from 'vue-sonner';
-import { h } from 'vue';
-import { CustomToast, Icon } from '@workspace/ui';
+import { h, type Component } from 'vue';
+
+export interface ToastComponents {
+  CustomToast: Component;
+  Icon: Component;
+}
+
+let registeredComponents: ToastComponents | null = null;
+
+export function registerToastComponents(components: ToastComponents): void {
+  registeredComponents = components;
+}
+
+export function getToastComponents(): ToastComponents | null {
+  return registeredComponents;
+}
 
 export type ToastVariant = 'info' | 'success' | 'error' | 'warn';
 
@@ -53,21 +67,32 @@ export function notify(variant: ToastVariant, options: ToastOptions) {
   const title = options.title || config.defaultTitle;
   const body = options.body || config.defaultBody;
 
-  config.method(
-    h(CustomToast, {
-      title,
-      body,
-      onClick: options.action,
-    }),
-    {
-      icon: h(Icon, { icon: config.icon, class: 'size-4 text-white' }),
-      class: options.action ? 'cursor-pointer' : '',
-      classes: {
-        icon: config.iconClass,
-        closeButton: config.closeClass,
-      },
-    }
-  );
+  if (registeredComponents) {
+    config.method(
+      h(registeredComponents.CustomToast, {
+        title,
+        body,
+        onClick: options.action,
+      }),
+      {
+        icon: h(registeredComponents.Icon, { icon: config.icon, class: 'text-white' }),
+        class: options.action ? 'cursor-pointer' : '',
+        classes: {
+          icon: config.iconClass,
+          closeButton: config.closeClass,
+        },
+      }
+    );
+  } else {
+    config.method(title ? `${title}: ${body}` : body, {
+      action: options.action
+        ? {
+            label: 'Action',
+            onClick: options.action,
+          }
+        : undefined,
+    });
+  }
 }
 
 export const info = (title?: string, body?: string, action?: () => void) =>

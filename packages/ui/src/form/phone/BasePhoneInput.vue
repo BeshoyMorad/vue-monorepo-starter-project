@@ -5,7 +5,7 @@
   import { allCountries } from '@workspace/core/utils/countries';
   import { inputVariants } from '@workspace/ui/ui/input';
   import { Popover } from '@workspace/ui/ui/popover';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import type { BasePhoneInputProps } from './types';
 
   defineOptions({

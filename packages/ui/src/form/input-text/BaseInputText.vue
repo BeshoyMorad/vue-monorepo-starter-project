@@ -2,7 +2,7 @@
   import { useVModel } from '@vueuse/core';
   import { cn } from '@workspace/core';
   import { Input } from '@workspace/ui/ui/input';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import type { BaseInputTextProps } from './types';
 
   defineOptions({

@@ -10,7 +10,8 @@
 >
   import { useDataInfiniteScroll } from '@workspace/core/composables';
   import { computed } from 'vue';
-  import { Icon, InfiniteScroll } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import InfiniteScroll from '@workspace/ui/infinite-scroll/InfiniteScroll.vue';
   import { type AcceptableValue } from 'reka-ui';
   import { ComboboxItemIndicator, ComboboxItem, Combobox } from '@workspace/ui/ui/combobox';
   import type { BaseInfiniteScrollSelectProps } from './types';

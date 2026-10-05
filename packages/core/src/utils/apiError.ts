@@ -1,7 +1,17 @@
-import { isAxiosError } from 'axios';
+import { FetchError } from 'ofetch';
 import type { GenericObject } from 'vee-validate';
 
 const DEFAULT_MESSAGE = 'Something went wrong. Please try again.';
+
+/**
+ * Checks whether an error is an ofetch FetchError.
+ */
+export function isFetchError<T = unknown>(err: unknown): err is FetchError<T> {
+  return (
+    err instanceof FetchError ||
+    (typeof err === 'object' && err !== null && 'statusCode' in err && 'data' in err)
+  );
+}
 
 /**
  * Recursively flattens nested error objects or arrays into vee-validate field paths.
@@ -52,17 +62,29 @@ function flattenErrors(errors: unknown, prefix = ''): Record<string, string> {
   return result;
 }
 
-export function getApiError(err: unknown) {
-  if (isAxiosError<ApiErrorResponse>(err)) {
-    return err.response?.data;
+export function getApiError(err: unknown): ApiErrorResponse | undefined {
+  if (isFetchError(err)) {
+    return (err.data ?? err.response?._data) as ApiErrorResponse | undefined;
   }
 
-  return;
+  if (err && typeof err === 'object') {
+    if ('data' in err && (err as { data: unknown }).data) {
+      return (err as { data: ApiErrorResponse }).data;
+    }
+    if ('response' in err) {
+      const res = (err as { response?: { _data?: ApiErrorResponse; data?: ApiErrorResponse } })
+        .response;
+      return res?._data ?? res?.data;
+    }
+  }
+
+  return undefined;
 }
 
 export function getApiErrorMessage(err: unknown, fallback = DEFAULT_MESSAGE): string {
-  if (isAxiosError<ApiErrorResponse>(err)) {
-    return err.response?.data?.message ?? fallback;
+  const apiError = getApiError(err);
+  if (apiError?.message) {
+    return apiError.message;
   }
 
   if (err instanceof Error) {
@@ -73,11 +95,8 @@ export function getApiErrorMessage(err: unknown, fallback = DEFAULT_MESSAGE): st
 }
 
 export function getApiFieldErrors(err: unknown): Record<string, string> | undefined {
-  if (!isAxiosError<ApiErrorResponse>(err)) {
-    return undefined;
-  }
-
-  const errors = err.response?.data?.errors;
+  const apiError = getApiError(err);
+  const errors = apiError?.errors;
   if (!errors || typeof errors !== 'object') {
     return undefined;
   }

@@ -2,7 +2,8 @@
   import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
   import { cn, formatFileSize } from '@workspace/core/utils';
-  import { Icon, Button } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import { Button } from '@workspace/ui/ui/button';
   import { error } from '@workspace/core/utils/toast';
   import {
     DEFAULT_ALLOWED_FILE_TYPES,

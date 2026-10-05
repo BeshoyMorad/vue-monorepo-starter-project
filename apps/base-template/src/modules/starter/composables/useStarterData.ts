@@ -8,7 +8,7 @@ export function useStarterData() {
     queryKey: QUERY_KEYS.starter.profile(),
     queryFn: async () => {
       const response = await api.get<ApiResponse<StarterProfile>>(apiRoute('starter.profile'));
-      return response.data.data;
+      return response.data;
     },
   });
 }

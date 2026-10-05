@@ -107,19 +107,19 @@ export function apiRoute<T extends keyof ApiRoutes = keyof ApiRoutes>(
   ) as string;
 }`;
 
-export const API_ROUTE_USAGE_CODE = `import { api } from '@workspace/core/lib/api/client';
+export const API_ROUTE_USAGE_CODE = `import { api } from '@/api';
 import { apiRoute } from '@workspace/core/lib/api/endpoints';
 
 export const usersServices = {
   getUsers: async () => {
-    const { data } = await api.get<ApiResponse<User[]>>(
+    const data = await api.get<ApiResponse<User[]>>(
       apiRoute('users.list')
     );
     return data;
   },
 
   createUser: async (payload: CreateUserPayload) => {
-    const { data } = await api.post<ApiResponse<User>>(
+    const data = await api.post<ApiResponse<User>>(
       apiRoute('users.create'),
       payload
     );

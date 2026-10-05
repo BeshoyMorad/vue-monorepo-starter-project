@@ -9,6 +9,3 @@ allowBuilds:
   esbuild: true
   msw: true
   vue-demi: true
-
-patchedDependencies:
-  '@vueuse/core@14.3.0': patches/@vueuse__core@14.3.0.patch

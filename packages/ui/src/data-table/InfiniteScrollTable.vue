@@ -4,7 +4,9 @@
   import { useInfiniteScroll } from '@vueuse/core';
   import { type ColumnDef } from '@tanstack/vue-table';
   import { cn } from '@workspace/core/utils';
-  import { Icon, Skeleton, EmptyPlaceholder } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import { Skeleton } from '@workspace/ui/ui/skeleton';
+  import EmptyPlaceholder from '@workspace/ui/placeholders/EmptyPlaceholder.vue';
   import {
     Table,
     TableHeader,

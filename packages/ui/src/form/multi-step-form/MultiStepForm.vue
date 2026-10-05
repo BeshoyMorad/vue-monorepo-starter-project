@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useId } from 'vue';
-  import { Button } from '@workspace/ui';
+  import { Button } from '@workspace/ui/ui/button';
   import { cn } from '@workspace/core/utils';
   import { useMultiStepForm } from '@workspace/core/composables/useMultiStepForm';
   import StepIndicator from './StepIndicator.vue';

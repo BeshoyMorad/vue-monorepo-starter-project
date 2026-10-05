@@ -13,7 +13,10 @@
   } from '@workspace/core/constants';
   import { computed, ref, watch } from 'vue';
   import { createMediaValueList } from '@workspace/core/composables';
-  import { Button, Field, Icon, Tooltip } from '@workspace/ui';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Icon } from '@workspace/ui/icon';
+  import Tooltip from '@workspace/ui/tooltip/Tooltip.vue';
+  import Textarea from './Textarea.vue';
   import type { TextAreaWithMediaProps } from './types';
 
   const props = withDefaults(defineProps<TextAreaWithMediaProps>(), {
@@ -185,7 +188,7 @@
 <template>
   <div :class="cn('bg-background rounded-xl py-2 pr-4 pl-2', containerClass)">
     <div class="flex w-full justify-between gap-2">
-      <Field.Textarea
+      <Textarea
         :test-id="`${testId}-text-content`"
         :name="textAreaName"
         container-class="flex-1"

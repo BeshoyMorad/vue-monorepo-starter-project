@@ -1,8 +1,8 @@
 <script setup lang="ts" generic="TRow">
   import { cn } from '@workspace/core';
   import { type ColumnDef } from '@tanstack/vue-table';
-  import { Skeleton } from '@workspace/ui';
-  import { EmptyPlaceholder } from '@workspace/ui';
+  import { Skeleton } from '@workspace/ui/ui/skeleton';
+  import EmptyPlaceholder from '@workspace/ui/placeholders/EmptyPlaceholder.vue';
   import {
     Table,
     TableHeader,

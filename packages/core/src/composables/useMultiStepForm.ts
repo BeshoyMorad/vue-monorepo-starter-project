@@ -7,7 +7,7 @@ import type {
   MultiStepFormOptions,
   FormPersistenceConfig,
   StorageType,
-} from '@workspace/ui/form/multi-step-form/types';
+} from '@workspace/core/types/multiStepForm';
 import { applyApiErrorToForm, getApiFieldErrors } from '@workspace/core/utils/apiError';
 import { isMediaValue } from '@workspace/core/composables/useFormMedia';
 

@@ -2,7 +2,9 @@
   import { computed, ref, useAttrs, useId } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
-  import { Popover, Button, Icon } from '@workspace/ui';
+  import { Popover } from '@workspace/ui/ui/popover';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Icon } from '@workspace/ui/icon';
   import { Calendar } from '@workspace/ui/ui/calendar';
   import { inputVariants } from '@workspace/ui/ui/input';
   import { cn } from '@workspace/core/utils';

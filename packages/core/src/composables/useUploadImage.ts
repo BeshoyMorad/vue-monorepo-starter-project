@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/vue-query';
-import axios, { isAxiosError } from 'axios';
+import { ofetch } from 'ofetch';
 import { getApiClient } from '@workspace/core/lib/api/client';
 import { error } from '@workspace/core/utils/toast';
+import { isFetchError } from '@workspace/core/utils';
 
 export type StorageServiceType = 'PHOTO';
 
@@ -42,21 +43,21 @@ export function useUploadImage(endpoint: string = '/media/upload') {
         media: fileMetadata,
       });
 
-      const { mediaId, presignedUrls } = response.data.data;
+      const { mediaId, presignedUrls } = response.data;
 
       if (!presignedUrls || presignedUrls.length !== files.length) {
         throw new Error('Failed to retrieve presigned URLs');
       }
 
       // 2. Upload files in parallel to the presigned URLs
-      // Note: We use a fresh axios instance to prevent our global interceptors from attaching
-      // authentication headers or overwriting the Content-Type, which would cause S3 to reject the request.
+      // Note: We use ofetch directly without global interceptors to upload to storage provider
       const uploadPromises = files.map((file, index) =>
-        axios.put(presignedUrls[index], file, {
+        ofetch(presignedUrls[index], {
+          method: 'PUT',
+          body: file,
           headers: {
             'Content-Type': file.type,
           },
-          maxBodyLength: Infinity,
         })
       );
 
@@ -66,8 +67,8 @@ export function useUploadImage(endpoint: string = '/media/upload') {
     },
     onError: (err: unknown) => {
       let message = 'Failed to upload files';
-      if (isAxiosError(err)) {
-        message = err.response?.data?.message || message;
+      if (isFetchError(err)) {
+        message = (err.data as { message?: string })?.message || err.message || message;
       } else if (err instanceof Error) {
         message = err.message;
       }

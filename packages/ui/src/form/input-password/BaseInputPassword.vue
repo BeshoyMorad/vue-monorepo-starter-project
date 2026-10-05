@@ -2,7 +2,7 @@
   import { ref, computed } from 'vue';
   import { useVModel } from '@vueuse/core';
   import BaseInputText from '@workspace/ui/form/input-text/BaseInputText.vue';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import type { BaseInputPasswordProps } from './types';
 
   defineOptions({

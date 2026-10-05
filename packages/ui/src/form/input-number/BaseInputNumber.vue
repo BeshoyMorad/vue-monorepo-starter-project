@@ -9,7 +9,7 @@
     NumberFieldIncrement,
     NumberFieldInput,
   } from '@workspace/ui/ui/number-field';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import type { BaseInputNumberProps } from './types';
 
   defineOptions({

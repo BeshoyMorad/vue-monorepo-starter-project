@@ -2,7 +2,7 @@
   import type { HTMLAttributes } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { cn } from '@workspace/core/utils';
-  import { inputVariants } from '.';
+  import { inputVariants } from './variants';
 
   const props = defineProps<{
     defaultValue?: string | number;

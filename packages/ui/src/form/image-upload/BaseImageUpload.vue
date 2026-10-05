@@ -3,7 +3,8 @@
   import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
   import { cn } from '@workspace/core/utils';
-  import { Icon, Button } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import { Button } from '@workspace/ui/ui/button';
   import { createMediaValue } from '@workspace/core/composables/useFormMedia';
   import { error } from '@workspace/core/utils/toast';
   import {

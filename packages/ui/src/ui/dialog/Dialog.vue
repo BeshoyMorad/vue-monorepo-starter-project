@@ -3,7 +3,8 @@
   import type { HTMLAttributes } from 'vue';
   import { reactiveOmit } from '@vueuse/core';
   import { useForwardPropsEmits } from 'reka-ui';
-  import { Icon, Button } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import { Button } from '@workspace/ui/ui/button';
   import { cn } from '@workspace/core';
   import DialogClose from './DialogClose.vue';
   import DialogContent from './DialogContent.vue';
