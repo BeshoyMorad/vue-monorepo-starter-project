@@ -45,11 +45,14 @@ export function createAuthService(api: ApiFetch) {
 
     resendOtp: (token: string) => publicPost<SuccessResponse>('auth.otp.resend', { token }),
 
-    /** Sends a reset OTP. Succeeds even for unknown numbers (no account enumeration). */
-    forgotPassword: (phone: string) =>
+    /**
+     * Sends a reset OTP to a phone (default) or email. Succeeds even for unknown contacts
+     * (no account enumeration). The profile's "change password" uses it with the user's own.
+     */
+    forgotPassword: (identifier: string, channel: 'phone' | 'email' = 'phone') =>
       publicPost<TokenStepResponse>('auth.password.forgot', {
-        channel: 'phone',
-        identifier: phone,
+        channel,
+        identifier,
         portal: AUTH_PORTAL,
       }),
 

@@ -16,6 +16,9 @@ const nationalIdInUse = 'رقم الهوية هذا مرتبط بحساب مسب
 
 export const apiErrorsAr: typeof apiErrorsEn = {
   codes: {
+    UPLOAD_FILE_REQUIRED: 'اختر صورة لرفعها.',
+    UPLOAD_FILE_TYPE_UNSUPPORTED: 'نوع الملف غير مدعوم. استخدم صورة JPG أو PNG أو WebP.',
+    UPLOAD_FILE_TOO_LARGE: 'الصورة كبيرة جداً. استخدم صورة أصغر من 5 ميغابايت.',
     VALIDATION_FAILED: 'يرجى مراجعة الحقول المحددة.',
     ValidationError: 'يرجى مراجعة الحقول المحددة.',
     BadRequest: 'يرجى مراجعة الحقول المحددة.',

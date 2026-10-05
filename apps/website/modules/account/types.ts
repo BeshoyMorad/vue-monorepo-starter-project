@@ -56,4 +56,6 @@ export interface CustomerStats {
   suspended: number;
 }
 
-export type StatsDomain = 'insurance' | 'transportation';
+/** Domains with customer statistics, in the order the overview tabs show them */
+export const STATS_DOMAINS = ['marketplace', 'transportation', 'veterinary', 'insurance'] as const;
+export type StatsDomain = (typeof STATS_DOMAINS)[number];

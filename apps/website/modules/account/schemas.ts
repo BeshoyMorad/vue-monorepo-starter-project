@@ -42,27 +42,23 @@ export const ibanRule = (t: Translate) =>
       })
     );
 
-/** Optional link, e.g. a Google Maps address */
-const urlRule = (t: Translate) =>
-  yup
-    .string()
-    .trim()
-    .default('')
-    .test(
-      explained('url', (value) => {
-        try {
-          return ['http:', 'https:'].includes(new URL(value).protocol) ? undefined : t(key('url'));
-        } catch {
-          return t(key('url'));
-        }
-      })
-    );
-
+/**
+ * User details as in the Ibbil design: first and last name (sent joined as `fullName`)
+ * and the national ID.
+ */
 export const createProfileSchema = (t: Translate) =>
   yup.object({
-    fullName: fullNameRule(t),
+    firstName: fullNameRule(t),
+    lastName: yup
+      .string()
+      .trim()
+      .required(t('auth.validation.required'))
+      .test(
+        explained('lastName', (value) =>
+          value.trim().length < 2 ? t(key('lastNameShort')) : undefined
+        )
+      ),
     nationalId: nationalIdRule(t),
-    addressLink: urlRule(t),
   });
 export type ProfileFormValues = yup.InferType<ReturnType<typeof createProfileSchema>>;
 

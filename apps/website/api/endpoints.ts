@@ -24,11 +24,16 @@ export const routes = {
   'customer.delete': { uri: 'customers/current-user', methods: ['DELETE'] },
   'customer.contact': { uri: 'customers/current-user/contact', methods: ['POST', 'PUT'] },
   'customer.iban': { uri: 'customers/current-user/iban', methods: ['POST', 'PUT'] },
+  'customer.stats.marketplace': { uri: 'marketplace/customers/statistics', methods: ['GET'] },
+  'customer.stats.veterinary': { uri: 'veterinary/customers/statistics', methods: ['GET'] },
   'customer.stats.insurance': { uri: 'insurance/customers/statistics', methods: ['GET'] },
   'customer.stats.transportation': {
     uri: 'transportation/customers/statistics',
     methods: ['GET'],
   },
+
+  // UPLOADS: multipart, field `file`; answers with the public URL of the stored image
+  'uploads.image': { uri: 'uploads/image', methods: ['POST'] },
 
   // SEARCH (public; history is customers only)
   search: { uri: 'user/search', methods: ['GET'] },

@@ -34,6 +34,10 @@ export const apiErrorsEn = {
     OTP_RATE_LIMITED: tooMany,
     TooManyRequests: tooMany,
     INTERNAL_ERROR: 'Something went wrong on our side. Please try again later.',
+    // Uploads
+    UPLOAD_FILE_REQUIRED: 'Choose an image to upload.',
+    UPLOAD_FILE_TYPE_UNSUPPORTED: "This file type isn't supported. Use a JPG, PNG or WebP image.",
+    UPLOAD_FILE_TOO_LARGE: 'This image is too large. Use one under 5 MB.',
     // Auth
     AUTH_INVALID_CREDENTIALS: invalidCredentials,
     InvalidCredentials: invalidCredentials,

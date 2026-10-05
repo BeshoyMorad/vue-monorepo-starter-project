@@ -6,7 +6,11 @@ export const paths = {
   ssgExample: '/ssg-example',
   isrExample: '/isr-example',
   search: '/search',
-  account: '/account',
+  // Same URLs as ibbil.com: overview and account settings of the signed-in customer
+  profile: {
+    overview: '/profile',
+    settings: '/profile/user-settings',
+  },
   // Same URLs as ibbil.com
   auth: {
     login: `/auth/${basePaths.auth.login}`,

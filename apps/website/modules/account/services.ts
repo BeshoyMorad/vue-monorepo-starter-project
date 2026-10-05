@@ -41,14 +41,37 @@ export function createAccountService(api: ApiFetch) {
     confirmIbanChange: (body: ConfirmChangeRequest) =>
       call<{ success: boolean }>('customer.iban', { method: 'PUT', body }),
 
+    /** Uploads one image and returns its public URL (then saved with `updateProfile`) */
+    uploadImage: async (file: File) => {
+      const body = new FormData();
+      body.append('file', file);
+      const data = await call<unknown>('uploads.image', { method: 'POST', body });
+      const url = pickUploadUrl(data);
+      if (!url) throw new Error('UPLOAD_NO_URL');
+      return url;
+    },
+
     deleteAccount: () => call<{ success: boolean }>('customer.delete', { method: 'DELETE' }),
 
     stats: (domain: StatsDomain, signal?: AbortSignal) =>
-      call<CustomerStats>(
-        domain === 'insurance' ? 'customer.stats.insurance' : 'customer.stats.transportation',
-        { signal }
-      ),
+      call<CustomerStats>(`customer.stats.${domain}`, { signal }),
   };
+}
+
+/**
+ * The URL in an upload response. Only the request side was verified against the dev API
+ * (field `file`, codes UPLOAD_FILE_REQUIRED / UPLOAD_FILE_TYPE_UNSUPPORTED), so the common
+ * response shapes are all accepted: a string, { url | location | fileUrl | path }, or a list.
+ */
+function pickUploadUrl(data: unknown): string | undefined {
+  if (typeof data === 'string') return data;
+  if (Array.isArray(data)) return pickUploadUrl(data[0]);
+  if (data && typeof data === 'object') {
+    const record = data as Record<string, unknown>;
+    const value = record.url ?? record.location ?? record.fileUrl ?? record.path ?? record.file;
+    return typeof value === 'string' ? value : pickUploadUrl(value);
+  }
+  return undefined;
 }
 
 export type AccountService = ReturnType<typeof createAccountService>;

@@ -8,11 +8,13 @@
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from '@workspace/ui/ui/dropdown-menu';
+  import ProfileAvatar from '~/modules/account/components/ProfileAvatar.vue';
   import { paths } from '~/router/paths';
   import { useAuthStore } from '~/stores/auth';
 
   /**
-   * Header menu of a signed-in customer: who is signed in, "My account" and "Sign out".
+   * Header controls of a signed-in customer (as on ibbil.com): "Welcome back, <name>" with the
+   * avatar opens the menu (My profile, Account settings, Sign out); then Favorites.
    * While signing out it stays on screen as "Signing out…" (see useSigningOut).
    */
   const { t } = useI18n();
@@ -22,10 +24,7 @@
   const signingOut = useSigningOut();
   const open = ref(false);
 
-  const firstName = computed(() => authStore.user?.fullName?.trim().split(/\s+/)[0] ?? '');
-  const label = computed(() =>
-    signingOut.value ? t('home.header.loggingOut') : firstName.value || t('account.menu.account')
-  );
+  const name = computed(() => authStore.user?.fullName?.trim() ?? '');
 </script>
 
 <template>
@@ -37,15 +36,14 @@
         data-test-id="header-account"
         :aria-disabled="signingOut || undefined"
       >
-        <Icon icon="site--user-square" class="size-6" />
+        <ProfileAvatar :name="name" :src="authStore.user?.avatar" :size="36" />
         <span class="trigger__label">
-          <span class="sr-only">{{ t('account.menu.label') }}: </span><bdi>{{ label }}</bdi>
+          <span class="sr-only">{{ t('account.menu.label') }}: </span>
+          <template v-if="signingOut">{{ t('home.header.loggingOut') }}</template>
+          <template v-else
+            >{{ t('account.menu.welcome') }} <bdi class="trigger__name">{{ name }}</bdi></template
+          >
         </span>
-        <Icon
-          icon="hugeicons--arrow-down-01"
-          class="trigger__caret size-4 transition-transform"
-          :class="{ 'rotate-180': open }"
-        />
       </button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
@@ -70,9 +68,19 @@
         test-id="header-account-link"
         class="gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium data-highlighted:bg-[oklch(0.97_0_0)]"
       >
-        <NuxtLink :to="localePath(paths.account)">
+        <NuxtLink :to="localePath(paths.profile.overview)">
           <Icon icon="hugeicons--user-circle" class="text-primary-500 size-5" />
           {{ t('account.menu.account') }}
+        </NuxtLink>
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        as-child
+        test-id="header-settings-link"
+        class="gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium data-highlighted:bg-[oklch(0.97_0_0)]"
+      >
+        <NuxtLink :to="localePath(paths.profile.settings)">
+          <Icon icon="hugeicons--user-account" class="text-primary-500 size-5" />
+          {{ t('account.menu.settings') }}
         </NuxtLink>
       </DropdownMenuItem>
       <DropdownMenuItem
@@ -85,36 +93,61 @@
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
+  <!-- TODO: favorites page -->
+  <a href="#" class="fav" :aria-label="t('account.menu.favorites')">
+    <Icon icon="hugeicons--favourite" class="size-5" />
+  </a>
 </template>
 
 <style scoped>
-  /* Same look as the header's other controls (AppHeader .ctrls__item) */
   .trigger {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    min-height: 32px;
-    padding: 4px;
-    border-radius: 8px;
-    font: 700 12px/16px var(--font);
+    gap: 8px;
+    min-height: 40px;
+    padding: 2px 8px 2px 2px;
+    border-radius: 99px;
+    font: 500 13px/18px var(--font);
     white-space: nowrap;
     cursor: pointer;
+  }
+  [dir='rtl'] .trigger {
+    padding: 2px 2px 2px 8px;
   }
   .trigger:hover,
   .trigger[data-state='open'] {
     background: var(--glass);
   }
   .trigger__label {
-    max-width: 120px;
+    max-width: 240px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  /* Phone: icon only; the name stays the accessible name */
-  @media (max-width: 640px) {
-    .trigger {
-      min-width: 40px;
-      min-height: 40px;
-      justify-content: center;
+  /* Gold-300: the gold that keeps 4.5:1 on the green bar */
+  .trigger__name {
+    color: var(--secondary-on-dark);
+    font-weight: 700;
+  }
+  .fav {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+  }
+  .fav:hover {
+    background: var(--glass);
+  }
+  @media (max-width: 1280px) {
+    .trigger__label {
+      max-width: 150px;
+    }
+  }
+  /* Tablet and phone: the avatar only; the welcome text stays the accessible name */
+  @media (max-width: 1024px) {
+    .trigger,
+    [dir='rtl'] .trigger {
+      padding: 2px;
     }
     .trigger__label {
       position: absolute;
@@ -124,7 +157,7 @@
       clip-path: inset(50%);
       white-space: nowrap;
     }
-    .trigger__caret {
+    .fav {
       display: none;
     }
   }

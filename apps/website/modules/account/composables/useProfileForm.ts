@@ -8,18 +8,29 @@ import { useApiFormError } from '~/composables/useApiFormError';
 import { useCanSubmit } from '~/composables/useCanSubmit';
 import { createProfileSchema, type ProfileFormValues } from '~/modules/account/schemas';
 import { useAccountService } from '~/modules/account/services';
+import type { AvatarPick } from '~/modules/account/composables/useAvatarUpload';
 import type { CustomerProfile, UpdateProfileRequest } from '~/modules/account/types';
 import { useAuthStore } from '~/stores/auth';
 import { focusFirstInvalidField } from '~/utils/focus';
 
+/** The API keeps one `fullName`: the first word is the first name, the rest the last name */
+export const splitName = (fullName = '') => {
+  const [first = '', ...rest] = fullName.trim().split(/\s+/);
+  return { firstName: first, lastName: rest.join(' ') };
+};
+
 const toValues = (profile?: CustomerProfile): ProfileFormValues => ({
-  fullName: profile?.fullName ?? '',
+  ...splitName(profile?.fullName),
   nationalId: profile?.nationalId ?? '',
-  addressLink: profile?.addressLink ?? '',
 });
 
-/** Edits name, national ID and address link. Sends only what changed. */
-export function useProfileForm(profile: Ref<CustomerProfile | undefined>) {
+/**
+ * Edits the user details: name, national ID and photo. "Save details" sends one profile
+ * update with only what changed; a newly picked photo is uploaded first and its URL goes
+ * in that same update. The response replaces the cached profile, so the sidebar and the
+ * header show the result without refetching.
+ */
+export function useProfileForm(profile: Ref<CustomerProfile | undefined>, photo: AvatarPick) {
   const { t } = useI18n();
   const service = useAccountService();
   const queryClient = useQueryClient();
@@ -33,23 +44,33 @@ export function useProfileForm(profile: Ref<CustomerProfile | undefined>) {
   watch(profile, (value) => resetForm({ values: toValues(value) }));
 
   const changes = computed<UpdateProfileRequest>(() => {
-    const saved = toValues(profile.value);
-    return Object.fromEntries(
-      (Object.keys(saved) as (keyof ProfileFormValues)[])
-        .filter((name) => String(values[name] ?? '').trim() !== saved[name])
-        .map((name) => [name, String(values[name] ?? '').trim()])
-    );
+    const body: UpdateProfileRequest = {};
+    const fullName = `${values.firstName ?? ''} ${values.lastName ?? ''}`
+      .trim()
+      .replace(/\s+/g, ' ');
+    if (fullName !== (profile.value?.fullName ?? '').trim()) body.fullName = fullName;
+    const nationalId = String(values.nationalId ?? '').trim();
+    if (nationalId !== (profile.value?.nationalId ?? '')) body.nationalId = nationalId;
+    return body;
   });
-  const hasChanges = computed(() => Object.keys(changes.value).length > 0);
+  const hasChanges = computed(
+    () => Object.keys(changes.value).length > 0 || Boolean(photo.file.value)
+  );
   const filled = useCanSubmit(schema, values);
   const { showError, formError, clearFormError } = useApiFormError(values);
 
   const save = useMutation({
-    mutationFn: (body: UpdateProfileRequest) => service.updateProfile(body),
+    mutationFn: async (body: UpdateProfileRequest) => {
+      const file = photo.file.value;
+      return service.updateProfile(
+        file ? { ...body, avatar: await service.uploadImage(file) } : body
+      );
+    },
     onSuccess: (updated) => {
+      if (updated.avatar && photo.file.value) photo.saved(updated.avatar);
       queryClient.setQueryData(queryKeys.account.profile(), updated);
       authStore.setUser(updated);
-      notify('success', { title: t('auth.successTitle'), body: t('account.profile.saved') });
+      notify('success', { title: t('auth.successTitle'), body: t('account.details.saved') });
     },
   });
 
@@ -59,7 +80,10 @@ export function useProfileForm(profile: Ref<CustomerProfile | undefined>) {
     try {
       await save.mutateAsync(changes.value);
     } catch (error) {
-      showError(error, setErrors);
+      // The API names the joined field; show its errors under the first name
+      showError(error, (errors) =>
+        setErrors({ ...errors, firstName: errors.fullName ?? errors.firstName })
+      );
     }
   }, focusFirstInvalidField);
 
