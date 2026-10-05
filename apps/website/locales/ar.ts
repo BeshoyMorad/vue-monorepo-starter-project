@@ -2,6 +2,7 @@ import { commonAr, mergeLocaleMessages } from '@workspace/locales';
 import { authAr } from '~/modules/auth/locales/ar';
 import { homeAr } from '~/modules/home/locales/ar';
 import { searchAr } from '~/modules/search/locales/ar';
+import { accountAr } from '~/modules/account/locales/ar';
 import { apiErrorsAr, validationAr } from './messages/ar';
 
 export default defineI18nLocale(async () => {
@@ -9,6 +10,7 @@ export default defineI18nLocale(async () => {
     auth: authAr,
     home: homeAr,
     search: searchAr,
+    account: accountAr,
     apiErrors: apiErrorsAr,
     validation: validationAr,
     errors: {

@@ -128,6 +128,7 @@
       <i18n-t
         v-if="!query"
         keypath="home.header.search.placeholder"
+        scope="global"
         tag="span"
         class="field__ph"
         aria-hidden="true"

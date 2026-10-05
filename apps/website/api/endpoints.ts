@@ -18,6 +18,18 @@ export const routes = {
   'auth.refresh-token': { uri: 'auth/refresh-token', methods: ['POST'] },
   'auth.logout': { uri: 'auth/logout', methods: ['POST'] },
 
+  // CUSTOMER ACCOUNT (signed-in customer)
+  'customer.profile': { uri: 'customers/current-user/profile', methods: ['GET', 'PATCH'] },
+  'customer.account': { uri: 'customers/current-user/account', methods: ['GET'] },
+  'customer.delete': { uri: 'customers/current-user', methods: ['DELETE'] },
+  'customer.contact': { uri: 'customers/current-user/contact', methods: ['POST', 'PUT'] },
+  'customer.iban': { uri: 'customers/current-user/iban', methods: ['POST', 'PUT'] },
+  'customer.stats.insurance': { uri: 'insurance/customers/statistics', methods: ['GET'] },
+  'customer.stats.transportation': {
+    uri: 'transportation/customers/statistics',
+    methods: ['GET'],
+  },
+
   // SEARCH (public; history is customers only)
   search: { uri: 'user/search', methods: ['GET'] },
   'search.suggestions': { uri: 'user/search/suggestions', methods: ['GET'] },

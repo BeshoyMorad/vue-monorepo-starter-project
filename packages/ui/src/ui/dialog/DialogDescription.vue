@@ -15,7 +15,13 @@
   <DialogDescription
     data-slot="dialog-description"
     v-bind="forwardedProps"
-    :class="cn('text-text-disabled text-sm leading-relaxed whitespace-pre-line', props.class)"
+    :class="
+      cn(
+        /* Caption, not the disabled grey: that one is below 4.5:1 contrast on white */
+        'text-text-caption text-sm leading-relaxed whitespace-pre-line',
+        props.class
+      )
+    "
   >
     <slot />
   </DialogDescription>

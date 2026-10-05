@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { watch } from 'vue';
-  import { Dialog, DialogClose } from '@workspace/ui/ui/dialog';
+  import { Dialog, DialogClose, DialogDescription, DialogTitle } from '@workspace/ui/ui/dialog';
   import { Button } from '@workspace/ui/ui/button';
   import { Icon } from '@workspace/ui/icon';
   import { cn } from '@workspace/core';
@@ -100,16 +100,19 @@
           <Icon :test-id="`${testId}-icon`" :icon="icon" :class="cn('h-8 w-8', iconClass)" />
         </div>
 
-        <p v-if="title" class="text-text-default m-0 text-xl font-semibold">
+        <!-- Dialog title / description parts (not plain text) so the dialog is named and
+             described for screen readers even with the header hidden. Caption color: the
+             disabled grey was below 4.5:1 contrast. -->
+        <DialogTitle v-if="title" class="m-0 text-xl leading-snug font-semibold">
           {{ title }}
-        </p>
+        </DialogTitle>
 
-        <p
+        <DialogDescription
           v-if="description"
-          class="text-text-disabled m-0 text-sm font-medium whitespace-pre-line"
+          class="text-text-caption m-0 text-sm font-medium whitespace-pre-line"
         >
           {{ description }}
-        </p>
+        </DialogDescription>
       </div>
     </slot>
 

@@ -15,7 +15,6 @@
   const { t } = useI18n();
   const localePath = useLocalePath();
   const authStore = useAuthStore();
-  const logout = useLogout();
   const signingOut = useSigningOut();
   // Signing out ends when this header leaves (the login page uses the auth layout)
   onBeforeUnmount(() => (signingOut.value = false));
@@ -57,20 +56,9 @@
           <span class="sep ctrls__wide" aria-hidden="true" />
           <span class="ctrls__phone"><SiteSearchPanel /></span>
           <!-- The session is in cookies, so the server renders the right item: a signed-in user
-               never gets a sign-in link (the login page would send them straight back home) -->
-          <button
-            v-if="authStore.isAuthenticated || signingOut"
-            type="button"
-            class="ctrls__item"
-            data-test-id="header-logout"
-            :aria-disabled="signingOut || undefined"
-            @click="logout"
-          >
-            <Icon icon="site--user-square" class="size-6" />
-            <span class="ctrls__label">{{
-              signingOut ? t('home.header.loggingOut') : t('home.header.logout')
-            }}</span>
-          </button>
+               never gets a sign-in link (the login page would send them straight back home).
+               Signed in: the account menu (My account, Sign out). -->
+          <AccountMenu v-if="authStore.isAuthenticated || signingOut" />
           <NuxtLink
             v-else
             :to="localePath(paths.auth.login)"

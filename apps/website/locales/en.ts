@@ -2,12 +2,14 @@ import { commonEn, mergeLocaleMessages } from '@workspace/locales';
 import { authEn } from '~/modules/auth/locales/en';
 import { homeEn } from '~/modules/home/locales/en';
 import { searchEn } from '~/modules/search/locales/en';
+import { accountEn } from '~/modules/account/locales/en';
 import { apiErrorsEn, validationEn } from './messages/en';
 
 export const websiteEn = {
   auth: authEn,
   home: homeEn,
   search: searchEn,
+  account: accountEn,
   apiErrors: apiErrorsEn,
   validation: validationEn,
   errors: {

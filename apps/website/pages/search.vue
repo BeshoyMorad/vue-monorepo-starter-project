@@ -307,12 +307,10 @@
   }
   .state__text {
     max-width: 440px;
+    margin-bottom: 8px;
     color: var(--caption);
     font-size: 14px;
     line-height: 22px;
-  }
-  .state .btn {
-    margin-top: 8px;
   }
   @media (max-width: 640px) {
     .search__title {
