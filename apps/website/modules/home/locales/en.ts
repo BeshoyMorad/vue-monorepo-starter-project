@@ -18,6 +18,7 @@ export const homeEn = {
     cart: 'Cart',
     login: 'Sign in',
     logout: 'Sign out',
+    loggingOut: 'Signing out…',
     join: 'Join as a merchant or service provider',
     skipToContent: 'Skip to content',
     menu: 'Menu',

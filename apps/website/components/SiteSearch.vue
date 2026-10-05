@@ -8,16 +8,32 @@
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
   } from '@workspace/ui/ui/dropdown-menu';
+  import SearchSuggestList from '~/modules/search/components/SearchSuggestList.vue';
+  import { useSearchSuggest } from '~/modules/search/composables/useSearchSuggest';
 
   /**
    * Header search bar (Figma: Navigation Bar 11422:34002), tablet and desktop.
    * Reading order: scope menu | divider | query ("Search in <scope>") | submit chip.
    * Phones use SiteSearchPanel; both share state through useSiteSearch.
+   * The field is a combobox: suggestions while typing, recent / popular searches when empty.
    */
   const { t } = useI18n();
   const { scope, query, scopes, current, scopeName, search } = useSiteSearch();
+  const form = ref<HTMLFormElement>();
   const input = ref<HTMLInputElement>();
   const open = ref(false);
+
+  /** Suggestions list: shown while the field (or the list itself) has focus */
+  const listOpen = ref(false);
+  const submit = () => {
+    listOpen.value = false;
+    input.value?.blur();
+    search();
+  };
+  const suggest = reactive(useSearchSuggest(query, listOpen, { onPick: submit }));
+  const onFocusOut = (event: FocusEvent) => {
+    if (!form.value?.contains(event.relatedTarget as Node | null)) listOpen.value = false;
+  };
 
   const clear = () => {
     query.value = '';
@@ -36,7 +52,7 @@
 </script>
 
 <template>
-  <form role="search" class="search" @submit.prevent="search">
+  <form ref="form" role="search" class="search" @submit.prevent="submit" @focusout="onFocusOut">
     <DropdownMenu v-model:open="open">
       <DropdownMenuTrigger as-child>
         <button
@@ -94,8 +110,19 @@
         ref="input"
         v-model="query"
         type="search"
+        role="combobox"
+        autocomplete="off"
+        aria-autocomplete="list"
         class="field__input"
         :aria-label="t('home.header.search.label')"
+        :aria-expanded="suggest.visible"
+        :aria-controls="suggest.listboxId"
+        :aria-activedescendant="suggest.activeDescendant"
+        :aria-description="suggest.hasRecent ? t('search.suggest.deleteHint') : undefined"
+        @focus="listOpen = true"
+        @click="listOpen = true"
+        @input="listOpen = true"
+        @keydown="suggest.onKeydown"
       />
       <!-- Placeholder with the scope highlighted (a native placeholder can't style part of it) -->
       <i18n-t
@@ -123,12 +150,15 @@
     <button type="submit" class="submit" :aria-label="t('home.header.search.submit')">
       <Icon icon="hugeicons--search-01" class="text-text-caption size-4 rtl:-scale-x-100" />
     </button>
+
+    <SearchSuggestList :suggest="suggest" />
   </form>
 </template>
 
 <style scoped>
   /* Figma: 44px pill, 1px border, padding 1px (submit side) / 17px (scope side), 12px gaps */
   .search {
+    position: relative;
     height: 44px;
     display: flex;
     align-items: center;

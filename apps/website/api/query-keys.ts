@@ -7,6 +7,13 @@ export const queryKeys = {
   auth: {
     profile: () => ['auth', 'profile'] as const,
   },
+  search: {
+    all: () => ['search'] as const,
+    results: (params: object) => [...queryKeys.search.all(), 'results', params] as const,
+    suggestions: (q: string, locale: string) =>
+      [...queryKeys.search.all(), 'suggestions', q, locale] as const,
+    history: () => [...queryKeys.search.all(), 'history'] as const,
+  },
   users: {
     all: () => ['users'] as const,
     details: (id: string | number) => [...queryKeys.users.all(), 'details', id] as const,

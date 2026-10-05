@@ -117,7 +117,7 @@
             class="inline-flex items-center gap-1.5 rounded-lg border border-white/30 bg-white/10 px-3 py-[5px] text-[13px] font-medium text-white/90 transition-colors hover:bg-white/20"
           >
             <Icon icon="hugeicons--arrow-left-02" class="size-4 rtl:rotate-180" />
-            <span class="icon-label">{{ t('auth.brand.home') }}</span>
+            <span class="icon-label icon-label--pill">{{ t('auth.brand.home') }}</span>
           </NuxtLink>
         </div>
       </header>

@@ -42,6 +42,8 @@ export default defineNuxtConfig({
   // The default IPX provider resizes and converts images from /public on the fly.
   image: {
     quality: 80,
+    // Remote hosts IPX may fetch and resize (search result logos from the Ibbil API)
+    domains: ['nyc3.digitaloceanspaces.com', 'fra1.digitaloceanspaces.com'],
     // WebP only: at the same quality setting sharp's AVIF output came out ~40% larger than WebP for our photos.
     // <NuxtPicture> still adds the original format as the <img> fallback.
     format: ['webp'],

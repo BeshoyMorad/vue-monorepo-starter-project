@@ -20,6 +20,7 @@ export const homeAr: HomeLocaleSchema = {
     cart: 'السلة',
     login: 'تسجيل الدخول',
     logout: 'تسجيل الخروج',
+    loggingOut: 'جارٍ تسجيل الخروج…',
     join: 'انضم كتاجر أو مقدم خدمة',
     skipToContent: 'انتقل إلى المحتوى',
     menu: 'القائمة',

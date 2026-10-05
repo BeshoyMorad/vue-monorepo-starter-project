@@ -2,10 +2,13 @@
   import Icon from '@workspace/ui/icon/Icon.vue';
   import { DialogClose, DialogContent, DialogTitle, DialogTrigger } from '@workspace/ui/ui/dialog';
   import DialogRoot from '@workspace/ui/ui/dialog/DialogRoot.vue';
+  import SearchSuggestList from '~/modules/search/components/SearchSuggestList.vue';
+  import { useSearchSuggest } from '~/modules/search/composables/useSearchSuggest';
 
   /**
    * Phone search: an icon in the header row opens a panel from the top with the query field
-   * and the scope as chips. Shares its state with the desktop bar (useSiteSearch).
+   * and the scope as chips, plus suggestions / recent searches under the field.
+   * Shares its state with the desktop bar (useSiteSearch).
    * Built on the shared dialog: focus goes to the field, Escape closes, focus returns.
    */
   const { t } = useI18n();
@@ -22,9 +25,11 @@
     input.value?.focus();
   };
   const submit = () => {
-    search();
     open.value = false;
+    search();
   };
+  // The list shows while the panel is open; Escape stays with the dialog (closes the panel)
+  const suggest = reactive(useSearchSuggest(query, open, { onPick: submit, closeOnEscape: false }));
 </script>
 
 <template>
@@ -52,10 +57,18 @@
               ref="input"
               v-model="query"
               type="search"
+              role="combobox"
+              autocomplete="off"
+              aria-autocomplete="list"
               enterkeyhint="search"
               class="field__input"
               :aria-label="t('home.header.search.label')"
+              :aria-expanded="suggest.visible"
+              :aria-controls="suggest.listboxId"
+              :aria-activedescendant="suggest.activeDescendant"
+              :aria-description="suggest.hasRecent ? t('search.suggest.deleteHint') : undefined"
               :placeholder="t('home.header.search.placeholder', { scope: scopeName })"
+              @keydown="suggest.onKeydown"
             />
             <button
               v-if="query"
@@ -74,6 +87,8 @@
             <Icon icon="hugeicons--cancel-01" class="size-5" />
           </DialogClose>
         </div>
+
+        <SearchSuggestList :suggest="suggest" variant="inline" />
 
         <fieldset class="scopes">
           <legend class="scopes__legend">{{ t('home.header.search.scopeLabel') }}</legend>

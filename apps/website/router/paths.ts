@@ -5,6 +5,7 @@ export const paths = {
   dashboard: '/dashboard',
   ssgExample: '/ssg-example',
   isrExample: '/isr-example',
+  search: '/search',
   // Same URLs as ibbil.com
   auth: {
     login: `/auth/${basePaths.auth.login}`,

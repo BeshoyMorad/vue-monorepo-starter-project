@@ -17,6 +17,12 @@ export const routes = {
   'auth.password.update': { uri: 'auth/password', methods: ['PUT'] },
   'auth.refresh-token': { uri: 'auth/refresh-token', methods: ['POST'] },
   'auth.logout': { uri: 'auth/logout', methods: ['POST'] },
+
+  // SEARCH (public; history is customers only)
+  search: { uri: 'user/search', methods: ['GET'] },
+  'search.suggestions': { uri: 'user/search/suggestions', methods: ['GET'] },
+  'search.history': { uri: 'user/search-history', methods: ['GET', 'DELETE'] },
+  'search.history.entry': { uri: 'user/search-history/{id}', methods: ['DELETE'] },
 } as const satisfies ZiggyConfig['routes'];
 
 export const Ziggy: ZiggyConfig = {

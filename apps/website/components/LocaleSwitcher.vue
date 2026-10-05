@@ -59,7 +59,7 @@
         :class="TONES[tone]"
       >
         <span class="text-sm leading-none" aria-hidden="true">{{ FLAGS[locale] }}</span>
-        <span class="icon-label">{{ current?.name }}</span>
+        <span class="icon-label icon-label--pill">{{ current?.name }}</span>
         <Icon
           icon="hugeicons--arrow-down-01"
           class="size-4 opacity-80 transition-transform"

@@ -144,12 +144,18 @@
 
 /*
  * Text next to an icon (class="icon-label"). The icon should line up with the middle of the
- * lowercase letters, which carry most of a word. Measured from rendered pixels on the auth
- * screens, English text sat ~0.5px above that line (13–26px) and Arabic was already level.
+ * letters' main body. Measured from rendered pixels with the brand font loaded (2026-10-05):
+ * English sat ~1.25px above that line (13–14px buttons), so it's nudged down everywhere.
+ * Arabic depends on the setting: in the small 13px pills (language switcher, the auth "Home"
+ * link: add `icon-label--pill`) it sat 0.5–1.1px high, while in the 14px submit button it was
+ * already ~1px low, so only the pills are nudged.
  * The class must be on a block or flex item (transforms don't apply to plain inline text).
  */
 .icon-label:lang(en) {
-  transform: translateY(0.5px);
+  transform: translateY(1.25px);
+}
+.icon-label--pill:lang(ar) {
+  transform: translateY(0.75px);
 }
 
 /* Red asterisk after the label of required form fields: container-class="field-required".

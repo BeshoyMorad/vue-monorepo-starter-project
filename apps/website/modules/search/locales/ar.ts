@@ -1,0 +1,47 @@
+import type { searchEn } from './en';
+
+export const searchAr: typeof searchEn = {
+  seo: {
+    title: 'البحث',
+    titleFor: 'البحث: {q}',
+  },
+  suggest: {
+    label: 'اقتراحات البحث',
+    recent: 'عمليات البحث الأخيرة',
+    popular: 'عمليات بحث شائعة',
+    suggestions: 'اقتراحات',
+    clearHistory: 'مسح سجل البحث',
+    removeEntry: 'إزالة من السجل',
+    deleteHint: 'اضغط Delete لإزالة عملية البحث الأخيرة المحددة.',
+    count: 'لا توجد اقتراحات | اقتراح واحد | {n} اقتراحات',
+    removed: 'تمت الإزالة من سجل البحث',
+    cleared: 'تم مسح سجل البحث',
+  },
+  results: {
+    title: 'نتائج البحث',
+    titleFor: 'نتائج البحث عن «{q}»',
+    count: 'لا توجد نتائج | نتيجة واحدة | {n} نتيجة',
+    filterLabel: 'التصفية حسب القسم',
+    all: 'الكل',
+    loading: 'جارٍ تحميل النتائج…',
+    emptyTitle: 'لا توجد نتائج',
+    emptyFor: 'لم نجد ما يطابق «{q}».',
+    emptyText: 'تحقق من الإملاء، أو جرّب كلمة أقصر أو أعم، أو ابحث في كل الأقسام.',
+    searchAll: 'البحث في كل الأقسام',
+    errorTitle: 'البحث غير متاح حالياً',
+    errorText: 'يرجى المحاولة مرة أخرى بعد قليل.',
+    retry: 'إعادة المحاولة',
+    pagination: 'صفحات النتائج',
+    previous: 'السابق',
+    next: 'التالي',
+    page: 'الصفحة {n}',
+  },
+  entityTypes: {
+    doctor: 'طبيب بيطري',
+    clinic: 'عيادة',
+    product: 'منتج',
+    store: 'متجر',
+    transport_company: 'شركة نقل',
+    insurance_provider: 'شركة تأمين',
+  },
+};
