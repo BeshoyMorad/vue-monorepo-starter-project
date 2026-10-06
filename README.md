@@ -10,7 +10,9 @@ Designed for enterprise teams to rapidly scaffold, build, and deploy multiple br
 
 ```text
 ├── apps/
-│   ├── base-template/        # Base reference template for new tenants
+│   ├── base-template/        # Base reference template for Vite SPA
+│   ├── domain-driven/        # Domain-driven modular SPA template
+│   ├── website/              # Nuxt 3 SSR website template
 │   ├── tenant-a/             # Sample Tenant A (Blue theme, port 3001)
 │   └── tenant-b/             # Sample Tenant B (Red theme, port 3002)
 │
@@ -69,6 +71,9 @@ Or run an individual tenant application:
 # Base template (http://localhost:3000)
 pnpm dev:base
 
+# Domain-Driven template (http://localhost:3003)
+pnpm dev:domain
+
 # Tenant A (http://localhost:3001)
 pnpm dev:tenant-a
 
@@ -88,6 +93,7 @@ Or build a specific tenant application:
 
 ```bash
 pnpm build:base
+pnpm build:domain
 pnpm build:tenant-a
 pnpm build:tenant-b
 ```
@@ -147,12 +153,12 @@ Each tenant inherits the entire design system and simply overrides brand tokens 
 
 ### Adding a New Tenant
 
-Use the automated CLI script to scaffold a new tenant from either `base-template` (Vite SPA) or `website` (Nuxt 3 SSR):
+Use the automated CLI script to scaffold a new tenant from `base-template` (Vite SPA), `domain-driven` (Modular DDD SPA), or `website` (Nuxt 3 SSR):
 
 ```bash
 # General syntax
 pnpm tenant:add <tenant-name> [template] [port]
-pnpm tenant:add <tenant-name> --template=<base-template|website> [--port=<port>]
+pnpm tenant:add <tenant-name> --template=<base-template|domain-driven|website> [--port=<port>]
 ```
 
 **Examples:**
@@ -161,8 +167,10 @@ pnpm tenant:add <tenant-name> --template=<base-template|website> [--port=<port>]
 # 1. Scaffold a Vite SPA Dashboard (defaults to base-template)
 pnpm tenant:add tenant-c
 
-# 2. Scaffold a Vite SPA with custom port
-pnpm tenant:add tenant-c base-template 3003
+# 2. Scaffold a Domain-Driven SPA
+pnpm tenant:add admin-portal domain-driven 3004
+# Or using flags:
+pnpm tenant:add admin-portal --template=domain-driven --port=3004
 
 # 3. Scaffold a Nuxt 3 SSR/ISR Website
 pnpm tenant:add client-portal website 3005
@@ -172,9 +180,9 @@ pnpm tenant:add client-portal --template=website --port=3005
 
 This automatically:
 
-1. Clones the selected template (`apps/base-template` or `apps/website`) into `apps/<tenant-name>`.
+1. Clones the selected template (`apps/base-template`, `apps/domain-driven`, or `apps/website`) into `apps/<tenant-name>`.
 2. Updates `package.json` package name to `@workspace/<tenant-name>`.
-3. Configures port in `vite.config.ts` (for Vite) or `nuxt.config.ts` (for Nuxt).
+3. Configures port in `vite.config.ts` (for Vite / Domain-Driven) or `nuxt.config.ts` (for Nuxt).
 4. Registers `dev:<tenant-name>` and `build:<tenant-name>` scripts in root `package.json`.
 5. Links workspace dependencies and prepares types via `pnpm install`.
 

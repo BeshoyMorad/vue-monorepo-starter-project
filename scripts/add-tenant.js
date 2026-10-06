@@ -23,12 +23,18 @@ const TEMPLATES = {
     label: 'Nuxt 3 SSR Website (website)',
     aliases: ['website', 'web', 'nuxt', 'ssr'],
   },
+  'domain-driven': {
+    name: 'domain-driven',
+    label: 'Domain-Driven SPA Architecture (domain-driven)',
+    aliases: ['domain-driven', 'domain', 'ddd', 'domain-template'],
+  },
 };
 
 // Reserved directory and package names that cannot be created as tenants
 const RESERVED_NAMES = [
   'base-template',
   'website',
+  'domain-driven',
   'core',
   'ui',
   'locales',
@@ -42,11 +48,12 @@ function printHelp() {
 
 \x1b[1mUsage:\x1b[0m
   pnpm run tenant:add <tenant-name> [template] [port]
-  pnpm run tenant:add <tenant-name> --template=<website|base-template> [--port=<port>]
+  pnpm run tenant:add <tenant-name> --template=<website|base-template|domain-driven> [--port=<port>]
 
 \x1b[1mAvailable Templates:\x1b[0m
   • \x1b[33mbase-template\x1b[0m (default) : Vite-based SPA dashboard template
   • \x1b[33mwebsite\x1b[0m                 : Nuxt 3 SSR/ISR website template
+  • \x1b[33mdomain-driven\x1b[0m           : Domain-driven modular SPA architecture
 
 \x1b[1mOptions:\x1b[0m
   -t, --template <name>  Template to clone (default: base-template)
@@ -56,8 +63,9 @@ function printHelp() {
 \x1b[1mExamples:\x1b[0m
   pnpm run tenant:add tenant-c
   pnpm run tenant:add tenant-c website
+  pnpm run tenant:add tenant-c domain-driven 3004
   pnpm run tenant:add tenant-c base-template 3003
-  pnpm run tenant:add tenant-c --template=website --port=3005
+  pnpm run tenant:add tenant-c --template=domain-driven --port=3005
 `);
 }
 
@@ -157,14 +165,14 @@ if (args.template) {
   if (!match) {
     console.error(
       '\x1b[31m%s\x1b[0m',
-      `Error: Unknown template "${args.template}". Available templates: base-template, website`
+      `Error: Unknown template "${args.template}". Available templates: base-template, website, domain-driven`
     );
     process.exit(1);
   }
   selectedTemplateKey = match[0];
 } else {
   console.log(
-    `\x1b[36mℹ No template specified. Defaulting to 'base-template' (available: base-template, website).\x1b[0m`
+    `\x1b[36mℹ No template specified. Defaulting to 'base-template' (available: base-template, website, domain-driven).\x1b[0m`
   );
 }
 
@@ -246,7 +254,7 @@ try {
         console.log(`\x1b[32m✔ Configured Nuxt devServer port to ${args.port}\x1b[0m`);
       }
     }
-  } else if (selectedTemplateKey === 'base-template') {
+  } else if (selectedTemplateKey === 'base-template' || selectedTemplateKey === 'domain-driven') {
     // Update .env title if present
     const envPath = path.resolve(targetDir, '.env');
     if (fs.existsSync(envPath)) {
