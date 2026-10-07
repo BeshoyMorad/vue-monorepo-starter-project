@@ -16,6 +16,8 @@
     "build:base": "pnpm --filter @workspace/base-template build",
     "dev:website": "pnpm --filter @workspace/website dev",
     "build:website": "pnpm --filter @workspace/website build",
+    "dev:domain": "pnpm --filter @workspace/domain-driven dev",
+    "build:domain": "pnpm --filter @workspace/domain-driven build",
     "tenant:add": "node scripts/add-tenant.js",
     "tenant:remove": "node scripts/remove-tenant.js",
     "verify": "node scripts/verify.mjs",

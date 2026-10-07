@@ -12,7 +12,7 @@ const appsDir = path.resolve(rootDir, 'apps');
 const rootPkgPath = path.resolve(rootDir, 'package.json');
 
 // Core templates and protected directories that cannot be removed
-const PROTECTED_DIRECTORIES = ['base-template', 'website'];
+const PROTECTED_DIRECTORIES = ['base-template', 'website', 'domain-driven'];
 
 function printHelp() {
   console.log(`
@@ -25,6 +25,7 @@ function printHelp() {
 \x1b[1mProtected Core Directories (Cannot be removed):\x1b[0m
   • \x1b[33mbase-template\x1b[0m : Vite SPA dashboard base template
   • \x1b[33mwebsite\x1b[0m       : Nuxt 3 SSR website template
+  • \x1b[33mdomain-driven\x1b[0m : Domain-driven modular SPA template
 
 \x1b[1mExamples:\x1b[0m
   pnpm run tenant:remove tenant-c
