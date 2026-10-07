@@ -21,7 +21,9 @@
     "tenant:add": "node scripts/add-tenant.js",
     "tenant:remove": "node scripts/remove-tenant.js",
     "verify": "node scripts/verify.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:ap-dashboard": "pnpm --filter @workspace/ap-dashboard dev",
+    "build:ap-dashboard": "pnpm --filter @workspace/ap-dashboard build"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
