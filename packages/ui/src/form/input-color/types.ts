@@ -17,6 +17,10 @@ export interface BaseInputColorProps extends BaseFormFieldProps {
   variant?: InputColorVariant;
   shape?: InputColorShape;
   showInput?: boolean;
+  required?: boolean;
+  validate?: boolean | ((val: string) => boolean | string);
+  errorMessage?: string;
+  ariaInvalid?: boolean;
   wrapperClass?: HTMLAttributes['class'];
   inputClass?: HTMLAttributes['class'];
   triggerClass?: HTMLAttributes['class'];

@@ -7,7 +7,7 @@
   import { Icon } from '@workspace/ui/icon';
   import { inputVariants } from '@workspace/ui/ui/input';
   import type { BaseInputColorProps } from './types';
-  import { DEFAULT_PRESETS } from './constants';
+  import { DEFAULT_PRESETS, isValidHexColor } from './constants';
   import ColorPopoverContent from './ColorPopoverContent.vue';
 
   defineOptions({
@@ -28,6 +28,10 @@
     variant: 'default',
     shape: 'square',
     showInput: undefined,
+    required: false,
+    validate: true,
+    errorMessage: undefined,
+    ariaInvalid: undefined,
     wrapperClass: undefined,
     inputClass: undefined,
     triggerClass: undefined,
@@ -36,6 +40,7 @@
 
   const emits = defineEmits<{
     (e: 'update:modelValue', value: string): void;
+    (e: 'validate', isValid: boolean): void;
   }>();
 
   const modelValue = useVModel(props, 'modelValue', emits, {
@@ -47,13 +52,64 @@
   const isCopied = ref(false);
   const hasEyeDropper = ref(false);
   const isPopoverOpen = ref(false);
+  const isTouched = ref(false);
 
   onMounted(() => {
     hasEyeDropper.value = typeof window !== 'undefined' && 'EyeDropper' in window;
   });
 
-  const activeColor = computed(() => {
-    return modelValue.value || props.defaultValue || '#3b82f6';
+  // Check if current text is a valid hex code
+  const isValidHex = computed(() => {
+    const val = (modelValue.value || '').trim();
+    if (!val) return false;
+    return isValidHexColor(val);
+  });
+
+  // Calculate invalid state
+  const isColorInvalid = computed(() => {
+    if (props.ariaInvalid !== undefined) {
+      return props.ariaInvalid;
+    }
+    if (props.validate === false) {
+      return false;
+    }
+    if (typeof props.validate === 'function') {
+      const res = props.validate(modelValue.value || '');
+      return typeof res === 'string' ? true : !res;
+    }
+    const val = (modelValue.value || '').trim();
+    if (!val) {
+      return props.required;
+    }
+    return !isValidHex.value;
+  });
+
+  // Error message computation
+  const computedErrorMessage = computed(() => {
+    if (props.errorMessage) return props.errorMessage;
+    if (typeof props.validate === 'function') {
+      const res = props.validate(modelValue.value || '');
+      if (typeof res === 'string') return res;
+    }
+    const val = (modelValue.value || '').trim();
+    if (!val && props.required) {
+      return 'Color is required.';
+    }
+    if (val && !isValidHex.value) {
+      return 'Please enter a valid hex color (e.g. #3b82f6).';
+    }
+    return '';
+  });
+
+  const showError = computed(() => {
+    return isTouched.value && isColorInvalid.value && !!computedErrorMessage.value;
+  });
+
+  const activeColor = computed<string>(() => {
+    if (isValidHex.value && modelValue.value) {
+      return modelValue.value;
+    }
+    return props.defaultValue || '#3b82f6';
   });
 
   const shouldShowInput = computed(() => {
@@ -105,17 +161,25 @@
   });
 
   function handleTextInput(e: Event) {
+    isTouched.value = true;
     const target = e.target as HTMLInputElement;
     let val = target.value.trim();
     if (val && !val.startsWith('#')) {
       val = `#${val}`;
     }
     modelValue.value = val;
+    emits('validate', !isColorInvalid.value);
+  }
+
+  function handleBlur() {
+    isTouched.value = true;
   }
 
   function handleNativePickerChange(e: Event) {
+    isTouched.value = true;
     const target = e.target as HTMLInputElement;
     modelValue.value = target.value;
+    emits('validate', true);
   }
 
   function openNativePicker() {
@@ -130,7 +194,9 @@
       const eyeDropper = new window.EyeDropper();
       const result = await eyeDropper.open();
       if (result?.sRGBHex) {
+        isTouched.value = true;
         modelValue.value = result.sRGBHex;
+        emits('validate', true);
       }
     } catch {
       // User canceled eyedropper
@@ -139,7 +205,9 @@
 
   function selectPreset(color: string) {
     if (props.disabled || props.readonly) return;
+    isTouched.value = true;
     modelValue.value = color;
+    emits('validate', true);
   }
 
   async function copyColor() {
@@ -165,13 +233,16 @@
     @input="handleNativePickerChange"
   />
 
-  <!-- 1. Custom Trigger Slot Override -->
+  <!-- 1. Optional Trigger Slot Override (Replaces entire input/trigger) -->
   <div v-if="$slots.trigger" :class="cn('inline-flex items-center gap-3', wrapperClass)">
     <Popover v-model:open="isPopoverOpen" align="start" class="w-64 p-3" :show-arrow="true">
       <template #trigger>
         <slot
           name="trigger"
           :color="activeColor"
+          :is-valid="isValidHex"
+          :is-invalid="isColorInvalid"
+          :error-message="computedErrorMessage"
           :is-open="isPopoverOpen"
           :open-popover="() => (isPopoverOpen = true)"
           :close-popover="() => (isPopoverOpen = false)"
@@ -267,6 +338,7 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :readonly="readonly"
+      :aria-invalid="isColorInvalid ? 'true' : undefined"
       :data-testid="testId"
       v-bind="$attrs"
       :class="
@@ -278,6 +350,7 @@
         )
       "
       @input="handleTextInput"
+      @blur="handleBlur"
     />
   </div>
 
@@ -326,6 +399,7 @@
       :placeholder="placeholder"
       :disabled="disabled"
       :readonly="readonly"
+      :aria-invalid="isColorInvalid ? 'true' : undefined"
       :data-testid="testId"
       v-bind="$attrs"
       :class="
@@ -337,102 +411,141 @@
         )
       "
       @input="handleTextInput"
+      @blur="handleBlur"
     />
   </div>
 
-  <!-- 4. Variant: Default (Text input with embedded left swatch trigger) -->
-  <div v-else :class="cn('relative flex w-full items-center', wrapperClass)">
-    <!-- Swatch Trigger + Popover inside the input -->
-    <div class="absolute inset-y-0 left-2.5 z-10 flex items-center">
-      <Popover v-model:open="isPopoverOpen" align="start" class="w-64 p-3" :show-arrow="true">
-        <template #trigger>
+  <!-- 4. Default: Standard text input with embedded swatch and full validation -->
+  <div v-else class="w-full">
+    <div :class="cn('relative flex w-full items-center', wrapperClass)">
+      <!-- Swatch Trigger + Popover inside the input -->
+      <div class="absolute inset-y-0 left-2.5 z-10 flex items-center">
+        <Popover v-model:open="isPopoverOpen" align="start" class="w-64 p-3" :show-arrow="true">
+          <template #trigger>
+            <!-- Optional Swatch Slot -->
+            <slot
+              name="swatch"
+              :color="activeColor"
+              :is-valid="isValidHex"
+              :is-invalid="isColorInvalid"
+              :is-open="isPopoverOpen"
+              :open-popover="() => (isPopoverOpen = true)"
+            >
+              <button
+                type="button"
+                :disabled="disabled"
+                :data-testid="`${testId}-swatch-trigger`"
+                :class="
+                  cn(
+                    'group focus:ring-primary-500 relative flex size-6 shrink-0 cursor-pointer items-center justify-center border shadow-xs transition-transform hover:scale-105 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+                    isColorInvalid
+                      ? 'border-danger-500 ring-danger-500 ring-1'
+                      : 'border-neutral-300 dark:border-neutral-700',
+                    shapeClass,
+                    triggerClass
+                  )
+                "
+                :style="{ backgroundColor: activeColor }"
+                :title="isColorInvalid ? 'Invalid color' : `Current color: ${activeColor}`"
+              >
+                <Icon
+                  v-if="isColorInvalid && (modelValue || '').trim().length > 0"
+                  icon="hugeicons--alert-circle"
+                  class="text-danger-500 size-3.5 drop-shadow-sm"
+                />
+                <span class="sr-only">Open color palette</span>
+              </button>
+            </slot>
+          </template>
+
+          <ColorPopoverContent
+            :color="activeColor"
+            :rgb-display="rgbDisplay"
+            :presets="presets"
+            :show-presets="showPresets"
+            :show-eye-dropper="showEyeDropper"
+            :has-eye-dropper="hasEyeDropper"
+            :test-id="testId"
+            :is-copied="isCopied"
+            @select-preset="selectPreset"
+            @copy-color="copyColor"
+            @open-native-picker="openNativePicker"
+            @open-eye-dropper="openEyeDropper"
+          />
+        </Popover>
+      </div>
+
+      <!-- Hex Text Input -->
+      <input
+        :value="modelValue"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :readonly="readonly"
+        :aria-invalid="isColorInvalid ? 'true' : undefined"
+        :data-testid="testId"
+        v-bind="$attrs"
+        :class="
+          cn(
+            inputVariants(),
+            'inline-flex h-10 w-full pl-11 font-mono text-sm tracking-wider',
+            rightPaddingClass,
+            inputClass,
+            $attrs.class
+          )
+        "
+        @input="handleTextInput"
+        @blur="handleBlur"
+      />
+
+      <!-- Right Controls: EyeDropper & Copy -->
+      <slot
+        name="actions"
+        :color="activeColor"
+        :is-copied="isCopied"
+        :copy-color="copyColor"
+        :open-eye-dropper="openEyeDropper"
+        :has-eye-dropper="hasEyeDropper"
+      >
+        <div
+          v-if="(showEyeDropper && hasEyeDropper) || showCopy"
+          class="absolute inset-y-0 right-2.5 flex items-center gap-1"
+        >
           <button
+            v-if="showEyeDropper && hasEyeDropper"
             type="button"
-            :disabled="disabled"
-            :data-testid="`${testId}-swatch-trigger`"
-            :class="
-              cn(
-                'group focus:ring-primary-500 relative flex size-6 shrink-0 cursor-pointer items-center justify-center border border-neutral-300 shadow-xs transition-transform hover:scale-105 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-700',
-                shapeClass,
-                triggerClass
-              )
-            "
-            :style="{ backgroundColor: activeColor }"
-            :title="`Current color: ${activeColor}`"
+            tabindex="-1"
+            :disabled="disabled || readonly"
+            :data-testid="`${testId}-eyedropper`"
+            title="Pick color from screen"
+            class="text-text-secondary hover:text-text-default flex size-7 items-center justify-center rounded-md transition-colors hover:bg-neutral-100 focus:outline-none disabled:opacity-40 dark:hover:bg-neutral-800"
+            @click="openEyeDropper"
           >
-            <span class="sr-only">Open color palette</span>
+            <Icon icon="hugeicons--eyedropper" class="size-4" />
           </button>
-        </template>
 
-        <ColorPopoverContent
-          :color="activeColor"
-          :rgb-display="rgbDisplay"
-          :presets="presets"
-          :show-presets="showPresets"
-          :show-eye-dropper="showEyeDropper"
-          :has-eye-dropper="hasEyeDropper"
-          :test-id="testId"
-          :is-copied="isCopied"
-          @select-preset="selectPreset"
-          @copy-color="copyColor"
-          @open-native-picker="openNativePicker"
-          @open-eye-dropper="openEyeDropper"
-        />
-      </Popover>
+          <button
+            v-if="showCopy"
+            type="button"
+            tabindex="-1"
+            :data-testid="`${testId}-copy`"
+            title="Copy color hex"
+            class="text-text-secondary hover:text-text-default flex size-7 items-center justify-center rounded-md transition-colors hover:bg-neutral-100 focus:outline-none dark:hover:bg-neutral-800"
+            @click="copyColor"
+          >
+            <Icon
+              :icon="isCopied ? 'hugeicons--tick-01' : 'hugeicons--copy-01'"
+              :class="isCopied ? 'size-4 text-emerald-500' : 'size-4'"
+            />
+          </button>
+        </div>
+      </slot>
     </div>
 
-    <!-- Hex Text Input -->
-    <input
-      :value="modelValue"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      :readonly="readonly"
-      :data-testid="testId"
-      v-bind="$attrs"
-      :class="
-        cn(
-          inputVariants(),
-          'inline-flex h-10 w-full pl-11 font-mono text-sm tracking-wider',
-          rightPaddingClass,
-          inputClass,
-          $attrs.class
-        )
-      "
-      @input="handleTextInput"
-    />
-
-    <!-- Right Controls: EyeDropper & Copy -->
-    <div
-      v-if="(showEyeDropper && hasEyeDropper) || showCopy"
-      class="absolute inset-y-0 right-2.5 flex items-center gap-1"
-    >
-      <button
-        v-if="showEyeDropper && hasEyeDropper"
-        type="button"
-        tabindex="-1"
-        :disabled="disabled || readonly"
-        :data-testid="`${testId}-eyedropper`"
-        title="Pick color from screen"
-        class="text-text-secondary hover:text-text-default flex size-7 items-center justify-center rounded-md transition-colors hover:bg-neutral-100 focus:outline-none disabled:opacity-40 dark:hover:bg-neutral-800"
-        @click="openEyeDropper"
-      >
-        <Icon icon="hugeicons--eyedropper" class="size-4" />
-      </button>
-
-      <button
-        v-if="showCopy"
-        type="button"
-        tabindex="-1"
-        :data-testid="`${testId}-copy`"
-        title="Copy color hex"
-        class="text-text-secondary hover:text-text-default flex size-7 items-center justify-center rounded-md transition-colors hover:bg-neutral-100 focus:outline-none dark:hover:bg-neutral-800"
-        @click="copyColor"
-      >
-        <Icon
-          :icon="isCopied ? 'hugeicons--tick-01' : 'hugeicons--copy-01'"
-          :class="isCopied ? 'size-4 text-emerald-500' : 'size-4'"
-        />
-      </button>
-    </div>
+    <!-- Error message slot -->
+    <slot name="error" :error="computedErrorMessage" :is-invalid="isColorInvalid">
+      <p v-if="showError" class="text-danger-500 mt-1 text-xs font-medium">
+        {{ computedErrorMessage }}
+      </p>
+    </slot>
   </div>
 </template>

@@ -32,6 +32,10 @@
     variant: 'default',
     shape: 'square',
     showInput: undefined,
+    required: false,
+    validate: true,
+    errorMessage: undefined,
+    ariaInvalid: undefined,
     wrapperClass: undefined,
     inputClass: undefined,
     triggerClass: undefined,
@@ -50,9 +54,12 @@
 
 <template>
   <template v-if="name">
-    <FormField v-slot="{ componentField }" :name="name">
+    <FormField v-slot="{ componentField, errorMessage }" :name="name">
       <FormItem :class="containerClass">
-        <FormLabel v-if="label">{{ label }}</FormLabel>
+        <FormLabel v-if="label">
+          {{ label }}
+          <span v-if="required" class="text-danger-500 ml-0.5">*</span>
+        </FormLabel>
 
         <FormControl>
           <BaseInputColor
@@ -61,6 +68,10 @@
             :placeholder="placeholder"
             :disabled="disabled"
             :readonly="readonly"
+            :required="required"
+            :validate="validate"
+            :error-message="errorMessage || props.errorMessage"
+            :aria-invalid="Boolean(errorMessage) || props.ariaInvalid || undefined"
             :presets="presets"
             :show-presets="showPresets"
             :show-eye-dropper="showEyeDropper"
@@ -90,6 +101,7 @@
     <div :class="containerClass" class="w-full space-y-1.5">
       <label v-if="label" class="text-text-default text-sm leading-none font-medium">
         {{ label }}
+        <span v-if="required" class="text-danger-500 ml-0.5">*</span>
       </label>
 
       <BaseInputColor
@@ -99,6 +111,10 @@
         :placeholder="placeholder"
         :disabled="disabled"
         :readonly="readonly"
+        :required="required"
+        :validate="validate"
+        :error-message="errorMessage"
+        :aria-invalid="ariaInvalid"
         :presets="presets"
         :show-presets="showPresets"
         :show-eye-dropper="showEyeDropper"

@@ -105,7 +105,7 @@
         required
         class="sm:col-span-2"
       />
-      <Field.Color v-model="color" variant="wheel" label="Color" test-id="user-color" />
+      <Field.Color v-model="color" label="Color" test-id="user-color" />
       <Field.Text v-model="username" label="Username" test-id="user-username" required />
       <Field.Text v-model="phone" label="Phone" test-id="user-phone" />
     </div>
