@@ -8,6 +8,7 @@ export interface User {
   email: string;
   phone?: string;
   username: string;
+  color?: string;
   birthDate?: string;
   image?: string;
   [key: string]: unknown;
@@ -43,6 +44,7 @@ export interface CreateUserPayload {
   email: string;
   username: string;
   phone?: string;
+  color?: string;
 }
 
 export type UpdateUserPayload = Partial<CreateUserPayload>;

@@ -16,6 +16,7 @@
   const firstName = ref('');
   const lastName = ref('');
   const email = ref('');
+  const color = ref('');
   const username = ref('');
   const phone = ref('');
   const isSaving = ref(false);
@@ -28,6 +29,7 @@
     email.value = props.user.email;
     username.value = props.user.username;
     phone.value = props.user.phone ?? '';
+    color.value = props.user.color ?? '';
   };
 
   watch(() => props.user, populateForm, { immediate: true });
@@ -43,6 +45,7 @@
       lastName: lastName.value.trim(),
       email: email.value.trim(),
       username: username.value.trim(),
+      color: color.value,
       phone: phone.value.trim(),
     };
 
@@ -102,6 +105,7 @@
         required
         class="sm:col-span-2"
       />
+      <Field.Color v-model="color" variant="wheel" label="Color" test-id="user-color" />
       <Field.Text v-model="username" label="Username" test-id="user-username" required />
       <Field.Text v-model="phone" label="Phone" test-id="user-phone" />
     </div>

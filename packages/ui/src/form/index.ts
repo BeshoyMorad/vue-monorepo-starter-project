@@ -1,5 +1,6 @@
 export * from './multi-step-form';
 export * from './types';
+export * from './input-color';
 
 import { defineAsyncComponent } from 'vue';
 
@@ -19,6 +20,7 @@ import Select from './select/Select.vue';
 import DatePicker from './date-picker/DatePicker.vue';
 import PhoneInput from './phone/PhoneInput.vue';
 import TagsInput from './tags-input/TagsInput.vue';
+import InputColor from './input-color/InputColor.vue';
 
 // ── Loading Skeletons for Async Fields ───────────────────────────────────────
 import InfiniteScrollSelectSkeleton from './infinite-scroll-select/InfiniteScrollSelectSkeleton.vue';
@@ -42,6 +44,7 @@ export const Field = {
   DatePicker: DatePicker,
   Phone: PhoneInput,
   TagsInput: TagsInput,
+  Color: InputColor,
 
   // ── Heavy / Specialized Fields ─────────────
   InfiniteScrollSelect: defineAsyncComponent({

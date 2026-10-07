@@ -21,6 +21,7 @@
   const lastName = ref('');
   const email = ref('');
   const username = ref('');
+  const color = ref('');
   const phone = ref('');
 
   const openEdit = (user: User) => {
@@ -38,6 +39,7 @@
     lastName.value = '';
     email.value = '';
     username.value = '';
+    color.value = '';
     phone.value = '';
   };
 
@@ -47,6 +49,7 @@
       lastName: lastName.value.trim(),
       email: email.value.trim(),
       username: username.value.trim(),
+      color: color.value,
       phone: phone.value.trim(),
     };
 
@@ -80,6 +83,7 @@
     },
     { accessorKey: 'email', header: 'Email', enableSorting: true },
     { accessorKey: 'username', header: 'Username', enableSorting: true },
+    { accessorKey: 'color', header: 'Color', enableSorting: true },
     {
       id: 'actions',
       header: 'Actions',
@@ -163,7 +167,9 @@
       description="Enter the new user's account information."
       submit-label="Create user"
       :loading="isCreating"
-      :is-dirty="Boolean(firstName.trim() && lastName.trim() && email.trim() && username.trim())"
+      :is-dirty="
+        Boolean(firstName.trim() && lastName.trim() && email.trim() && username.trim() && color)
+      "
       test-id="create-user-dialog"
       @submit="createUser"
       @cancel="resetCreateForm"
@@ -180,6 +186,13 @@
           class="sm:col-span-2"
         />
         <Field.Text v-model="username" label="Username" test-id="new-user-username" required />
+        <Field.Color
+          v-model="color"
+          variant="wheel"
+          label="Color"
+          test-id="new-user-color"
+          required
+        />
         <Field.Text v-model="phone" label="Phone" test-id="new-user-phone" />
       </div>
     </FormDialog>
