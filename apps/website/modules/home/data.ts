@@ -5,6 +5,8 @@
  * Icons are full class names so Tailwind's icon plugin finds them when scanning sources.
  */
 
+import type { PlatformStatKey } from './types';
+
 /** Gold navigation bar under the header, in reading order (Figma: Navigation Bar 11422:34002) */
 export const topNav = [
   { id: 'stores', to: '#', icon: 'hugeicons--store-01' },
@@ -60,14 +62,15 @@ export const categories = [
 ] as const;
 
 /** Values are display strings so each locale can format them */
+/** Homepage statistics, in display order; each reads one count of GET /stats/platform */
 export const stats = [
-  'merchants',
-  'providers',
-  'products',
-  'orders',
-  'customers',
-  'cities',
-] as const;
+  { id: 'merchants', key: 'merchantsCount' },
+  { id: 'products', key: 'productsCount' },
+  { id: 'doctors', key: 'doctorsCount' },
+  { id: 'purchases', key: 'purchaseOperationsCount' },
+  { id: 'transports', key: 'transportOperationsCount' },
+  { id: 'insurance', key: 'insurancePoliciesCount' },
+] as const satisfies readonly { id: string; key: PlatformStatKey }[];
 
 export const mediaTabs = ['news', 'photos', 'videos', 'events'] as const;
 export type MediaTab = (typeof mediaTabs)[number];
@@ -93,16 +96,40 @@ export const stories: { id: string; type: MediaTab; views: number; date: string 
   { id: 'expo', type: 'events', views: 690, date: '2026-10-12' },
 ];
 
+/**
+ * Footer link columns (Figma: Footer 11459:650), in reading order after the brand block.
+ * `label` is the full translation key, so the stores column reuses the category names.
+ */
 export const footerColumns = [
-  { id: 'platform', links: ['about', 'contact', 'join', 'faq'] },
-  { id: 'services', links: ['insurance', 'transport', 'permits', 'veterinary'] },
-  { id: 'policies', links: ['terms', 'privacy', 'returns'] },
+  {
+    id: 'stores',
+    links: (
+      ['trips', 'products', 'supplies', 'chip', 'feed', 'accessories', 'camels'] as const
+    ).map((id) => ({ id, label: `home.categories.items.${id}.title`, to: '#' })),
+  },
+  {
+    id: 'services',
+    links: (['permits', 'insurance', 'transport', 'veterinary'] as const).map((id) => ({
+      id,
+      label: `home.footer.links.${id}`,
+      to: '#',
+    })),
+  },
+  {
+    id: 'policies',
+    links: (['terms', 'privacy'] as const).map((id) => ({
+      id,
+      label: `home.footer.links.${id}`,
+      to: '#',
+    })),
+  },
 ] as const;
 
+/** Social accounts, in the design's order; icons are the Figma exports in assets/icons */
 export const socials = [
-  { id: 'x', icon: 'hugeicons--new-twitter', href: '#' },
-  { id: 'instagram', icon: 'hugeicons--instagram', href: '#' },
-  { id: 'snapchat', icon: 'hugeicons--snapchat', href: '#' },
-  { id: 'youtube', icon: 'hugeicons--youtube', href: '#' },
-  { id: 'tiktok', icon: 'hugeicons--tiktok', href: '#' },
+  { id: 'whatsapp', icon: 'site--social-whatsapp', href: '#' },
+  { id: 'facebook', icon: 'site--social-facebook', href: '#' },
+  { id: 'instagram', icon: 'site--social-instagram', href: '#' },
+  { id: 'linkedin', icon: 'site--social-linkedin', href: '#' },
+  { id: 'x', icon: 'site--social-x', href: '#' },
 ] as const;

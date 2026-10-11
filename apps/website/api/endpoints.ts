@@ -41,6 +41,9 @@ export const routes = {
   'search.history': { uri: 'user/search-history', methods: ['GET', 'DELETE'] },
   'search.history.entry': { uri: 'user/search-history/{id}', methods: ['DELETE'] },
 
+  // PLATFORM STATS (public): homepage totals
+  'stats.platform': { uri: 'stats/platform', methods: ['GET'] },
+
   // GALLERY (public): media center photos and videos
   'gallery.items': { uri: 'gallery-items', methods: ['GET'] },
   'gallery.item': { uri: 'gallery-items/{id}', methods: ['GET'] },

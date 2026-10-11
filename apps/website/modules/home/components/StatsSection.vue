@@ -1,7 +1,22 @@
 <script setup lang="ts">
+  import { useQuery } from '@tanstack/vue-query';
   import { stats } from '~/modules/home/data';
+  import { platformStatsQueryOptions } from '~/modules/home/queries';
+  import { useHomeService } from '~/modules/home/services';
 
-  const { t } = useI18n();
+  /**
+   * Live platform totals (GET /stats/platform), fetched during server rendering so the page
+   * arrives with the numbers. A count the API could not compute shows a dash.
+   */
+  const { t, locale } = useI18n();
+  const { data } = useServerPrefetch(useQuery(platformStatsQueryOptions(useHomeService())));
+
+  // Western digits in both languages, as elsewhere on the homepage
+  const format = (n: number) => new Intl.NumberFormat(`${locale.value}-u-nu-latn`).format(n);
+  const value = (key: (typeof stats)[number]['key']) => {
+    const n = data.value?.[key];
+    return typeof n === 'number' ? format(n) : null;
+  };
 </script>
 
 <template>
@@ -12,9 +27,13 @@
       :title="t('home.stats.title')"
     />
     <dl class="row container">
-      <div v-for="id in stats" :key="id" class="stat">
-        <dt>{{ t(`home.stats.items.${id}.label`) }}</dt>
-        <dd>{{ t(`home.stats.items.${id}.value`) }}</dd>
+      <div v-for="item in stats" :key="item.id" class="stat">
+        <dt>{{ t(`home.stats.items.${item.id}`) }}</dt>
+        <dd v-if="value(item.key) !== null">{{ value(item.key) }}</dd>
+        <dd v-else>
+          <span aria-hidden="true">—</span>
+          <span class="sr-only">{{ t('home.stats.unavailable') }}</span>
+        </dd>
         <span class="stat__rule" aria-hidden="true" />
       </div>
     </dl>
