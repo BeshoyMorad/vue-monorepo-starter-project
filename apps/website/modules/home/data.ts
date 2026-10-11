@@ -28,11 +28,11 @@ export const slideImages: Record<(typeof slides)[number], string> = {
   trading: '/images/brand/ibbil-hero-03.png',
 };
 
-/** "About" feature tiles */
+/** "About" feature cards: illustration per card; text in home.about.features.<id> */
 export const features = [
-  { id: 'trusted', icon: 'hugeicons--checkmark-badge-01' },
-  { id: 'payments', icon: 'hugeicons--shield-user' },
-  { id: 'support', icon: 'hugeicons--call' },
+  { id: 'secure', image: '/images/brand/safety.png' },
+  { id: 'services', image: '/images/brand/paper.png' },
+  { id: 'market', image: '/images/brand/cart.png' },
 ] as const;
 
 export const services = [

@@ -1,7 +1,13 @@
 <script setup lang="ts">
   import { Button, Icon } from '@workspace/ui';
+  import FeatureCard from '~/modules/home/components/FeatureCard.vue';
   import { features } from '~/modules/home/data';
 
+  /**
+   * "About us" (Figma: About section). Copy beside a framed photo with gold and green corner
+   * brackets. In Arabic the photo sits on the right, in English it mirrors to the left.
+   * Below 1025px the photo moves above the copy.
+   */
   const { t } = useI18n();
 </script>
 
@@ -19,9 +25,11 @@
         <p class="desc">{{ t('home.about.text') }}</p>
         <ul class="feats">
           <li v-for="item in features" :key="item.id" class="feat">
-            <span class="feat__icon"><Icon :icon="item.icon" class="size-6" /></span>
-            <h3>{{ t(`home.about.features.${item.id}.title`) }}</h3>
-            <p>{{ t(`home.about.features.${item.id}.text`) }}</p>
+            <FeatureCard
+              :title="t(`home.about.features.${item.id}.title`)"
+              :text="t(`home.about.features.${item.id}.text`)"
+              :image="item.image"
+            />
           </li>
         </ul>
         <div class="acts">
@@ -29,14 +37,26 @@
             {{ t('home.about.services') }}
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
           </Button>
-          <Button as="a" class="btn btn--glass" href="#" test-id="about-learn-more">
+          <Button as="a" class="btn btn--tertiary acts__more" href="#" test-id="about-learn-more">
             {{ t('home.about.learnMore') }}
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
           </Button>
         </div>
       </div>
       <div class="frame">
-        <div class="ph frame__img" role="img" :aria-label="t('home.about.imageAlt')" />
+        <span class="frame__corner frame__corner--top" aria-hidden="true" />
+        <NuxtImg
+          src="/images/brand/camel_aboutus.jpg"
+          :alt="t('home.about.imageAlt')"
+          class="frame__img"
+          width="452"
+          height="452"
+          densities="x1 x2"
+          :quality="75"
+          format="webp"
+          loading="lazy"
+        />
+        <span class="frame__corner frame__corner--bottom" aria-hidden="true" />
       </div>
     </div>
   </section>
@@ -44,10 +64,12 @@
 
 <style scoped>
   .about {
-    padding-block: 64px;
+    padding-block: 40px;
   }
+  /* Copy stays first in reading order; row-reverse puts the photo on the reading-start side */
   .about__row {
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     gap: 64px;
   }
@@ -71,91 +93,97 @@
   }
   .feat {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 20px;
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    background: linear-gradient(#fff, var(--modal2));
-  }
-  .feat__icon {
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    background: var(--chip);
-    color: var(--primary);
-  }
-  .feat h3 {
-    color: var(--primary);
-    font: 700 14px/20px var(--font);
-  }
-  .feat p {
-    color: var(--caption);
-    font-size: 14px;
-    line-height: 20px;
+    min-width: 0;
   }
   .acts {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
   }
+  .acts .btn {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .acts__more {
+    min-width: 120px;
+  }
+
+  /* Photo in a gold hairline frame */
   .frame {
+    position: relative;
     flex: none;
     width: 476px;
     padding: 12px;
     border: 0.5px solid var(--secondary);
-    border-radius: var(--radius);
+    border-radius: 8px;
   }
   .frame__img {
+    display: block;
+    width: 100%;
+    height: auto;
     aspect-ratio: 1;
+    object-fit: cover;
     border-radius: 4px;
   }
-  @media (max-width: 900px) {
-    .about__row,
-    .feats {
-      flex-direction: column;
-    }
+  /* Corner brackets: gold top-left, green bottom-right, as drawn in the design */
+  .frame__corner {
+    position: absolute;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+  }
+  .frame__corner--top {
+    top: 5.5px;
+    left: 5.5px;
+    border-top: 2px solid var(--secondary);
+    border-left: 2px solid var(--secondary);
+    border-top-left-radius: 8px;
+  }
+  .frame__corner--bottom {
+    right: 5.5px;
+    bottom: 5.5px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    border-bottom-right-radius: 8px;
+  }
+
+  /* Tablet: photo above the copy */
+  @media (max-width: 1024px) {
     .about__row {
+      flex-direction: column-reverse;
       align-items: stretch;
+      gap: 32px;
     }
     .frame {
       width: 100%;
-      padding: 8px;
-    }
-    .frame__img {
-      aspect-ratio: 16 / 10;
-    }
-    /* Feature cards become compact rows: icon beside the text */
-    .feats {
-      gap: 10px;
-    }
-    .feat {
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 2px 12px;
-      align-items: center;
-      padding: 12px 14px;
-    }
-    .feat__icon {
-      grid-row: span 2;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      max-width: 476px;
+      align-self: center;
     }
   }
-  /* Phone: tighter spacing and type */
+  /* Phone: stacked feature cards, tighter spacing and type */
   @media (max-width: 640px) {
-    .about {
-      padding-block: 48px;
-    }
-    .about__row {
-      gap: 32px;
-    }
     .about__copy {
       gap: 16px;
+    }
+    .feats {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .frame {
+      padding: 8px;
+    }
+    .frame__corner {
+      width: 44px;
+      height: 44px;
+    }
+    .frame__corner--top {
+      top: 3.5px;
+      left: 3.5px;
+    }
+    .frame__corner--bottom {
+      right: 3.5px;
+      bottom: 3.5px;
     }
     .lead {
       font-size: 18px;
@@ -164,9 +192,6 @@
     .desc {
       font-size: 14px;
       line-height: 22px;
-    }
-    .acts .btn {
-      flex: 1;
     }
   }
 </style>

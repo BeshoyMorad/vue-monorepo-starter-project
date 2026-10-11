@@ -24,6 +24,7 @@
     <CategoryGrid />
     <SectionDivider />
     <AboutSection />
+    <SectionDivider />
     <ServicesSection />
     <StatsSection />
     <MediaSection />

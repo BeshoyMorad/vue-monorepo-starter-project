@@ -83,13 +83,22 @@ export const homeEn = {
     title: 'About us',
     lead: 'Ibbil is the first platform to offer an integrated marketplace for every camel-related service in Saudi Arabia.',
     text: 'It covers insurance, transport and permits, feed, food and camel supply stores, and veterinary services, as well as trading, renting and co-owning camels. Shop across many stores and use every service offered by the merchants, vets and store owners on Ibbil.',
-    imageAlt: 'A camel caravan',
+    imageAlt: 'A camel caravan in the desert',
     services: 'Our services',
     learnMore: 'Learn more',
     features: {
-      trusted: { title: 'Trusted merchants', text: 'Verified stores and service providers.' },
-      payments: { title: 'Secure payments', text: 'Protected from order to delivery.' },
-      support: { title: 'Ongoing support', text: 'Our team is with you at every step.' },
+      secure: {
+        title: 'Safe and trusted',
+        text: 'Encrypted sessions and data protection that follow best practices.',
+      },
+      services: {
+        title: 'Complete services',
+        text: 'Insurance, transport, permits and veterinary care in a few simple steps.',
+      },
+      market: {
+        title: 'One marketplace',
+        text: 'Camel, feed and supplies stores on a single platform.',
+      },
     },
   },
   services: {
