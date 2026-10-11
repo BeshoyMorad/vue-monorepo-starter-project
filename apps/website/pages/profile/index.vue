@@ -108,7 +108,13 @@
                 </h2>
                 <p class="breakdown__domain">{{ domainLabel }}</p>
               </div>
-              <div class="switch" role="group" :aria-label="t('account.overview.chartType')">
+              <!-- Nothing to chart in an empty section: no chart type to pick either -->
+              <div
+                v-if="current.data.total > 0"
+                class="switch"
+                role="group"
+                :aria-label="t('account.overview.chartType')"
+              >
                 <Button
                   v-for="type in ['doughnut', 'bar'] as const"
                   :key="type"
@@ -128,7 +134,12 @@
               :view="view"
               :label="domainLabel"
             />
-            <p v-else class="breakdown__empty">{{ t('account.overview.empty') }}</p>
+            <EmptyState
+              v-else
+              icon="hugeicons--pie-chart"
+              :title="t('account.overview.emptyTitle')"
+              :description="t('account.overview.emptyText')"
+            />
           </section>
         </template>
       </div>
@@ -275,8 +286,26 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    position: relative;
     padding: 24px;
-    border-top: 3px solid var(--color-gold-500);
+  }
+  /* Top accent: green fading to gold in the middle and back. Drawn along the top of a
+     corner-tall overlay with the card's radius, so the corners clip it like the card edge
+     (a border-top would thin out around the curves instead). */
+  .breakdown::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 20px;
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(
+        to right,
+        var(--color-primary-500),
+        var(--color-gold-500),
+        var(--color-primary-500)
+      )
+      top / 100% 3px no-repeat;
+    pointer-events: none;
   }
   .breakdown__head {
     display: flex;
@@ -293,11 +322,6 @@
     margin-top: 4px;
     color: var(--caption);
     font-size: 15px;
-  }
-  .breakdown__empty {
-    padding: 40px 0;
-    color: var(--caption);
-    text-align: center;
   }
   .switch {
     display: inline-flex;
