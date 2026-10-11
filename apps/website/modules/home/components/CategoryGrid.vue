@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from '@workspace/ui';
+  import { Button, Icon } from '@workspace/ui';
   import { categories } from '~/modules/home/data';
 
   const { t } = useI18n();
@@ -24,17 +24,17 @@
             <h3>{{ t(`home.categories.items.${item.id}`) }}</h3>
             <p>{{ t('home.categories.itemText') }}</p>
           </span>
-          <span class="btn btn--chip" aria-hidden="true">
+          <Button as="span" class="btn btn--chip" aria-hidden="true" test-id="category-browse">
             {{ t('home.categories.browse') }}
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-          </span>
+          </Button>
         </a>
       </li>
     </ul>
-    <a class="btn btn--outline" href="#">
+    <Button as="a" class="btn btn--outline" href="#" test-id="categories-all">
       {{ t('home.categories.all') }}
       <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-    </a>
+    </Button>
   </section>
 </template>
 

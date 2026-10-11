@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { useGlideMarker } from '~/modules/account/composables/useGlideMarker';
   import type { CustomerProfile } from '~/modules/account/types';
   import { activityDate } from '~/modules/account/utils';
@@ -81,10 +82,10 @@
         </li>
       </ul>
       <div class="side__sep" />
-      <button
+      <Button
         type="button"
-        class="item"
-        data-test-id="profile-logout"
+        class="item ui-bare"
+        test-id="profile-logout"
         :aria-disabled="signingOut || undefined"
         @click="logout"
       >
@@ -94,7 +95,7 @@
         <span class="item__label">{{
           signingOut ? t('home.header.loggingOut') : t('home.header.logout')
         }}</span>
-      </button>
+      </Button>
     </nav>
   </aside>
 </template>

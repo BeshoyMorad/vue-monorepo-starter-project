@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { Skeleton } from '@workspace/ui/ui/skeleton';
   import StatusChart from '~/modules/account/components/StatusChart.vue';
   import { useGlideMarker } from '~/modules/account/composables/useGlideMarker';
@@ -46,22 +47,29 @@
           :style="tab.style.value"
           aria-hidden="true"
         />
-        <button
+        <Button
           v-for="domain in domains"
           :key="domain"
           type="button"
-          class="tab"
+          class="tab ui-bare"
+          :test-id="`overview-tab-${domain}`"
           :aria-pressed="selected === domain"
           @click="selected = domain"
         >
           {{ t(`account.overview.domains.${domain}`) }}
           <span class="tab__count">{{ number(byDomain[domain]?.data?.total ?? 0) }}</span>
-        </button>
+        </Button>
       </div>
-      <button type="button" class="refresh" :aria-busy="isRefreshing" @click="refresh">
+      <Button
+        type="button"
+        class="refresh ui-bare"
+        test-id="overview-refresh"
+        :aria-busy="isRefreshing"
+        @click="refresh"
+      >
         <Icon icon="hugeicons--refresh" class="size-4" :class="{ 'animate-spin': isRefreshing }" />
         {{ t('account.overview.refresh') }}
-      </button>
+      </Button>
     </div>
 
     <!-- Switching section: the numbers and chart fade out and the new ones in -->
@@ -72,9 +80,14 @@
         </div>
         <div v-else-if="current?.isError" class="card state" role="alert">
           <p>{{ t('account.overview.unavailable') }}</p>
-          <button type="button" class="btn btn--outline" @click="current?.refetch()">
+          <Button
+            type="button"
+            class="btn btn--outline"
+            test-id="overview-retry"
+            @click="current?.refetch()"
+          >
             {{ t('account.overview.retry') }}
-          </button>
+          </Button>
         </div>
         <template v-else-if="current?.data">
           <ul class="tiles">
@@ -96,15 +109,17 @@
                 <p class="breakdown__domain">{{ domainLabel }}</p>
               </div>
               <div class="switch" role="group" :aria-label="t('account.overview.chartType')">
-                <button
+                <Button
                   v-for="type in ['doughnut', 'bar'] as const"
                   :key="type"
                   type="button"
+                  class="ui-bare"
+                  :test-id="`overview-chart-${type}`"
                   :aria-pressed="view === type"
                   @click="view = type"
                 >
                   {{ t(`account.overview.${type}`) }}
-                </button>
+                </Button>
               </div>
             </header>
             <StatusChart

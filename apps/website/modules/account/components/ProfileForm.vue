@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import InputText from '@workspace/ui/form/input-text/InputText.vue';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import AuthFormError from '~/modules/auth/components/AuthFormError.vue';
   import AuthSubmitButton from '~/modules/auth/components/AuthSubmitButton.vue';
   import { AVATAR_TYPES, useAvatarPick } from '~/modules/account/composables/useAvatarUpload';
@@ -30,10 +31,10 @@
     <form class="details" method="post" novalidate @submit="onSubmit">
       <!-- Photo: the whole avatar picks an image; it is uploaded with "Save details" -->
       <div class="photo">
-        <button
+        <Button
           type="button"
-          class="photo__btn"
-          data-test-id="details-photo"
+          class="photo__btn ui-bare"
+          test-id="details-photo"
           :aria-label="t('account.details.changePhoto')"
           :aria-disabled="isPending || undefined"
           @click="!isPending && fileInput?.click()"
@@ -50,7 +51,7 @@
           <span class="photo__pencil" aria-hidden="true">
             <Icon icon="hugeicons--pencil-edit-01" class="size-4" />
           </span>
-        </button>
+        </Button>
         <input
           ref="fileInput"
           type="file"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from '@workspace/ui';
+  import { Button, Icon } from '@workspace/ui';
   import { services } from '~/modules/home/data';
 
   const { t } = useI18n();
@@ -24,10 +24,15 @@
             <h3>{{ t(`home.services.items.${item.id}.title`) }}</h3>
             <p>{{ t(`home.services.items.${item.id}.text`) }}</p>
           </span>
-          <span class="btn btn--glass card__cta" aria-hidden="true">
+          <Button
+            as="span"
+            class="btn btn--glass card__cta"
+            aria-hidden="true"
+            test-id="service-explore"
+          >
             {{ t('home.services.explore') }}
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-          </span>
+          </Button>
           <Icon icon="hugeicons--arrow-right-01" class="card__chev size-5 rtl:rotate-180" />
         </a>
       </li>

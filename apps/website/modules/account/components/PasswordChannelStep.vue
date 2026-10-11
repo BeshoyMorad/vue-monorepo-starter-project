@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import { useMutation } from '@tanstack/vue-query';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
+  import { RadioGroup, RadioGroupItem } from '@workspace/ui/ui/radio-group';
   import { useApiFormError } from '~/composables/useApiFormError';
   import AuthFormError from '~/modules/auth/components/AuthFormError.vue';
   import { useAuthService } from '~/modules/auth/services';
@@ -18,6 +20,7 @@
   const auth = useAuthService();
   const { showError, formError, clearFormError } = useApiFormError();
   const channel = ref<ContactChannel>('phone');
+  const legendId = useId();
 
   const options = computed(() =>
     [
@@ -56,35 +59,43 @@
 
 <template>
   <form class="space-y-5" novalidate @submit.prevent="onSubmit">
-    <fieldset>
-      <legend class="mb-3 text-sm font-semibold text-[var(--color-primary-500)]">
+    <div>
+      <p :id="legendId" class="mb-3 text-sm font-semibold text-[var(--color-primary-500)]">
         {{ t('account.password.choose') }}
-      </legend>
-      <div class="choices">
+      </p>
+      <!-- Shared radio group: the radio stays in the accessibility tree, the card shows its
+           state and focus -->
+      <RadioGroup v-model="channel" class="choices" :aria-labelledby="legendId">
         <label v-for="option in options" :key="option.id" class="choice">
-          <input v-model="channel" type="radio" name="password-channel" :value="option.id" />
+          <RadioGroupItem :value="option.id" :data-test-id="`password-channel-${option.id}`" />
           <span class="choice__icon"><Icon :icon="option.icon" class="size-5" /></span>
           <span class="choice__text">
             <span class="choice__label">{{ option.label }}</span>
             <bdi dir="ltr" class="choice__value">{{ option.masked }}</bdi>
           </span>
         </label>
-      </div>
-    </fieldset>
+      </RadioGroup>
+    </div>
     <AuthFormError test-id="password-channel-error" :message="formError" />
     <div class="actions">
-      <button type="button" class="btn actions__cancel" @click="emit('cancel')">
+      <Button
+        type="button"
+        class="btn actions__cancel"
+        test-id="password-cancel"
+        @click="emit('cancel')"
+      >
         {{ t('account.password.cancel') }}
-      </button>
-      <button
+      </Button>
+      <Button
         type="submit"
         class="btn btn--primary"
-        data-test-id="password-send"
+        test-id="password-send"
+        icon="hugeicons--sent"
+        icon-class="rtl:-scale-x-100"
         :aria-disabled="send.isPending.value || undefined"
       >
-        <Icon icon="hugeicons--sent" class="size-4 rtl:-scale-x-100" />
         {{ t('account.password.sendCode') }}
-      </button>
+      </Button>
     </div>
   </form>
 </template>
@@ -106,12 +117,12 @@
     border-radius: 14px;
     cursor: pointer;
   }
-  .choice input {
+  .choice [data-slot='radio-group-item'] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
   }
-  .choice:has(:checked) {
+  .choice:has([data-state='checked']) {
     border-color: var(--color-primary-500);
     background: #f7f8f7;
     box-shadow: 0 0 0 1px var(--color-primary-500);

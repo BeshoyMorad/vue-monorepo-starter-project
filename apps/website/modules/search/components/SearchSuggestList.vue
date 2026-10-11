@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { UnwrapNestedRefs } from 'vue';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import type { SearchSuggest, SuggestKind } from '~/modules/search/composables/useSearchSuggest';
 
   /**
@@ -86,16 +87,17 @@
         </div>
       </div>
     </div>
-    <button
+    <Button
       v-if="suggest.hasRecent"
       type="button"
-      class="suggest__clear"
+      class="suggest__clear ui-bare"
+      test-id="search-history-clear"
+      icon="hugeicons--delete-02"
       @mousedown.prevent
       @click="suggest.clearAll()"
     >
-      <Icon icon="hugeicons--delete-02" class="size-4" />
       {{ t('search.suggest.clearHistory') }}
-    </button>
+    </Button>
   </div>
   <span class="sr-only" role="status">{{ suggest.status }}</span>
 </template>

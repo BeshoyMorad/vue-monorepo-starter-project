@@ -1,7 +1,9 @@
 <script setup lang="ts">
-  import Icon from '@workspace/ui/icon/Icon.vue';
   import { DialogClose, DialogContent, DialogTitle, DialogTrigger } from '@workspace/ui/ui/dialog';
   import DialogRoot from '@workspace/ui/ui/dialog/DialogRoot.vue';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Input } from '@workspace/ui/ui/input';
+  import { RadioGroup, RadioGroupItem } from '@workspace/ui/ui/radio-group';
   import SearchSuggestList from '~/modules/search/components/SearchSuggestList.vue';
   import { useSearchSuggest } from '~/modules/search/composables/useSearchSuggest';
 
@@ -14,15 +16,16 @@
   const { t } = useI18n();
   const { scope, query, scopes, scopeName, search } = useSiteSearch();
   const open = ref(false);
-  const input = ref<HTMLInputElement>();
+  const input = ref<{ $el: HTMLInputElement }>();
+  const scopesLabelId = useId();
 
   const focusInput = (event: Event) => {
     event.preventDefault();
-    input.value?.focus();
+    input.value?.$el.focus();
   };
   const clear = () => {
     query.value = '';
-    input.value?.focus();
+    input.value?.$el.focus();
   };
   const submit = () => {
     open.value = false;
@@ -35,14 +38,15 @@
 <template>
   <DialogRoot v-model:open="open">
     <DialogTrigger as-child>
-      <button
+      <Button
         type="button"
-        class="trigger"
+        class="trigger ui-bare"
         :aria-label="t('home.header.search.label')"
-        data-test-id="site-search-open"
-      >
-        <Icon icon="hugeicons--search-01" class="size-6 rtl:-scale-x-100" />
-      </button>
+        test-id="site-search-open"
+        icon="hugeicons--search-01"
+        icon-size="xl"
+        icon-class="rtl:-scale-x-100"
+      />
     </DialogTrigger>
     <DialogContent
       :aria-describedby="undefined"
@@ -53,15 +57,16 @@
       <div class="panel">
         <div class="panel__row">
           <form role="search" class="field" @submit.prevent="submit">
-            <input
+            <Input
               ref="input"
               v-model="query"
               type="search"
+              data-test-id="site-search-input"
               role="combobox"
               autocomplete="off"
               aria-autocomplete="list"
               enterkeyhint="search"
-              class="field__input"
+              class="field__input ui-bare"
               :aria-label="t('home.header.search.label')"
               :aria-expanded="suggest.visible"
               :aria-controls="suggest.listboxId"
@@ -70,35 +75,50 @@
               :placeholder="t('home.header.search.placeholder', { scope: scopeName })"
               @keydown="suggest.onKeydown"
             />
-            <button
+            <Button
               v-if="query"
               type="button"
-              class="clear"
+              class="clear ui-bare"
+              test-id="site-search-clear"
               :aria-label="t('home.header.search.clearLabel')"
               @click="clear"
             >
               {{ t('home.header.search.clear') }}
-            </button>
-            <button type="submit" class="field__btn" :aria-label="t('home.header.search.submit')">
-              <Icon icon="hugeicons--search-01" class="size-4 rtl:-scale-x-100" />
-            </button>
+            </Button>
+            <Button
+              type="submit"
+              class="field__btn ui-bare"
+              test-id="site-search-submit"
+              :aria-label="t('home.header.search.submit')"
+              icon="hugeicons--search-01"
+              icon-class="rtl:-scale-x-100"
+            />
           </form>
-          <DialogClose class="close" :aria-label="t('home.header.search.close')">
-            <Icon icon="hugeicons--cancel-01" class="size-5" />
+          <DialogClose as-child>
+            <Button
+              type="button"
+              class="close ui-bare"
+              test-id="site-search-close"
+              :aria-label="t('home.header.search.close')"
+              icon="hugeicons--cancel-01"
+              icon-size="lg"
+            />
           </DialogClose>
         </div>
 
         <SearchSuggestList :suggest="suggest" variant="inline" />
 
-        <fieldset class="scopes">
-          <legend class="scopes__legend">{{ t('home.header.search.scopeLabel') }}</legend>
-          <div class="scopes__list">
+        <div class="scopes">
+          <p :id="scopesLabelId" class="scopes__legend">
+            {{ t('home.header.search.scopeLabel') }}
+          </p>
+          <RadioGroup v-model="scope" class="scopes__list" :aria-labelledby="scopesLabelId">
             <label v-for="item in scopes" :key="item.id" class="chip">
-              <input v-model="scope" type="radio" name="site-search-scope" :value="item.id" />
+              <RadioGroupItem :value="item.id" :data-test-id="`site-search-scope-${item.id}`" />
               {{ item.label }}
             </label>
-          </div>
-        </fieldset>
+          </RadioGroup>
+        </div>
       </div>
     </DialogContent>
   </DialogRoot>
@@ -226,13 +246,13 @@
     font: 600 13px/20px var(--font);
     cursor: pointer;
   }
-  /* The radio stays in the accessibility tree; the chip shows its state and focus */
-  .chip input {
+  /* The shared radio stays in the accessibility tree; the chip shows its state and focus */
+  .chip [data-slot='radio-group-item'] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
   }
-  .chip:has(:checked) {
+  .chip:has([data-state='checked']) {
     border-color: var(--primary);
     background: var(--primary);
     color: #fff;

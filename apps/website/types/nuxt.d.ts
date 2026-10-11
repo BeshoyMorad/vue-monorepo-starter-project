@@ -1,9 +1,9 @@
-import type { ApiClient } from '@workspace/core/lib';
+import type { ApiFetch } from '~/api/client';
 import type { QueryClient } from '@tanstack/vue-query';
 
 declare module '#app' {
   interface NuxtApp {
-    $api: ApiClient;
+    $api: ApiFetch;
     $queryClient: QueryClient;
   }
   interface PageMeta {
@@ -19,7 +19,7 @@ declare module '#app' {
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    $api: ApiClient;
+    $api: ApiFetch;
     $queryClient: QueryClient;
   }
 }

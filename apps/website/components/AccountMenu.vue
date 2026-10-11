@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import {
     DropdownMenu,
     DropdownMenuContent,
@@ -30,10 +31,10 @@
 <template>
   <DropdownMenu v-model:open="open">
     <DropdownMenuTrigger as-child>
-      <button
+      <Button
         type="button"
-        class="trigger"
-        data-test-id="header-account"
+        class="trigger ui-bare"
+        test-id="header-account"
         :aria-disabled="signingOut || undefined"
       >
         <ProfileAvatar :name="name" :src="authStore.user?.avatar" :size="36" />
@@ -44,7 +45,7 @@
             >{{ t('account.menu.welcome') }} <bdi class="trigger__name">{{ name }}</bdi></template
           >
         </span>
-      </button>
+      </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
       align="end"

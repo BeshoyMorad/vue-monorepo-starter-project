@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from '@workspace/ui';
+  import { Button, Icon } from '@workspace/ui';
   import { mediaTabs, stories, type MediaTab } from '~/modules/home/data';
 
   /** Latest stories filtered by content type, next to the featured story */
@@ -24,16 +24,17 @@
     />
     <div class="media container">
       <div class="tabs" role="group" :aria-label="t('home.media.filterLabel')">
-        <button
+        <Button
           v-for="tab in mediaTabs"
           :key="tab"
           type="button"
+          :test-id="`media-tab-${tab}`"
           :aria-pressed="active === tab"
-          :class="{ on: active === tab }"
+          :class="['ui-bare', { on: active === tab }]"
           @click="active = tab"
         >
           {{ t(`home.media.tabs.${tab}`) }}
-        </button>
+        </Button>
       </div>
       <div class="layout">
         <ul class="latest" aria-live="polite">
@@ -54,11 +55,11 @@
                     ></span
                   >
                 </div>
-                <a class="btn btn--glass more" href="#">
+                <Button as="a" class="btn btn--glass more" href="#" test-id="media-story-more">
                   {{ t('home.readMore') }}
                   <span class="sr-only">: {{ t(`home.media.stories.${story.id}`) }}</span>
                   <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-                </a>
+                </Button>
               </div>
               <div class="cover ph" />
             </article>
@@ -73,18 +74,18 @@
             <h3>{{ t('home.media.featured.title') }}</h3>
             <p>{{ t('home.media.featured.text') }}</p>
           </div>
-          <a class="btn featured__more" href="#">
+          <Button as="a" class="btn featured__more" href="#" test-id="media-featured-more">
             {{ t('home.readMore') }}
             <span class="sr-only">: {{ t('home.media.featured.title') }}</span>
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-          </a>
+          </Button>
         </article>
       </div>
     </div>
-    <a class="btn btn--outline" href="#">
+    <Button as="a" class="btn btn--outline" href="#" test-id="media-center">
       {{ t('home.media.center') }}
       <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-    </a>
+    </Button>
   </section>
 </template>
 

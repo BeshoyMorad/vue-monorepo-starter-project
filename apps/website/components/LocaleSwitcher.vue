@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { LocaleObject } from '@nuxtjs/i18n';
   import {
+    Button,
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -51,12 +52,14 @@
 <template>
   <DropdownMenu v-model:open="open">
     <DropdownMenuTrigger as-child>
-      <button
+      <!-- Shared ghost button; the tone classes replace its size, color and focus ring
+           (the layouts draw a soft outline instead) -->
+      <Button
         type="button"
-        data-test-id="locale-switcher"
+        variant="ghost"
+        test-id="locale-switcher"
         :aria-label="`${t('localeSwitcher.label')}: ${current?.name}`"
-        class="inline-flex cursor-pointer items-center rounded-lg transition-colors"
-        :class="TONES[tone]"
+        :class="['h-auto rounded-lg transition-colors focus-visible:ring-0', TONES[tone]]"
       >
         <span class="text-sm leading-none" aria-hidden="true">{{ FLAGS[locale] }}</span>
         <span class="icon-label icon-label--pill">{{ current?.name }}</span>
@@ -65,7 +68,7 @@
           class="size-4 opacity-80 transition-transform"
           :class="{ 'rotate-180': open }"
         />
-      </button>
+      </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
       align="end"

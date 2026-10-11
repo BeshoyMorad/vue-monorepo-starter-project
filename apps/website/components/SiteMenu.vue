@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { LocaleObject } from '@nuxtjs/i18n';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { DialogClose, DialogContent, DialogTitle, DialogTrigger } from '@workspace/ui/ui/dialog';
   // The bare root: the package's `Dialog` is a complete dialog with its own header and body
   import DialogRoot from '@workspace/ui/ui/dialog/DialogRoot.vue';
@@ -39,14 +40,14 @@
 <template>
   <DialogRoot v-model:open="open">
     <DialogTrigger as-child>
-      <button
+      <Button
         type="button"
-        class="menu-btn"
+        class="menu-btn ui-bare"
         :aria-label="t('home.header.openMenu')"
-        data-test-id="site-menu-open"
-      >
-        <Icon icon="hugeicons--menu-01" class="size-6" />
-      </button>
+        test-id="site-menu-open"
+        icon="hugeicons--menu-01"
+        icon-size="xl"
+      />
     </DialogTrigger>
     <DialogContent
       :aria-describedby="undefined"
@@ -55,8 +56,15 @@
       <div class="panel" @click="onClick">
         <div class="panel__head">
           <DialogTitle class="panel__title">{{ t('home.header.menu') }}</DialogTitle>
-          <DialogClose class="panel__close" :aria-label="t('home.header.closeMenu')">
-            <Icon icon="hugeicons--cancel-01" class="size-5" />
+          <DialogClose as-child>
+            <Button
+              type="button"
+              class="panel__close ui-bare"
+              :aria-label="t('home.header.closeMenu')"
+              test-id="site-menu-close"
+              icon="hugeicons--cancel-01"
+              icon-size="lg"
+            />
           </DialogClose>
         </div>
 
@@ -96,7 +104,9 @@
           </div>
         </div>
 
-        <a class="btn btn--primary panel__join" href="#">{{ t('home.header.join') }}</a>
+        <Button as="a" href="#" class="btn btn--primary panel__join" test-id="site-menu-join">
+          {{ t('home.header.join') }}
+        </Button>
       </div>
     </DialogContent>
   </DialogRoot>

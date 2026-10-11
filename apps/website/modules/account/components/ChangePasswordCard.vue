@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import type { CustomerProfile } from '~/modules/account/types';
   import ChangePasswordDialog from './ChangePasswordDialog.vue';
 
@@ -12,15 +13,15 @@
   <section class="pwd" aria-labelledby="account-password">
     <span class="pwd__icon"><Icon icon="hugeicons--square-lock-02" class="size-5" /></span>
     <h2 id="account-password" class="pwd__title">{{ t('account.password.title') }}</h2>
-    <button
+    <Button
       type="button"
       class="btn btn--primary"
-      data-test-id="password-change"
+      test-id="password-change"
+      icon="hugeicons--shield-key"
       @click="open = true"
     >
-      <Icon icon="hugeicons--shield-key" class="size-4" />
       {{ t('account.password.button') }}
-    </button>
+    </Button>
     <ChangePasswordDialog v-model:open="open" :profile="profile" />
   </section>
 </template>

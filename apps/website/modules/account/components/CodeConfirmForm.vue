@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import InputOtp from '@workspace/ui/form/input-otp/InputOtp.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import AuthFormError from '~/modules/auth/components/AuthFormError.vue';
   import AuthSubmitButton from '~/modules/auth/components/AuthSubmitButton.vue';
   import ResendCode from '~/modules/auth/components/ResendCode.vue';
@@ -55,12 +56,14 @@
       :can-resend="canResend"
       @resend="resend"
     />
-    <button
+    <Button
       type="button"
-      class="text-gold-800 hover:text-gold-900 block rounded-md text-sm font-semibold hover:underline"
+      variant="link"
+      :test-id="`${testId}-back`"
+      class="text-gold-800 hover:text-gold-900 flex h-auto w-fit rounded-md p-0 text-sm font-semibold focus-visible:ring-0"
       @click="emit('back')"
     >
       {{ backLabel }}
-    </button>
+    </Button>
   </form>
 </template>

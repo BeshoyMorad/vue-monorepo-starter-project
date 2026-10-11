@@ -2,6 +2,7 @@
   import { useQueryClient } from '@tanstack/vue-query';
   import { notify } from '@workspace/core/utils/toast';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { queryKeys } from '~/api/query-keys';
   import { useAccountService } from '~/modules/account/services';
   import type { CustomerProfile } from '~/modules/account/types';
@@ -37,9 +38,9 @@
         <bdi v-if="masked" dir="ltr" class="bank__value">{{ masked }}</bdi>
         <span v-else class="bank__empty">{{ t('account.bank.none') }}</span>
       </div>
-      <button type="button" class="btn btn--glass" data-test-id="iban-change" @click="open = true">
+      <Button type="button" class="btn btn--glass" test-id="iban-change" @click="open = true">
         {{ masked ? t('account.bank.change') : t('account.bank.add') }}
-      </button>
+      </Button>
     </div>
 
     <ChangeFlowDialog

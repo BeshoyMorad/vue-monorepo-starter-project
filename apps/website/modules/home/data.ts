@@ -18,6 +18,16 @@ export const topNav = [
 
 export const slides = ['marketplace', 'services', 'trading'] as const;
 
+/**
+ * Hero background per slide. The photos fade to brand green on their right edge, which is
+ * where the text sits in Arabic; HeroBanner mirrors them in English so the green follows the text.
+ */
+export const slideImages: Record<(typeof slides)[number], string> = {
+  marketplace: '/images/brand/ibbil-hero-01.png',
+  services: '/images/brand/ibbil-hero-02.png',
+  trading: '/images/brand/ibbil-hero-03.png',
+};
+
 /** "About" feature tiles */
 export const features = [
   { id: 'trusted', icon: 'hugeicons--checkmark-badge-01' },

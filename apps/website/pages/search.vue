@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useQuery, useQueryClient } from '@tanstack/vue-query';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { Skeleton } from '@workspace/ui/ui/skeleton';
   import { queryKeys } from '~/api/query-keys';
   import SearchPager from '~/modules/search/components/SearchPager.vue';
@@ -151,10 +152,15 @@
         /></span>
         <h2 class="state__title">{{ t('search.results.errorTitle') }}</h2>
         <p class="state__text">{{ t('search.results.errorText') }}</p>
-        <button type="button" class="btn btn--primary" @click="results.refetch()">
-          <Icon icon="hugeicons--refresh" class="size-4" />
+        <Button
+          type="button"
+          class="btn btn--primary"
+          test-id="search-retry"
+          icon="hugeicons--refresh"
+          @click="results.refetch()"
+        >
           {{ t('search.results.retry') }}
-        </button>
+        </Button>
       </div>
 
       <!-- No results -->
@@ -173,9 +179,9 @@
           >
         </i18n-t>
         <p class="state__text">{{ t('search.results.emptyText') }}</p>
-        <NuxtLink v-if="params.domain" :to="linkTo()" class="btn btn--outline">
-          {{ t('search.results.searchAll') }}
-        </NuxtLink>
+        <Button v-if="params.domain" as-child class="btn btn--outline" test-id="search-all">
+          <NuxtLink :to="linkTo()">{{ t('search.results.searchAll') }}</NuxtLink>
+        </Button>
       </div>
 
       <template v-else>

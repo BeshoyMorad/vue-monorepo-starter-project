@@ -5,6 +5,7 @@
   import { useAccountService } from '~/modules/account/services';
   import type { ContactChannel, CustomerProfile } from '~/modules/account/types';
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { splitSaudiPhone } from '~/modules/account/mask';
   import AccountCard from './AccountCard.vue';
   import ChangeFlowDialog from './ChangeFlowDialog.vue';
@@ -85,16 +86,16 @@
             }}</span>
           </p>
         </div>
-        <button
+        <Button
           type="button"
-          class="row__btn"
-          :data-test-id="`contact-${row.channel}-change`"
+          class="row__btn ui-bare"
+          :test-id="`contact-${row.channel}-change`"
+          icon="hugeicons--pencil-edit-01"
           @click="editing = row.channel"
         >
-          <Icon icon="hugeicons--pencil-edit-01" class="size-4" />
           {{ row.value ? t('account.contact.change') : t('account.contact.add') }}
           <span class="sr-only">{{ row.label }}</span>
-        </button>
+        </Button>
       </li>
     </ul>
 

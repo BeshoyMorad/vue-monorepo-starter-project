@@ -45,18 +45,51 @@
   }
 }
 
+/*
+ * Buttons and fields come from the shared kit (@workspace/ui Button and Input); the site only
+ * restyles them. Unlayered CSS beats Tailwind's layered utilities, so these skins fully replace
+ * the kit's default look while the kit keeps the behaviour (loading state, icon, test id).
+ *
+ * .ui-bare: the kit's look reset to plain browser/preflight defaults, for controls a component
+ * styles itself in its scoped CSS (header triggers, hero dots, search pill, tabs).
+ * Keyed on the class alone: trigger wrappers (dropdown, dialog) replace the kit's data-slot.
+ * Zero specificity, so any component class wins over it.
+ */
+:where(.ui-bare) {
+  display: inline-block;
+  height: auto;
+  min-width: 0;
+  padding: 0;
+  gap: 0;
+  flex-shrink: 1;
+  align-items: normal;
+  justify-content: normal;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: normal;
+  box-shadow: none;
+  transition: none;
+}
+
 .site-ui .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  height: auto;
   min-height: 40px;
   padding: 8px 16px;
   border: 1px solid transparent;
   border-radius: 8px;
+  background: transparent;
+  color: inherit;
   font: 600 14px/20px var(--font);
   white-space: nowrap;
   cursor: pointer;
+  box-shadow: none;
   transition:
     background-color 0.15s,
     color 0.15s,

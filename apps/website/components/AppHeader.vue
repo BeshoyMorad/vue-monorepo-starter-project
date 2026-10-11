@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from '@workspace/ui';
+  import { Button, Icon } from '@workspace/ui';
   import { topNav } from '~/modules/home/data';
   import { paths } from '~/router/paths';
   import { useAuthStore } from '~/stores/auth';
@@ -90,7 +90,13 @@
             {{ t(`home.topNav.${item.id}`) }}
           </a>
         </nav>
-        <a class="btn btn--primary join ctrls__wide-sm" href="#">{{ t('home.header.join') }}</a>
+        <Button
+          as="a"
+          class="btn btn--primary join ctrls__wide-sm"
+          href="#"
+          test-id="header-join"
+          >{{ t('home.header.join') }}</Button
+        >
       </div>
     </div>
   </header>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { Skeleton } from '@workspace/ui/ui/skeleton';
   import BankCard from '~/modules/account/components/BankCard.vue';
   import ChangePasswordCard from '~/modules/account/components/ChangePasswordCard.vue';
@@ -31,9 +32,14 @@
     <div v-else-if="profile.isError.value && !data" class="state" role="alert">
       <Icon icon="hugeicons--alert-circle" class="size-7" />
       <p>{{ t('account.loadError') }}</p>
-      <button type="button" class="btn btn--primary" @click="profile.refetch()">
+      <Button
+        type="button"
+        class="btn btn--primary"
+        test-id="settings-retry"
+        @click="profile.refetch()"
+      >
         {{ t('account.retry') }}
-      </button>
+      </Button>
     </div>
     <template v-else>
       <ProfileForm :profile="data" />

@@ -2,6 +2,7 @@
   import { useMutation, useQueryClient } from '@tanstack/vue-query';
   import { notify } from '@workspace/core/utils/toast';
   import ConfirmDialog from '@workspace/ui/confirm-dialog/ConfirmDialog.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { useApiFormError } from '~/composables/useApiFormError';
   import { useAccountService } from '~/modules/account/services';
   import { paths } from '~/router/paths';
@@ -44,9 +45,14 @@
     :text="t('account.danger.text')"
   >
     <div>
-      <button type="button" class="danger-btn" data-test-id="account-delete" @click="open = true">
+      <Button
+        type="button"
+        class="danger-btn ui-bare"
+        test-id="account-delete"
+        @click="open = true"
+      >
         {{ t('account.danger.button') }}
-      </button>
+      </Button>
     </div>
     <ConfirmDialog
       v-model:open="open"

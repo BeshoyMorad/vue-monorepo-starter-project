@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from '@workspace/ui';
+  import { Button, Icon } from '@workspace/ui';
   import { features } from '~/modules/home/data';
 
   const { t } = useI18n();
@@ -25,14 +25,14 @@
           </li>
         </ul>
         <div class="acts">
-          <a class="btn btn--primary" href="#services">
+          <Button as="a" class="btn btn--primary" href="#services" test-id="about-services">
             {{ t('home.about.services') }}
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-          </a>
-          <a class="btn btn--glass" href="#">
+          </Button>
+          <Button as="a" class="btn btn--glass" href="#" test-id="about-learn-more">
             {{ t('home.about.learnMore') }}
             <Icon icon="hugeicons--arrow-right-02" class="site-arrow rtl:rotate-180" />
-          </a>
+          </Button>
         </div>
       </div>
       <div class="frame">

@@ -2,6 +2,7 @@
   // Direct imports: the `Field` object from '@workspace/ui' bundles every form field
   // (phone library, date picker, image cropper…) even when only one is used
   import InputOtp from '@workspace/ui/form/input-otp/InputOtp.vue';
+  import { Button } from '@workspace/ui/ui/button';
   import { useResetCodeForm } from '~/modules/auth/composables/useForgotPasswordForms';
   import AuthCardHeader from './AuthCardHeader.vue';
   import AuthFormError from './AuthFormError.vue';
@@ -34,14 +35,15 @@
     >
       <p>
         {{ t('auth.forgot.codeSubtitle', { phone: phoneLabel }) }}
-        <button
+        <Button
           type="button"
-          data-test-id="reset-change-number"
-          class="text-gold-800 hover:text-gold-900 cursor-pointer rounded-md font-semibold hover:underline"
+          variant="link"
+          test-id="reset-change-number"
+          class="text-gold-800 hover:text-gold-900 h-auto rounded-md p-0 text-[length:inherit] font-semibold focus-visible:ring-0"
           @click="$emit('back')"
         >
           {{ t('auth.forgot.changeNumber') }}
-        </button>
+        </Button>
       </p>
     </AuthCardHeader>
 

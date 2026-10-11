@@ -1,5 +1,7 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Input } from '@workspace/ui/ui/input';
   import {
     DropdownMenu,
     DropdownMenuContent,
@@ -20,14 +22,14 @@
   const { t } = useI18n();
   const { scope, query, scopes, current, scopeName, search } = useSiteSearch();
   const form = ref<HTMLFormElement>();
-  const input = ref<HTMLInputElement>();
+  const input = ref<{ $el: HTMLInputElement }>();
   const open = ref(false);
 
   /** Suggestions list: shown while the field (or the list itself) has focus */
   const listOpen = ref(false);
   const submit = () => {
     listOpen.value = false;
-    input.value?.blur();
+    input.value?.$el.blur();
     search();
   };
   const suggest = reactive(useSearchSuggest(query, listOpen, { onPick: submit }));
@@ -37,7 +39,7 @@
 
   const clear = () => {
     query.value = '';
-    input.value?.focus();
+    input.value?.$el.focus();
   };
 
   // After picking a scope, continue in the query field instead of back on the menu button
@@ -47,7 +49,7 @@
     if (!picked) return;
     picked = false;
     event.preventDefault();
-    input.value?.focus();
+    input.value?.$el.focus();
   };
 </script>
 
@@ -55,11 +57,11 @@
   <form ref="form" role="search" class="search" @submit.prevent="submit" @focusout="onFocusOut">
     <DropdownMenu v-model:open="open">
       <DropdownMenuTrigger as-child>
-        <button
+        <Button
           type="button"
-          class="scope"
+          class="scope ui-bare"
           :aria-label="`${t('home.header.search.scopeLabel')}: ${current?.label}`"
-          data-test-id="search-scope"
+          test-id="search-scope"
         >
           <span class="text-text-caption">{{ current?.label }}</span>
           <Icon
@@ -67,7 +69,7 @@
             class="text-text-caption size-4 transition-transform"
             :class="{ 'rotate-180': open }"
           />
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
@@ -106,14 +108,15 @@
     <span class="divider" aria-hidden="true" />
 
     <span class="field">
-      <input
+      <Input
         ref="input"
         v-model="query"
         type="search"
+        data-test-id="search-input"
         role="combobox"
         autocomplete="off"
         aria-autocomplete="list"
-        class="field__input"
+        class="field__input ui-bare"
         :aria-label="t('home.header.search.label')"
         :aria-expanded="suggest.visible"
         :aria-controls="suggest.listboxId"
@@ -139,18 +142,24 @@
       </i18n-t>
     </span>
 
-    <button
+    <Button
       v-if="query"
       type="button"
-      class="clear"
+      class="clear ui-bare"
+      test-id="search-clear"
       :aria-label="t('home.header.search.clearLabel')"
       @click="clear"
     >
       {{ t('home.header.search.clear') }}
-    </button>
-    <button type="submit" class="submit" :aria-label="t('home.header.search.submit')">
-      <Icon icon="hugeicons--search-01" class="text-text-caption size-4 rtl:-scale-x-100" />
-    </button>
+    </Button>
+    <Button
+      type="submit"
+      class="submit ui-bare"
+      test-id="search-submit"
+      :aria-label="t('home.header.search.submit')"
+      icon="hugeicons--search-01"
+      icon-class="text-text-caption rtl:-scale-x-100"
+    />
 
     <SearchSuggestList :suggest="suggest" />
   </form>
