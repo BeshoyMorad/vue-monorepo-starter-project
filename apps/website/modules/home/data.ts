@@ -35,13 +35,14 @@ export const features = [
   { id: 'market', image: '/images/brand/cart.png' },
 ] as const;
 
+/** "Platform services" cards, in reading order (Figma: Services section) */
 export const services = [
-  { id: 'insurance', icon: 'hugeicons--shield-01' },
-  { id: 'transport', icon: 'hugeicons--delivery-truck-01' },
-  { id: 'permits', icon: 'hugeicons--legal-document-01' },
-  { id: 'veterinary', icon: 'hugeicons--stethoscope' },
-  { id: 'trading', icon: 'hugeicons--money-exchange-01' },
-  { id: 'rental', icon: 'hugeicons--camel' },
+  { id: 'stores', to: '#', image: '/images/services/stores.png' },
+  { id: 'insurance', to: '#', image: '/images/services/insurance.png' },
+  { id: 'transport', to: '#', image: '/images/services/transport.png' },
+  { id: 'veterinary', to: '#', image: '/images/services/vet.png' },
+  { id: 'permits', to: '#', image: '/images/services/permits.png' },
+  { id: 'media', to: '#media', image: '/images/services/media.png' },
 ] as const;
 
 /**

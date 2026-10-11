@@ -107,29 +107,29 @@ export const homeEn = {
     text: 'Pick the service you need and get started right away on Ibbil.',
     explore: 'Explore the service',
     items: {
+      stores: {
+        title: 'Stores',
+        text: 'Shop from feed, supplies and camel product stores.',
+      },
       insurance: {
         title: 'Insurance',
-        text: 'Camel insurance policies from licensed insurers, issued online.',
+        text: 'Insurance policies that protect your camels, safely and clearly.',
       },
       transport: {
         title: 'Transport',
-        text: 'Safe camel transport between cities with licensed carriers and trip tracking.',
-      },
-      permits: {
-        title: 'Permits',
-        text: 'Get camel transport and movement permits easily, in one place.',
+        text: 'Reliable transport services between cities and regions.',
       },
       veterinary: {
         title: 'Veterinary',
-        text: 'Book a visit or a consultation with vets who specialize in camels.',
+        text: 'Veterinary care and health follow-up from specialists.',
       },
-      trading: {
-        title: 'Camel trading',
-        text: 'List your camels for sale or browse offers from verified owners.',
+      permits: {
+        title: 'Permits',
+        text: 'Issue and manage permits easily, in clear steps.',
       },
-      rental: {
-        title: 'Rental and co-ownership',
-        text: 'Rent camels or co-own them under clear contracts.',
+      media: {
+        title: 'Media center',
+        text: 'News and coverage from the camel world and the platform.',
       },
     },
   },
