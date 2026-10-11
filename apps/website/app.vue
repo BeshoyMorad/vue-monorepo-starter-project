@@ -20,7 +20,8 @@
       <NuxtPage />
     </NuxtLayout>
     <ClientOnly>
-      <Toaster />
+      <!-- Follows the page direction: Arabic toasts read right to left and open on the left -->
+      <Toaster :dir="dir" :position="dir === 'rtl' ? 'top-left' : 'top-right'" />
     </ClientOnly>
   </DirectionProvider>
 </template>

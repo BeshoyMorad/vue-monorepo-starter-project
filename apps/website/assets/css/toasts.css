@@ -1,0 +1,159 @@
+/*
+ * Toasts (vue-sonner, via the shared Toaster in @workspace/ui). The shared kit paints them as
+ * bright gradients; the website restyles them here, like the auth skins in brand.css, so the
+ * other apps keep the kit look.
+ *
+ * Same surface as the site's dark pieces (header, footer, featured news card): deep brand
+ * green with a soft highlight, white text, 16px corners. The message type shows in one accent
+ * color only (the icon ring and the time bar), picked light enough to read on the green.
+ *
+ * The kit passes its colors as custom properties on the toaster element: redefining them on
+ * each toast takes over without fighting vue-sonner's selectors, whatever the load order.
+ */
+
+/* `html` outranks vue-sonner's own toaster rule, which loads after this file */
+html [data-sonner-toaster] {
+  --border-radius: 16px;
+  font-family: var(--font-brand);
+}
+
+[data-sonner-toaster] [data-sonner-toast] {
+  --toast-surface:
+    radial-gradient(120% 140% at 0% 0%, rgb(255 255 255 / 0.07), transparent 55%),
+    linear-gradient(160deg, var(--color-primary-700), var(--color-primary-900));
+  --toast-edge: rgb(255 255 255 / 0.1);
+  --toast-accent: #7fd6a0;
+
+  --success-bg: var(--toast-surface);
+  --success-text: #fff;
+  --success-border: var(--toast-edge);
+  --error-bg: var(--toast-surface);
+  --error-text: #fff;
+  --error-border: var(--toast-edge);
+  --warning-bg: var(--toast-surface);
+  --warning-text: #fff;
+  --warning-border: var(--toast-edge);
+  --info-bg: var(--toast-surface);
+  --info-text: #fff;
+  --info-border: var(--toast-edge);
+}
+[data-sonner-toaster] [data-sonner-toast][data-type='error'] {
+  --toast-accent: #ff8f87;
+}
+[data-sonner-toaster] [data-sonner-toast][data-type='warning'] {
+  --toast-accent: var(--color-gold-300);
+}
+[data-sonner-toaster] [data-sonner-toast][data-type='info'] {
+  --toast-accent: #93c5fd;
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-styled='true'] {
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  /* Room for the close button, which sits inside the card */
+  padding-inline-end: 48px;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 18px 40px -12px rgb(10 20 15 / 0.45),
+    0 4px 12px -4px rgb(10 20 15 / 0.25);
+}
+
+/*
+ * Icon: a ring tinted with the accent color. The kit's Tailwind classes for it live in
+ * packages/core, which the website's Tailwind build doesn't scan, so it's sized here
+ * (unlayered CSS wins over the kit's classes either way).
+ */
+[data-sonner-toaster] [data-sonner-toast][data-styled='true'] [data-icon] {
+  flex-shrink: 0;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--toast-accent) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--toast-accent) 35%, transparent);
+}
+[data-sonner-toaster] [data-sonner-toast][data-styled='true'] [data-icon] > * {
+  width: 18px;
+  height: 18px;
+  color: var(--toast-accent);
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-title] > div {
+  gap: 2px;
+}
+[data-sonner-toaster] [data-sonner-toast] [data-title] p:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #fff;
+}
+[data-sonner-toaster] [data-sonner-toast] [data-title] p + p {
+  font-size: 13px;
+  line-height: 19px;
+  color: rgb(255 255 255 / 0.72);
+}
+
+/*
+ * Time bar: a thin line in the accent color along the bottom edge.
+ * A 2px-tall box can't carry the card's 15px corner (the browser shrinks the radius to 2px),
+ * so the track is a corner-tall, transparent box clipped to the card's curve, and the bar is
+ * drawn along its bottom edge. 15px = the card's 16px radius minus its border.
+ */
+[data-sonner-toaster] [data-sonner-toast] div:has(> .toast-progress-bar) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 16px;
+  border-radius: 0 0 15px 15px;
+  background: transparent;
+  pointer-events: none;
+}
+[data-sonner-toaster] [data-sonner-toast] .toast-progress-bar {
+  flex-shrink: 0;
+  align-self: flex-start;
+  height: 2px;
+  background: var(--toast-accent);
+  opacity: 0.85;
+}
+
+/*
+ * Close button: centered at the card's end instead of a circle hanging off its edge.
+ * `html` outranks vue-sonner's per-type rule, which paints it with the card background.
+ */
+html [data-sonner-toaster] [data-sonner-toast][data-styled='true'] [data-close-button] {
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  inset-inline-end: 12px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  color: rgb(255 255 255 / 0.55);
+}
+[data-sonner-toaster] [data-sonner-toast][data-styled='true'] [data-close-button]:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.7);
+  outline-offset: 1px;
+}
+
+/*
+ * Hover on the close button. The kit also asks for important Tailwind utilities here
+ * (hover:!bg-…): if they ever get generated, only an important rule in an earlier layer beats them.
+ */
+@layer base {
+  [data-sonner-toaster] [data-sonner-toast] [data-close-button]:hover {
+    background: rgb(255 255 255 / 0.1) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+  }
+}
