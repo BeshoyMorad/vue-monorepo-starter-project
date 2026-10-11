@@ -1,7 +1,9 @@
-import type { ApiFetch } from '~/api/client';
+import type { ApiClient } from '@workspace/core/lib';
 
 /**
- * Returns the app's fetch client (token, locale and error handling included).
- * Call it inside TanStack Query functions rather than directly in components.
+ * Returns the Nuxt 3 application configured ofetch API client.
  */
-export const useApi = (): ApiFetch => useNuxtApp().$api;
+export const useApi = (): ApiClient => {
+  const { $api } = useNuxtApp();
+  return $api;
+};

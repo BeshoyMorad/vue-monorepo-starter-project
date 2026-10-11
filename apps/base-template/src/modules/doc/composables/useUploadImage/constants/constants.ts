@@ -100,7 +100,9 @@ export const IMAGE_UPLOAD_RESPONSE_CODE = `{
   ],
 }`;
 
-export const IMAGE_UPLOAD_STORAGE_CODE = `await axios.put(presignedUrl, file, {
+export const IMAGE_UPLOAD_STORAGE_CODE = `await ofetch(presignedUrl, {
+  method: 'PUT',
+  body: file,
   headers: {
     'Content-Type': file.type,
   },

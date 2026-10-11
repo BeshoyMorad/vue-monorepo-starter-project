@@ -3,7 +3,8 @@
   import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
   import { cn } from '@workspace/core/utils';
-  import { Icon, Button } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import { Button } from '@workspace/ui/ui/button';
   import { createMediaValue } from '@workspace/core/composables/useFormMedia';
   import { error } from '@workspace/core/utils/toast';
   import {
@@ -12,25 +13,13 @@
     isImageMimeType,
   } from '@workspace/core/constants';
   import ImageCropperDialog from './ImageCropperDialog.vue';
+  import type { BaseImageUploadProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue | null;
-    disabled?: boolean;
-    placeholder?: string;
-    sizePreset?: 'logo' | 'smallLogo' | 'avatar' | 'default';
-    ariaInvalid?: boolean;
-    allowedTypes?: string[];
-    crop?: boolean;
-    cropAspectRatio?: number;
-    maxSizeMb?: number;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseImageUploadProps>(), {
     modelValue: null,
     disabled: false,
     placeholder: 'Upload image',

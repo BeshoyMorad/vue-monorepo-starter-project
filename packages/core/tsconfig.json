@@ -5,8 +5,6 @@
     "paths": {
       "@workspace/core/*": ["./src/*"],
       "@workspace/core": ["./src/index.ts"],
-      "@workspace/ui/*": ["../ui/src/*"],
-      "@workspace/ui": ["../ui/src/index.ts"],
       "@workspace/locales/*": ["../locales/src/*"],
       "@workspace/locales": ["../locales/src/index.ts"],
       "@/*": ["./src/*"]

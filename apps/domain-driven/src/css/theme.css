@@ -1,0 +1,8 @@
+/* Domain-Driven SPA Theme */
+@theme {
+  --color-primary: #8b5cf6;
+}
+
+:root {
+  --color-primary: #8b5cf6;
+}

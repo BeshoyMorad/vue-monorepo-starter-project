@@ -6,7 +6,7 @@
   import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
   import { cva } from 'class-variance-authority';
   import { cn } from '@workspace/core/utils';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
 
   interface CheckboxProps extends CheckboxRootProps {
     class?: HTMLAttributes['class'];

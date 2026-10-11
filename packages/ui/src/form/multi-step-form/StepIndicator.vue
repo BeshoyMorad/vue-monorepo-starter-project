@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import { cn } from '@workspace/core/utils';
 
   interface Props {

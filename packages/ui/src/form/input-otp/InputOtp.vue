@@ -8,33 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@workspace/ui/ui/form';
+  import type { InputOtpProps } from './types';
   import BaseInputOtp from './BaseInputOtp.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    length?: number;
-    integerOnly?: boolean;
-    disabled?: boolean;
-    label?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-    /**
-     * Validate only when the form is submitted, not on input, change, blur or v-model
-     * updates (vee-validate's defaults), so a half-typed code doesn't show "incomplete"
-     * while the user is typing.
-     */
-    validateOnSubmitOnly?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<InputOtpProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     length: 6,

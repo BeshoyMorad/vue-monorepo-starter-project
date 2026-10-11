@@ -10,6 +10,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
+  sourcemap: {
+    server: false,
+  },
+
   // Workspace package transpilation (ensures raw .ts and .vue packages compile seamlessly)
   build: {
     transpile: ['@workspace/ui', '@workspace/core', '@workspace/locales'],
@@ -110,6 +114,9 @@ export default defineNuxtConfig({
 
   // Localization configuration via @nuxtjs/i18n
   i18n: {
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
     restructureDir: false,
     locales: [
       { code: 'en', language: 'en-US', name: 'English', file: 'en.ts', dir: 'ltr' },

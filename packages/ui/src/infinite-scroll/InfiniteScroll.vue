@@ -2,7 +2,7 @@
   import type { HTMLAttributes } from 'vue';
   import { computed, ref } from 'vue';
   import { useInfiniteScroll } from '@vueuse/core';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import { cn } from '@workspace/core/utils';
   import { useVirtualScroll } from '@workspace/core/composables';
 

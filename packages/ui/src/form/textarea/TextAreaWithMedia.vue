@@ -13,33 +13,22 @@
   } from '@workspace/core/constants';
   import { computed, ref, watch } from 'vue';
   import { createMediaValueList } from '@workspace/core/composables';
-  import { Button, Field, Icon, Tooltip } from '@workspace/ui';
+  import { Button } from '@workspace/ui/ui/button';
+  import { Icon } from '@workspace/ui/icon';
+  import Tooltip from '@workspace/ui/tooltip/Tooltip.vue';
+  import Textarea from './Textarea.vue';
+  import type { TextAreaWithMediaProps } from './types';
 
-  const props = withDefaults(
-    defineProps<{
-      textAreaName: string;
-      mediaName: string;
-      placeholder?: string;
-      submitLabel?: string;
-      containerClass?: string;
-      loading?: boolean;
-      disabled?: boolean;
-      testId: string;
-      bordered?: boolean;
-      hideAttachmentButton?: boolean;
-      hideSaveButton?: boolean;
-    }>(),
-    {
-      placeholder: 'Enter text...',
-      submitLabel: 'Submit',
-      containerClass: '',
-      loading: false,
-      disabled: false,
-      bordered: true,
-      hideAttachmentButton: false,
-      hideSaveButton: false,
-    }
-  );
+  const props = withDefaults(defineProps<TextAreaWithMediaProps>(), {
+    placeholder: 'Enter text...',
+    submitLabel: 'Submit',
+    containerClass: '',
+    loading: false,
+    disabled: false,
+    bordered: true,
+    hideAttachmentButton: false,
+    hideSaveButton: false,
+  });
 
   const MAX_FILES = 5;
   const MAX_SIZE_MB = 10;
@@ -199,7 +188,7 @@
 <template>
   <div :class="cn('bg-background rounded-xl py-2 pr-4 pl-2', containerClass)">
     <div class="flex w-full justify-between gap-2">
-      <Field.Textarea
+      <Textarea
         :test-id="`${testId}-text-content`"
         :name="textAreaName"
         container-class="flex-1"

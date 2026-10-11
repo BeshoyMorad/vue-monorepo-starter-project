@@ -1,9 +1,7 @@
 export { useDarkTheme } from './useDarkTheme';
 export { useDataTable } from './useDataTable';
-export type { TableParams } from './useTableState';
-export type { UseTableOptions } from './useDataTable';
 export { useDataInfiniteScroll } from './useDataInfiniteScroll';
-export type { UseDataInfiniteScrollOptions } from './useDataInfiniteScroll';
+export * from './types';
 export { useUploadImage } from './useUploadImage';
 export type { StorageServiceType, UploadImagePayload } from './useUploadImage';
 export {

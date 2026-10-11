@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { Icon, Button } from '.';
+  import { Icon } from '@workspace/ui/icon';
+  import { Button } from '@workspace/ui/ui/button';
 
   defineProps<{
     icon?: string;

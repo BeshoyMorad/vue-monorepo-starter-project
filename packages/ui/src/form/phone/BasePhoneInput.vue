@@ -5,24 +5,16 @@
   import { allCountries } from '@workspace/core/utils/countries';
   import { inputVariants } from '@workspace/ui/ui/input';
   import { Popover } from '@workspace/ui/ui/popover';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import type { BasePhoneInputProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultCountry?: CountryCode;
-    placeholder?: string;
-    disabled?: boolean;
-    showClear?: boolean;
-  }
-
   // ─── Props & Emits ────────────────────────────────────────────────────────────
 
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BasePhoneInputProps>(), {
     modelValue: '',
     defaultCountry: 'US',
     placeholder: '000 000 0000',

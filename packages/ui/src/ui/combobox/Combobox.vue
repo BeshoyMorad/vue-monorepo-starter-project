@@ -11,7 +11,7 @@
   /* eslint-disable max-lines */
   import { computed, watch, type HtmlHTMLAttributes } from 'vue';
   import { useForwardProps, type AcceptableValue, type ComboboxRootProps } from 'reka-ui';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
   import { cn } from '@workspace/core/utils';
   import { reactiveOmit } from '@vueuse/core';
   import ComboboxAnchor from './ComboboxAnchor.vue';

@@ -42,12 +42,12 @@ export const routes = {
   'search.history.entry': { uri: 'user/search-history/{id}', methods: ['DELETE'] },
 } as const satisfies ZiggyConfig['routes'];
 
-export const Ziggy: ZiggyConfig = {
+export const Ziggy = {
   url: '',
   port: null,
   defaults: {},
   routes,
-};
+} as const satisfies ZiggyConfig;
 
 export type WebsiteApiRoutes = typeof routes;
 export const apiRoute = createApiRoute(Ziggy);

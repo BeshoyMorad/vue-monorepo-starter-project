@@ -1,140 +1,123 @@
-import axios, {
-  type AxiosError,
-  type AxiosInstance,
-  type AxiosRequestConfig,
-  type AxiosResponse,
-  type InternalAxiosRequestConfig,
-  type RawAxiosRequestHeaders,
-} from 'axios';
+import {
+  ofetch,
+  createFetchError,
+  type $Fetch,
+  type FetchContext,
+  type FetchOptions,
+  type FetchRequest,
+  type FetchResponse,
+  type FetchError,
+} from 'ofetch';
 import { getCurrentInstance, inject } from 'vue';
 import { getDeviceId } from '@workspace/core/utils/device';
 import { handleOffline } from '@workspace/core/composables/useNetwork';
 
-let defaultApiClient: AxiosInstance | null = null;
-
 /**
- * Sets the default Axios API client for the application.
+ * Extended API Client type providing callable `$Fetch` behavior
+ * along with standard HTTP verb helper methods (.get, .post, .put, .patch, .delete).
  */
-export function setApiClient(client: AxiosInstance): void {
+export interface ApiClient extends $Fetch {
+  get<T = unknown>(url: FetchRequest, options?: FetchOptions): Promise<T>;
+  post<T = unknown>(url: FetchRequest, body?: unknown, options?: FetchOptions): Promise<T>;
+  put<T = unknown>(url: FetchRequest, body?: unknown, options?: FetchOptions): Promise<T>;
+  patch<T = unknown>(url: FetchRequest, body?: unknown, options?: FetchOptions): Promise<T>;
+  delete<T = unknown>(url: FetchRequest, options?: FetchOptions): Promise<T>;
+}
+
+export type TokenGetter = () => string | null | undefined | Promise<string | null | undefined>;
+
+export interface CreateApiClientOptions extends Omit<
+  FetchOptions,
+  'baseURL' | 'headers' | 'onRequest' | 'onResponse' | 'onResponseError' | 'onRequestError'
+> {
+  baseURL?: string;
+  timeout?: number;
+  headers?: HeadersInit;
+  getToken?: TokenGetter;
+  onUnauthorized?: (error: FetchError) => void | Promise<void>;
+  onForbidden?: (error: FetchError) => void | Promise<void>;
+  onServerError?: (error: FetchError) => void | Promise<void>;
+  onRequest?: (context: FetchContext) => void | Promise<void>;
+  onResponse?: (
+    context: FetchContext & { response: FetchResponse<unknown> }
+  ) => void | Promise<void>;
+  onResponseError?: (
+    context: FetchContext & { response: FetchResponse<unknown> }
+  ) => void | Promise<void>;
+  onRequestError?: (context: FetchContext & { error: Error }) => void | Promise<void>;
+}
+
+let defaultApiClient: ApiClient | null = null;
+
+export function setApiClient(client: ApiClient): void {
   defaultApiClient = client;
 }
 
-/**
- * Retrieves the active API client instance.
- * Checks Vue injection context (`inject('api')`) first, then falls back to `defaultApiClient`.
- */
-export function getApiClient(): AxiosInstance {
+export function getApiClient(): ApiClient {
   if (getCurrentInstance()) {
-    const injected = inject<AxiosInstance | null>('api', null);
-    if (injected) {
-      return injected;
-    }
+    const injected = inject<ApiClient | null>('api', null);
+    if (injected) return injected;
   }
 
-  if (defaultApiClient) {
-    return defaultApiClient;
-  }
+  if (defaultApiClient) return defaultApiClient;
 
   throw new Error(
     '[ApiClient]: No API client found. Please register an API client using `setApiClient(api)` or provide it via `app.provide("api", api)`.'
   );
 }
 
-export type TokenGetter = () => string | null | undefined | Promise<string | null | undefined>;
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
-export interface CreateApiClientOptions {
-  /**
-   * Base URL for all HTTP requests
-   */
-  baseURL?: string;
-  /**
-   * Default request timeout in milliseconds (default: 15000)
-   */
-  timeout?: number;
-  /**
-   * Custom default request headers
-   */
-  headers?: RawAxiosRequestHeaders;
-  /**
-   * Function returning the Bearer token (string, null, or Promise)
-   */
-  getToken?: TokenGetter;
-  /**
-   * Callback invoked when a 401 Unauthorized response is received
-   */
-  onUnauthorized?: (error: AxiosError) => void | Promise<void>;
-  /**
-   * Callback invoked when a 403 Forbidden response is received
-   */
-  onForbidden?: (error: AxiosError) => void | Promise<void>;
-  /**
-   * Callback invoked when a 500+ Server Error response is received
-   */
-  onServerError?: (error: AxiosError) => void | Promise<void>;
-  /**
-   * Custom request interceptor hook
-   */
-  onRequest?: (
-    config: InternalAxiosRequestConfig
-  ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>;
-  /**
-   * Custom response success interceptor hook
-   */
-  onResponse?: (response: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>;
-  /**
-   * Custom response error interceptor hook
-   */
-  onResponseError?: (error: AxiosError) => unknown;
-}
-
-async function applyRequestAuth(
-  config: InternalAxiosRequestConfig,
-  getToken?: TokenGetter
-): Promise<void> {
-  const deviceId = getDeviceId();
-  if (deviceId) {
-    config.headers.set('device-id', deviceId);
-  }
-
-  if (getToken) {
-    const token = await getToken();
-    if (token && !config.headers.get('Authorization')) {
-      config.headers.set('Authorization', `Bearer ${token}`);
-    }
-  }
-}
-
-async function handleResponseError(
-  error: AxiosError,
-  options: CreateApiClientOptions
-): Promise<unknown> {
-  if (!error.response && typeof navigator !== 'undefined' && !navigator.onLine) {
+function checkOffline(): void {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
     handleOffline();
   }
-
-  const status = error.response?.status;
-  if (status === 401 && options.onUnauthorized) {
-    await options.onUnauthorized(error);
-  } else if (status === 403 && options.onForbidden) {
-    await options.onForbidden(error);
-  } else if (status && status >= 500 && options.onServerError) {
-    await options.onServerError(error);
-  }
-
-  if (options.onResponseError) {
-    return options.onResponseError(error);
-  }
-
-  return Promise.reject(error);
 }
 
-/**
- * Creates a configured Axios API client instance with shared standard defaults.
- *
- * Each consumer application (Vite SPA or Nuxt) extends this base client with its
- * environment baseURL, storage token getter, and router navigation.
- */
-export function createApiClient(options: CreateApiClientOptions = {}): AxiosInstance {
+async function applyAuth(context: FetchContext, getToken?: TokenGetter): Promise<void> {
+  const headers = new Headers(context.options.headers);
+
+  const deviceId = getDeviceId();
+  if (deviceId && !headers.has('device-id')) {
+    headers.set('device-id', deviceId);
+  }
+
+  if (getToken && !headers.has('Authorization')) {
+    const token = await getToken();
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+  }
+
+  context.options.headers = headers;
+}
+
+function withMethods(fetch: $Fetch): ApiClient {
+  const request = <T>(url: FetchRequest, method: string, body?: unknown, opts?: FetchOptions) =>
+    fetch<T>(url, {
+      ...opts,
+      method,
+      query: opts?.query,
+      ...(body !== undefined ? { body } : {}),
+    } as FetchOptions<'json'>);
+
+  return Object.assign(fetch, {
+    get: <T = unknown>(url: FetchRequest, opts?: FetchOptions) =>
+      request<T>(url, 'GET', undefined, opts),
+    post: <T = unknown>(url: FetchRequest, body?: unknown, opts?: FetchOptions) =>
+      request<T>(url, 'POST', body, opts),
+    put: <T = unknown>(url: FetchRequest, body?: unknown, opts?: FetchOptions) =>
+      request<T>(url, 'PUT', body, opts),
+    patch: <T = unknown>(url: FetchRequest, body?: unknown, opts?: FetchOptions) =>
+      request<T>(url, 'PATCH', body, opts),
+    delete: <T = unknown>(url: FetchRequest, opts?: FetchOptions) =>
+      request<T>(url, 'DELETE', undefined, opts),
+  }) as ApiClient;
+}
+
+// ── Client Factory ───────────────────────────────────────────────────────────
+
+export function createApiClient(options: CreateApiClientOptions = {}): ApiClient {
   const {
     baseURL = '',
     timeout = 15000,
@@ -142,41 +125,48 @@ export function createApiClient(options: CreateApiClientOptions = {}): AxiosInst
     getToken,
     onRequest: customOnRequest,
     onResponse: customOnResponse,
+    onResponseError: customOnResponseError,
+    onRequestError: customOnRequestError,
+    onUnauthorized,
+    onForbidden,
+    onServerError,
+    ...rest
   } = options;
 
-  const instance = axios.create({
+  const baseFetch = ofetch.create({
     baseURL,
     timeout,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...headers,
+    headers: { Accept: 'application/json', ...headers },
+    ...rest,
+    async onRequest(context) {
+      await applyAuth(context, getToken);
+      await customOnRequest?.(context);
+    },
+    async onResponse(context) {
+      await customOnResponse?.(context);
+    },
+    async onResponseError(context) {
+      checkOffline();
+      const status = context.response?.status;
+      const error = createFetchError(context);
+
+      if (status === 401) await onUnauthorized?.(error);
+      else if (status === 403) await onForbidden?.(error);
+      else if (status && status >= 500) await onServerError?.(error);
+
+      await customOnResponseError?.(context);
+    },
+    async onRequestError(context) {
+      checkOffline();
+      await customOnRequestError?.(context);
     },
   });
 
-  instance.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
-    await applyRequestAuth(config, getToken);
-    return customOnRequest ? await customOnRequest(config) : config;
-  });
-
-  instance.interceptors.response.use(
-    (response: AxiosResponse) => (customOnResponse ? customOnResponse(response) : response),
-    (error: AxiosError) => handleResponseError(error, options)
-  );
+  const client = withMethods(baseFetch);
 
   if (!defaultApiClient) {
-    defaultApiClient = instance;
+    defaultApiClient = client;
   }
 
-  return instance;
+  return client;
 }
-
-// Re-export core Axios types for convenience in consumer applications
-export type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError,
-  InternalAxiosRequestConfig,
-};
-export { axios };

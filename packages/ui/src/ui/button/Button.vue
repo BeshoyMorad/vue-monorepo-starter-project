@@ -3,9 +3,9 @@
   import { computed, type HTMLAttributes } from 'vue';
   import { Primitive } from 'reka-ui';
   import { cn } from '@workspace/core';
-  import { buttonVariants, type ButtonVariants } from '.';
+  import { buttonVariants, type ButtonVariants } from './variants';
   import type { IconVariants } from '@workspace/ui/icon';
-  import { Icon } from '@workspace/ui';
+  import Icon from '@workspace/ui/icon/Icon.vue';
 
   interface Props extends PrimitiveProps {
     testId: string;

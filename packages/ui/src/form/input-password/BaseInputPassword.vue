@@ -2,24 +2,14 @@
   import { ref, computed } from 'vue';
   import { useVModel } from '@vueuse/core';
   import BaseInputText from '@workspace/ui/form/input-text/BaseInputText.vue';
-  import { Icon } from '@workspace/ui';
+  import { Icon } from '@workspace/ui/icon';
+  import type { BaseInputPasswordProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    /**
-     * Accessible name of the visibility toggle; pass translated text in non-English UIs.
-     * The name stays fixed and `aria-pressed` reports whether the password is shown.
-     */
-    toggleLabel?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputPasswordProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     toggleLabel: 'Show password',
