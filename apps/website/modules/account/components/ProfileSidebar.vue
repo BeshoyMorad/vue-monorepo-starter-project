@@ -25,8 +25,8 @@
       to: localePath(paths.profile.overview),
     },
     { id: 'profile', icon: 'hugeicons--user-account', to: localePath(paths.profile.settings) },
+    { id: 'wallet', icon: 'hugeicons--wallet-01', to: localePath(paths.profile.wallet) },
     // TODO: link these once their pages exist
-    { id: 'wallet', icon: 'hugeicons--wallet-01', to: '#' },
     { id: 'orders', icon: 'hugeicons--store-01', to: '#' },
     { id: 'trips', icon: 'hugeicons--delivery-truck-01', to: '#' },
     { id: 'veterinary', icon: 'hugeicons--stethoscope', to: '#' },

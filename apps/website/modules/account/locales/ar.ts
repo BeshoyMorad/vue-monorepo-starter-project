@@ -7,6 +7,7 @@ export const accountAr: typeof accountEn = {
     home: 'الرئيسية',
     profile: 'ملفي الشخصي',
     settings: 'إعدادات الحساب',
+    wallet: 'المحفظة',
   },
   nav: {
     label: 'ملفي الشخصي',

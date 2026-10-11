@@ -7,9 +7,9 @@
   /**
    * Frame of the profile pages (pages/profile.vue): breadcrumb, sidebar and the page.
    * Each page has its own visually hidden h1 (id="profile-title"): the breadcrumb shows
-   * where you are.
+   * where you are. `section` names the page under "My profile" (none on the overview).
    */
-  defineProps<{ profile?: CustomerProfile; settings?: boolean }>();
+  defineProps<{ profile?: CustomerProfile; section?: 'settings' | 'wallet' }>();
   const { t } = useI18n();
   const localePath = useLocalePath();
 </script>
@@ -28,17 +28,17 @@
           </li>
           <li>
             <Icon icon="hugeicons--arrow-right-01" class="crumbs__sep size-3.5 rtl:rotate-180" />
-            <NuxtLink v-if="settings" :to="localePath(paths.profile.overview)" class="crumbs__link">
+            <NuxtLink v-if="section" :to="localePath(paths.profile.overview)" class="crumbs__link">
               {{ t('account.breadcrumb.profile') }}
             </NuxtLink>
             <span v-else class="crumbs__here" aria-current="page">
               {{ t('account.breadcrumb.profile') }}
             </span>
           </li>
-          <li v-if="settings">
+          <li v-if="section">
             <Icon icon="hugeicons--arrow-right-01" class="crumbs__sep size-3.5 rtl:rotate-180" />
             <span class="crumbs__here" aria-current="page">{{
-              t('account.breadcrumb.settings')
+              t(`account.breadcrumb.${section}`)
             }}</span>
           </li>
         </ol>

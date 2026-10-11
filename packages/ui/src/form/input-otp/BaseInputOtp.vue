@@ -15,6 +15,7 @@
     length: 6,
     integerOnly: false,
     disabled: false,
+    masked: false,
   });
 
   const emits = defineEmits<{
@@ -62,6 +63,7 @@
         :key="index - 1"
         :aria-invalid="isInvalid || undefined"
         :index="index - 1"
+        :masked="masked"
       />
     </InputOTPGroup>
   </InputOTP>

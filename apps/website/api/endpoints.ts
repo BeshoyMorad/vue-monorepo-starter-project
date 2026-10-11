@@ -32,6 +32,13 @@ export const routes = {
     methods: ['GET'],
   },
 
+  // WALLET (signed-in customer): balance, history, test-gateway deposit and PIN
+  'wallet.current': { uri: 'wallets/current-user', methods: ['GET'] },
+  'wallet.history': { uri: 'wallets/history', methods: ['GET'] },
+  'wallet.deposit': { uri: 'wallets/{walletId}/deposit', methods: ['POST'] },
+  'wallet.pin': { uri: 'wallets/pin/current-user', methods: ['PUT'] },
+  'wallet.banks': { uri: 'wallets/banks', methods: ['GET'] },
+
   // UPLOADS: multipart, field `file`; answers with the public URL of the stored image
   'uploads.image': { uri: 'uploads/image', methods: ['POST'] },
 

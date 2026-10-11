@@ -6,6 +6,8 @@ export interface BaseInputOtpProps extends BaseFormFieldProps {
   length?: number;
   integerOnly?: boolean;
   disabled?: boolean;
+  /** Shows a dot instead of each typed character (PINs) */
+  masked?: boolean;
 }
 
 export type InputOtpProps = BaseInputOtpProps & FormFieldValidationProps;

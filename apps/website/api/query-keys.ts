@@ -12,6 +12,11 @@ export const queryKeys = {
     profile: () => [...queryKeys.account.all(), 'profile'] as const,
     stats: (domain: string) => [...queryKeys.account.all(), 'stats', domain] as const,
   },
+  wallet: {
+    all: () => ['wallet'] as const,
+    current: () => [...queryKeys.wallet.all(), 'current'] as const,
+    history: (params: object) => [...queryKeys.wallet.all(), 'history', params] as const,
+  },
   search: {
     all: () => ['search'] as const,
     results: (params: object) => [...queryKeys.search.all(), 'results', params] as const,

@@ -6,9 +6,14 @@
   import { useVueOTPContext } from 'vue-input-otp';
   import { cn } from '@workspace/core/utils';
 
-  const props = defineProps<{ index: number; class?: HTMLAttributes['class'] }>();
+  const props = defineProps<{
+    index: number;
+    /** Shows a dot instead of the typed character */
+    masked?: boolean;
+    class?: HTMLAttributes['class'];
+  }>();
 
-  const delegatedProps = reactiveOmit(props, 'class');
+  const delegatedProps = reactiveOmit(props, 'class', 'masked');
 
   const forwarded = useForwardProps(delegatedProps);
 
@@ -31,7 +36,7 @@
       )
     "
   >
-    {{ slot?.char }}
+    {{ masked && slot?.char ? '•' : slot?.char }}
     <div
       v-if="slot?.hasFakeCaret"
       class="pointer-events-none absolute inset-0 flex items-center justify-center"

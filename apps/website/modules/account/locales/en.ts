@@ -5,6 +5,7 @@ export const accountEn = {
     home: 'Home',
     profile: 'My profile',
     settings: 'Account settings',
+    wallet: 'Wallet',
   },
   nav: {
     label: 'My profile',

@@ -10,8 +10,11 @@
   } from '@workspace/ui/ui/pagination';
   import type { SearchPageMeta } from '~/modules/search/types';
 
-  /** Result pages, from the shared pagination. Arrows follow the reading direction. */
-  defineProps<{ meta: SearchPageMeta }>();
+  /**
+   * Result pages, from the shared pagination. Arrows follow the reading direction.
+   * `label` names the list for screen readers (defaults to search results).
+   */
+  defineProps<{ meta: SearchPageMeta; label?: string }>();
   const emit = defineEmits<{ change: [page: number] }>();
   const { t } = useI18n();
 </script>
@@ -24,7 +27,7 @@
     :items-per-page="meta.limit"
     :sibling-count="1"
     show-edges
-    :aria-label="t('search.results.pagination')"
+    :aria-label="label ?? t('search.results.pagination')"
     class="pt-2"
     @update:page="emit('change', $event)"
   >

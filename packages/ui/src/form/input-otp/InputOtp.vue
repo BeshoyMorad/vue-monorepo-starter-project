@@ -26,6 +26,7 @@
     description: undefined,
     containerClass: undefined,
     validateOnSubmitOnly: false,
+    masked: false,
   });
 
   const emits = defineEmits<{
@@ -57,6 +58,7 @@
             :disabled="disabled"
             :integer-only="integerOnly"
             :length="length"
+            :masked="masked"
             :test-id="testId"
           />
         </FormControl>
@@ -76,6 +78,7 @@
       :disabled="disabled"
       :integer-only="integerOnly"
       :length="length"
+      :masked="masked"
       :test-id="testId"
     />
   </template>

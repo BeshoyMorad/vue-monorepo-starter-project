@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { notify } from '@workspace/core/utils/toast';
-  import Icon from '@workspace/ui/icon/Icon.vue';
   import { Dialog, DialogDescription, DialogTitle } from '@workspace/ui/ui/dialog';
   import { useAuthService } from '~/modules/auth/services';
   import { DIALOG_STEP_TRANSITION } from '~/modules/account/constants';
   import type { ContactChannel, CustomerProfile } from '~/modules/account/types';
   import CodeConfirmForm from './CodeConfirmForm.vue';
+  import DialogStepper from './DialogStepper.vue';
   import NewPasswordForm from './NewPasswordForm.vue';
   import PasswordChannelStep from './PasswordChannelStep.vue';
 
@@ -70,21 +70,10 @@
         }}
       </DialogDescription>
     </template>
-    <ol class="stepper">
-      <li
-        v-for="(name, index) in STEPS"
-        :key="name"
-        class="stepper__item"
-        :class="{ 'stepper__item--on': index === step, 'stepper__item--done': index < step }"
-        :aria-current="index === step ? 'step' : undefined"
-      >
-        <span class="stepper__dot">
-          <Icon v-if="index < step" icon="hugeicons--tick-02" class="size-3.5" />
-          <template v-else>{{ index + 1 }}</template>
-        </span>
-        <span class="stepper__label">{{ t(`account.password.steps.${name}`) }}</span>
-      </li>
-    </ol>
+    <DialogStepper
+      :steps="STEPS.map((name) => t(`account.password.steps.${name}`))"
+      :current="step"
+    />
 
     <Transition v-bind="DIALOG_STEP_TRANSITION">
       <PasswordChannelStep
@@ -109,66 +98,3 @@
     </Transition>
   </Dialog>
 </template>
-
-<style scoped>
-  .stepper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 20px;
-  }
-  .stepper__item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: oklch(0.45 0 0);
-    font: 500 12px/16px var(--font);
-  }
-  /* Connector to the next step */
-  .stepper__item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 14px;
-    inset-inline-start: calc(50% + 20px);
-    width: calc(100% - 40px);
-    height: 1px;
-    background: #e5e7eb;
-  }
-  .stepper__item--done:not(:last-child)::after {
-    background: var(--color-primary-300);
-  }
-  .stepper__item::after,
-  .stepper__dot {
-    transition:
-      background-color 300ms,
-      border-color 300ms,
-      box-shadow 300ms,
-      color 300ms;
-  }
-  .stepper__dot {
-    width: 28px;
-    height: 28px;
-    display: grid;
-    place-items: center;
-    border: 1px solid #e5e7eb;
-    border-radius: 50%;
-    background: #f3f4f6;
-    font-weight: 600;
-  }
-  .stepper__item--on {
-    color: var(--color-primary-500);
-    font-weight: 600;
-  }
-  .stepper__item--on .stepper__dot {
-    border-color: var(--color-primary-500);
-    background: var(--color-primary-500);
-    box-shadow: 0 0 0 3px var(--color-primary-100);
-    color: #fff;
-  }
-  .stepper__item--done .stepper__dot {
-    border-color: var(--color-primary-300);
-    background: var(--color-primary-50);
-    color: var(--color-primary-500);
-  }
-</style>

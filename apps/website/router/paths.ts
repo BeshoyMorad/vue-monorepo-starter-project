@@ -10,6 +10,7 @@ export const paths = {
   profile: {
     overview: '/profile',
     settings: '/profile/user-settings',
+    wallet: '/profile/wallet',
   },
   // Same URLs as ibbil.com
   auth: {
