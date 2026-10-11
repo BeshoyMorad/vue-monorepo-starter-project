@@ -44,11 +44,18 @@ export const services = [
   { id: 'rental', icon: 'hugeicons--camel' },
 ] as const;
 
+/**
+ * Store categories under the hero, in the design's order. Illustrations live in
+ * public/images/market. `trips` reuses a camel-feeding scene until its own art is supplied.
+ */
 export const categories = [
-  { id: 'feed', icon: 'hugeicons--plant-02' },
-  { id: 'supplies', icon: 'hugeicons--store-01' },
-  { id: 'medicine', icon: 'hugeicons--medicine-02' },
-  { id: 'camels', icon: 'hugeicons--camel' },
+  { id: 'trips', image: '/images/market/trips.jpg' },
+  { id: 'chip', image: '/images/market/chip.jpg' },
+  { id: 'supplies', image: '/images/market/camel-supplies.jpg' },
+  { id: 'products', image: '/images/market/camel-products.jpg' },
+  { id: 'camels', image: '/images/market/camels.jpg' },
+  { id: 'accessories', image: '/images/market/accessories.jpg' },
+  { id: 'feed', image: '/images/market/animal-feed.jpg' },
 ] as const;
 
 /** Values are display strings so each locale can format them */

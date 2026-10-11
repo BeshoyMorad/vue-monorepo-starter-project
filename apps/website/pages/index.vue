@@ -21,9 +21,10 @@
 <template>
   <div>
     <HeroBanner />
+    <CategoryGrid />
+    <SectionDivider />
     <AboutSection />
     <ServicesSection />
-    <CategoryGrid />
     <StatsSection />
     <MediaSection />
   </div>

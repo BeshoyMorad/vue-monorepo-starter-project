@@ -112,11 +112,13 @@
       position: sticky;
       top: 0;
       z-index: 40;
+      /* Covers the hairline gap Chrome can leave above a sticky bar at fractional display
+         scaling, where content scrolling underneath flickered through */
+      box-shadow: 0 -2px 0 var(--primary);
     }
   }
   .bar--green {
     background: var(--primary);
-    border-bottom: 0.5px solid var(--border-on-dark);
     color: #fff;
   }
   /* Figma sets white text on the gold bar; dark green is used instead for 4.5:1 contrast */

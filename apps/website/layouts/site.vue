@@ -5,9 +5,10 @@
    */
   const { t } = useI18n();
 
-  // Ibbil's design is light-only (the shared tokens use light-dark()), as in the auth layout
+  // Ibbil's design is light-only (the shared tokens use light-dark()), as in the auth layout.
+  // No scroll bounce: it pulled the sticky header down and flashed white above it.
   useHead({
-    htmlAttrs: { style: 'color-scheme: light' },
+    htmlAttrs: { style: 'color-scheme: light; overscroll-behavior-y: none' },
     bodyAttrs: { class: 'font-brand' },
     link: [
       {

@@ -128,15 +128,34 @@ export const homeEn = {
     eyebrow: 'Ibbil Market',
     title: 'Shop by category',
     text: 'Pick a category and explore trusted stores on Ibbil.',
-    itemText:
-      'Selected products from trusted stores, with clear prices and delivery to every region.',
     browse: 'Browse stores',
     all: 'View all stores',
     items: {
-      feed: 'Feed and food',
-      supplies: 'Camel supplies',
-      medicine: 'Veterinary medicine',
-      camels: 'Camels',
+      trips: {
+        title: 'Trip supply stores',
+        text: 'Gear for trips, camping and outdoor activities.',
+      },
+      chip: {
+        title: 'Microchip stores',
+        text: 'Electronic ID chips and readers to register your camels.',
+      },
+      supplies: {
+        title: 'Camel supply stores',
+        text: 'Everyday tools and equipment for raising and caring for camels.',
+      },
+      products: {
+        title: 'Camel product stores',
+        text: 'Camel milk, dairy and other products from trusted farms.',
+      },
+      camels: { title: 'Camel stores', text: 'Camels for sale from verified owners and breeders.' },
+      accessories: {
+        title: 'Camel accessory stores',
+        text: 'Saddles, halters and traditional decorations for your camels.',
+      },
+      feed: {
+        title: 'Animal feed stores',
+        text: 'Feed, fodder and supplements for healthy herds.',
+      },
     },
   },
   stats: {
