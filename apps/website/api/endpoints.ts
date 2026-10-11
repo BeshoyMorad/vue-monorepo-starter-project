@@ -40,6 +40,10 @@ export const routes = {
   'search.suggestions': { uri: 'user/search/suggestions', methods: ['GET'] },
   'search.history': { uri: 'user/search-history', methods: ['GET', 'DELETE'] },
   'search.history.entry': { uri: 'user/search-history/{id}', methods: ['DELETE'] },
+
+  // GALLERY (public): media center photos and videos
+  'gallery.items': { uri: 'gallery-items', methods: ['GET'] },
+  'gallery.item': { uri: 'gallery-items/{id}', methods: ['GET'] },
 } as const satisfies ZiggyConfig['routes'];
 
 export const Ziggy = {

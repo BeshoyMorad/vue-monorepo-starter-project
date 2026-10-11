@@ -19,6 +19,11 @@ export const queryKeys = {
       [...queryKeys.search.all(), 'suggestions', q, locale] as const,
     history: () => [...queryKeys.search.all(), 'history'] as const,
   },
+  gallery: {
+    all: () => ['gallery'] as const,
+    list: (params: object) => [...queryKeys.gallery.all(), 'list', params] as const,
+    item: (idOrSlug: string) => [...queryKeys.gallery.all(), 'item', idOrSlug] as const,
+  },
   users: {
     all: () => ['users'] as const,
     details: (id: string | number) => [...queryKeys.users.all(), 'details', id] as const,

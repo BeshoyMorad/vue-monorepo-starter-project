@@ -72,13 +72,24 @@ export const stats = [
 export const mediaTabs = ['news', 'photos', 'videos', 'events'] as const;
 export type MediaTab = (typeof mediaTabs)[number];
 
-/** Latest stories, filtered by the media tab. `views` is a number formatted per locale */
+/** Icon per media tab (Figma: news, image-03, play-list, calendar-03) */
+export const mediaTabIcons: Record<MediaTab, string> = {
+  news: 'hugeicons--news',
+  photos: 'hugeicons--image-03',
+  videos: 'hugeicons--play-list',
+  events: 'hugeicons--calendar-03',
+};
+
+/** Large story beside the latest list; its text is in home.media.featured */
+export const featuredStory = { date: '2026-09-09' };
+
+/**
+ * Sample news and events stories, filtered by the media tab. Photos and videos come from the
+ * gallery API instead. `views` is a number formatted per locale.
+ */
 export const stories: { id: string; type: MediaTab; views: number; date: string }[] = [
-  { id: 'launch', type: 'news', views: 1240, date: '2026-09-21' },
-  { id: 'festival', type: 'news', views: 860, date: '2026-09-14' },
-  { id: 'insurance', type: 'news', views: 530, date: '2026-09-02' },
-  { id: 'gallery', type: 'photos', views: 410, date: '2026-08-28' },
-  { id: 'tour', type: 'videos', views: 2210, date: '2026-08-19' },
+  { id: 'gathering', type: 'news', views: 0, date: '2026-09-03' },
+  { id: 'onePlace', type: 'news', views: 0, date: '2026-09-03' },
   { id: 'expo', type: 'events', views: 690, date: '2026-10-12' },
 ];
 

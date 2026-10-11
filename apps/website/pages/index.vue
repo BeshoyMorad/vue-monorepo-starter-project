@@ -26,7 +26,9 @@
     <AboutSection />
     <SectionDivider />
     <ServicesSection />
-    <StatsSection />
+    <SectionDivider />
     <MediaSection />
+    <SectionDivider />
+    <StatsSection />
   </div>
 </template>
