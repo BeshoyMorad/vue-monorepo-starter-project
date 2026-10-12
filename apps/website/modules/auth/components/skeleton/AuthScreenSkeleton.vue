@@ -2,8 +2,7 @@
   import AuthSkeletonBlock from './AuthSkeletonBlock.vue';
   import AuthSkeletonField from './AuthSkeletonField.vue';
   import AuthSkeletonHeader from './AuthSkeletonHeader.vue';
-
-  export type AuthSkeletonScreen = 'login' | 'register' | 'verify' | 'forgot-password';
+  import type { AuthSkeletonScreen } from '~/modules/auth/types';
 
   /**
    * Placeholder content for an auth screen while it loads, shown inside the layout's card

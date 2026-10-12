@@ -5,8 +5,8 @@ import {
   fullNameRule,
   nationalIdRule,
   phoneRule,
-  type Translate,
 } from '~/modules/auth/schemas/rules';
+import type { Translate } from '~/modules/auth/types';
 import type { ContactChannel } from './types';
 
 const key = (name: string) => `account.validation.${name}`;

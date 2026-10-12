@@ -1,5 +1,6 @@
 import * as yup from 'yup';
-import { explained, type Translate } from '~/modules/auth/schemas/rules';
+import { explained } from '~/modules/auth/schemas/rules';
+import type { Translate } from '~/modules/auth/types';
 
 const key = (name: string) => `wallet.validation.${name}`;
 

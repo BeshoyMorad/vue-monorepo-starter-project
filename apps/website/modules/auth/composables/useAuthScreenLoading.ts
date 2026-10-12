@@ -1,5 +1,5 @@
 import { onBeforeUnmount, ref } from 'vue';
-import type { AuthSkeletonScreen } from '~/modules/auth/components/skeleton/AuthScreenSkeleton.vue';
+import type { AuthSkeletonScreen } from '~/modules/auth/types';
 
 /** Route base name → auth screen. */
 const SCREENS: Record<string, AuthSkeletonScreen> = {

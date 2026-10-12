@@ -1,5 +1,5 @@
 import type { ApiFetch } from '~/api/client';
-import { apiRoute, type WebsiteApiRoutes } from '~/api/endpoints';
+import { apiRoute, type StaticRouteName } from '~/api/endpoints';
 import type { ApiEnvelope } from '~/types/api';
 import {
   AUTH_PORTAL,
@@ -14,8 +14,6 @@ import {
   type VerifyOtpRequest,
 } from './types';
 
-type RouteName = Extract<keyof WebsiteApiRoutes, string>;
-
 /**
  * Auth endpoints. Every call returns the envelope's `data`; failures throw a FetchError
  * (read it with the helpers in utils/apiError.ts).
@@ -23,7 +21,7 @@ type RouteName = Extract<keyof WebsiteApiRoutes, string>;
  */
 export function createAuthService(api: ApiFetch) {
   /** Public endpoint: no bearer token, a 401 means bad input rather than an expired session. */
-  const publicPost = async <T>(name: RouteName, body?: object) =>
+  const publicPost = async <T>(name: StaticRouteName, body?: object) =>
     (
       await api<ApiEnvelope<T>>(apiRoute(name), {
         method: 'POST',

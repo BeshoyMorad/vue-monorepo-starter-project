@@ -1,4 +1,5 @@
 /** Search API types (GET /user/search, /user/search/suggestions, /user/search-history). */
+import type { Paginated, PaginationMeta } from '~/types/api';
 
 export const SEARCH_DOMAINS = ['marketplace', 'veterinary', 'transportation', 'insurance'] as const;
 export type SearchDomain = (typeof SEARCH_DOMAINS)[number];
@@ -38,19 +39,8 @@ export interface SearchHit {
   updatedAt: string;
 }
 
-export interface SearchPageMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-}
-
-export interface SearchResults {
-  items: SearchHit[];
-  meta: SearchPageMeta;
-}
+export type SearchPageMeta = PaginationMeta;
+export type SearchResults = Paginated<SearchHit>;
 
 /** Typeahead entry. `history` items (signed-in customers) come before `global` ones. */
 export interface SearchSuggestion {

@@ -9,7 +9,7 @@
    * arrives with the numbers. A count the API could not compute shows a dash.
    */
   const { t, locale } = useI18n();
-  const { data } = useServerPrefetch(useQuery(platformStatsQueryOptions(useHomeService())));
+  const { data } = useServerPrefetch(() => useQuery(platformStatsQueryOptions(useHomeService())));
 
   // Western digits in both languages, as elsewhere on the homepage
   const format = (n: number) => new Intl.NumberFormat(`${locale.value}-u-nu-latn`).format(n);

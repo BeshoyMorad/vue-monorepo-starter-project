@@ -1,14 +1,7 @@
-import { COMPLETED_STATUSES, type WalletTransaction } from './types';
+import { COMPLETED_STATUSES, type MonthActivity, type WalletTransaction } from './types';
 
 /** Months the analytics chart covers, ending with the current one */
 export const CHART_MONTHS = 6;
-
-export interface MonthActivity {
-  /** First day of the month, local time */
-  start: Date;
-  deposits: { amount: number; count: number };
-  withdrawals: { amount: number; count: number };
-}
 
 /** Transactions where the money actually moved */
 export const completed = (items: WalletTransaction[]) =>

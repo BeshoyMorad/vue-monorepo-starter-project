@@ -1,3 +1,5 @@
+import type { Paginated, PaginationMeta } from '~/types/api';
+
 /**
  * Gallery API types (GET /gallery-items, /gallery-items/{id}).
  * The API docs show `data` as a plain array; the dev API (checked 2026-10-11) answers with
@@ -41,16 +43,5 @@ export interface GalleryItem {
   updatedAt: string;
 }
 
-export interface GalleryPageMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-}
-
-export interface GalleryPage {
-  items: GalleryItem[];
-  meta: GalleryPageMeta;
-}
+export type GalleryPageMeta = PaginationMeta;
+export type GalleryPage = Paginated<GalleryItem>;

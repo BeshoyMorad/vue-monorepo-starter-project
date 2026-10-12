@@ -13,6 +13,7 @@ import {
   createRequestErrorHook,
   createRequestHook,
   createResponseErrorHook,
+  serverRequestLogger,
   type InterceptorContext,
 } from './interceptors';
 
@@ -106,14 +107,22 @@ export function createWebsiteApi(): ApiFetch {
     },
   };
 
+  // Dev only: print server-side calls to the terminal, since the browser never sees them
+  const logServerCalls = import.meta.dev && import.meta.server;
+
   const raw = ofetch.create({
     baseURL: config.apiBaseUrl,
     timeout: 15000,
     // TanStack Query owns retries; retrying here too would multiply requests
     retry: 0,
-    onRequest: createRequestHook(ctx),
-    onRequestError: createRequestErrorHook(ctx),
+    onRequest: [createRequestHook(ctx), ...(logServerCalls ? [serverRequestLogger.onRequest] : [])],
+    onRequestError: [
+      createRequestErrorHook(ctx),
+      ...(logServerCalls ? [serverRequestLogger.onRequestError] : []),
+    ],
     onResponseError: createResponseErrorHook(ctx),
+    // onResponse runs for every response, success or error
+    onResponse: logServerCalls ? serverRequestLogger.onResponse : undefined,
   });
 
   const { refreshSession, expireSession } = createSessionHandlers(raw);

@@ -8,7 +8,7 @@
   import { createContactSchema } from '~/modules/account/schemas';
   import { useAccountService } from '~/modules/account/services';
   import type { ContactChannel } from '~/modules/account/types';
-  import type { SentStep } from './ChangeFlowDialog.vue';
+  import type { SentStep } from '~/modules/account/types';
 
   /** New phone or email; the API sends a code to it */
   const props = defineProps<{

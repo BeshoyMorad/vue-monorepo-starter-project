@@ -1,21 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import { AUTH_COOKIES, VERIFICATION_MAX_AGE } from '~/constants/auth';
-
-export interface PendingVerification {
-  /** Session token for POST /auth/contact/verify and /auth/otp/resend. */
-  token: string;
-  /** Phone the OTP was sent to (E.164), shown on the verify screen. */
-  phone: string;
-  /** Where the user came from: registration (step 2 of 2) or an unverified login. */
-  source: 'register' | 'login';
-  /** "Remember me" choice from the login form, applied once verified. */
-  remember?: boolean;
-  /** Page to open after verification. */
-  redirect?: string | null;
-  /** When the current code was sent (ms), so the resend countdown survives a remount. */
-  codeSentAt?: number;
-}
+import type { PendingVerification } from '~/modules/auth/types';
 
 /**
  * Pending phone verification between the register / login screen and the OTP screen.

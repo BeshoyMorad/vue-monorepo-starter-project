@@ -90,3 +90,33 @@ export const createRequestErrorHook =
     }
     ctx.notify(ctx.t('errors.network'));
   };
+
+const requestStartedAt = new WeakMap<object, number>();
+
+/**
+ * Dev-only: logs API calls made during server rendering to the `nuxt dev` terminal.
+ * Those calls never reach the browser, so they don't show up in the Network tab.
+ * Output: `[api:ssr] GET /path → 200 (123ms)`
+ */
+/* eslint-disable no-console -- dev-only SSR request log */
+export const serverRequestLogger = {
+  onRequest: ({ options }: FetchContext): void => {
+    requestStartedAt.set(options, performance.now());
+  },
+  onResponse: ({ request, options, response }: ResponseContext): void => {
+    const startedAt = requestStartedAt.get(options);
+    const duration = startedAt === undefined ? '?' : Math.round(performance.now() - startedAt);
+    const method = (options.method ?? 'GET').toUpperCase();
+    const line = `[api:ssr] ${method} ${String(request)} → ${response.status} (${duration}ms)`;
+    if (response.ok) {
+      console.info(line);
+    } else {
+      console.warn(line, response._data);
+    }
+  },
+  onRequestError: ({ request, options, error }: RequestErrorContext): void => {
+    const method = (options.method ?? 'GET').toUpperCase();
+    console.warn(`[api:ssr] ${method} ${String(request)} → failed: ${error.message}`);
+  },
+};
+/* eslint-enable no-console */

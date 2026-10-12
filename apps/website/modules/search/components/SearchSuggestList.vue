@@ -2,7 +2,8 @@
   import type { UnwrapNestedRefs } from 'vue';
   import Icon from '@workspace/ui/icon/Icon.vue';
   import { Button } from '@workspace/ui/ui/button';
-  import type { SearchSuggest, SuggestKind } from '~/modules/search/composables/useSearchSuggest';
+  import type { SearchSuggest } from '~/modules/search/composables/useSearchSuggest';
+  import type { SuggestKind } from '~/modules/search/types';
 
   /**
    * The listbox of the header search combobox (see useSearchSuggest). Options never take

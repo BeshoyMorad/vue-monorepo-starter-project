@@ -10,4 +10,8 @@ export interface BaseInputOtpProps extends BaseFormFieldProps {
   masked?: boolean;
 }
 
-export type InputOtpProps = BaseInputOtpProps & FormFieldValidationProps;
+export type InputOtpProps = BaseInputOtpProps &
+  FormFieldValidationProps & {
+    /** Validate only when the form is submitted, not on every keystroke or blur */
+    validateOnSubmitOnly?: boolean;
+  };

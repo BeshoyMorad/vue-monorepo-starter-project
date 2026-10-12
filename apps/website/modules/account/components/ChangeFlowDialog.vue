@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Dialog } from '@workspace/ui/ui/dialog';
   import { DIALOG_STEP_TRANSITION } from '~/modules/account/constants';
-  import type { ConfirmChangeRequest } from '~/modules/account/types';
+  import type { ConfirmChangeRequest, SentStep } from '~/modules/account/types';
   import CodeConfirmForm from './CodeConfirmForm.vue';
 
   /**
@@ -9,14 +9,6 @@
    * slot: it calls `sent` with the token, where the code went, and how to ask again.
    * Step 2 is the shared code form. Closing the dialog starts over next time.
    */
-  export interface SentStep {
-    token: string;
-    /** Text of step 2, e.g. "Enter the code sent to +9665…" */
-    text: string;
-    /** Repeats step 1 for a new code; returns its token */
-    again: () => Promise<string>;
-  }
-
   const props = defineProps<{
     testId: string;
     title: string;

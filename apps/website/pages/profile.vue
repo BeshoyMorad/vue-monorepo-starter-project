@@ -11,7 +11,7 @@
 
   const route = useRoute();
   const getRouteBaseName = useRouteBaseName();
-  const profile = useServerPrefetch(useAccountProfile());
+  const profile = useServerPrefetch(() => useAccountProfile());
   // The page under "My profile" that the breadcrumb names (none on the overview)
   const SECTIONS: Record<string, 'settings' | 'wallet'> = {
     'profile-user-settings': 'settings',

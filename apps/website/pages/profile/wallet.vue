@@ -23,7 +23,7 @@
   const { t } = useI18n();
   useSeoMeta({ title: () => t('wallet.seo.title'), robots: 'noindex, nofollow' });
 
-  const wallet = useServerPrefetch(useWallet());
+  const wallet = useServerPrefetch(() => useWallet());
   const walletId = computed(() => wallet.data.value?.walletId);
   const activity = useWalletActivity(walletId);
   const topUp = ref(false);

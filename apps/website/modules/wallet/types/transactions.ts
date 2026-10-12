@@ -1,27 +1,5 @@
-/** Currencies the wallet API knows */
-export type WalletCurrency = 'SAR' | 'USD';
-
-export type WalletStatus = 'PENDING_ACTIVATION' | 'ACTIVE' | 'SUSPENDED' | 'CLOSED';
-
-/**
- * GET wallets/current-user. Amounts come twice: in major units (`availableBalance`, riyals)
- * and in minor units (`…Minor`, halalas). The site shows the major ones.
- */
-export interface Wallet {
-  walletId: string;
-  userId: string;
-  kind: 'USER_WALLET' | 'MERCHANT_ESCROW' | 'SYSTEM_FLOAT';
-  status: WalletStatus;
-  currency: WalletCurrency;
-  /** Spendable now: posted balance minus money on its way out */
-  availableBalance: number;
-  postedBalance: number;
-  pendingInflow: number;
-  pendingOutflow: number;
-  totalPaid: number;
-  createdAt: string;
-  updatedAt: string;
-}
+import type { Paginated, PaginationMeta } from '~/types/api';
+import type { WalletCurrency } from './wallet';
 
 /** Transaction statuses, in the order the status filter lists them */
 export const TRANSACTION_STATUSES = [
@@ -73,20 +51,10 @@ export interface WalletTransaction {
   metadata?: Record<string, unknown> | null;
 }
 
-export interface WalletPageMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-}
+export type WalletPageMeta = PaginationMeta;
 
 /** A page of history, whatever key the API puts the list under (see services.ts) */
-export interface WalletHistoryPage {
-  items: WalletTransaction[];
-  meta: WalletPageMeta;
-}
+export type WalletHistoryPage = Paginated<WalletTransaction>;
 
 /** Query of GET wallets/history; empty filters are left out */
 export interface WalletHistoryParams {
@@ -98,11 +66,4 @@ export interface WalletHistoryParams {
   paymentMethod?: PaymentMethod;
   /** Exact transaction reference, e.g. TXN-8457t6 */
   ref?: string;
-}
-
-/** PUT wallets/pin/current-user: changes the PIN and activates the wallet */
-export interface ChangePinRequest {
-  oldPin: string;
-  newPin: string;
-  confirmPin: string;
 }

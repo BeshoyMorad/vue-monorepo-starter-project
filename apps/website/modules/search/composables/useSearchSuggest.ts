@@ -4,26 +4,14 @@ import { queryKeys } from '~/api/query-keys';
 import { RECENT_LIMIT, SUGGEST_DEBOUNCE_MS } from '~/modules/search/data';
 import { searchHistoryQueryOptions, searchSuggestionsQueryOptions } from '~/modules/search/queries';
 import { useSearchService } from '~/modules/search/services';
-import type { SearchHistoryEntry, SearchSuggestion } from '~/modules/search/types';
+import type {
+  SearchHistoryEntry,
+  SearchSuggestion,
+  SuggestGroup,
+  SuggestKind,
+  SuggestOption,
+} from '~/modules/search/types';
 import { useAuthStore } from '~/stores/auth';
-
-export type SuggestKind = 'recent' | 'popular' | 'history' | 'suggestion';
-
-export interface SuggestOption {
-  key: string;
-  text: string;
-  kind: SuggestKind;
-  /** Position in the flat list (keyboard navigation, option ids) */
-  index: number;
-  /** History entries behind this option (duplicates are merged), for removal */
-  entryIds?: string[];
-}
-
-export interface SuggestGroup {
-  id: string;
-  label: string;
-  options: SuggestOption[];
-}
 
 interface SuggestOptions {
   /** Called after an option is picked; `query` already holds its text */

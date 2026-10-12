@@ -5,7 +5,7 @@
   import { useChangeRequestForm } from '~/modules/account/composables/useChangeRequestForm';
   import { createIbanSchema, normalizeIban } from '~/modules/account/schemas';
   import { useAccountService } from '~/modules/account/services';
-  import type { SentStep } from './ChangeFlowDialog.vue';
+  import type { SentStep } from '~/modules/account/types';
 
   /** New IBAN; the API sends a code to the registered phone */
   const props = defineProps<{ phone?: string | null; onSent: (step: SentStep) => void }>();

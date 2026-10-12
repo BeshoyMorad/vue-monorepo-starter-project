@@ -1,12 +1,19 @@
 <script setup lang="ts">
   import Icon from '@workspace/ui/icon/Icon.vue';
+  import StatusBadge from '@workspace/ui/StatusBadge.vue';
   import type { TransactionStatus } from '~/modules/wallet/types';
 
-  /** Status chip: an icon and a word, never color alone */
+  /**
+   * Status chip on the shared StatusBadge: an icon and a word, never color alone.
+   * The brand tones go through `color`, which replaces the kit's variant colors.
+   */
   const props = defineProps<{ status: TransactionStatus }>();
   const { t } = useI18n();
 
-  const TONES: Record<TransactionStatus, { tone: string; icon: string }> = {
+  type Tone = 'good' | 'wait' | 'bad';
+  const VARIANTS = { good: 'success', wait: 'warning', bad: 'danger' } as const;
+
+  const TONES: Record<TransactionStatus, { tone: Tone; icon: string }> = {
     INITIATED: { tone: 'wait', icon: 'hugeicons--clock-01' },
     PENDING: { tone: 'wait', icon: 'hugeicons--clock-01' },
     HELD: { tone: 'wait', icon: 'hugeicons--pause' },
@@ -19,13 +26,18 @@
 </script>
 
 <template>
-  <span class="chip" :class="`chip--${look.tone}`">
+  <StatusBadge
+    :variant="VARIANTS[look.tone]"
+    :color="`chip chip--${look.tone}`"
+    test-id="transaction-status"
+  >
     <Icon :icon="look.icon" class="size-3.5" aria-hidden="true" />
     {{ t(`wallet.transactions.statuses.${status}`) }}
-  </span>
+  </StatusBadge>
 </template>
 
 <style scoped>
+  /* Unlayered, so these win over the badge's Tailwind utilities */
   .chip {
     display: inline-flex;
     align-items: center;
@@ -33,6 +45,7 @@
     padding: 2px 10px;
     border-radius: 99px;
     font: 600 12px/18px var(--font);
+    text-transform: none;
     white-space: nowrap;
   }
   .chip--good {

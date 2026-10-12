@@ -7,6 +7,7 @@ import {
 } from '@tanstack/vue-query';
 import { createBaseQueryClient } from '@workspace/core/lib/query-client';
 import { getApiErrorStatus } from '~/utils/apiError';
+import { installServerQueryGate } from '~/utils/serverQueryGate';
 
 const MAX_QUERY_RETRIES = 2;
 
@@ -44,6 +45,15 @@ export default defineNuxtPlugin((nuxtApp) => {
       retry: false,
     },
   });
+
+  // Server: queries fetch only when opted in with useServerPrefetch.
+  // Dev switch NUXT_PUBLIC_DEBUG_CLIENT_FETCH=true blocks all of them, so every API call
+  // happens in the browser and shows in the Network tab.
+  if (import.meta.server) {
+    installServerQueryGate(queryClient, {
+      blockAll: import.meta.dev && !!useRuntimeConfig().public.debugClientFetch,
+    });
+  }
 
   nuxtApp.vueApp.use(VueQueryPlugin, { queryClient });
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { niceAxisTop, type MonthActivity } from '~/modules/wallet/activity';
+  import { niceAxisTop } from '~/modules/wallet/activity';
+  import type { MonthActivity } from '~/modules/wallet/types';
   import type { WalletCurrency } from '~/modules/wallet/types';
   import WalletAmount from './WalletAmount.vue';
 

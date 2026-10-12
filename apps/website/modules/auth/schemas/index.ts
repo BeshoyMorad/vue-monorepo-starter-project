@@ -8,8 +8,8 @@ import {
   newPasswordRule,
   otpRule,
   phoneRule,
-  type Translate,
 } from './rules';
+import type { Translate } from '~/modules/auth/types';
 
 export const createLoginSchema = (t: Translate) =>
   yup.object({

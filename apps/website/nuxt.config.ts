@@ -134,6 +134,8 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'https://api.ibbil.com/api/v1',
       appName: process.env.NUXT_PUBLIC_APP_NAME || 'Ibbil',
+      // Dev only: skip server prefetching so API calls show in the browser Network tab
+      debugClientFetch: false,
     },
   },
 

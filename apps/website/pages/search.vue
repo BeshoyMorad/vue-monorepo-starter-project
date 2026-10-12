@@ -51,7 +51,7 @@
     { immediate: true }
   );
 
-  const results = useServerPrefetch(
+  const results = useServerPrefetch(() =>
     useQuery(computed(() => searchResultsQueryOptions(service, params.value, locale.value)))
   );
   const items = computed(() => results.data.value?.items ?? []);

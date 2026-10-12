@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Button } from '@workspace/ui/ui/button';
   import { Skeleton } from '@workspace/ui/ui/skeleton';
-  import type { MonthActivity } from '~/modules/wallet/activity';
+  import type { MonthActivity } from '~/modules/wallet/types';
   import type { WalletCurrency } from '~/modules/wallet/types';
   import ActivityChart from './ActivityChart.vue';
 

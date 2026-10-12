@@ -1,5 +1,5 @@
 import type { ApiFetch, ApiFetchOptions } from '~/api/client';
-import { apiRoute, type WebsiteApiRoutes } from '~/api/endpoints';
+import { apiRoute, type StaticRouteName } from '~/api/endpoints';
 import type { ApiEnvelope } from '~/types/api';
 import type {
   ChangeTokenResponse,
@@ -11,14 +11,12 @@ import type {
   UpdateProfileRequest,
 } from './types';
 
-type RouteName = Extract<keyof WebsiteApiRoutes, string>;
-
 /**
  * Endpoints of the signed-in customer's account. Every call returns the envelope's `data`;
  * failures throw a FetchError. Calls are `silent`: the account page shows errors inline.
  */
 export function createAccountService(api: ApiFetch) {
-  const call = async <T>(name: RouteName, options: ApiFetchOptions = {}) =>
+  const call = async <T>(name: StaticRouteName, options: ApiFetchOptions = {}) =>
     (await api<ApiEnvelope<T>>(apiRoute(name), { silent: true, ...options })).data;
 
   return {

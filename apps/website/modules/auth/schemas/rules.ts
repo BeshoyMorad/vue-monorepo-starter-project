@@ -1,7 +1,5 @@
 import * as yup from 'yup';
-
-/** vue-i18n `t`: a key plus optional named values, e.g. t(key, { count: 3 }). */
-export type Translate = (key: string, named?: Record<string, unknown>) => string;
+import type { Translate } from '~/modules/auth/types';
 
 /** Saudi mobile number in E.164 format, as the API expects: +9665XXXXXXXX. */
 export const SAUDI_PHONE_REGEX = /^\+9665\d{8}$/;

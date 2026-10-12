@@ -64,4 +64,11 @@ export const Ziggy = {
 } as const satisfies ZiggyConfig;
 
 export type WebsiteApiRoutes = typeof routes;
+
+/** Route names whose URI has no `{param}`, so `apiRoute(name)` needs no params argument */
+export type StaticRouteName = {
+  [K in keyof WebsiteApiRoutes]: WebsiteApiRoutes[K]['uri'] extends `${string}{${string}`
+    ? never
+    : K;
+}[keyof WebsiteApiRoutes];
 export const apiRoute = createApiRoute(Ziggy);

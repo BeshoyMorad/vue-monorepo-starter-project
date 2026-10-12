@@ -42,3 +42,19 @@ export interface ApiMetadata {
 
 /** Body of a failed response. */
 export type ApiFailure = Partial<ApiEnvelope<null>>;
+
+/** Paging info of a list endpoint (`{ items, meta }` responses) */
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+/** One page of a list endpoint */
+export interface Paginated<T> {
+  items: T[];
+  meta: PaginationMeta;
+}

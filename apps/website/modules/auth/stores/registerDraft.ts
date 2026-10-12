@@ -1,13 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-
-/** Registration details the user can go back and change from the verify screen. */
-export interface RegisterDraft {
-  fullName: string;
-  nationalId: string;
-  phone: string;
-  email: string;
-}
+import type { RegisterDraft } from '~/modules/auth/types';
 
 /**
  * What the user entered on the register form, so "Change registration details" on the

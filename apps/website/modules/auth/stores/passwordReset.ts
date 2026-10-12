@@ -1,17 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import { AUTH_COOKIES, VERIFICATION_MAX_AGE } from '~/constants/auth';
-
-export interface PasswordResetState {
-  /** Phone the code was sent to (E.164). */
-  phone: string;
-  /** Reset session token from step 1; replaced when a new code is requested. */
-  sessionToken: string;
-  /** When the current code was sent (ms), so the resend countdown survives a remount. */
-  codeSentAt: number;
-  /** Token from step 2 (code verified); its presence means step 3. */
-  resetToken?: string;
-}
+import type { PasswordResetState } from '~/modules/auth/types';
 
 /**
  * Forgot-password flow in progress. Kept in a short-lived cookie so switching language
