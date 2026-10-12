@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
 import router from '@/router';
 import { paths } from '@/router/paths';
+import { queryClient } from '@workspace/core/lib/query-client';
 
 export interface User {
   id?: string | number;
@@ -38,6 +39,7 @@ export const useAuthStore = defineStore('auth', () => {
   const clearToken = () => {
     token.value = null;
     user.value = null;
+    queryClient.clear();
   };
 
   const login = (payload: LoginPayload) => {

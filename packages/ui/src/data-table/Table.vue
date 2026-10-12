@@ -3,6 +3,7 @@
   import { type ColumnDef } from '@tanstack/vue-table';
   import { Skeleton } from '@workspace/ui/ui/skeleton';
   import EmptyPlaceholder from '@workspace/ui/placeholders/EmptyPlaceholder.vue';
+  import TableErrorState from '@workspace/ui/placeholders/TableErrorState.vue';
   import {
     Table,
     TableHeader,
@@ -21,21 +22,27 @@
     columns: ColumnDef<TRow, unknown>[];
     value: TRow[];
     loading?: boolean;
+    skeletonRows?: number;
     meta?: Meta | CursorMeta | null;
     limitOptions?: number[];
     clickable?: boolean;
     isFilteredEmpty?: boolean;
     isSearchEmpty?: boolean;
+    isError?: boolean;
+    errorAction?: () => void;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     testId: 'ui-data-table',
     loading: false,
+    skeletonRows: undefined,
     meta: undefined,
     limitOptions: undefined,
     clickable: false,
     isFilteredEmpty: false,
     isSearchEmpty: false,
+    isError: false,
+    errorAction: undefined,
   });
   const emit = defineEmits<{
     (e: 'sort', sorting: { sortKey?: string; order?: 'ASC' | 'DESC' }): void;
@@ -65,8 +72,14 @@
     </TableHeader>
 
     <TableBody>
-      <template v-if="loading">
-        <UITableRow v-for="i in 10" :key="`skeleton-row-${i}`">
+      <UITableRow v-if="isError">
+        <TableCell :colspan="columns.length">
+          <TableErrorState :button-action="errorAction" />
+        </TableCell>
+      </UITableRow>
+
+      <template v-else-if="loading">
+        <UITableRow v-for="i in skeletonRows ?? 10" :key="`skeleton-row-${i}`">
           <TableCell v-for="(_, index) in columns.length" :key="`skeleton-col-${index}`">
             <Skeleton class="h-4 w-[60%]" />
           </TableCell>
@@ -99,13 +112,13 @@
               title="No Results Found"
               description="No data matches your current filters."
             />
-            <EmptyPlaceholder v-else />
+            <EmptyPlaceholder v-else icon="hugeicons--search-remove" />
           </slot>
         </TableCell>
       </UITableRow>
     </TableBody>
 
-    <template #footer>
+    <template v-if="!isError" #footer>
       <TablePagination
         :meta="meta"
         :limit-options="limitOptions"

@@ -7,6 +7,7 @@
   import { Icon } from '@workspace/ui/icon';
   import { Skeleton } from '@workspace/ui/ui/skeleton';
   import EmptyPlaceholder from '@workspace/ui/placeholders/EmptyPlaceholder.vue';
+  import TableErrorState from '@workspace/ui/placeholders/TableErrorState.vue';
   import {
     Table,
     TableHeader,
@@ -36,6 +37,8 @@
     clickable?: boolean;
     isFilteredEmpty?: boolean;
     isSearchEmpty?: boolean;
+    isError?: boolean;
+    errorAction?: () => void;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -44,6 +47,8 @@
     skeletonRows: 10,
     class: '',
     clickable: false,
+    isError: false,
+    errorAction: undefined,
   });
   const emit = defineEmits<{
     (e: 'load-more'): void;
@@ -75,7 +80,9 @@
     }
   });
 
-  const canLoadMore = computed(() => props.hasMore && !props.isFetchingNextPage && !props.loading);
+  const canLoadMore = computed(
+    () => props.hasMore && !props.isFetchingNextPage && !props.loading && !props.isError
+  );
 
   useInfiniteScroll(
     scrollContainer,
@@ -113,7 +120,13 @@
     </TableHeader>
 
     <TableBody>
-      <template v-if="loading">
+      <UITableRow v-if="isError && !table.getRowModel().rows?.length">
+        <TableCell :colspan="columns.length">
+          <TableErrorState :button-action="errorAction" />
+        </TableCell>
+      </UITableRow>
+
+      <template v-else-if="loading">
         <UITableRow v-for="i in skeletonRows" :key="`skeleton-row-${i}`">
           <TableCell v-for="(_, index) in columns.length" :key="`skeleton-col-${index}`">
             <Skeleton class="h-4 w-[60%]" />
@@ -147,7 +160,7 @@
               title="No Results Found"
               description="No data matches your current filters."
             />
-            <EmptyPlaceholder v-else />
+            <EmptyPlaceholder v-else icon="hugeicons--search-remove" />
           </slot>
         </TableCell>
       </UITableRow>

@@ -21,6 +21,7 @@ export interface LoginPayload {
  * Automatically accessible on both Server-Side (SSR) and Client-Side.
  */
 export const useAuthStore = defineStore('auth', () => {
+  const { $queryClient } = useNuxtApp();
   // Native Nuxt SSR cookie state
   const token = useCookie<string | null>('access_token', {
     sameSite: 'lax',
@@ -48,6 +49,7 @@ export const useAuthStore = defineStore('auth', () => {
   const clearToken = () => {
     token.value = null;
     user.value = null;
+    $queryClient.clear();
   };
 
   const login = (payload: LoginPayload) => {
