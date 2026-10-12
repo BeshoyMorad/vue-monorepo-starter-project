@@ -65,7 +65,12 @@
         :loading="activity.isPending.value"
       />
       <WalletTransactions :wallet-id="wallet.data.value.walletId" />
-      <DepositDialog v-model:open="topUp" :wallet-id="wallet.data.value.walletId" />
+      <DepositDialog
+        v-model:open="topUp"
+        :wallet-id="wallet.data.value.walletId"
+        :balance="wallet.data.value.availableBalance"
+        :currency="wallet.data.value.currency"
+      />
     </template>
   </div>
 </template>

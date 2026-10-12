@@ -94,13 +94,16 @@
 
     <ul v-if="totals" class="tiles">
       <li v-for="tile in TILES" :key="tile.id" class="tile">
-        <span class="tile__icon" :class="`tile__icon--${tile.tone}`" aria-hidden="true">
-          <Icon :icon="tile.icon" class="size-4 rtl:-scale-x-100" />
-        </span>
-        <span class="tile__value">
-          <WalletAmount v-if="tile.money" :value="totals[tile.id]" :currency="wallet.currency" />
-          <template v-else>{{ count(totals[tile.id]) }}</template>
-        </span>
+        <!-- Icon and value share a row; a value too long for it wraps under the icon -->
+        <div class="tile__top">
+          <span class="tile__icon" :class="`tile__icon--${tile.tone}`" aria-hidden="true">
+            <Icon :icon="tile.icon" class="size-4 rtl:-scale-x-100" />
+          </span>
+          <span class="tile__value">
+            <WalletAmount v-if="tile.money" :value="totals[tile.id]" :currency="wallet.currency" />
+            <template v-else>{{ count(totals[tile.id]) }}</template>
+          </span>
+        </div>
         <span class="tile__label">{{ t(`wallet.balance.${tile.id}`) }}</span>
       </li>
     </ul>
@@ -225,19 +228,24 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
   }
-  /* Icon at the start, value at the end, label underneath (as in the design) */
   .tile {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 'icon value' 'label label';
-    align-items: center;
-    gap: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
     padding: 16px;
     border: 1px solid #eef0ef;
     border-radius: 16px;
   }
+  .tile__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
   .tile__icon {
-    grid-area: icon;
+    flex: none;
     width: 36px;
     height: 36px;
     display: grid;
@@ -253,13 +261,12 @@
     color: var(--color-gold-700);
   }
   .tile__value {
-    grid-area: value;
+    min-width: 0;
     color: var(--primary);
     font: 700 20px/28px var(--font);
     text-align: end;
   }
   .tile__label {
-    grid-area: label;
     color: var(--caption);
     font-size: 14px;
   }

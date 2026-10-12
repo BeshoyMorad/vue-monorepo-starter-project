@@ -22,7 +22,10 @@
 </script>
 
 <template>
-  <Dialog v-model:open="open" content-class="site-ui auth-ui font-brand sm:max-w-lg">
+  <Dialog
+    v-model:open="open"
+    content-class="site-ui auth-ui font-brand grid-cols-[minmax(0,1fr)] overflow-x-hidden sm:max-w-lg"
+  >
     <template #header>
       <DialogTitle class="text-primary-500 text-lg font-bold">
         {{ t('wallet.pin.dialogTitle') }}

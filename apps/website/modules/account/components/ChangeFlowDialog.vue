@@ -42,7 +42,7 @@
     v-model:open="open"
     :title="title"
     :description="description"
-    content-class="site-ui auth-ui font-brand sm:max-w-md"
+    content-class="site-ui auth-ui font-brand grid-cols-[minmax(0,1fr)] overflow-x-hidden sm:max-w-md"
   >
     <Transition v-bind="DIALOG_STEP_TRANSITION">
       <div v-if="!step" key="request">

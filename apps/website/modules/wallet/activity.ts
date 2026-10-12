@@ -58,3 +58,39 @@ export function niceAxisTop(max: number) {
   const nice = [1, 2, 2.5, 5, 10].map((f) => f * step).find((s) => s * 4 >= max) ?? step * 10;
   return nice * 4;
 }
+
+/** Lower-cased, trimmed, with Arabic-Indic digits as 0-9: how search text is compared */
+const normalizeSearch = (text: string) =>
+  text
+    .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
+    .trim()
+    .toLowerCase();
+
+/**
+ * Whether a transaction matches the search box: part of its reference, transaction id,
+ * order number (metadata) or title (`title`, already translated) contains the typed text.
+ */
+export function matchesSearch(item: WalletTransaction, term: string, title: string) {
+  const needle = normalizeSearch(term);
+  if (!needle) return true;
+  const orderId = item.metadata?.orderId;
+  return [item.ref, item.transactionId, typeof orderId === 'string' ? orderId : '', title].some(
+    (text) => normalizeSearch(text ?? '').includes(needle)
+  );
+}
+
+/** One page of an already-loaded list, with the same page info the API sends */
+export function pageOf<T>(items: T[], page: number, size: number) {
+  const totalPages = Math.ceil(items.length / size);
+  return {
+    items: items.slice((page - 1) * size, page * size),
+    meta: {
+      page,
+      limit: size,
+      total: items.length,
+      totalPages,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+    },
+  };
+}
