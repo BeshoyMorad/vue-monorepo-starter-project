@@ -1,17 +1,28 @@
 <script setup lang="ts">
-  import { Button } from '@workspace/ui/ui/button';
+  import { ref } from 'vue';
   import { Icon } from '@workspace/ui/icon';
+  import CustomColorPicker from './CustomColorPicker.vue';
 
-  defineProps<{
-    color: string;
-    rgbDisplay: string;
-    presets?: string[];
-    showPresets?: boolean;
-    showEyeDropper?: boolean;
-    hasEyeDropper?: boolean;
-    testId: string;
-    isCopied: boolean;
-  }>();
+  withDefaults(
+    defineProps<{
+      color: string;
+      rgbDisplay: string;
+      presets?: string[];
+      showPresets?: boolean;
+      showCustomPicker?: boolean;
+      showEyeDropper?: boolean;
+      hasEyeDropper?: boolean;
+      testId: string;
+      isCopied: boolean;
+    }>(),
+    {
+      presets: () => [],
+      showPresets: true,
+      showCustomPicker: true,
+      showEyeDropper: false,
+      hasEyeDropper: false,
+    }
+  );
 
   const emit = defineEmits<{
     (e: 'selectPreset', color: string): void;
@@ -19,6 +30,8 @@
     (e: 'openNativePicker'): void;
     (e: 'openEyeDropper'): void;
   }>();
+
+  const isPickerExpanded = ref(true);
 </script>
 
 <template>
@@ -49,7 +62,7 @@
       </button>
     </div>
 
-    <!-- Color Presets -->
+    <!-- Color Presets ("array of colors") -->
     <div v-if="showPresets && presets?.length" class="space-y-1.5">
       <label class="text-text-secondary text-[11px] font-medium tracking-wider uppercase">
         Presets
@@ -74,32 +87,46 @@
       </div>
     </div>
 
-    <!-- Quick Actions in Popover -->
-    <div class="flex items-center gap-2 border-t border-neutral-200 pt-1 dark:border-neutral-800">
-      <Button
-        type="button"
-        outline
-        size="sm"
-        :test-id="`${testId}-picker-btn`"
-        class="flex-1 text-xs"
-        @click="emit('openNativePicker')"
-      >
-        <Icon icon="hugeicons--color-picker" class="mr-1.5 size-3.5" />
-        Custom Picker
-      </Button>
+    <!-- Custom Picker at the bottom of the array of colors -->
+    <div
+      v-if="showCustomPicker"
+      class="space-y-2 border-t border-neutral-200 pt-2.5 dark:border-neutral-800"
+    >
+      <div class="flex items-center justify-between">
+        <button
+          type="button"
+          :data-testid="`${testId}-picker-btn`"
+          class="text-text-secondary hover:text-text-default flex items-center gap-1.5 text-[11px] font-medium tracking-wider uppercase transition-colors"
+          @click="isPickerExpanded = !isPickerExpanded"
+        >
+          <Icon icon="hugeicons--color-picker" class="size-3.5" />
+          <span>Custom Picker</span>
+          <Icon
+            :icon="isPickerExpanded ? 'hugeicons--arrow-up-01' : 'hugeicons--arrow-down-01'"
+            class="size-3 text-neutral-400"
+          />
+        </button>
 
-      <Button
-        v-if="showEyeDropper && hasEyeDropper"
-        type="button"
-        outline
-        size="sm"
-        :test-id="`${testId}-eyedropper-btn`"
-        class="px-2 text-xs"
-        title="Pick from Screen"
-        @click="emit('openEyeDropper')"
-      >
-        <Icon icon="hugeicons--eyedropper" class="size-3.5" />
-      </Button>
+        <button
+          v-if="showEyeDropper"
+          type="button"
+          :data-testid="`${testId}-eyedropper-btn`"
+          class="text-text-secondary hover:text-text-default flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          title="Pick from Screen"
+          @click="emit('openEyeDropper')"
+        >
+          <Icon icon="hugeicons--dropper" class="size-3.5" />
+          <span>Eye Dropper</span>
+        </button>
+      </div>
+
+      <!-- Embedded Custom Picker Component -->
+      <CustomColorPicker
+        v-if="isPickerExpanded"
+        :model-value="color"
+        :test-id="testId"
+        @update:model-value="emit('selectPreset', $event)"
+      />
     </div>
   </div>
 </template>

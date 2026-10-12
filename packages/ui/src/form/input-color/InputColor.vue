@@ -26,6 +26,7 @@
     description: undefined,
     containerClass: undefined,
     showPresets: true,
+    showCustomPicker: true,
     showEyeDropper: false,
     showCopy: true,
     testId: 'input-color',
@@ -74,6 +75,7 @@
             :aria-invalid="Boolean(errorMessage) || props.ariaInvalid || undefined"
             :presets="presets"
             :show-presets="showPresets"
+            :show-custom-picker="showCustomPicker"
             :show-eye-dropper="showEyeDropper"
             :show-copy="showCopy"
             :variant="variant"
@@ -117,6 +119,7 @@
         :aria-invalid="ariaInvalid"
         :presets="presets"
         :show-presets="showPresets"
+        :show-custom-picker="showCustomPicker"
         :show-eye-dropper="showEyeDropper"
         :show-copy="showCopy"
         :variant="variant"

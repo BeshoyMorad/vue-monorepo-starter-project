@@ -12,6 +12,7 @@ export interface BaseInputColorProps extends BaseFormFieldProps {
   readonly?: boolean;
   presets?: string[];
   showPresets?: boolean;
+  showCustomPicker?: boolean;
   showEyeDropper?: boolean;
   showCopy?: boolean;
   variant?: InputColorVariant;
