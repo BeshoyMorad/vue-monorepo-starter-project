@@ -155,6 +155,15 @@ export const formsRoutes = [
         },
       },
       {
+        path: 'color-input',
+        name: formsPaths.color,
+        component: () => import('@/modules/doc/forms/color-field/pages/index.vue'),
+        meta: {
+          title: 'Color Input',
+          sidebar: true,
+        },
+      },
+      {
         path: 'multi-step-form',
         name: formsPaths.multiStepForm,
         component: () => import('@/modules/doc/forms/multi-step-form/pages/index.vue'),
