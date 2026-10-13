@@ -6,7 +6,7 @@ export const paths = {
   ssgExample: '/ssg-example',
   isrExample: '/isr-example',
   auth: {
-    login: `/${basePaths.auth.login}`,
+    login: '/login',
   },
   errors: {
     notFound: `/${basePaths.errors.notFound}`,

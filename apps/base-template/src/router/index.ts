@@ -1,14 +1,15 @@
 import { createAppRouter, createBaseRoutes } from '@workspace/core/router';
 import { handleOffline } from '@workspace/core/composables';
 import { paths } from './paths';
-import { authGuard, guestGuard, permissionGuard } from './guards';
+import { authGuard, permissionGuard } from './guards';
+import { authRoutes } from '@/modules/auth/auth.routes';
 import { componentsRoutes } from '@/modules/doc/components/components.routes';
 import { formsRoutes } from '@/modules/doc/forms/forms.routes';
 import { composablesRoutes } from '@/modules/doc/composables/composables.routes';
 import { docRoutes } from '@/modules/doc/documentation/doc.routes';
-import { defaultErrorComponents } from '@workspace/ui';
 
 export const domainRoutes = [
+  ...authRoutes,
   {
     path: '/',
     component: () => import('@/layouts/AppLayout.vue'),
@@ -28,18 +29,9 @@ export const domainRoutes = [
   },
 ];
 
-export const baseRoutes = createBaseRoutes(
-  {
-    authLayout: () => import('@/layouts/AuthLayout.vue'),
-    loginComponent: () => import('@/modules/auth/Login.vue'),
-    ...defaultErrorComponents,
-  },
-  { authGuard, guestGuard }
-);
-
 export const router = createAppRouter({
   domainRoutes,
-  baseRoutes,
+  baseRoutes: createBaseRoutes(),
   defaultTitle: 'Base Template',
   onOffline: handleOffline,
   permissionGuard,

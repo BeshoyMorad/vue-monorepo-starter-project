@@ -1,3 +1,5 @@
+import { basePaths } from '@workspace/core/router';
+
 export const paths = {
   auth: {
     login: 'auth.login',
@@ -8,10 +10,5 @@ export const paths = {
   supplier: {
     root: 'supplier.dashboard',
   },
-  errors: {
-    accessDenied: 'errors.access-denied',
-    serverError: 'errors.internal-server-error',
-    noInternet: 'errors.no-internet',
-    notFound: 'errors.not-found',
-  },
+  errors: basePaths.errors,
 } as const;

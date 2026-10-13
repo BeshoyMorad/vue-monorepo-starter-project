@@ -1,6 +1,5 @@
 import { useSessionStorage } from '@vueuse/core';
 import { useRouter } from 'vue-router';
-import { basePaths } from '@workspace/core/router/paths';
 import { getAppRouter } from '@workspace/core/router/factory';
 
 export const REDIRECT_URL_KEY = 'redirect_url';
@@ -22,7 +21,7 @@ export const useAuthRedirect = () => {
     savedUrl.value = null;
   };
 
-  const handleRedirect = (routeName: string = basePaths.system.dashboard) => {
+  const handleRedirect = (fallback: string = '/') => {
     let activeRouter = getAppRouter();
     if (!activeRouter) {
       try {
@@ -36,8 +35,10 @@ export const useAuthRedirect = () => {
     if (activeRouter) {
       if (url) {
         void activeRouter.push(url);
+      } else if (fallback.startsWith('/')) {
+        void activeRouter.push(fallback);
       } else {
-        void activeRouter.push({ name: routeName });
+        void activeRouter.push({ name: fallback });
       }
     }
     clearRedirectUrl();

@@ -1,9 +1,9 @@
 import type { NavigationGuardReturn, RouteLocationNormalized } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useAuthRedirect } from '@workspace/core/composables/useAuthRedirect';
-import { basePaths } from '@workspace/core/router/paths';
+import { paths } from '@/router/paths';
 
-export const createAuthGuard = (loginRouteName: string = basePaths.auth.login) => {
+export const createAuthGuard = (loginRouteName: string = paths.auth.login) => {
   return (to: RouteLocationNormalized): NavigationGuardReturn => {
     const authStore = useAuthStore();
     const { saveRedirectUrl } = useAuthRedirect();

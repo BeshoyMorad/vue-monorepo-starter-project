@@ -70,7 +70,7 @@ export const handleOnline = () => {
   const currentRoute = router.currentRoute.value;
   if (currentRoute.name === basePaths.errors.noInternet) {
     const redirect = getRedirectPath();
-    router.push(redirect || { name: basePaths.system.dashboard });
+    router.push(redirect || '/');
     clearRedirectPath();
   }
 };

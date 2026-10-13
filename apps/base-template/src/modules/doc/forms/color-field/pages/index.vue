@@ -10,7 +10,7 @@
     COLOR_LIVE_PREVIEW_CODE,
     COLOR_DOC,
   } from '@/modules/doc/forms/color-field/constants';
-  import Card from '@/components/card/ExampleCard.vue';
+  import Card from '@workspace/ui/card/ExampleCard.vue';
   import { Field } from '@workspace/ui';
 
   const basicColor = ref('#3b82f6');

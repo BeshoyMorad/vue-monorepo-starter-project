@@ -1,125 +1,55 @@
-import type { RouteRecordRaw, RouteComponent, NavigationGuard } from 'vue-router';
+import type { RouteRecordRaw, RouteComponent } from 'vue-router';
+import { defaultErrorComponents } from '@workspace/ui';
 import { basePaths } from './paths';
 
 export interface BaseRouteComponents {
-  authLayout?: RouteComponent | (() => Promise<RouteComponent>);
-  loginComponent?: RouteComponent | (() => Promise<RouteComponent>);
-  settingsComponent?: RouteComponent | (() => Promise<RouteComponent>);
-  profileComponent?: RouteComponent | (() => Promise<RouteComponent>);
   accessDeniedComponent?: RouteComponent | (() => Promise<RouteComponent>);
   serverErrorComponent?: RouteComponent | (() => Promise<RouteComponent>);
   noInternetComponent?: RouteComponent | (() => Promise<RouteComponent>);
   notFoundComponent?: RouteComponent | (() => Promise<RouteComponent>);
 }
 
-export interface BaseRouteGuards {
-  authGuard?: NavigationGuard;
-  guestGuard?: NavigationGuard;
-}
+export function createErrorRoutes(components?: BaseRouteComponents): RouteRecordRaw[] {
+  const resolved = {
+    ...defaultErrorComponents,
+    ...components,
+  };
 
-function createAuthRoutes(
-  components: BaseRouteComponents,
-  guards: BaseRouteGuards
-): RouteRecordRaw[] {
-  if (!components.loginComponent) return [];
-
-  const beforeEnter = guards.guestGuard ? [guards.guestGuard] : undefined;
-
-  if (components.authLayout) {
-    return [
-      {
-        path: '/auth',
-        component: components.authLayout,
-        beforeEnter,
-        children: [
-          {
-            path: 'login',
-            name: basePaths.auth.login,
-            component: components.loginComponent,
-            meta: { title: 'Sign In', sidebar: false },
-          },
-        ],
-      },
-    ];
-  }
-
-  return [
-    {
-      path: '/login',
-      name: basePaths.auth.login,
-      component: components.loginComponent,
-      beforeEnter,
-      meta: { title: 'Sign In', sidebar: false },
-    },
-  ];
-}
-
-function createSystemRoutes(
-  components: BaseRouteComponents,
-  guards: BaseRouteGuards
-): RouteRecordRaw[] {
-  const routes: RouteRecordRaw[] = [];
-  const beforeEnter = guards.authGuard ? [guards.authGuard] : undefined;
-
-  if (components.settingsComponent) {
-    routes.push({
-      path: '/settings',
-      name: basePaths.system.settings,
-      component: components.settingsComponent,
-      beforeEnter,
-      meta: { title: 'Settings', sidebar: true },
-    });
-  }
-
-  if (components.profileComponent) {
-    routes.push({
-      path: '/profile',
-      name: basePaths.system.profile,
-      component: components.profileComponent,
-      beforeEnter,
-      meta: { title: 'Profile', sidebar: true },
-    });
-  }
-
-  return routes;
-}
-
-function createErrorRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = [];
 
-  if (components.accessDeniedComponent) {
+  if (resolved.accessDeniedComponent) {
     routes.push({
       path: '/access-denied',
       name: basePaths.errors.accessDenied,
-      component: components.accessDeniedComponent,
-      meta: { title: 'Access Denied', sidebar: false },
+      component: resolved.accessDeniedComponent,
+      meta: { title: 'Access Denied' },
     });
   }
 
-  if (components.serverErrorComponent) {
+  if (resolved.serverErrorComponent) {
     routes.push({
       path: '/internal-server-error',
       name: basePaths.errors.serverError,
-      component: components.serverErrorComponent,
-      meta: { title: 'Internal Server Error', sidebar: false },
+      component: resolved.serverErrorComponent,
+      meta: { title: 'Internal Server Error' },
     });
   }
 
-  if (components.noInternetComponent) {
+  if (resolved.noInternetComponent) {
     routes.push({
       path: '/no-internet',
       name: basePaths.errors.noInternet,
-      component: components.noInternetComponent,
-      meta: { title: 'No Internet Connection', sidebar: false },
+      component: resolved.noInternetComponent,
+      meta: { title: 'No Internet Connection' },
     });
   }
 
-  if (components.notFoundComponent) {
+  if (resolved.notFoundComponent) {
     routes.push({
       path: '/:pathMatch(.*)*',
       name: basePaths.errors.notFound,
-      component: components.notFoundComponent,
-      meta: { title: 'Page Not Found', sidebar: false },
+      component: resolved.notFoundComponent,
+      meta: { title: 'Page Not Found' },
     });
   }
 
@@ -127,15 +57,8 @@ function createErrorRoutes(components: BaseRouteComponents): RouteRecordRaw[] {
 }
 
 /**
- * Creates standard base routes with optional application-level guards.
+ * Creates standard base error routes, defaulting to shared error components if not provided.
  */
-export function createBaseRoutes(
-  components: BaseRouteComponents = {},
-  guards: BaseRouteGuards = {}
-): RouteRecordRaw[] {
-  return [
-    ...createAuthRoutes(components, guards),
-    ...createSystemRoutes(components, guards),
-    ...createErrorRoutes(components),
-  ];
+export function createBaseRoutes(components?: BaseRouteComponents): RouteRecordRaw[] {
+  return createErrorRoutes(components);
 }

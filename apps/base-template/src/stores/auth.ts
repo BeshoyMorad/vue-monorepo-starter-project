@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useLocalStorage } from '@vueuse/core';
 import router from '@/router';
-import { basePaths } from '@workspace/core/router/paths';
+import { paths } from '@/router/paths';
 import { queryClient } from '@workspace/core/lib/query-client';
 
 export interface User {
@@ -50,7 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = () => {
     clearToken();
-    void router.push({ name: basePaths.auth.login });
+    void router.push({ name: paths.auth.login });
   };
 
   const clearAuth = () => {

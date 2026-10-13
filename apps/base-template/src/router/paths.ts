@@ -1,3 +1,4 @@
+import { basePaths } from '@workspace/core/router';
 import { componentsPaths } from '@/modules/doc/components/components.paths';
 import { formsPaths } from '@/modules/doc/forms/forms.paths';
 import { composablesPaths } from '@/modules/doc/composables/composables.paths';
@@ -20,10 +21,5 @@ export const paths = {
   formsPaths,
   composablesPaths,
   documentationPaths,
-  errors: {
-    notFound: 'not-found',
-    accessDenied: 'access-denied',
-    serverError: 'server-error',
-    noInternet: 'no-internet',
-  },
+  errors: basePaths.errors,
 };
