@@ -13,11 +13,7 @@
 
 @source '..';
 
-@plugin '@iconify/tailwind4' {
-  prefixes: 'hugeicons', 'custom';
-  scale: 1.5;
-  icon-sets: from-folder('custom', './src/assets/icons');
-}
+@plugin './icon-plugin.js';
 
 @theme inline {
   --font-sans: 'Exo 2', sans-serif;
