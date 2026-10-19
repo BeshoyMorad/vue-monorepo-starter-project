@@ -3,6 +3,7 @@ import { basePaths } from '@workspace/core/router/paths';
 export const paths = {
   home: '/',
   dashboard: '/dashboard',
+  tableExample: '/table-example',
   ssgExample: '/ssg-example',
   isrExample: '/isr-example',
   auth: {

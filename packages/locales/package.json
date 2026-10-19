@@ -14,7 +14,7 @@
     "./*": "./src/*"
   },
   "dependencies": {
-    "vue-i18n": "^11.4.8"
+    "dayjs": "^1.11.21"
   },
   "peerDependencies": {
     "vue": "^3.5.0"

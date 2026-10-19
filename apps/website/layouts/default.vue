@@ -1,15 +1,11 @@
 <script setup lang="ts">
-  import { Button, PageWrapper } from '@workspace/ui';
+  import { Button, Icon, LanguageSwitcher, PageWrapper } from '@workspace/ui';
+  import { useDarkTheme } from '~/composables/useDarkTheme';
   import { paths } from '~/router/paths';
 
+  const { locale, t, setLocale } = useI18n();
   const localePath = useLocalePath();
-  const { locale, setLocale } = useI18n();
-
-  const currentLocale = computed(() => locale.value);
-  const toggleLocale = () => {
-    const next = currentLocale.value === 'en' ? 'ar' : 'en';
-    setLocale(next);
-  };
+  const { isDark, toggleDark } = useDarkTheme();
 </script>
 
 <template>
@@ -33,42 +29,52 @@
               class="hover:text-text-primary transition-colors"
               active-class="text-text-primary font-bold"
             >
-              {{ $t('nav.home') }}
+              {{ t('nav.home') }}
             </NuxtLink>
             <NuxtLink
               :to="localePath(paths.dashboard)"
               class="hover:text-text-primary transition-colors"
               active-class="text-text-primary font-bold"
             >
-              {{ $t('nav.tanstackQuery') }}
+              {{ t('nav.tanstackQuery') }}
+            </NuxtLink>
+            <NuxtLink
+              :to="localePath(paths.tableExample)"
+              class="hover:text-text-primary transition-colors"
+              active-class="text-text-primary font-bold"
+            >
+              {{ t('nav.tableExample') }}
             </NuxtLink>
             <NuxtLink
               :to="localePath(paths.ssgExample)"
               class="hover:text-text-primary transition-colors"
               active-class="text-text-primary font-bold"
             >
-              {{ $t('nav.ssgExample') }}
+              {{ t('nav.ssgExample') }}
             </NuxtLink>
             <NuxtLink
               :to="localePath(paths.isrExample)"
               class="hover:text-text-primary transition-colors"
               active-class="text-text-primary font-bold"
             >
-              {{ $t('nav.isrExample') }}
+              {{ t('nav.isrExample') }}
             </NuxtLink>
           </nav>
         </div>
 
         <div class="flex items-center gap-3">
           <Button
-            test-id=""
-            type="button"
-            class="border-border-base hover:bg-bg-hovered inline-flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors"
-            @click="toggleLocale"
+            test-id="header-toggle-dark"
+            variant="ghost"
+            size="icon"
+            class="size-9 cursor-pointer"
+            aria-label="Toggle theme"
+            @click="toggleDark()"
           >
-            <span>🌐</span>
-            <span>{{ currentLocale === 'en' ? 'العربية' : 'English' }}</span>
+            <Icon :icon="isDark ? 'hugeicons--sun-01' : 'hugeicons--moon-02'" class="size-5" />
           </Button>
+
+          <LanguageSwitcher :model-value="locale" @select="(code) => setLocale(code)" />
         </div>
       </div>
     </header>

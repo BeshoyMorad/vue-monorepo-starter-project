@@ -1,4 +1,3 @@
-export { useDarkTheme } from './useDarkTheme';
 export { useDataTable } from './useDataTable';
 export { useDataInfiniteScroll } from './useDataInfiniteScroll';
 export * from './types';
@@ -18,4 +17,3 @@ export { useAuthRedirect } from './useAuthRedirect';
 export { useNetwork, handleOffline, handleOnline, isOnline, setNetworkRouter } from './useNetwork';
 export { useModal } from './useModal';
 export { useVirtualScroll } from './useVirtualScroll';
-export { useAppLocale, registerAppI18n } from './useAppLocale';

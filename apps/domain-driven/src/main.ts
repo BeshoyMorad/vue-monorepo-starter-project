@@ -13,7 +13,7 @@ import duration from 'dayjs/plugin/duration';
 import App from './App.vue';
 import { error as toastError } from '@workspace/core/utils/toast';
 import i18n, { loadLocaleMessages } from './locales';
-import { registerAppI18n, useAppLocale } from '@workspace/core/composables';
+import { setupLocaleSync } from '@workspace/locales';
 import { api } from './api';
 import { setApiClient } from '@workspace/core/lib';
 
@@ -22,10 +22,10 @@ validateViteEnv(import.meta.env);
 
 setApiClient(api);
 
-registerAppI18n(i18n, loadLocaleMessages);
-
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
+
+setupLocaleSync(i18n, loadLocaleMessages);
 
 const app = createApp(App);
 
@@ -37,8 +37,5 @@ app.config.errorHandler = (err, _instance, info) => {
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
-
-const { initLocale } = useAppLocale();
-void initLocale();
 
 app.use(pinia).use(i18n).use(VueQueryPlugin, { queryClient }).use(router).mount('#app');

@@ -10,6 +10,8 @@
     "confirm": "تأكيد",
     "back": "رجوع",
     "next": "التالي",
+    "previous": "السابق",
+    "rowsPerPage": "عدد الصفوف لكل صفحة:",
     "create": "إنشاء",
     "update": "تحديث",
     "close": "إغلاق",

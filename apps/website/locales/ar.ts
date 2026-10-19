@@ -30,6 +30,7 @@ export default defineI18nLocale(async () => {
     nav: {
       home: 'الرئيسية',
       tanstackQuery: 'استعلام TanStack على الخادم',
+      tableExample: 'جدول البيانات',
       ssgExample: 'توليد مسبق SSG',
       isrExample: 'تخزين مؤقت ISR (60 ث)',
     },

@@ -3,7 +3,7 @@
 
   import { Table } from '@workspace/ui';
   import Card from '@workspace/ui/card/ExampleCard.vue';
-  import { useAppLocale } from '@workspace/core/composables';
+  import { useI18n } from 'vue-i18n';
 
   import {
     TABLE_DEFINITION_CODE,
@@ -12,7 +12,7 @@
     TABLE_CODE_HEADER_TEMPLATE,
   } from '../constants/constants';
 
-  const { t } = useAppLocale();
+  const { t } = useI18n();
 
   interface User {
     id: number;

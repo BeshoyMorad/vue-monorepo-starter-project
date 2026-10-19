@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import Card from '@workspace/ui/card/ExampleCard.vue';
-  import { useAppLocale } from '@workspace/core/composables';
+  import { useI18n } from 'vue-i18n';
 
   import { TABLE_IMPORT_CODE } from '../constants/constants';
 
-  const { t } = useAppLocale();
+  const { t } = useI18n();
 </script>
 
 <template>

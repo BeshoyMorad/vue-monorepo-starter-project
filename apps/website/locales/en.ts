@@ -32,6 +32,7 @@ export const websiteEn = {
   nav: {
     home: 'Home',
     tanstackQuery: 'TanStack Query SSR',
+    tableExample: 'Data Table',
     ssgExample: 'SSG Prerender',
     isrExample: 'ISR Cache (60s)',
   },

@@ -10,6 +10,8 @@
     "confirm": "Confirm",
     "back": "Back",
     "next": "Next",
+    "previous": "Previous",
+    "rowsPerPage": "Rows per page:",
     "create": "Create",
     "update": "Update",
     "close": "Close",

@@ -19,6 +19,9 @@
     DropdownMenuItem,
   } from '@workspace/ui/ui/dropdown-menu';
   import { TEST_IDS } from '@workspace/core/lib/test-ids';
+  import { useI18n } from 'vue-i18n';
+
+  const { t } = useI18n();
 
   interface Props {
     meta: Meta | CursorMeta | null | undefined;
@@ -90,8 +93,8 @@
         :disabled="!hasPrev"
         @click="emit('prev')"
       >
-        <Icon icon="hugeicons--arrow-left-01" class="mr-1 size-4" />
-        Previous
+        <Icon icon="hugeicons--arrow-left-01" class="me-1 size-4 rtl:rotate-180" />
+        {{ t('common.previous') }}
       </Button>
 
       <Button
@@ -101,8 +104,8 @@
         :disabled="!hasNext"
         @click="emit('next')"
       >
-        Next
-        <Icon icon="hugeicons--arrow-right-01" class="ml-1 size-4" />
+        {{ t('common.next') }}
+        <Icon icon="hugeicons--arrow-right-01" class="ms-1 size-4 rtl:rotate-180" />
       </Button>
     </div>
 
@@ -140,7 +143,7 @@
 
     <!-- Limit Selector -->
     <div class="text-text-default flex items-center gap-2 text-sm">
-      <span>Rows per page:</span>
+      <span>{{ t('common.rowsPerPage') }}</span>
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
           <Button

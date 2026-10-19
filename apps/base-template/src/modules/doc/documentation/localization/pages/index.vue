@@ -5,7 +5,8 @@
 
   import Card from '@workspace/ui/card/ExampleCard.vue';
   import { Button, LanguageSwitcher } from '@workspace/ui';
-  import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+  import { useI18n } from 'vue-i18n';
+  import { SUPPORTED_LOCALES, FALLBACK_LOCALE, type LocaleCode } from '@workspace/locales';
 
   import {
     LOCALIZATION_DOM,
@@ -17,7 +18,13 @@
     LOCALIZATION_PROJECT_STRUCTURE,
   } from '../constants/constants';
 
-  const { t, d, n, currentLocale, currentLocaleMeta, isRTL } = useAppLocale();
+  const { t, d, n, locale } = useI18n();
+
+  const currentLocale = computed(() => locale.value as LocaleCode);
+  const currentLocaleMeta = computed(
+    () => SUPPORTED_LOCALES[currentLocale.value] || SUPPORTED_LOCALES[FALLBACK_LOCALE]
+  );
+  const isRTL = computed(() => currentLocaleMeta.value.direction === 'rtl');
 
   // Interactive demo states
   const customName = ref('Alex');
@@ -106,7 +113,7 @@
 
             <span class="text-[11px] font-normal"> isRTL: {{ isRTL ? 'true' : 'false' }} </span>
           </span>
-          <LanguageSwitcher />
+          <LanguageSwitcher v-model="locale" />
         </div>
       </template>
     </Card>

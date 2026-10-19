@@ -2,9 +2,9 @@ export const LOCALIZATION_DOM = {
   buttonLanguage: {
     title: 'Change Language with Button',
     description:
-      'You can change the application language directly from any button by calling setLocale() from useAppLocale().',
+      'You can change the application language directly from any button by setting locale.value from useI18n().',
     howToUse:
-      'Get setLocale() from useAppLocale(), then pass the target locale code when the button is clicked.',
+      'Get locale from useI18n(), then set locale.value to the target locale code when the button is clicked.',
   },
   title: 'Localization',
   description:
@@ -70,17 +70,15 @@ export const LOCALIZATION_DOM = {
 } as const;
 
 export const LOCALIZATION_USAGE_CODE = {
-  locale: `import { useAppLocale } from '@workspace/core/composables/useAppLocale';
-  import { LanguageSwitcher } from '@workspace/ui';
+  locale: `import { useI18n } from 'vue-i18n';
+import { LanguageSwitcher } from '@workspace/ui';
 
 const {
   t,                  // Translate a message using its localization key
   d,                  // Format dates using the active locale
   n,                  // Format numbers, currencies, and percentages
-  currentLocale,      // Get the currently active locale
-  isRTL,              // Check whether the active locale uses RTL direction
-  setLocale,          // Switch the application to another locale
-} = useAppLocale();
+  locale,             // Reactive ref for active locale
+} = useI18n();
 
 const label = t('common.save');`,
 
@@ -100,17 +98,15 @@ const label = t('common.save');`,
             <span class="text-text-disabled">•</span>
             <span class="text-[11px] font-normal"> isRTL: {{ isRTL ? 'true' : 'false' }} </span>
           </span>
-    <LanguageSwitcher />
+    <LanguageSwitcher v-model="locale" />
 </template>`,
   buttonLanguage: `import { Button } from '@workspace/ui';
-import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+import { useI18n } from 'vue-i18n';
 
-const {
-  setLocale, // Change the application language
-} = useAppLocale();
+const { locale } = useI18n();
 
-const changeLanguage = (locale: 'en' | 'ar') => {
-  setLocale(locale); // Load and activate the selected locale
+const changeLanguage = (newLocale: 'en' | 'ar') => {
+  locale.value = newLocale; // Load and activate the selected locale
 };`,
 
   buttonLanguageTemplate: `<Button
@@ -129,9 +125,9 @@ const changeLanguage = (locale: 'en' | 'ar') => {
 
   steps: [
     {
-      code: `import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+      code: `import { useI18n } from 'vue-i18n';
 
-const { t, d, n } = useAppLocale();
+const { t, d, n } = useI18n();
 
 const label = t('common.save');`,
       header: 'Step 1 - Composable',
@@ -145,9 +141,9 @@ const label = t('common.save');`,
       header: 'Step 2 - Template',
     },
     {
-      code: `const { setLocale } = useAppLocale();
+      code: `const { locale } = useI18n();
 
-await setLocale('ar');
+locale.value = 'ar';
 
 // Updates the active locale
 // and document direction.`,
@@ -156,7 +152,7 @@ await setLocale('ar');
   ],
 } as const;
 
-export const LOCALIZATION_INTERPOLATION_CODE = `const { t } = useAppLocale();
+export const LOCALIZATION_INTERPOLATION_CODE = `const { t } = useI18n();
 
 const message = t('demo.interpolation.greeting', {
   name: 'Alex',
@@ -167,7 +163,7 @@ const stats = t('demo.interpolation.userStats', {
   points: 240,
 });`;
 
-export const LOCALIZATION_PLURALIZATION_CODE = `const { t } = useAppLocale();
+export const LOCALIZATION_PLURALIZATION_CODE = `const { t } = useI18n();
 
 const count = 3;
 
@@ -191,18 +187,19 @@ const members = t(
   },
 );`;
 
-export const LOCALIZATION_FORMATTING_CODE = `const { n } = useAppLocale();
+export const LOCALIZATION_FORMATTING_CODE = `const { n } = useI18n();
 
 const amount = n(1250.75, 'currency');
 
 const percentage = n(0.85, 'percent');`;
 
 export const LOCALIZATION_DATE_CODE = `import dayjs from 'dayjs';
+import { useI18n } from 'vue-i18n';
 
 const {
   d,
-  currentLocale,
-} = useAppLocale();
+  locale,
+} = useI18n();
 
 const formattedDate = d(
   new Date(),
@@ -211,23 +208,18 @@ const formattedDate = d(
 
 const relativeTime = dayjs()
   .subtract(3, 'hour')
-  .locale(currentLocale.value)
+  .locale(locale.value)
   .fromNow();`;
 
 export const LOCALIZATION_PROJECT_STRUCTURE = `📁 src/
-├── 📁 composables/
-│    └── 📄 useAppLocale.ts
-│
 ├── 📁 locales/
-│     │   ├── 📄 en.ts
-│     │   └── 📄 ar.ts
-│     │
-│     ├── 📄 index.ts
-│     └── 📄 schema.ts
+│     ├── 📄 en.ts
+│     ├── 📄 ar.ts
+│     └── 📄 index.ts
 │
 └─ 📁 modules/
       └── 📁 feature/
-          └──📁 locales/
+          └── 📁 locales/
                ├── 📄 en.ts
                └── 📄 ar.ts
 `;

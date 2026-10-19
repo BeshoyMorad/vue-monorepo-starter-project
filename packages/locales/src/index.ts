@@ -3,7 +3,7 @@ import commonAr from './common/ar.json';
 
 export * from './config';
 export * from './formats';
-export * from './factory';
+export * from './utils';
 export { commonEn, commonAr };
 
 export type CommonLocaleSchema = typeof commonEn;

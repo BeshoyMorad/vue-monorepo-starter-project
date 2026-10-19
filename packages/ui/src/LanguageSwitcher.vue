@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+  import { computed } from 'vue';
   import Button from '@workspace/ui/ui/button/Button.vue';
   import {
     DropdownMenu,
@@ -7,42 +7,65 @@
     DropdownMenuItem,
     DropdownMenuTrigger,
   } from '@workspace/ui/ui/dropdown-menu';
-  import type { LocaleCode } from '@workspace/locales';
+  import {
+    SUPPORTED_LOCALES,
+    FALLBACK_LOCALE,
+    type LocaleCode,
+    type LocaleMeta,
+  } from '@workspace/locales';
 
-  const props = withDefaults(
-    defineProps<{
-      testId?: string;
-    }>(),
-    { testId: 'ui-language-switcher' }
-  );
+  export interface LanguageSwitcherProps {
+    modelValue?: LocaleCode | string;
+    locales?: LocaleMeta[];
+    loading?: boolean;
+    testId?: string;
+  }
 
-  const { currentLocaleMeta, supportedLocales, setLocale, isLoadingLocale } = useAppLocale();
+  const props = withDefaults(defineProps<LanguageSwitcherProps>(), {
+    modelValue: FALLBACK_LOCALE,
+    locales: () => Object.values(SUPPORTED_LOCALES),
+    loading: false,
+    testId: 'ui-language-switcher',
+  });
 
-  const handleLocaleSelect = (locale: LocaleCode) => {
-    void setLocale(locale);
+  const emit = defineEmits<{
+    (e: 'update:modelValue', locale: LocaleCode): void;
+    (e: 'select', locale: LocaleCode): void;
+  }>();
+
+  const activeLocaleMeta = computed<LocaleMeta>(() => {
+    return (
+      props.locales.find((l) => l.code === props.modelValue) ||
+      SUPPORTED_LOCALES[props.modelValue as LocaleCode] ||
+      SUPPORTED_LOCALES[FALLBACK_LOCALE]
+    );
+  });
+
+  const handleSelect = (code: LocaleCode) => {
+    if (code === props.modelValue) return;
+    emit('update:modelValue', code);
+    emit('select', code);
   };
 </script>
 
 <template>
   <DropdownMenu :data-testid="props.testId">
     <DropdownMenuTrigger as-child>
-      <Button outline size="sm" test-id="language-switcher-trigger" :loading="isLoadingLocale">
-        <span class="text-base leading-none">{{ currentLocaleMeta.flag }}</span>
-        <span>{{ currentLocaleMeta.nativeLabel }}</span>
-        <span class="text-text-disabled text-xs uppercase"
-          >({{ currentLocaleMeta.direction }})</span
-        >
+      <Button outline size="sm" test-id="language-switcher-trigger" :loading="props.loading">
+        <span class="text-base leading-none">{{ activeLocaleMeta.flag }}</span>
+        <span>{{ activeLocaleMeta.nativeLabel }}</span>
+        <span class="text-text-disabled text-xs uppercase">({{ activeLocaleMeta.direction }})</span>
       </Button>
     </DropdownMenuTrigger>
 
     <DropdownMenuContent align="end" class="min-w-44 p-1">
       <DropdownMenuItem
-        v-for="locale in supportedLocales"
+        v-for="locale in props.locales"
         :key="locale.code"
         :test-id="`locale-option-${locale.code}`"
         class="hover:bg-surface-secondary flex cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm transition-colors"
-        :class="{ 'bg-surface-secondary/60 font-semibold': locale.code === currentLocaleMeta.code }"
-        @click="handleLocaleSelect(locale.code)"
+        :class="{ 'bg-surface-secondary/60 font-semibold': locale.code === activeLocaleMeta.code }"
+        @click="handleSelect(locale.code)"
       >
         <div class="flex items-center gap-2.5">
           <span class="text-base leading-none">{{ locale.flag }}</span>
@@ -53,7 +76,7 @@
         </div>
 
         <span
-          v-if="locale.code === currentLocaleMeta.code"
+          v-if="locale.code === activeLocaleMeta.code"
           class="bg-primary-600 size-2 rounded-full"
         />
       </DropdownMenuItem>

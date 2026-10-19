@@ -1,13 +1,24 @@
 <script setup lang="ts">
   /* eslint-disable max-lines */
   import { ref, computed } from 'vue';
-  import { useAppLocale } from '@workspace/core/composables/useAppLocale';
+  import { useI18n } from 'vue-i18n';
   import { Button, LanguageSwitcher, PageWrapper } from '@workspace/ui';
+  import { SUPPORTED_LOCALES, FALLBACK_LOCALE, type LocaleCode } from '@workspace/locales';
   import dayjs from 'dayjs';
   import { paths } from '@/router/paths';
 
-  const { t, d, n, currentLocale, currentLocaleMeta, isRTL, setLocale, isLoadingLocale } =
-    useAppLocale();
+  const { t, d, n, locale } = useI18n();
+
+  const currentLocale = computed(() => locale.value as LocaleCode);
+  const currentLocaleMeta = computed(
+    () => SUPPORTED_LOCALES[currentLocale.value] || SUPPORTED_LOCALES[FALLBACK_LOCALE]
+  );
+  const isRTL = computed(() => currentLocaleMeta.value.direction === 'rtl');
+  const isLoadingLocale = ref(false);
+
+  const setLocale = (newLocale: LocaleCode) => {
+    locale.value = newLocale;
+  };
 
   // Interactive demo states
   const customName = ref('Alex');
@@ -50,7 +61,7 @@
           <span class="text-text-secondary text-xs font-medium"
             >{{ t('common.activeLanguage') }}:</span
           >
-          <LanguageSwitcher />
+          <LanguageSwitcher v-model="locale" />
         </div>
       </div>
 
@@ -345,9 +356,9 @@
           <div class="bg-surface-secondary border-border-secondary space-y-2 rounded-lg border p-4">
             <h3 class="text-text-primary font-semibold">{{ t('demo.howToUse.step1Title') }}</h3>
             <pre class="text-text-secondary overflow-x-auto font-mono text-[11px]">
-import { useAppLocale } from '@workspace/core/composables';
+import { useI18n } from 'vue-i18n';
 
-const { t, d, n, currentLocale, isRTL } = useAppLocale();
+const { t, d, n, locale } = useI18n();
 const label = t('common.save');
             </pre>
           </div>
@@ -366,10 +377,10 @@ const label = t('common.save');
           <div class="bg-surface-secondary border-border-secondary space-y-2 rounded-lg border p-4">
             <h3 class="text-text-primary font-semibold">{{ t('demo.howToUse.step3Title') }}</h3>
             <pre class="text-text-secondary overflow-x-auto font-mono text-[11px]">
-const { setLocale } = useAppLocale();
+const { locale } = useI18n();
 
 // Switches to Arabic & updates DOM dir="rtl"
-await setLocale('ar');
+locale.value = 'ar';
             </pre>
           </div>
         </div>

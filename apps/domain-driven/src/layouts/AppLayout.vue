@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useDarkTheme } from '@workspace/core/composables';
+  import { useDarkTheme } from '@/composables/useDarkTheme';
   import Button from '@workspace/ui/ui/button/Button.vue';
   import Icon from '@workspace/ui/icon/Icon.vue';
 

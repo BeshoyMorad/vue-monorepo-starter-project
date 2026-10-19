@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useDarkTheme } from '@workspace/core/composables';
+  import { useDarkTheme } from '@/composables/useDarkTheme';
   import { Button, Icon } from '@workspace/ui';
 
   const { toggleDark } = useDarkTheme();

@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { Tooltip } from '@workspace/ui';
   import Card from '@workspace/ui/card/ExampleCard.vue';
-  import { useAppLocale } from '@workspace/core/composables';
+  import { useI18n } from 'vue-i18n';
 
   import { TOOLTIP_IMPORT_CODE, TOOLTIP_EXAMPLES } from '../constants/constants';
 
-  const { t } = useAppLocale();
+  const { t } = useI18n();
 </script>
 
 <template>

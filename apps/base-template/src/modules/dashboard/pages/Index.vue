@@ -19,7 +19,8 @@
   import { toTypedSchema } from '@vee-validate/yup';
   import * as yup from 'yup';
   import { phoneSchema } from '@workspace/core/utils/yupSchemas';
-  import { useDarkTheme, useFormMedia, extractMediaPayload } from '@workspace/core/composables';
+  import { useFormMedia, extractMediaPayload } from '@workspace/core/composables';
+  import { useDarkTheme } from '@/composables/useDarkTheme';
   import { info, success } from '@workspace/core/utils/toast';
   import { ref } from 'vue';
   import type { MediaValue } from '@workspace/core/types/media';

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue';
-  import { useDarkTheme } from '@workspace/core/composables';
+  import { useDark } from '@vueuse/core';
   import { getImagePath } from '@workspace/core/utils';
 
   const props = withDefaults(
@@ -16,7 +16,7 @@
     }
   );
 
-  const { isDark } = useDarkTheme();
+  const isDark = useDark({ selector: 'html', attribute: 'data-theme' });
 
   const resolvedFallback = computed(
     () =>
