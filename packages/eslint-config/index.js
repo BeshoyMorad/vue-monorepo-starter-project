@@ -100,6 +100,20 @@ export const createEslintConfig = () => {
       },
     },
     {
+      files: ['**/types/**/*.ts'],
+      rules: {
+        'no-restricted-syntax': [
+          'error',
+          {
+            selector:
+              ':matches(Program, ExportNamedDeclaration, ExportDefaultDeclaration) > :matches(VariableDeclaration, FunctionDeclaration, ClassDeclaration, TSEnumDeclaration, ExpressionStatement):not([declare=true])',
+            message:
+              'types/ holds only type / interface. Move runtime values to constants/ or utils/.',
+          },
+        ],
+      },
+    },
+    {
       files: ['**/*.spec.ts', '**/*.test.ts', 'tests/**/*.ts'],
       rules: {
         'max-lines': 'off',
