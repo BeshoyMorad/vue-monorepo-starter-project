@@ -2,7 +2,7 @@
   import { ref } from 'vue';
   import Sidebar from '@workspace/ui/ui/sidebar/Sidebar.vue';
   import { paths } from '@/router/paths';
-  import { useDarkTheme } from '@/composables/useDarkTheme';
+  import { useDarkTheme } from '@workspace/core/composables';
   import Button from '@workspace/ui/ui/button/Button.vue';
   import Icon from '@workspace/ui/icon/Icon.vue';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useDarkTheme } from '@/composables/useDarkTheme';
+  import { useDarkTheme } from '@workspace/core/composables';
   import { Button } from '@workspace/ui';
 
   import Card from '@workspace/ui/card/ExampleCard.vue';
@@ -10,7 +10,7 @@
     USE_DARK_THEME_BASIC_CODE,
     USE_DARK_THEME_TEMPLATE_CODE,
     USE_DARK_THEME_PERSISTENCE_CODE,
-  } from '../constants/constants';
+  } from '@/modules/doc/composables/useDarkMode/constants/constants';
 
   const { isDark, toggleDark } = useDarkTheme();
 </script>

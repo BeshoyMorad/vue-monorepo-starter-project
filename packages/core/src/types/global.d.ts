@@ -3,6 +3,8 @@ export {};
 declare global {
   export type Prettify<T> = T & { [K in keyof T]: T[K] };
 
+  type Theme = 'light' | 'dark';
+
   interface ApiResponse<T = unknown> {
     message: string;
     data: T;

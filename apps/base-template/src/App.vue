@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { useNetwork } from '@workspace/core/composables';
-  import { useDarkTheme } from '@/composables/useDarkTheme';
+  import { useDarkTheme, useNetwork } from '@workspace/core/composables';
   import { ErrorBoundary, Toaster } from '@workspace/ui';
 
   useDarkTheme();

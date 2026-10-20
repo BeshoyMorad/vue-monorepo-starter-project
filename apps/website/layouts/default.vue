@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { Button, Icon, LanguageSwitcher, PageWrapper } from '@workspace/ui';
-  import { useDarkTheme } from '~/composables/useDarkTheme';
+  import { useDarkTheme } from '@workspace/core/composables';
   import { paths } from '~/router/paths';
 
   const { locale, t, setLocale } = useI18n();
   const localePath = useLocalePath();
-  const { isDark, toggleDark } = useDarkTheme();
+  const { toggleDark } = useDarkTheme();
 </script>
 
 <template>
@@ -71,7 +71,9 @@
             aria-label="Toggle theme"
             @click="toggleDark()"
           >
-            <Icon :icon="isDark ? 'hugeicons--sun-01' : 'hugeicons--moon-02'" class="size-5" />
+            <!-- Icon picked in CSS: with no choice the server can't know the device theme -->
+            <Icon icon="hugeicons--moon-02" class="size-5 dark:hidden" />
+            <Icon icon="hugeicons--sun-01" class="hidden size-5 dark:block" />
           </Button>
 
           <LanguageSwitcher :model-value="locale" @select="(code) => setLocale(code)" />
