@@ -16,7 +16,6 @@
   import { ComboboxItemIndicator, ComboboxItem, Combobox } from '@workspace/ui/ui/combobox';
   import type { BaseInfiniteScrollSelectProps } from './types';
 
-  const ITEM_SIZE = 38;
   const MAX_HEIGHT = 250;
 
   const props = withDefaults(
@@ -87,15 +86,9 @@
     return allOptions;
   });
 
-  const onLazyLoad = (last: number) => {
-    if (hasMore.value && !isFetchingNextPage.value) {
-      const count = options.value.length;
-      const isSaturated = count * ITEM_SIZE >= MAX_HEIGHT;
-      const threshold = isSaturated ? 2 : 1;
-      if (last >= count - threshold) {
-        fetchNextPage();
-      }
-    }
+  // `InfiniteScroll` only emits `load-more` once the list end is reached.
+  const loadMore = () => {
+    if (hasMore.value && !isFetchingNextPage.value) fetchNextPage();
   };
 </script>
 
@@ -134,7 +127,7 @@
         :disabled="disabled"
         :max-height="`${MAX_HEIGHT}px`"
         :hide-scrollbar="false"
-        @load-more="() => onLazyLoad(options.length)"
+        @load-more="loadMore"
       >
         <ComboboxItem
           v-for="option in options"

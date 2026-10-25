@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { computed, ref, useAttrs, useId } from 'vue';
+  import { useFieldId } from '@workspace/ui/form/shared';
+  import { computed, ref, useAttrs } from 'vue';
   import { useVModel } from '@vueuse/core';
   import { CalendarDate, getLocalTimeZone } from '@internationalized/date';
   import { Popover } from '@workspace/ui/ui/popover';
@@ -37,11 +38,7 @@
 
   const attrs = useAttrs();
 
-  const resolvedId = computed(() => {
-    if (props.id) return props.id;
-    if (typeof attrs.id === 'string') return attrs.id;
-    return useId();
-  });
+  const resolvedId = useFieldId(props);
 
   const isInvalid = computed(() => {
     return attrs['aria-invalid'] === 'true' || attrs['aria-invalid'] === true;
@@ -49,6 +46,11 @@
 
   const convertToDateValue = (val: Date | string | null | undefined): CalendarDate | undefined => {
     if (!val) return undefined;
+    // Date-only strings are parsed as UTC by `new Date`, which shifts the day in negative offsets.
+    if (typeof val === 'string') {
+      const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(val);
+      if (match) return new CalendarDate(Number(match[1]), Number(match[2]), Number(match[3]));
+    }
     const d = new Date(val);
     if (isNaN(d.getTime())) return undefined;
     return new CalendarDate(d.getFullYear(), d.getMonth() + 1, d.getDate());

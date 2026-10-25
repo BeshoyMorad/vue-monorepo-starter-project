@@ -1,5 +1,6 @@
 <script setup lang="ts">
   /* eslint-disable max-lines */
+  import { validateFile, useObjectUrls } from '@workspace/ui/form/shared';
   import type { MediaValue } from '@workspace/core/types/media';
   import { ref, computed, watch } from 'vue';
   import { cn } from '@workspace/core/utils';
@@ -46,12 +47,13 @@
 
   // Internal Media State
   const localMedia = ref<MediaValue>(createMediaValue(null));
+  const objectUrls = useObjectUrls();
 
   // Sync props.modelValue to localMedia
   watch(
     () => props.modelValue,
     (newVal) => {
-      localMedia.value = newVal ? newVal : createMediaValue(null);
+      localMedia.value = newVal ? objectUrls.adopt(newVal) : createMediaValue(null);
     },
     { immediate: true, deep: true }
   );
@@ -114,26 +116,12 @@
   const processFile = (file: File) => {
     if (props.disabled) return;
 
-    // 1. Restrict file name characters
-    const invalidNamePattern = /[%<>:"'|?*\\/#&+]/;
-    if (invalidNamePattern.test(file.name)) {
-      error(
-        'File name contains invalid characters. Avoid characters like %, <, >, :, ", |, ?, *, \\, /, #, &, +.'
-      );
-      return;
-    }
-
-    // 2. Restrict file size
-    const MAX_FILE_SIZE = props.maxSizeMb * 1024 * 1024;
-    if (file.size > MAX_FILE_SIZE) {
-      error(`File size exceeds the ${props.maxSizeMb}MB limit.`);
-      return;
-    }
-
-    // 3. Restrict file type
-    const types = props.allowedTypes || DEFAULT_ALLOWED_IMAGE_TYPES;
-    if (!types.includes(file.type)) {
-      error('Invalid file type.');
+    const validationError = validateFile(file, {
+      maxSizeMb: props.maxSizeMb,
+      allowedTypes: props.allowedTypes || DEFAULT_ALLOWED_IMAGE_TYPES,
+    });
+    if (validationError) {
+      error(validationError);
       return;
     }
 
@@ -150,12 +138,12 @@
 
     // Revoke old temp URL to prevent memory leaks
     if (localMedia.value.tempUrl) {
-      URL.revokeObjectURL(localMedia.value.tempUrl);
+      objectUrls.revoke(localMedia.value.tempUrl);
     }
 
     const updatedMedia: MediaValue = {
       file,
-      tempUrl: URL.createObjectURL(file),
+      tempUrl: objectUrls.create(file),
       mediaId: null, // Reset mediaId so it re-uploads
       initialUrl: localMedia.value.initialUrl,
       isChanged: true,
@@ -205,12 +193,13 @@
     });
 
     if (localMedia.value.tempUrl) {
-      URL.revokeObjectURL(localMedia.value.tempUrl);
+      objectUrls.revoke(localMedia.value.tempUrl);
     }
 
     const updatedMedia: MediaValue = {
       file,
-      tempUrl: URL.createObjectURL(file),
+      tempUrl: objectUrls.create(file),
+      fileName: file.name,
       mediaId: null,
       initialUrl: localMedia.value.initialUrl,
       isChanged: true,
@@ -234,7 +223,7 @@
     if (props.disabled) return;
 
     if (localMedia.value.tempUrl) {
-      URL.revokeObjectURL(localMedia.value.tempUrl);
+      objectUrls.revoke(localMedia.value.tempUrl);
     }
 
     const updatedMedia: MediaValue = {
@@ -253,6 +242,7 @@
 
 <template>
   <div
+    v-bind="$attrs"
     class="w-fit"
     :data-test-id="testId"
     @dragover="handleDragOver"
@@ -431,6 +421,7 @@
       v-model:visible="cropperVisible"
       :image="selectedImage"
       :aspect-ratio="computedAspectRatio"
+      :mime-type="selectedFileMeta?.type || undefined"
       @crop="handleCrop"
       @cancel="handleCropCancel"
     />
