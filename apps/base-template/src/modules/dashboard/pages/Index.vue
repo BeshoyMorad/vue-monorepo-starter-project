@@ -19,7 +19,7 @@
   import { toTypedSchema } from '@vee-validate/yup';
   import * as yup from 'yup';
   import { phoneSchema } from '@workspace/core/utils/yupSchemas';
-  import { useFormMedia, extractMediaPayload, useDarkTheme } from '@workspace/core/composables';
+  import { useFormMedia, useDarkTheme } from '@workspace/core/composables';
   import { info, success } from '@workspace/core/utils/toast';
   import { ref } from 'vue';
   import type { MediaValue } from '@workspace/core/types/media';
@@ -100,7 +100,7 @@
     })
   );
 
-  const { uploadFormMedia } = useFormMedia();
+  const { uploadFormMedia, extractMediaPayload } = useFormMedia();
   const directMedia = ref<MediaValue | null>(null);
   const directMediaCropped = ref<MediaValue | null>(null);
   const directTags = ref<string[]>(['vue', 'starter']);
