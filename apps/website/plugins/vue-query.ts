@@ -11,7 +11,10 @@ export default defineNuxtPlugin((nuxtApp) => {
   const vueQueryState = useState<DehydratedState | null>('vue-query', () => null);
 
   // Initialize QueryClient per request to avoid cross-request data leaks on server
-  const queryClient: QueryClient = createBaseQueryClient();
+  const queryClient: QueryClient = createBaseQueryClient(
+    undefined,
+    () => (nuxtApp.$i18n as { locale: { value: string } }).locale.value
+  );
 
   nuxtApp.vueApp.use(VueQueryPlugin, { queryClient });
 

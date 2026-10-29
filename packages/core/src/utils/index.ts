@@ -16,4 +16,3 @@ export * from './formatText';
 export * from './formatter';
 export * from './openExternalLink';
 export * from './toast';
-export * from './yupSchemas';

@@ -18,7 +18,7 @@
   import { Form } from 'vee-validate';
   import { toTypedSchema } from '@vee-validate/yup';
   import * as yup from 'yup';
-  import { phoneSchema } from '@workspace/core/utils/yupSchemas';
+  import { phoneSchema } from '@workspace/core/lib/yup';
   import { useFormMedia, useDarkTheme } from '@workspace/core/composables';
   import { info, success } from '@workspace/core/utils/toast';
   import { ref } from 'vue';
@@ -124,6 +124,7 @@
 <template>
   <div class="space-y-4">
     <div class="flex items-center gap-3">
+      {{ $t('common.back') }}
       <Button test-id="" outline @click="toggleDark()">Toggle Dark Mode</Button>
       <RouterLink
         :to="{ name: paths.dashboard.multiStepForm }"

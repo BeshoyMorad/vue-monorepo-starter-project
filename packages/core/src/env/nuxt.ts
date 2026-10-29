@@ -1,10 +1,7 @@
 import { z } from 'zod';
 
 export const nuxtEnvSchema = z.object({
-  NUXT_PUBLIC_API_BASE_URL: z
-    .string()
-    .url({ message: 'NUXT_PUBLIC_API_BASE_URL must be a valid URL (e.g. https://api.example.com)' })
-    .default('https://api.example.com'),
+  NUXT_PUBLIC_API_BASE_URL: z.string().default('https://api.example.com'),
   NODE_ENV: z.enum(['development', 'staging', 'production', 'test']).default('development'),
 });
 

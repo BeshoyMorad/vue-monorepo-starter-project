@@ -77,6 +77,9 @@ importers:
       dayjs:
         specifier: ^1.11.21
         version: 1.11.21
+      libphonenumber-js:
+        specifier: ^1.13.7
+        version: 1.13.7
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@6.0.3)(vue@3.5.35(typescript@6.0.3))

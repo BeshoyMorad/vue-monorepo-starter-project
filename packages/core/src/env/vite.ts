@@ -1,9 +1,7 @@
 import { z } from 'zod';
 
 export const viteEnvSchema = z.object({
-  VITE_API_BASE_URL: z
-    .string({ required_error: 'VITE_API_BASE_URL is required' })
-    .url({ message: 'VITE_API_BASE_URL must be a valid URL (e.g. https://api.example.com)' }),
+  VITE_API_BASE_URL: z.string({ required_error: 'VITE_API_BASE_URL is required' }),
   VITE_APP_TITLE: z.string().default('Vue Monorepo Application'),
   VITE_APP_ENV: z.enum(['development', 'staging', 'production', 'test']).default('development'),
   VITE_DEFAULT_LOCALE: z.enum(['en', 'ar']).default('en'),

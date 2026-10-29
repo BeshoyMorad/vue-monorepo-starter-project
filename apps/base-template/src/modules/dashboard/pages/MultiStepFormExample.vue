@@ -3,9 +3,9 @@
   import { MultiStepForm, Field, Button, PageWrapper } from '@workspace/ui';
   import { paths } from '@/router/paths';
   import { success } from '@workspace/core/utils/toast';
-  import { phoneSchema } from '@workspace/core/utils/yupSchemas';
+  import { phoneSchema } from '@workspace/core/lib/yup';
   import * as yup from 'yup';
-  import type { StepDefinition } from '@workspace/ui';
+  import type { StepDefinition } from '@workspace/core/types';
   import type { GenericObject } from 'vee-validate';
 
   // 1. Define Step Definitions & Schemas

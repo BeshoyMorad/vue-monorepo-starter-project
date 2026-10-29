@@ -12,6 +12,7 @@
     "./composables": "./src/composables/index.ts",
     "./utils": "./src/utils/index.ts",
     "./lib": "./src/lib/index.ts",
+    "./lib/yup": "./src/lib/yup/index.ts",
     "./types": "./src/types/index.ts",
     "./constants": "./src/constants/index.ts",
     "./router": "./src/router/index.ts",

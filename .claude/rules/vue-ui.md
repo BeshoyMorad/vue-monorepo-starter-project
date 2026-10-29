@@ -1,34 +1,40 @@
 ---
 paths:
-  - "**/*.vue"
+  - "apps/*/src/**/*.vue"
+  - "packages/ui/src/**/*.vue"
 ---
 
 # Vue components & UI
 
-## Reuse existing primitives (never hand-roll)
-- Base UI from `components/ui/` (or `shared/ui/`): Dialog, Button, Tabs, Accordion, Dropdown, Calendar.
-- Inputs from `components/form/`: InputText, Select, DatePicker, Editor, ImageUpload, InputOtp, CheckboxGroup, TagsInput. No raw `<input>`/`<select>`.
-- Overlays/feedback: `ConfirmDialog.vue`, `FormDialog.vue`, `toast.ts`. Never create a new modal wrapper.
-- Empty/labels: `EmptyPlaceholder.vue`, `StatusBadge.vue`.
+## SFC shape
+- `<script setup lang="ts">` only (no Options API). Block order: `<script>`, `<template>`, then `<style>` only if unavoidable.
+- `defineProps<Props>()` and `defineEmits<Emits>()` with typed interfaces. Use `defineModel()` for two-way bindings.
+- Use `@formkit/auto-animate` for list transitions where the component already uses it.
+
+## Reuse before you write
+- Base primitives live in `packages/ui/src/ui/` (reka-ui based): Accordion, Avatar, Button, Calendar, Card, Combobox, Dialog, DropdownMenu, Popover, Table, Tooltip, and others. Import them from `@workspace/ui`. Do not hand-roll them.
+- Form controls (`Field.*`) come from `@workspace/ui`.
+- Overlays and feedback: `ConfirmDialog` and `FormDialog` from `@workspace/ui`, and toasts from `@workspace/core/utils/toast`. Do not create new modal wrappers.
+- States: `EmptyPlaceholder`, `TableErrorState`, `ExceptionState`, `StatusBadge`.
+- A component goes into `packages/ui` only when more than one app uses it, and must be exported from `packages/ui/src/index.ts`. App components stay in `apps/<app>/src/modules/<feature>/components/`.
+- Components use **reka-ui and Tailwind**. Do not add PrimeVue.
+
+## Page layout
+- Wrap page content in `PageWrapper` from `@workspace/ui`, with `title` and `subtitle` props. Put header buttons in its `actions` slot.
 
 ## Tables & lists
-- Never write manual pagination or scroll logic.
-- `useDataTable` / `useDataInfiniteScroll` / `useVirtualScroll` paired with `Table`, `InfiniteScrollTable`, `TablePagination` from `components/data-table/`.
-
-## Forms
-- Validation schemas from `utils/yupSchemas.ts`.
-- Wizards: `useMultiStepForm` + `MultiStepForm.vue` + `StepIndicator.vue`.
-- Uploads: `useUploadImage`, `useFormMedia` with `FileUpload` / `ImageUpload`.
+- Use `Table` or `InfiniteScrollTable` from `@workspace/ui` with `useDataTable` or `useDataInfiniteScroll` (see the data-fetching rule).
+- Columns are `ColumnDef<TRow, unknown>[]` from `@tanstack/vue-table`.
 
 ## Styling (RTL-first)
 - Logical properties only: `ms-* me-* ps-* pe-* start-* end-* text-start text-end border-s border-e rounded-s rounded-e`.
 - Forbidden: `ml- mr- pl- pr- left- right- text-left text-right border-l border-r rounded-l rounded-r`.
-- Merge dynamic classes with `cn()` (twMerge + clsx).
+- The `check-rtl.sh` hook blocks these after every edit, so fix them before finishing.
+- See the styling rule for tokens and `cn()`.
 
-## Presentation & testing
-- Format dates/currency/status via `formatter.ts`, `formatText.ts`, `formatStatus.ts` — no inline formatting.
-- Every interactive element and critical boundary gets `data-test` from `lib/test-ids.ts` (no string literals).
+## Test hooks & formatting
+- Interactive elements and critical boundaries get `data-test-id`, with the value taken from `TEST_IDS` in `@workspace/core/lib/test-ids`. Add new keys there. Do not use string literals.
+- Format dates, currency, and status with `@workspace/core/utils/formatter`, `formatText`, and `formatStatus`. No inline formatting.
 
-## Isomorphic safety
-- No `window`, `document`, `localStorage` at the root of `<script setup>`; wrap in `onMounted`.
-- Auth tokens via `useCookie()` so SSR can read them.
+## Browser state
+- The apps are Vite SPAs. Persist auth values through `useLocalStorage` in the app's `stores/auth.ts`. Do not read `localStorage` directly in components. `packages/ui` and `packages/core` must stay SSR-safe, so keep `window` and `document` out of module scope there.

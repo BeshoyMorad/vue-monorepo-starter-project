@@ -65,7 +65,25 @@ export const LOCALIZATION_DOM = {
   structure: {
     title: 'Structure',
     description:
-      'Localization-related configuration, messages, and locale utilities are kept in a centralized structure so developers can easily find and extend them.',
+      'App messages live in apps/base-template/src/locales/{locale}/{namespace}.json, and the shared common, errors, and nav messages come from packages/locales. The filename is the key prefix. TypeScript in the app locales folder is wiring only (loader, types).',
+    howToUse:
+      'Add matching en and ar JSON files for every app namespace, with no extra wrapper object. Register the namespace on MessageSchema in messages.ts. Put messages that several apps share in packages/locales instead. Do not colocate locale files next to components.',
+  },
+
+  validation: {
+    title: 'Yup Validation',
+    description:
+      'Yup error messages are translated through vue-i18n. setupYupLocale(i18n.global.t) maps built-in Yup keys to the shared yup namespace in packages/locales/src/common/{locale}.json. Custom helpers in packages/core/src/lib/yup/methods.ts call t() when validation runs, so a locale switch updates errors immediately.',
+    howToUse:
+      'Do not hardcode error strings on .required(), .email(), or .min(). Omit them so Yup uses the shared yup messages, and set .label() so {path} is a readable field name. Recreate the schema with computed() if labels should follow the active locale. Use passwordSchema() and similar helpers for rules that already go through t().',
+  },
+
+  queryCache: {
+    title: 'Query cache per locale',
+    description:
+      'The shared QueryClient prefixes the active locale onto every query hash. Each language keeps its own cached API response. Switching away and back reuses that cache instead of sending another backend request, while the entry is still within staleTime (1 minute).',
+    howToUse:
+      'Keep using QUERY_KEYS as usual. Do not add locale to individual keys. Locale scoping is handled globally by queryKeyHashFn in packages/core/src/lib/query-client.ts (the app registers its locale with setQueryClientLocale), so repeated language switches do not refetch the same locale.',
   },
 } as const;
 
@@ -211,15 +229,148 @@ const relativeTime = dayjs()
   .locale(locale.value)
   .fromNow();`;
 
-export const LOCALIZATION_PROJECT_STRUCTURE = `📁 src/
-├── 📁 locales/
-│     ├── 📄 en.ts
-│     ├── 📄 ar.ts
-│     └── 📄 index.ts
-│
-└─ 📁 modules/
-      └── 📁 feature/
-          └── 📁 locales/
-               ├── 📄 en.ts
-               └── 📄 ar.ts
+export const LOCALIZATION_PROJECT_STRUCTURE = `📁 apps/base-template/src/locales/
+├── 📁 en/
+│     ├── 📄 auth.json
+│     ├── 📄 demo.json
+│     └── 📄 …
+├── 📁 ar/
+│     ├── 📄 auth.json
+│     └── 📄 …
+├── 📄 messages.ts
+├── 📄 index.ts
+└── 📄 schema.d.ts
+
+📁 packages/locales/src/
+├── 📁 common/
+│     ├── 📄 en.json   (common, errors, nav)
+│     └── 📄 ar.json
+├── 📄 config.ts
+├── 📄 formats.ts
+├── 📄 utils.ts
+└── 📄 index.ts
 `;
+
+export const LOCALIZATION_YUP_CODE = {
+  steps: [
+    {
+      header: 'Step 1 - Bootstrap',
+      code: `import { setupYupLocale } from '@workspace/core/lib/yup';
+
+setupYupLocale(i18n.global.t);
+
+// Maps Yup's built-in messages to vue-i18n.
+// Each message is resolved when validation
+// runs, so a locale switch applies immediately.`,
+    },
+    {
+      header: 'Step 2 - Messages',
+      code: `// packages/locales/src/common/en.json  (and ar.json) -> "yup"
+{
+  "mixed": {
+    "required": "{path} is required"
+  },
+  "string": {
+    "email": "{path} must be a valid email",
+    "min": "{path} must be at least {min} characters"
+  },
+  "methods": {
+    "required": "{field} is required",
+    "password": "Password must be at least 8 characters..."
+  }
+}`,
+    },
+    {
+      header: 'Step 3 - Schema',
+      code: `import * as yup from 'yup';
+import { toTypedSchema } from '@vee-validate/yup';
+import { passwordSchema } from '@workspace/core/lib/yup';
+
+const validationSchema = computed(() =>
+  toTypedSchema(
+    yup.object({
+      email: yup
+        .string()
+        .label(t('demo.validation.email'))
+        .required()
+        .email(),
+      username: yup
+        .string()
+        .label(t('demo.validation.username'))
+        .required()
+        .min(3),
+      password: passwordSchema(
+        t('demo.validation.password'),
+      ),
+    }),
+  ),
+);`,
+    },
+    {
+      header: 'Step 4 - Form',
+      code: `<Form :validation-schema="validationSchema">
+  <Field.Text
+    :label="t('demo.validation.email')"
+    name="email"
+  />
+  <Field.Text
+    :label="t('demo.validation.username')"
+    name="username"
+  />
+  <Field.Password
+    :label="t('demo.validation.password')"
+    name="password"
+  />
+  <Button type="submit">
+    {{ t('common.submit') }}
+  </Button>
+</Form>`,
+    },
+  ],
+} as const;
+
+export const LOCALIZATION_QUERY_CACHE_CODE = {
+  steps: [
+    {
+      header: 'apps/base-template/src/main.ts',
+      code: `import { setQueryClientLocale } from '@workspace/core/lib/query-client';
+import i18n from './locales';
+
+// createBaseQueryClient hashes the locale into every query key.
+setQueryClientLocale(() => i18n.global.locale.value);`,
+    },
+    {
+      header: 'Usage',
+      code: `import { useQuery } from '@tanstack/vue-query';
+import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
+
+// Locale is not part of QUERY_KEYS.
+// queryKeyHashFn caches this response per locale.
+return useQuery({
+  queryKey: QUERY_KEYS.users.list(),
+  queryFn: fetchUsers,
+});
+
+// EN → fetch once
+// AR → fetch once
+// EN again → cached, no backend request`,
+    },
+  ],
+} as const;
+
+export const LOCALIZATION_ADD_NAMESPACE_CODE = `// apps/base-template/src/locales/en/errors.json  (and ar/errors.json)
+{
+  "title": "Access Denied"
+}
+
+// apps/base-template/src/locales/messages.ts — add the namespace to MessageSchema
+import type errors from './en/errors.json';
+
+export interface MessageSchema extends CommonLocaleSchema {
+  // ...existing namespaces
+  errors: typeof errors;
+}
+
+// In a component
+const { t } = useI18n();
+t('errors.title');`;
