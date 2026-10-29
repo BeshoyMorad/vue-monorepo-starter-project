@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json",
+    "locales:types": "node scripts/generate-locale-types.ts",
+    "type-check": "pnpm locales:types && vue-tsc --noEmit -p tsconfig.app.json",
     "test:unit": "vitest",
     "create:domain": "node scripts/create-domain.mjs"
   },

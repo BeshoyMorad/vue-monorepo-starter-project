@@ -1,11 +1,8 @@
-import { mergeLocaleMessages, type CommonLocaleSchema, type LocaleCode } from '@workspace/locales';
+import { mergeLocaleMessages, type LocaleCode } from '@workspace/locales';
 
-/**
- * Typed English message tree: shared `common`, `errors`, `nav` and `yup` from `@workspace/locales`.
- * To add app namespaces, create `src/locales/{en,ar}/<namespace>.json`, import its type here
- * and turn this into an interface extending `CommonLocaleSchema`, e.g. `auth: typeof auth`.
- */
-export type MessageSchema = CommonLocaleSchema;
+import type { MessageSchema } from './messages.generated';
+
+export type { MessageSchema };
 
 type LocaleJsonModule = Record<string, unknown>;
 

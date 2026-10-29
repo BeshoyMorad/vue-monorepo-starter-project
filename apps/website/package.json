@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "type-check": "vue-tsc --noEmit",
+    "locales:types": "node scripts/generate-locale-types.ts",
+    "type-check": "pnpm locales:types && vue-tsc --noEmit",
     "lint": "eslint ."
   },
   "dependencies": {

@@ -1,24 +1,8 @@
-import { mergeLocaleMessages, type CommonLocaleSchema, type LocaleCode } from '@workspace/locales';
+import { mergeLocaleMessages, type LocaleCode } from '@workspace/locales';
 
-import type demo from './en/demo.json';
-import type auth from './en/auth.json';
-import type button from './en/button.json';
-import type tooltip from './en/tooltip.json';
-import type dialog from './en/dialog.json';
-import type table from './en/table.json';
+import type { MessageSchema } from './messages.generated';
 
-/**
- * Typed English message tree: shared `common`, `errors`, and `nav` from `@workspace/locales`,
- * plus the app namespaces in `src/locales/en/*.json`. Keep in sync with those files.
- */
-export interface MessageSchema extends CommonLocaleSchema {
-  demo: typeof demo;
-  auth: typeof auth;
-  button: typeof button;
-  tooltip: typeof tooltip;
-  dialog: typeof dialog;
-  table: typeof table;
-}
+export type { MessageSchema };
 
 type LocaleJsonModule = Record<string, unknown>;
 

@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import { validateNuxtEnv } from '@workspace/core/env';
+import { generateLocaleTypes } from './scripts/generate-locale-types';
 
 // Fail fast during build/dev startup if environment variables are missing or invalid
 validateNuxtEnv(process.env);
@@ -9,6 +10,21 @@ validateNuxtEnv(process.env);
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+
+  hooks: {
+    // Keep the `en.ts` / `ar.ts` loaders in sync with the namespace files.
+    'build:before': () => {
+      generateLocaleTypes();
+    },
+    'builder:watch': (event, path) => {
+      if (
+        (event === 'add' || event === 'unlink') &&
+        /locales[/\\](en|ar)[/\\][^/\\]+\.json$/.test(path)
+      ) {
+        generateLocaleTypes();
+      }
+    },
+  },
 
   sourcemap: {
     server: false,
