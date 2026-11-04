@@ -1,0 +1,7 @@
+---
+description: Import boundaries. Mirrors .claude/rules/boundaries.md
+globs: apps/**, packages/**
+alwaysApply: false
+---
+
+Read and follow [boundaries.md](mdc:.claude/rules/boundaries.md). It is the single source for this rule; do not copy it here.

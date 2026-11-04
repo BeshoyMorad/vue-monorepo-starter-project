@@ -1,0 +1,7 @@
+---
+description: Data fetching (TanStack Query). Mirrors .claude/rules/data-fetching.md
+globs: apps/*/src/api/**/*.ts, apps/*/src/**/services/**/*.ts, apps/*/src/**/composables/**/*.ts, apps/*/src/**/*.vue, packages/core/src/lib/**/*.ts
+alwaysApply: false
+---
+
+Read and follow [data-fetching.md](mdc:.claude/rules/data-fetching.md). It is the single source for this rule; do not copy it here.
