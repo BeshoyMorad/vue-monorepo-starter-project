@@ -13,7 +13,7 @@ export { useMultiStepForm } from './useMultiStepForm';
 export type { UseMultiStepFormReturn } from './useMultiStepForm';
 export { useAuthRedirect } from './useAuthRedirect';
 export { useNetwork, handleOffline, handleOnline, isOnline, setNetworkRouter } from './useNetwork';
-export { useModal } from './useModal';
+export { useDialog } from './useDialog';
 export { useVirtualScroll } from './useVirtualScroll';
 export { useDarkTheme, provideTheme, THEME_CHOICE_KEY } from './useDarkTheme';
 export type { UseDarkThemeReturn } from './useDarkTheme';
