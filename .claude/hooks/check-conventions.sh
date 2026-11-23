@@ -18,8 +18,8 @@ scan() { # scan <message> <grep -E pattern> [exclude-line-pattern]
 base=$(basename "$file")
 
 # Data fetching
-[[ "$base" != "query-keys.ts" && "$base" != "vue-query.ts" && "$base" != "query-client.ts" ]] &&
-  scan "Inline queryKey: add the key to the QUERY_KEYS registry and use it" 'queryKey:[[:space:]]*\[' 'QUERY_KEYS'
+[[ "$base" != "query-keys.ts" && "$base" != *.keys.ts && "$base" != "vue-query.ts" && "$base" != "query-client.ts" ]] &&
+  scan "Inline queryKey: add the key to the module's <module>.keys.ts and use queryKeys" 'queryKey:[[:space:]]*\[' 'queryKeys'
 [[ "$base" != "endpoints.ts" && ! "$file" =~ /(server|api)/ ]] &&
   scan "Hardcoded API URL: add a route to endpoints.ts and use apiRoute('name')" "['\"\`]/api/"
 

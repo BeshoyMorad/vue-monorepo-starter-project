@@ -11,7 +11,7 @@ const state = useTableState<AssetFilter>({
 });
 
 const { data } = useQuery({
-  queryKey: computed(() => [...QUERY_KEYS.assets.list(), state.baseParams.value]),
+  queryKey: computed(() => [...queryKeys.assets.list.queryKey, state.baseParams.value]),
   queryFn: () => fetchTableData<OffsetPaginatedResponse<Asset>>(apiRoute('assets.list'), state.baseParams.value),
 });`;
 

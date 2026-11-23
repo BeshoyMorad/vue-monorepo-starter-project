@@ -7,7 +7,7 @@ export const useCreateCustomTokenMutation = () => {
   return useMutation<ApiResponse<unknown>, unknown, CreateCustomTokenPayload>({
     mutationFn: (payload) => assetsServices.createCustomToken(payload),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.assets.list() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.assets.list.queryKey });
       success(data.message || 'Custom token added successfully');
     },
     // no onError here when the composable maps errors (see below)

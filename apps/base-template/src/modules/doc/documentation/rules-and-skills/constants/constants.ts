@@ -19,7 +19,7 @@ const RULES_ITEMS = [
   {
     name: 'data-fetching.md',
     description:
-      'api client, apiRoute, QUERY_KEYS, services return typed payloads, useDataTable / useDataInfiniteScroll, errors via apiError. Matches: services, composables, .vue.',
+      'api client, apiRoute, queryKeys, services return typed payloads, useDataTable / useDataInfiniteScroll, errors via apiError. Matches: services, composables, .vue.',
   },
   {
     name: 'forms-and-validation.md',
@@ -70,7 +70,7 @@ const SKILLS_ITEMS = [
   },
   {
     name: '/add-endpoint',
-    description: 'Route in endpoints.ts, key in QUERY_KEYS, types, service, composable, test.',
+    description: 'Route in endpoints.ts, key in queryKeys, types, service, composable, test.',
   },
   {
     name: '/add-translation',

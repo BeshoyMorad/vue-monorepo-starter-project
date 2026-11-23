@@ -10,7 +10,7 @@ const LAYERS_CODE = `Component  ->  composable / mutation  ->  service  ->  api 
 (UI)         (state, toast, cache)       (URL + request)  (auth, errors)
 
 Service      : apiRoute(...) + api.get/post/patch/delete + return the body
-Mutation     : useMutation, invalidate QUERY_KEYS, success toast
+Mutation     : useMutation, invalidate queryKeys, success toast
 Composable   : useForm + schema + mutation + payload mapping`;
 
 const STEP_ROUTE_CODE = `// 1) apps/base-template/src/api/endpoints.ts  - register the route name once
@@ -25,11 +25,11 @@ const routes = {
 } as const satisfies ZiggyConfig['routes'];
 
 // 2) packages/core/src/lib/query-keys.ts  - register the cache keys
-assets: {
-  all: () => ['assets'] as const,
-  list: () => [...QUERY_KEYS.assets.all(), 'list'] as const,
-  details: (id: number | string) => [...QUERY_KEYS.assets.all(), 'details', String(id)] as const,
-},`;
+export const assetsKeys = createQueryKeys('assets', {
+  list: null,
+  details: (id: number | string) => [id],
+});
+// src/lib/query-keys.ts: mergeQueryKeys(..., assetsKeys)`;
 
 const STEP_TYPES_CODE = `// 3) src/modules/assets/types.ts  - interface, not type
 export interface Asset {
@@ -86,7 +86,7 @@ return await api.get<ApiResponse<Asset>>(...);   // ApiResponse<T> = { message, 
 //  - the type stays ApiResponse<T>, matching the API contract
 
 // Lists in tables do NOT need a service: useDataTable calls fetchTableData itself
-useDataTable<Asset>({ queryKey: QUERY_KEYS.assets.list(), endpoint: apiRoute('assets.list') });
+useDataTable<Asset>({ queryKey: queryKeys.assets.list.queryKey, endpoint: apiRoute('assets.list') });
 
 // Keep ONE convention per module. Do not unwrap .data in one function
 // and return the envelope in the next.`;
@@ -94,7 +94,7 @@ useDataTable<Asset>({ queryKey: QUERY_KEYS.assets.list(), endpoint: apiRoute('as
 const QUERY_USAGE_CODE = `// A detail query in a composable (modules/assets/composables/useAsset.ts)
 export function useAsset(id: MaybeRefOrGetter<number>) {
   return useQuery({
-    queryKey: computed(() => QUERY_KEYS.assets.details(toValue(id))),
+    queryKey: computed(() => queryKeys.assets.details(toValue(id)).queryKey),
     queryFn: () => assetsServices.getAsset(toValue(id)),
     select: (res) => res.data,          // component receives Asset
   });
@@ -107,7 +107,7 @@ export const useCreateCustomTokenMutation = () => {
   return useMutation<ApiResponse<Asset>, unknown, CreateCustomTokenPayload>({
     mutationFn: (payload) => assetsServices.createCustomToken(payload),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.assets.list() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.assets.list.queryKey });
       success(data.message || 'Custom token added successfully');
     },
   });
@@ -146,7 +146,7 @@ const RULES_ITEMS = [
   },
   {
     name: "Don't: inline query keys",
-    description: 'Use QUERY_KEYS. Inline arrays break invalidation.',
+    description: 'Use queryKeys. Inline arrays break invalidation.',
   },
   {
     name: 'Exception: presigned upload',
@@ -206,7 +206,7 @@ export const SERVICES_SECTIONS: readonly DocSection[] = [
   {
     title: 'Using a service',
     description:
-      'Queries and mutations are the only consumers. Queries use QUERY_KEYS, mutations invalidate them.',
+      'Queries and mutations are the only consumers. Queries use queryKeys, mutations invalidate them.',
     codeArr: [
       { header: 'query', code: QUERY_USAGE_CODE },
       { header: 'mutation', code: MUTATION_USAGE_CODE },

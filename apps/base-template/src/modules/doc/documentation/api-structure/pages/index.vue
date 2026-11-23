@@ -59,7 +59,7 @@
       :title="API_STRUCTURE_DOM.queryKeys.title"
       :description="API_STRUCTURE_DOM.queryKeys.description"
       :how-to-use="API_STRUCTURE_DOM.queryKeys.howToUse"
-      header="src/lib/query-keys.ts"
+      header="Query Keys (module keys.ts + apps/base-template/src/api/query-keys.ts)"
       :show-preview="false"
       :code="API_QUERY_KEYS_CODE"
       :code-arr="[

@@ -93,7 +93,7 @@ const { visibleItems, totalHeight, offsetTop } = useVirtualScroll({
 const INFINITE_CODE = `// Same options and return shape as useDataTable, but pages are appended
 const { data, isLoading, isFetchingNextPage, hasMore, fetchNextPage, search, setFilters } =
   useDataInfiniteScroll<Asset, { networkId?: number }>({
-    queryKey: QUERY_KEYS.assets.allAssets(),
+    queryKey: queryKeys.assets.allAssets.queryKey,
     endpoint: apiRoute('assets.all'),
   });
 // <InfiniteScrollTable :value="data" :has-more="hasMore" :is-fetching-next-page="isFetchingNextPage"

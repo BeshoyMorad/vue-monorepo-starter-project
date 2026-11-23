@@ -22,10 +22,10 @@ export const API_STRUCTURE_DOM = {
   queryKeys: {
     title: 'Query Keys',
     description:
-      'The queryKeys.ts file is the global registry for TanStack Query keys. Keeping query keys in one place prevents typos and ensures that queries and invalidations target the same key.',
-    filePath: 'src/lib/api/queryKeys.ts',
+      'Query keys are built with @lukemorales/query-key-factory. Every module declares its own keys in <module>.keys.ts, and apps/base-template/src/api/query-keys.ts merges them into one typed queryKeys object. This prevents typos, gives autocomplete, and makes queries and invalidations target the same key.',
+    filePath: 'apps/base-template/src/api/query-keys.ts',
     howToUse:
-      'Find the required key inside QUERY_KEYS and use the corresponding function when creating queries, mutations, or invalidations.',
+      'Define keys in the <module>.keys.ts file of the module with createQueryKeys, register them in apps/base-template/src/api/query-keys.ts, then read them as queryKeys.<module>.<key>.queryKey (or queryKeys.<module>.<key>(param).queryKey for keys with params). Use queryKeys.<module>._def to invalidate a whole module.',
   },
   services: {
     title: 'API Services',
@@ -41,14 +41,15 @@ export const API_STRUCTURE_DOM = {
 } as const;
 
 export const API_STRUCTURE_IMPORT_CODE = `import { api, apiRoute } from '@/api';
-import { QUERY_KEYS } from '@workspace/core/lib/query-keys';`;
+import { queryKeys } from '@/api/query-keys';`;
 
 export const API_PROJECT_STRUCTURE = `📁 src/
-└── 📁 lib/
-    ├── 📁 api/
-    │   │
-    │   └── 📄 endpoints.ts
-    └── 📄 query-keys.ts`;
+├── 📁 api/
+│   ├── 📄 endpoints.ts
+│   └── 📄 query-keys.ts      (merges module keys)
+└── 📁 modules/
+    └── 📁 users/
+        └── 📄 users.keys.ts  (createQueryKeys)`;
 
 export const API_ENDPOINTS_CODE = `import { route as ziggyRoute } from 'ziggy-js';
 import type { Config, RouteParams } from 'ziggy-js';
@@ -127,51 +128,42 @@ export const usersServices = {
   },
 };`;
 
-export const API_QUERY_KEYS_CODE = `/**
- * Global registry for all Tanstack Query Keys.
- * Use these constants/functions to avoid typos
- * and ensure invalidations target the exact query.
- */
-export const QUERY_KEYS = {
-users: {
-  all: () => ['users'] as const,
-  list: () => [...QUERY_KEYS.users.all(), 'list'] as const,
-  details: (id: number | string) =>
-    [
-      ...QUERY_KEYS.users.all(),
-      'details',
-      id.toString(),
-    ] as const,
-}
-networks: {
-    all: () => ['networks'] as const,
-    list: () => [...QUERY_KEYS.networks.all(), 'list'] as const,
-    allNetworks: () => [...QUERY_KEYS.networks.all(), 'all-networks'] as const,
-    vaultNetworks: (id: number) => [...QUERY_KEYS.networks.all(), 'vault', id] as const,
-  },
-  starter: {
-    all: () => ['starter'] as const,
-    profile: () =>
-      [...QUERY_KEYS.starter.all(), 'profile'] as const,
-  },
-} as const;
-... 
-`;
+export const API_QUERY_KEYS_CODE = `// apps/base-template/src/modules/users/users.keys.ts  (each module owns its keys)
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+
+export const usersKeys = createQueryKeys('users', {
+  list: null,                                  // ['users', 'list']
+  details: (id: number | string) => [id],      // ['users', 'details', id]
+  search: (filters: { q: string }) => [{ filters }],
+});
+
+// apps/base-template/src/api/query-keys.ts  (only merges, never defines keys)
+import { mergeQueryKeys } from '@lukemorales/query-key-factory';
+import { authKeys } from '@/modules/auth/auth.keys';
+import { starterKeys } from '@/modules/starter/starter.keys';
+import { usersKeys } from '@/modules/users/users.keys';
+
+export const queryKeys = mergeQueryKeys(authKeys, starterKeys, usersKeys);
+
+// Cheat sheet
+// queryKeys.users.list.queryKey          -> ['users', 'list']
+// queryKeys.users.details(7).queryKey    -> ['users', 'details', 7]
+// queryKeys.users._def                   -> ['users']  (whole module, for invalidation)`;
 
 export const API_QUERY_KEYS_USAGE_CODE = `import { useQuery } from '@tanstack/vue-query';
 import { usersServices } from '@/modules/users/services';
-import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
+import { queryKeys } from '@/api/query-keys';
 
 export function useUser() {
 
 return useQuery({
-  queryKey: QUERY_KEYS.users.list(),
+  queryKey: queryKeys.users.list.queryKey,
   queryFn: usersServices.getUsers,
 });`;
 
 export const API_QUERY_KEYS_USAGE_CODE_MUTATION = `import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { usersServices } from '@/modules/users/services';
-import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
+import { queryKeys } from '@/api/query-keys';
 
 export function useCreateUser() {
   const queryClient = useQueryClient();
@@ -182,7 +174,7 @@ export function useCreateUser() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.users.list(),
+        queryKey: queryKeys.users.list.queryKey,
       });
     },
   });

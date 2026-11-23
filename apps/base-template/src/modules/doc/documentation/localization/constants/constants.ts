@@ -83,7 +83,7 @@ export const LOCALIZATION_DOM = {
     description:
       'The shared QueryClient prefixes the active locale onto every query hash. Each language keeps its own cached API response. Switching away and back reuses that cache instead of sending another backend request, while the entry is still within staleTime (1 minute).',
     howToUse:
-      'Keep using QUERY_KEYS as usual. Do not add locale to individual keys. Locale scoping is handled globally by queryKeyHashFn in packages/core/src/lib/query-client.ts (the app registers its locale with setQueryClientLocale), so repeated language switches do not refetch the same locale.',
+      'Keep using queryKeys as usual. Do not add locale to individual keys. Locale scoping is handled globally by queryKeyHashFn in packages/core/src/lib/query-client.ts (the app registers its locale with setQueryClientLocale), so repeated language switches do not refetch the same locale.',
   },
 } as const;
 
@@ -342,12 +342,12 @@ setQueryClientLocale(() => i18n.global.locale.value);`,
     {
       header: 'Usage',
       code: `import { useQuery } from '@tanstack/vue-query';
-import { QUERY_KEYS } from '@workspace/core/lib/query-keys';
+import { queryKeys } from '@workspace/core/lib/query-keys';
 
-// Locale is not part of QUERY_KEYS.
+// Locale is not part of queryKeys.
 // queryKeyHashFn caches this response per locale.
 return useQuery({
-  queryKey: QUERY_KEYS.users.list(),
+  queryKey: queryKeys.users.list.queryKey,
   queryFn: fetchUsers,
 });
 

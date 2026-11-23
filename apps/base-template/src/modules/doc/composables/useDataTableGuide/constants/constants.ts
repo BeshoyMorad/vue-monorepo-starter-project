@@ -7,7 +7,7 @@ TData     row type            useDataTable<AssetVault, AssetFilter>(...)
 TFilters  shape of filters    { networkId?: number; status?: AssetStatus }
 
 options (from packages/core/src/composables/types.ts)
-  queryKey        required  QUERY_KEYS.assets.list()      (never an inline array)
+  queryKey        required  queryKeys.assets.list.queryKey      (never an inline array)
   endpoint        required  apiRoute('assets.list')
   paginationType  'offset' (default) | 'cursor' | 'none'
   limit           page size, default 10
@@ -25,7 +25,7 @@ const {
   search, goToPage, goToNext, goToPrev, changeLimit,
   filters, setFilters, clearFilters, sort,
 } = useDataTable<AssetVault, AssetFilter>({
-  queryKey: QUERY_KEYS.assets.list(),
+  queryKey: queryKeys.assets.list.queryKey,
   endpoint: apiRoute('assets.list'),
 });
 
@@ -89,9 +89,9 @@ const RULES_ITEMS = [
       'Rule data-fetching.md: no manual pagination, no watch on page. For infinite lists use useDataInfiniteScroll (same options).',
   },
   {
-    name: 'queryKey from QUERY_KEYS',
+    name: 'queryKey from queryKeys',
     description:
-      'The composable appends the params itself, so invalidateQueries({ queryKey: QUERY_KEYS.assets.list() }) refreshes every page, search and filter combination.',
+      'The composable appends the params itself, so invalidateQueries({ queryKey: queryKeys.assets.list.queryKey }) refreshes every page, search and filter combination.',
   },
   {
     name: 'endpoint from apiRoute',
@@ -117,7 +117,7 @@ const RULES_ITEMS = [
 
 const CURSOR_CODE = `// Cursor pagination (CursorPaginatedResponse): hasNextPage / nextCursor / previousCursor
 const { data, meta, goToNext, goToPrev } = useDataTable<Row>({
-  queryKey: QUERY_KEYS.logs.list(),
+  queryKey: queryKeys.logs.list.queryKey,
   endpoint: apiRoute('logs.list'),
   paginationType: 'cursor',
 });
@@ -125,7 +125,7 @@ const { data, meta, goToNext, goToPrev } = useDataTable<Row>({
 
 // Nested rows, extra params, conditional fetch
 useDataTable<Wallet>({
-  queryKey: QUERY_KEYS.users.wallets(id),
+  queryKey: queryKeys.users.wallets(id).queryKey,
   endpoint: apiRoute('users.wallets', { id }),
   query: () => ({ includeArchived: showArchived.value }),
   extractData: (d) => (d as { wallets: Wallet[] }).wallets,

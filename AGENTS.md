@@ -4,7 +4,7 @@
 
 ## Stack
 
-pnpm workspace + Turborepo. Apps: `base-template` (Vue 3 SPA, `src/modules/`), `domain-driven` (Vue 3 SPA, `src/domains/`), `website` (Nuxt 3 SSR, `@nuxtjs/i18n`). Packages: `@workspace/core` (SSR-safe logic: API client, query keys, composables, utils, yup, router factory), `@workspace/ui` (components), `@workspace/locales` (shared messages and i18n helpers), `@workspace/eslint-config`, `@workspace/tsconfig`. Tailwind v4 + reka-ui, Pinia, TanStack Vue Query/Table, vee-validate + Yup, vue-i18n, Vitest + MSW.
+pnpm workspace + Turborepo. Apps: `base-template` (Vue 3 SPA, `src/modules/`), `domain-driven` (Vue 3 SPA, `src/domains/`), `website` (Nuxt 3 SSR, `@nuxtjs/i18n`). Packages: `@workspace/core` (SSR-safe logic: API client, composables, utils, yup, router factory), `@workspace/ui` (components), `@workspace/locales` (shared messages and i18n helpers), `@workspace/eslint-config`, `@workspace/tsconfig`. Tailwind v4 + reka-ui, Pinia, TanStack Vue Query/Table, vee-validate + Yup, vue-i18n, Vitest + MSW.
 
 ## Commands
 
@@ -30,8 +30,9 @@ Before creating any component, composable, or util, search for an existing one (
 
 ## Where things live (don't search for these, use them)
 
-- Shared logic (`packages/core/src/`): `lib/api/` (`createApiClient`, endpoints helpers, table), `lib/query-keys.ts` (`QUERY_KEYS`), `lib/test-ids.ts` (`TEST_IDS`), `lib/yup/`, `lib/query-client.ts`, `composables/`, `utils/` (`apiError`, `toast`, `formatter`, `formatText`, `formatStatus`), `router/` (`createAppRouter`, `basePaths`), `env/`
+- Shared logic (`packages/core/src/`): `lib/api/` (`createApiClient`, endpoints helpers, table), `lib/test-ids.ts` (`TEST_IDS`), `lib/yup/`, `lib/query-client.ts`, `composables/`, `utils/` (`apiError`, `toast`, `formatter`, `formatText`, `formatStatus`), `router/` (`createAppRouter`, `basePaths`), `env/`
 - Shared UI: `packages/ui/src/` (`ui`, `form`, `data-table`, `form-dialog`, `confirm-dialog`, `placeholders`, `pages`), tokens in `packages/ui/src/css/` · Alias `@workspace/ui/styles`
+- Per-app query keys: `apps/<app>/src/modules/<m>/<m>.keys.ts` (`createQueryKeys`) merged in `apps/<app>/src/api/query-keys.ts` (`queryKeys`; `domain-driven` domains keep their own `<d>.keys.ts`)
 - Per-app endpoints and API client: `apps/<app>/src/api/endpoints.ts` + `index.ts` (website: `apps/website/api/endpoints.ts`, `composables/useApi.ts`)
 - Per-app stores: `apps/<app>/src/stores/{auth,permissions}.ts` · router: `apps/<app>/src/router/` · env: `packages/core/src/env/`
 - Translations: shared `common`/`errors`/`nav`/`yup` in `packages/locales/src/common/{en,ar}.json`; app namespaces in `apps/<app>/src/locales/{en,ar}/<namespace>.json` (website: `apps/website/locales/`)
@@ -41,7 +42,7 @@ Before creating any component, composable, or util, search for an existing one (
 
 - **RTL-first.** Logical Tailwind classes only (`ms-* me-* ps-* pe-* start-* end-* text-start text-end`). Never `ml- mr- pl- pr- left- right- text-left text-right`.
 - **No hard-coded UI strings.** Every label goes in `en` and `ar` JSON, used through `t()`.
-- **Registries, not literals.** Query keys from `QUERY_KEYS`, URLs from `apiRoute()`, test ids from `TEST_IDS` (`data-test-id`), colors from the token file, route names from `paths`.
+- **Registries, not literals.** Query keys from `queryKeys`, URLs from `apiRoute()`, test ids from `TEST_IDS` (`data-test-id`), colors from the token file, route names from `paths`.
 - **Server state in Vue Query, client state in Pinia.** Never copy API data into a store. No manual `try/catch` toasts.
 - **Strict TypeScript.** No `any`, `interface` over `type`, `import type`, `@/` alias instead of `../`. Files under 300 lines.
 
@@ -50,7 +51,7 @@ Before creating any component, composable, or util, search for an existing one (
 Detailed rules live in `.claude/rules/`. Claude Code and Cursor (through the stubs in `.cursor/rules/`) load them by path automatically. Every other tool: before you edit files matching a glob below, read that rule file.
 
 - `.claude/rules/boundaries.md`: `apps/**`, `packages/**`
-- `.claude/rules/data-fetching.md`: `apps/*/src/api/**/*.ts`, `apps/*/src/**/services/**/*.ts`, `apps/*/src/**/composables/**/*.ts`, `apps/*/src/**/*.vue`, `packages/core/src/lib/**/*.ts`
+- `.claude/rules/data-fetching.md`: `apps/*/src/api/**/*.ts`, `apps/*/src/**/services/**/*.ts`, `apps/*/src/**/composables/**/*.ts`, `apps/*/src/**/*.vue`, `packages/core/src/lib/**/*.ts`, `apps/*/src/**/*.keys.ts`
 - `.claude/rules/forms-and-validation.md`: `apps/*/src/**/schemas/**/*.ts`, `apps/*/src/**/*.vue`, `packages/ui/src/form/**`
 - `.claude/rules/graphify.md`: always relevant
 - `.claude/rules/i18n.md`: `apps/*/src/locales/**`, `packages/locales/**`, `apps/*/src/**/*.vue`
