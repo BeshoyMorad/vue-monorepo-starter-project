@@ -9,12 +9,15 @@ export default defineNuxtPlugin((nuxtApp) => {
   const api = createApiClient({
     baseURL: config.apiBaseUrl,
     getToken: () => authStore.token,
-    onUnauthorized: async () => {
-      await authStore.logout();
+    onUnauthorized: async (error) => {
+      const sentToken = new Headers(error.options?.headers).get('Authorization');
+      if (authStore.token && sentToken === `Bearer ${authStore.token}`) {
+        await authStore.logout();
+      }
     },
   });
 
-  setApiClient(api);
+  if (import.meta.client) setApiClient(api);
   nuxtApp.vueApp.provide('api', api);
 
   return {
